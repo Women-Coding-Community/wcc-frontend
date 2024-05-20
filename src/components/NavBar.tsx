@@ -1,8 +1,7 @@
 // components/Navbar.tsx
 "use client";
 
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
+import { Box, AppBar, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Menu from "@mui/material/Menu";
@@ -42,27 +41,24 @@ export default function Navbar() {
       >
         <Container>
           <Toolbar>
-            <Link href="/" passHref>
-              <Image src="/logo_white.png" alt="Logo" width={60} height={60} />
-            </Link>
+            <Image src="/logo_white.png" alt="Logo" width={60} height={60} />
             <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "right" }}>
               <Link href="/" passHref>
-                <Button color="inherit" sx={{ textTransform: "none" }}>
-                  Home
+                <Button sx={{ color: "primary.dark" }}>
+                  <Typography variant="body2">Home</Typography>
                 </Button>
               </Link>
-              <Link href="/mentorship" passHref>
-                <Button
-                  color="inherit"
-                  onClick={(event) =>
-                    handleMenuOpen(event, setAnchorElMentorship)
-                  }
-                  sx={{ textTransform: "none" }}
-                >
-                  Mentorship
-                </Button>
-              </Link>
+              <Button
+                color="inherit"
+                onClick={(event) =>
+                  handleMenuOpen(event, setAnchorElMentorship)
+                }
+                sx={{ color: "primary.dark" }}
+              >
+                <Typography variant="body2">Mentorship</Typography>
+              </Button>
               <Menu
+                sx={{ color: "primary.dark", fontSize: "16px" }}
                 anchorEl={anchorElMentorship}
                 open={Boolean(anchorElMentorship)}
                 onClose={() => handleMenuClose(setAnchorElMentorship)}
@@ -70,17 +66,46 @@ export default function Navbar() {
                 <MenuItem
                   onClick={() => handleMenuClose(setAnchorElMentorship)}
                 >
-                  Option 1
+                  <Link href="/mentorship" passHref>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "primary.dark", textDecoration: "none" }}
+                    >
+                      Overview
+                    </Typography>
+                  </Link>
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleMenuClose(setAnchorElMentorship)}
+                  sx={{ color: "primary.dark", fontSize: "16px" }}
                 >
-                  Option 2
+                  <Link href="/mentors" passHref>
+                    Mentors
+                  </Link>
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleMenuClose(setAnchorElMentorship)}
+                  sx={{ color: "primary.dark", fontSize: "16px" }}
                 >
-                  Option 3
+                  <Link href="/mentorship" passHref>
+                    Resources
+                  </Link>
+                </MenuItem>
+                <MenuItem
+                  onClick={() => handleMenuClose(setAnchorElMentorship)}
+                  sx={{ color: "primary.dark", fontSize: "16px" }}
+                >
+                  <Link href="/mentorship" passHref>
+                    Code of Conduct
+                  </Link>
+                </MenuItem>
+                <MenuItem
+                  onClick={() => handleMenuClose(setAnchorElMentorship)}
+                  sx={{ color: "primary.dark", fontSize: "16px" }}
+                >
+                  <Link href="/mentorship" passHref>
+                    FAQ
+                  </Link>
                 </MenuItem>
               </Menu>
               <Button
@@ -99,31 +124,40 @@ export default function Navbar() {
                 <MenuItem
                   onClick={() => handleMenuClose(setAnchorElProgrammes)}
                 >
-                  Option 1
+                  <Link href="/book-club">
+                    <Typography variant="body1">Book Club</Typography>
+                  </Link>
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleMenuClose(setAnchorElProgrammes)}
                 >
-                  Option 2
+                  <Link href="/interview-preparation">
+                    <Typography variant="body1">
+                      Interview Preparation
+                    </Typography>
+                  </Link>
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleMenuClose(setAnchorElProgrammes)}
                 >
-                  Option 3
+                  <Typography variant="body1">Study Groups</Typography>
                 </MenuItem>
               </Menu>
               <Link href="/events" passHref>
-                <Button color="inherit">Events</Button>
+                <Button color="inherit">
+                  <Typography variant="body2">Events</Typography>
+                </Button>
               </Link>
               <Link href="/blog" passHref>
-                <Button color="inherit">Blog</Button>
+                <Button color="inherit">
+                  <Typography variant="body2">Blog</Typography>
+                </Button>
               </Link>
               <Button
                 color="inherit"
                 onClick={(event) => handleMenuOpen(event, setAnchorElAboutUs)}
-                sx={{ textTransform: "none" }}
               >
-                About Us
+                <Typography variant="body2">About Us</Typography>
               </Button>
               <Menu
                 anchorEl={anchorElAboutUs}
@@ -140,15 +174,13 @@ export default function Navbar() {
                   Option 3
                 </MenuItem>
               </Menu>
-              <Link href="/find-a-mentor" passHref>
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  sx={{ borderRadius: "16px" }}
-                >
-                  Find a mentor
-                </Button>
-              </Link>
+              <Button
+                variant="outlined"
+                color="inherit"
+                sx={{ borderRadius: "16px" }}
+              >
+                Find a mentor
+              </Button>
             </Box>
           </Toolbar>
         </Container>
