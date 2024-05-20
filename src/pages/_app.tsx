@@ -1,6 +1,3 @@
-// components/ClientThemeProvider.tsx
-"use client";
-
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import type { AppProps } from "next/app";

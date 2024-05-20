@@ -1,12 +1,13 @@
-// components/Navbar.tsx
-"use client";
-
-import { Box, AppBar, Typography } from "@mui/material";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Toolbar from "@mui/material/Toolbar";
+import {
+  Box,
+  AppBar,
+  Typography,
+  Button,
+  Menu,
+  Container,
+  MenuItem,
+  Toolbar,
+} from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
