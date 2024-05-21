@@ -7,10 +7,10 @@ import {
   Container,
   MenuItem,
   Toolbar,
-} from "@mui/material";
-import Image from "next/image";
-import Link from "next/link";
-import * as React from "react";
+} from '@mui/material';
+import Image from 'next/image';
+import Link from 'next/link';
+import * as React from 'react';
 
 export default function Navbar() {
   const [anchorElMentorship, setAnchorElMentorship] =
@@ -38,14 +38,14 @@ export default function Navbar() {
       <AppBar
         position="static"
         color="default"
-        sx={{ height: "80px", display: "flex", justifyContent: "center" }}
+        sx={{ height: '80px', display: 'flex', justifyContent: 'center' }}
       >
         <Container>
           <Toolbar>
             <Image src="/logo_white.png" alt="Logo" width={60} height={60} />
-            <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "right" }}>
+            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'right' }}>
               <Link href="/" passHref>
-                <Button sx={{ color: "primary.dark" }}>
+                <Button sx={{ color: 'primary.dark' }}>
                   <Typography variant="body2">Home</Typography>
                 </Button>
               </Link>
@@ -54,12 +54,12 @@ export default function Navbar() {
                 onClick={(event) =>
                   handleMenuOpen(event, setAnchorElMentorship)
                 }
-                sx={{ color: "primary.dark" }}
+                sx={{ color: 'primary.dark' }}
               >
                 <Typography variant="body2">Mentorship</Typography>
               </Button>
               <Menu
-                sx={{ color: "primary.dark", fontSize: "16px" }}
+                sx={{ color: 'primary.dark', fontSize: '16px' }}
                 anchorEl={anchorElMentorship}
                 open={Boolean(anchorElMentorship)}
                 onClose={() => handleMenuClose(setAnchorElMentorship)}
@@ -70,7 +70,7 @@ export default function Navbar() {
                   <Link href="/mentorship" passHref>
                     <Typography
                       variant="body2"
-                      sx={{ color: "primary.dark", textDecoration: "none" }}
+                      sx={{ color: 'primary.dark', textDecoration: 'none' }}
                     >
                       Overview
                     </Typography>
@@ -78,7 +78,7 @@ export default function Navbar() {
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleMenuClose(setAnchorElMentorship)}
-                  sx={{ color: "primary.dark", fontSize: "16px" }}
+                  sx={{ color: 'primary.dark', fontSize: '16px' }}
                 >
                   <Link href="/mentors" passHref>
                     Mentors
@@ -86,7 +86,7 @@ export default function Navbar() {
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleMenuClose(setAnchorElMentorship)}
-                  sx={{ color: "primary.dark", fontSize: "16px" }}
+                  sx={{ color: 'primary.dark', fontSize: '16px' }}
                 >
                   <Link href="/mentorship" passHref>
                     Resources
@@ -94,7 +94,7 @@ export default function Navbar() {
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleMenuClose(setAnchorElMentorship)}
-                  sx={{ color: "primary.dark", fontSize: "16px" }}
+                  sx={{ color: 'primary.dark', fontSize: '16px' }}
                 >
                   <Link href="/mentorship" passHref>
                     Code of Conduct
@@ -102,7 +102,7 @@ export default function Navbar() {
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleMenuClose(setAnchorElMentorship)}
-                  sx={{ color: "primary.dark", fontSize: "16px" }}
+                  sx={{ color: 'primary.dark', fontSize: '16px' }}
                 >
                   <Link href="/mentorship" passHref>
                     FAQ
@@ -178,7 +178,7 @@ export default function Navbar() {
               <Button
                 variant="outlined"
                 color="inherit"
-                sx={{ borderRadius: "16px" }}
+                sx={{ borderRadius: '16px' }}
               >
                 Find a mentor
               </Button>

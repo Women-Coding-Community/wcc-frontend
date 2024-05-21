@@ -1,32 +1,32 @@
 // use client
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   typography: {
     button: {
-      textTransform: "none",
+      textTransform: 'none',
     },
     body1: {
-      fontSize: "20px",
+      fontSize: '20px',
     },
     body2: {
-      fontSize: "16px",
+      fontSize: '16px',
     },
   },
   palette: {
     primary: {
-      main: "#1976d2", // to be defined per design
-      dark: "#343a40",
+      main: '#1976d2', // to be defined per design
+      dark: '#343a40',
     },
     secondary: {
-      main: "#dc004e",
+      main: '#dc004e',
     },
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: "none",
+          textTransform: 'none',
         },
       },
     },

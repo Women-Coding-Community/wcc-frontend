@@ -3,28 +3,28 @@
  * https://jestjs.io/docs/configuration
  */
 
-import nextJest from "next/jest.js";
-import type { Config } from "jest";
+import type { Config } from 'jest';
+import nextJest from 'next/jest.js';
 
 const createJestConfig = nextJest({
-  dir: "./",
+  dir: './',
 });
 
 const config: Config = {
   clearMocks: true,
   collectCoverage: true,
-  coverageDirectory: "coverage",
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
-  testPathIgnorePatterns: ["/node_modules/", "/.next/"],
-  coverageProvider: "v8",
-  preset: "ts-jest",
-  testEnvironment: "jsdom",
+  coverageDirectory: 'coverage',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
+  coverageProvider: 'v8',
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
-    "^@/components/(.*)$": "<rootDir>/components/$1",
+    '^@/components/(.*)$': '<rootDir>/components/$1',
   },
-  testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[tj]s?(x)"],
+  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
   transform: {
-    "^.+\\.(js|jsx|ts|tsx)$": "ts-jest",
+    '^.+\\.(js|jsx|ts|tsx)$': 'ts-jest',
   },
 };
 
