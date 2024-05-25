@@ -4,7 +4,7 @@
 
 # WCC Frontend Application
 
-This is the FE application (NextJS) for WCC main website.
+This is the FE application (NextJS) for Women Coding Community website.
 
 ## Requirements
 
