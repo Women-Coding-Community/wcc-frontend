@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prepare": "husky install",
+    "prepare": "husky",
     "build": "next build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -45,5 +45,9 @@
     "postcss": "^8",
     "prettier": "^3.2.5",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
   }
 }

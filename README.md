@@ -2,19 +2,33 @@
   <img src="public/logo_white.png" alt="WCC Logo White" width="200" height="200">
 </div>
 
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Issues][issues-shield]][issues-url]
+[![Stargazers][stars-shield]][stars-url]
+
+[contributors-shield]: https://img.shields.io/github/contributors/women-coding-community/wcc-frontend.svg
+[contributors-url]: https://github.com/women-coding-community/wcc-frontend/pulse/contributors
+[forks-shield]: https://img.shields.io/github/forks/women-coding-community/wcc-frontend.svg
+[forks-url]: https://github.com/women-coding-community/wcc-frontend/network/members
+[issues-shield]: https://img.shields.io/github/issues/women-coding-community/wcc-frontend.svg
+[issues-url]: https://github.com/women-coding-community/wcc-frontend/issues
+[stars-shield]: https://img.shields.io/github/stars/women-coding-community/wcc-frontend.svg
+[stars-url]: https://github.com/women-coding-community/wcc-frontend/stargazers
+
 # WCC Frontend Application
 
 This is the FE application (NextJS) for Women Coding Community website.
 
 ## Requirements
 
-- Node (18+)
+- Node (20+)
 - [Pnpm](https://pnpm.io/) (v9+)
 
 If you don't have pnpm you can install it with npm running
 
 ```bash
-npm install -g pnpm
+npm install -g pnpm@9
 ```
 
 ## Installation
