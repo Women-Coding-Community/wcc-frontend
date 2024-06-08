@@ -10,7 +10,13 @@ type Programme = {
   icon: string;
 };
 
-type WCCEvent = {
+type Link = {
+  title: string;
+  uri: string;
+  label: string;
+};
+
+type Event = {
   title: string;
   type: string;
   host: string;
@@ -18,7 +24,7 @@ type WCCEvent = {
   date: string;
   endDate: number;
   description: string;
-  link: string;
+  link: Link;
   images: Image[];
 };
 
@@ -35,7 +41,7 @@ export type LandingPageResponse = {
   };
   eventsSection: {
     title: string;
-    events: WCCEvent[];
+    events: Event[];
   };
   announcementSection: {
     title: string;

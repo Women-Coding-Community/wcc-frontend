@@ -59,7 +59,11 @@
             "type": "desktop"
           }
         ],
-        "link": "https://www.linkedin.com"
+        "link": {
+          "label": "Check the meetup event",
+          "uri": "https://www.linkedin.com",
+          "title": ""
+        }
       }
     ]
   },
