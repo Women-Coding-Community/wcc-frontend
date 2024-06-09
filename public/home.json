@@ -1,0 +1,82 @@
+{
+  "heroSection": {
+    "title": "Women Coding Community",
+    "description": "Empowering Women in Their Tech Careers",
+    "images": [
+      {
+        "path": "https://cloudprovider.com/image.png",
+        "alt": "There are two women talking during a productive mentoring session",
+        "type": "desktop"
+      }
+    ]
+  },
+  "programmesSection": {
+    "title": "Opportunities and Programmes",
+    "description": "Join our community and unlock endless opportunities. Network, find mentors, and access leadership programs. Whether you're aiming to enhance your skills, grow your professional network, or advance your career, we have what you need. We offer a wide range of opportunities to help you achieve your goals.\n",
+    "programmes": [
+      {
+        "name": "Mentorship",
+        "link": "/mentorship",
+        "icon": "diversity2"
+      }
+    ]
+  },
+  "announcementSection": {
+    "title": "Announcements",
+    "events": [
+      {
+        "title": "Mentorship ad-hoc registration is open now",
+        "date": "Registration from MAY 6 - MAY 17, 2024",
+        "endDate": 20240517,
+        "description": "Sign up for this unique opportunity of one-time mentoring sessions with personalised guidance from experienced mentors.",
+        "link": "https://www.linkedin.com",
+        "images": [
+          {
+            "path": "https://cloudprovider.com/image.png",
+            "alt": "There are two women talking during a productive mentoring session",
+            "type": "desktop"
+          }
+        ]
+      }
+    ]
+  },
+  "eventsSection": {
+    "title": "Events",
+    "link": "https://www.linkedin.com",
+    "events": [
+      {
+        "type": "Book Club",
+        "date": "THU, MAY 30, 2024, 8:00 PM to 9:30 PM CEST",
+        "endDate": 20240517,
+        "title": "Book Club: The Pragmatic Programmer\n",
+        "host": "Sasha Northon and Lana Rey",
+        "speaker": "John Smith",
+        "description": "Join us for a discussion of this essential guide to writing clear and maintainable code!\n",
+        "images": [
+          {
+            "path": "https://cloudprovider.com/image.png",
+            "alt": "There are two women talking during a productive mentoring session",
+            "type": "desktop"
+          }
+        ],
+        "link": {
+          "label": "Check the meetup event",
+          "uri": "https://www.linkedin.com",
+          "title": ""
+        }
+      }
+    ]
+  },
+  "volunteerSection": {
+    "title": "Volunteer With Us",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n",
+    "link": "https://www.linkedin.com",
+    "images": [
+      {
+        "path": "https://cloudprovider.com/image.png",
+        "alt": "There are two women talking during a productive mentoring session",
+        "type": "desktop"
+      }
+    ]
+  }
+}
