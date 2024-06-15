@@ -41,6 +41,17 @@ Install project dependencies
 
 ## Development
 
+Before you can start development you need to create a .env.local in your root folder.
+In this file please paste the following:
+
+```
+API_BASE_URL=http://localhost:3000
+```
+
+This will allow your localhost to serve the json which is used to populate the pages while the
+API is not available.
+
+
 You can run the application using
 
 ```bash
