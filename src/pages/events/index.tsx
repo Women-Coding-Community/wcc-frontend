@@ -1,9 +1,11 @@
+// path /events
+
 import { Typography } from '@mui/material';
 
 const EventsPage = () => {
   return (
     <div>
-      <Typography variant="h4">Welcome to the Event Page</Typography>
+      <Typography variant="h4">Welcome to the EventsPage</Typography>
     </div>
   );
 };
