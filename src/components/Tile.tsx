@@ -15,6 +15,7 @@ export default function Tile(props: TileProps) {
         display: 'flex',
         alignContent: 'center',
         height: '100%',
+        borderRadius: '10px',
       }}
     >
       <Button onClick={props.onTileClick} style={{ width: '100%' }}>
