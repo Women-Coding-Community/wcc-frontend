@@ -1,9 +1,10 @@
-import { Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import { LandingPageResponse } from '@utils/types';
+import GradientBox from 'components/GradientBox';
 import Tile from 'components/Tile';
 import { fetchData } from 'lib/api';
 
@@ -24,54 +25,62 @@ const HomePage = ({ data, error }: HomePageProps) => {
   return (
     <div>
       <h1>Home Page</h1>
-      <div className="opportunities-programmes">
+      <OpportunitiesProgrammes programmes={data.programmesSection.programmes} />
+
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+};
+
+function OpportunitiesProgrammes(props: {
+  programmes: LandingPageResponse['programmesSection']['programmes'];
+}) {
+  return (
+    <GradientBox
+      colors={['#FFB59D', '#FFDEA6']}
+      className="opportunities-programmes"
+    >
+      <Box sx={{ display: 'grid', gap: '1rem', justifyItems: 'center' }}>
         <Typography
           variant="h3"
           color="text.primary"
           align="center"
-          marginBottom={5}
+          sx={{
+            fontWeight: 'bold',
+          }}
         >
           Opportunities and Programmes
         </Typography>
-        <Typography variant="h5" color="text.primary" align="center">
+        <Typography
+          variant="h5"
+          color="text.primary"
+          align="center"
+          sx={{ maxWidth: '600px' }}
+        >
           Join our community and unlock endless opportunities. Network, find
           mentors, and access leadership programs. Whether you&apos;re aiming to
           enhance your skills, grow your professional network, or advance your
           career, we have what you need. We offer a wide range of opportunities
           to help you achieve your goals.
         </Typography>
-        {/* <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1rem',
-          width: '80vw',
-          margin: '0 auto',
-        }}
-      > */}
         <Grid
           style={{
-            margin: '0 auto',
-            width: '80vw',
-            paddingBottom: '5rem',
-            alignContent: 'center',
+            justifyContent: 'center',
           }}
           container
-          spacing={{ md: 3 }}
+          spacing={{ xs: 2, sm: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {data.programmesSection.programmes.map((p) => (
-            <Grid item xs={2} sm={4} md={4} key={p.name}>
+          {props.programmes.map((p) => (
+            <Grid item xs={12} sm={6} md={4} key={p.name}>
               <Tile name={p.name} link={p.link} icon={p.icon} />
             </Grid>
           ))}
         </Grid>
-        {/* </div> */}
-      </div>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
+      </Box>
+    </GradientBox>
   );
-};
+}
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const path = 'home.json'; // temporary setup to get correct json
