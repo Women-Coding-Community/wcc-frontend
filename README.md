@@ -51,7 +51,6 @@ API_BASE_URL=http://localhost:3000
 This will allow your localhost to serve the json which is used to populate the pages while the
 API is not available.
 
-
 You can run the application using
 
 ```bash
