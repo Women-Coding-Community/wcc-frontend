@@ -1,5 +1,5 @@
-import React from 'react';
 import { Divider } from '@mui/material';
+import React from 'react';
 
 interface GradientBorderDividerProps {
   height: string;

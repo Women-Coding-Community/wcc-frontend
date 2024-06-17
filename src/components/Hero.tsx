@@ -1,6 +1,7 @@
 import { Box, Typography, Grid, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
+
 import HeroImage from '../../public/hero-img.png';
 import theme from '../theme';
 import { LandingPageResponse } from '../utils/types';
