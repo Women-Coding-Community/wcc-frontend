@@ -2,20 +2,19 @@ import { Box, Typography, Grid, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 
-import HeroImage from '../../public/hero-img.png';
 import theme from '../theme';
 import { LandingPageResponse } from '../utils/types';
 
 import GradientBorderDivider from './GradientBorderDivider';
 
 interface HeroProps {
-  data: LandingPageResponse;
+  title: string;
+  description: string;
+  images: LandingPageResponse['heroSection']['images'];
 }
 
-const Hero: React.FC<HeroProps> = ({ data }) => {
-  const { heroSection } = data;
-  const imageAlt = heroSection.images[0].alt;
-
+const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
+  const { alt: imageAlt, path: imagePath } = images[0];
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
 
   return (
@@ -43,12 +42,12 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
               color={theme.palette.primary.main}
               sx={{ fontSize: '2.25rem', fontWeight: '600', lineHeight: '1.2' }}
             >
-              {heroSection.title}
+              {title}
             </Typography>
             <GradientBorderDivider
               height="0.5rem"
               width="100px"
-              margin={isMobile ? '12px auto 16px;' : '29px 23px auto 0'}
+              margin={isMobile ? '12px auto 16px' : '29px 23px auto 0'}
               gradientColors="linear-gradient(to right, #84B1D0, #FFDEA6, #FFB59D)"
             />
             <Typography
@@ -61,16 +60,19 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
                 lineHeight: '1.2',
               }}
             >
-              {heroSection.description}
+              {description}
             </Typography>
           </Box>
         </Grid>
         <Grid item xs={12} sm={7} style={{ padding: 0, margin: 0 }}>
           <Box>
             <Image
-              src={HeroImage}
+              src={imagePath}
               alt={imageAlt}
-              style={{ maxWidth: '100%', height: '100%', objectFit: 'cover' }}
+              width={647}
+              height={374}
+              style={{ maxWidth: '100%', height: '100%' }}
+              priority
             />
           </Box>
         </Grid>
