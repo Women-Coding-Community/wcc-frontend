@@ -5,6 +5,7 @@ const theme = createTheme({
   typography: {
     button: {
       textTransform: 'none',
+      fontSize: '0.875rem',
     },
     body1: {
       fontSize: '20px',
