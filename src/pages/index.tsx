@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import { Hero } from '@components';
 import { LandingPageResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
 
@@ -21,8 +22,7 @@ const HomePage = ({ data, error }: HomePageProps) => {
 
   return (
     <div>
-      <h1>Home Page</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <Hero {...data.heroSection} />
     </div>
   );
 };

@@ -4,7 +4,7 @@
     "description": "Empowering Women in Their Tech Careers",
     "images": [
       {
-        "path": "https://cloudprovider.com/image.png",
+        "path": "/hero-img.png",
         "alt": "There are two women talking during a productive mentoring session",
         "type": "desktop"
       }
