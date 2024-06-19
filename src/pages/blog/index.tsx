@@ -1,3 +1,5 @@
+// path: /blog
+
 import { Typography } from '@mui/material';
 
 const BlogPage = () => {

@@ -1,3 +1,5 @@
+// path: /mentorship/mentors
+
 import { Typography } from '@mui/material';
 
 const MentorsPage = () => {
