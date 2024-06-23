@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import { LandingPageResponse } from '@utils/types';
+import { MentorBanner } from 'components/MentorBanner';
 import { fetchData } from 'lib/api';
 
 interface HomePageProps {
@@ -22,7 +23,7 @@ const HomePage = ({ data, error }: HomePageProps) => {
   return (
     <div>
       <h1>Home Page</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <MentorBanner {...data.fullBannerSection} />
     </div>
   );
 };
