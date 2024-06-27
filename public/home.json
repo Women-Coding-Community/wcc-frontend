@@ -98,6 +98,11 @@
         "path": "/wcc-home-cta-banner-img-1_square.jpg",
         "alt": "There are two women talking during a productive mentoring session",
         "type": "mobile"
+      },
+      {
+        "path": "/wcc-home-cta-banner-img-1_square.jpg",
+        "alt": "There are two women talking during a productive mentoring session",
+        "type": "tablet"
       }
     ]
   }
