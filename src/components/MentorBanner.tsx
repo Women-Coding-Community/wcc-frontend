@@ -56,8 +56,6 @@ export const MentorBanner: React.FC<BannerProps> = ({
           fontSize: {
             xs: '24px',
             sm: '45px',
-            md: '45px',
-            lg: '45px',
           },
           color: theme.palette.common.white,
           align: 'center',
@@ -77,15 +75,25 @@ export const MentorBanner: React.FC<BannerProps> = ({
           fontSize: {
             xs: '16px',
             sm: '24px',
-            md: '24px',
-            lg: '24px',
           },
+          maxWidth: {
+            xs: '339px',
+            sm: '737.03px',
+          },
+          height: {
+            xs: '67px',
+            sm: '96px',
+          },
+          lineHeight: {
+            xs: '24px',
+            sm: '32px',
+          },
+          paddingTop: { sm: '0.5em' },
+          paddingBottom: { xs: '6em' },
         }}
         color={theme.palette.common.white}
         align="center"
-        maxWidth={isMobile ? '600px' : '650px'}
-        height="30px"
-        paddingBottom={isMobile ? '6em' : '3em'}
+        paddingBottom={isMobile ? '6em' : '0.5em'}
         fontWeight={theme.typography.fontWeightMedium}
       >
         {description}
@@ -97,8 +105,7 @@ export const MentorBanner: React.FC<BannerProps> = ({
           height: '48px',
           width: '163.92px',
           gap: '8px',
-          borderRadius: '2em',
-          opacity: '0px',
+          borderRadius: '100px',
         }}
       >
         <Link
@@ -108,11 +115,15 @@ export const MentorBanner: React.FC<BannerProps> = ({
             textDecoration: 'none',
             padding: '1rem',
             textAlign: 'center',
+            width: '140 px',
+            height: '40 px',
           }}
         >
           <Typography
             variant="h6"
-            color="rgba(34, 100, 136, 1)"
+            width={'107 px'}
+            height={'20 px'}
+            color={theme.typography.button.color}
             fontSize="14px"
             textAlign="center"
             fontWeight={theme.typography.fontWeightBold}

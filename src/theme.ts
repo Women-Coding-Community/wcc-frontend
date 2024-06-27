@@ -39,6 +39,7 @@ const theme = createTheme({
     button: {
       textTransform: 'none',
       fontSize: '0.875rem',
+      color: "rgba(34, 100, 136, 1)",
     },
     body1: {
       fontSize: '20px',
