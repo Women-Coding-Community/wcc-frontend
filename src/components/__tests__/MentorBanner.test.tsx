@@ -31,6 +31,11 @@ const BannerProps = {
       alt: 'alt mobile text',
       type: 'mobile',
     },
+    {
+      path: '/tablet.jpg',
+      alt: 'alt tablet text',
+      type: 'tablet',
+    },
   ],
   link: { title: 'link title', uri: 'www.google.com', label: 'link label' },
 };
