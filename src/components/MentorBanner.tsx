@@ -88,12 +88,11 @@ export const MentorBanner: React.FC<BannerProps> = ({
             xs: '24px',
             sm: '32px',
           },
-          paddingTop: { sm: '0.5em' },
-          paddingBottom: { xs: '6em' },
+          paddingTop: { xs: '0', sm: '0.5em' },
+          paddingBottom: { xs: '6em', sm: '0' },
         }}
         color={theme.palette.common.white}
         align="center"
-        paddingBottom={isMobile ? '6em' : '0.5em'}
         fontWeight={theme.typography.fontWeightMedium}
       >
         {description}
