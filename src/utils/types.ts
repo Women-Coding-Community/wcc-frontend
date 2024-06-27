@@ -53,4 +53,11 @@ export type LandingPageResponse = {
     link: string;
     images: Image[];
   };
+
+  fullBannerSection: {
+    title: string;
+    description: string;
+    images: Image[];
+    link: Link;
+  };
 };
