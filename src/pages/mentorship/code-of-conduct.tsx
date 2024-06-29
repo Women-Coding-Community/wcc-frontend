@@ -1,10 +1,12 @@
+// path: /mentorship/code-of-conduct
+
 import { Typography } from '@mui/material';
 
 const MentorshipCodeOfConductPage = () => {
   return (
     <div>
       <Typography variant="h4">
-        Welcome to the Mentorship Code of Conduct Page
+        Welcome to the MentorshipCodeOfConductPage
       </Typography>
     </div>
   );

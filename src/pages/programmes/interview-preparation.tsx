@@ -1,13 +1,13 @@
 import { Typography } from '@mui/material';
 
-const ProgrammesStudyGroupPage = () => {
+const InterviewPreparationPage = () => {
   return (
     <div>
       <Typography variant="h4">
-        Welcome to the Programmes Study Group Page
+        Welcome to the InterviewPreparationPage
       </Typography>
     </div>
   );
 };
 
-export default ProgrammesStudyGroupPage;
+export default InterviewPreparationPage;
