@@ -5,7 +5,7 @@ type GradientBoxProps = {
   colors: Array<string>;
 } & HTMLAttributes<HTMLDivElement>;
 
-export default function GradientBox(props: GradientBoxProps) {
+export const GradientBox = (props: GradientBoxProps) => {
   const colorString = props.colors.join(', ');
 
   return (
@@ -17,4 +17,4 @@ export default function GradientBox(props: GradientBoxProps) {
       {...props}
     ></Box>
   );
-}
+};

@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from '@testing-library/react';
 
-import GradientBox from 'components/GradientBox';
+import { GradientBox } from 'components/GradientBox';
 
 describe('GradientBox', () => {
   it('has the right background css style', () => {

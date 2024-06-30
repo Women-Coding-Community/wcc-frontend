@@ -8,7 +8,7 @@ type TileProps = {
   onTileClick?: () => void;
 };
 
-export default function Tile(props: TileProps) {
+export const Tile = (props: TileProps) => {
   return (
     <Card
       style={{
@@ -41,4 +41,4 @@ export default function Tile(props: TileProps) {
       </Button>
     </Card>
   );
-}
+};

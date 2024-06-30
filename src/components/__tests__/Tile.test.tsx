@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import Tile from '../Tile';
+import { Tile } from '../Tile';
 
 describe('Tile', () => {
   beforeEach(() => {
