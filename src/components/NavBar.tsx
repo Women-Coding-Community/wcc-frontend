@@ -1,191 +1,190 @@
+import MenuIcon from '@mui/icons-material/Menu';
 import {
   Box,
-  AppBar,
-  Typography,
   Button,
-  Menu,
-  Container,
+  Drawer,
+  Grid,
+  Icon,
   MenuItem,
-  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import Toolbar from '@mui/material/Toolbar';
 import Image from 'next/image';
-import Link from 'next/link';
-import * as React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
-export default function Navbar() {
-  const [anchorElMentorship, setAnchorElMentorship] =
-    React.useState<null | HTMLElement>(null);
-  const [anchorElProgrammes, setAnchorElProgrammes] =
-    React.useState<null | HTMLElement>(null);
-  const [anchorElAboutUs, setAnchorElAboutUs] =
-    React.useState<null | HTMLElement>(null);
+import { headerSetup } from '@utils/staticContent';
+
+type SubNavItem = {
+  title: string;
+  path: string;
+};
+
+type NavBarMenuItem = {
+  title: string;
+  path?: string;
+  subNav?: SubNavItem[];
+};
+
+export const NavBar = () => {
+  const router = useRouter();
+  const theme = useTheme();
+
+  const [anchorElements, setAnchorElements] = React.useState<
+    {} | { [key: string]: HTMLElement }
+  >({ mentorship: null, programmes: null, aboutUs: null });
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleMenuOpen = (
+    menuKey: string,
     event: React.MouseEvent<HTMLElement>,
-    setAnchorEl: React.Dispatch<React.SetStateAction<null | HTMLElement>>,
   ) => {
-    setAnchorEl(event.currentTarget);
+    setAnchorElements((prev) => ({
+      ...prev,
+      [menuKey]: event.currentTarget,
+    }));
   };
 
-  const handleMenuClose = (
-    setAnchorEl: React.Dispatch<React.SetStateAction<null | HTMLElement>>,
+  const handleMenuClose = (menuKey: string) => {
+    setAnchorElements((prev) => ({
+      ...prev,
+      [menuKey]: null,
+    }));
+  };
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const menuItems: { [key: string]: NavBarMenuItem } = headerSetup;
+
+  const renderNavItems = (items: NavBarMenuItem[]) => {
+    return items.map((item: NavBarMenuItem) => {
+      if (item.path) {
+        return (
+          <Button
+            key={item.title}
+            sx={{ color: 'primary.dark', padding: '0 1.5rem' }}
+            onClick={() => router.push(item.path || '')}
+          >
+            {item.title}
+          </Button>
+        );
+      } else {
+        return (
+          <Button
+            key={item.title}
+            aria-controls={`${item.title}-menu`}
+            aria-haspopup="true"
+            sx={{ color: 'primary.dark', padding: '0 1.5rem' }}
+            onClick={(event) => handleMenuOpen(item.title, event)}
+          >
+            {item.title} <Icon>arrow_drop_down</Icon>
+          </Button>
+        );
+      }
+    });
+  };
+
+  const renderDropdownMenu = (
+    menuKey: keyof typeof anchorElements,
+    items: SubNavItem[],
   ) => {
-    setAnchorEl(null);
+    const anchorEl = anchorElements[menuKey] as HTMLElement;
+
+    return (
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={() => handleMenuClose(menuKey)}
+      >
+        {items.map((item: SubNavItem, index: number) => (
+          <MenuItem
+            key={`${item.title}-${index}`}
+            onClick={() => {
+              handleMenuClose(menuKey);
+              router.push(item.path);
+            }}
+          >
+            <Typography variant="body2">{item.title}</Typography>
+          </MenuItem>
+        ))}
+      </Menu>
+    );
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar
         position="static"
-        color="default"
-        sx={{ height: '80px', display: 'flex', justifyContent: 'center' }}
+        color="transparent"
+        sx={{
+          height: '130px',
+          display: 'flex',
+          justifyContent: isMobile ? 'space-around' : 'center',
+          alignItems: 'center',
+          marginBottom: '1rem',
+        }}
       >
-        <Container>
-          <Toolbar>
-            <Image src="/logo_white.png" alt="Logo" width={60} height={60} />
-            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'right' }}>
-              <Link href="/" passHref>
-                <Button sx={{ color: 'primary.dark' }}>
-                  <Typography variant="body2">Home</Typography>
+        <Toolbar
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: isMobile ? '100%' : '60%',
+            height: '100%',
+          }}
+        >
+          <Image src="/logo_white.png" alt="Logo" width={80} height={80} />
+          {!isMobile && (
+            <>
+              <Grid container justifyContent="end">
+                {renderNavItems(Object.values(menuItems))}
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ borderRadius: '16px' }} // should be replaced once we update the design
+                >
+                  Find a mentor
                 </Button>
-              </Link>
-              <Button
-                color="inherit"
-                onClick={(event) =>
-                  handleMenuOpen(event, setAnchorElMentorship)
-                }
-                sx={{ color: 'primary.dark' }}
-              >
-                <Typography variant="body2">Mentorship</Typography>
-              </Button>
-              <Menu
-                sx={{ color: 'primary.dark', fontSize: '16px' }}
-                anchorEl={anchorElMentorship}
-                open={Boolean(anchorElMentorship)}
-                onClose={() => handleMenuClose(setAnchorElMentorship)}
-              >
-                <MenuItem
-                  onClick={() => handleMenuClose(setAnchorElMentorship)}
-                >
-                  <Link href="/mentorship" passHref>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: 'primary.dark', textDecoration: 'none' }}
-                    >
-                      Overview
-                    </Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => handleMenuClose(setAnchorElMentorship)}
-                  sx={{ color: 'primary.dark', fontSize: '16px' }}
-                >
-                  <Link href="/mentors" passHref>
-                    Mentors
-                  </Link>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => handleMenuClose(setAnchorElMentorship)}
-                  sx={{ color: 'primary.dark', fontSize: '16px' }}
-                >
-                  <Link href="/mentorship" passHref>
-                    Resources
-                  </Link>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => handleMenuClose(setAnchorElMentorship)}
-                  sx={{ color: 'primary.dark', fontSize: '16px' }}
-                >
-                  <Link href="/mentorship" passHref>
-                    Code of Conduct
-                  </Link>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => handleMenuClose(setAnchorElMentorship)}
-                  sx={{ color: 'primary.dark', fontSize: '16px' }}
-                >
-                  <Link href="/mentorship" passHref>
-                    FAQ
-                  </Link>
-                </MenuItem>
-              </Menu>
-              <Button
-                color="inherit"
-                onClick={(event) =>
-                  handleMenuOpen(event, setAnchorElProgrammes)
-                }
-              >
-                Programmes
-              </Button>
-              <Menu
-                anchorEl={anchorElProgrammes}
-                open={Boolean(anchorElProgrammes)}
-                onClose={() => handleMenuClose(setAnchorElProgrammes)}
-              >
-                <MenuItem
-                  onClick={() => handleMenuClose(setAnchorElProgrammes)}
-                >
-                  <Link href="/book-club">
-                    <Typography variant="body1">Book Club</Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => handleMenuClose(setAnchorElProgrammes)}
-                >
-                  <Link href="/interview-preparation">
-                    <Typography variant="body1">
-                      Interview Preparation
-                    </Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => handleMenuClose(setAnchorElProgrammes)}
-                >
-                  <Typography variant="body1">Study Groups</Typography>
-                </MenuItem>
-              </Menu>
-              <Link href="/events" passHref>
-                <Button color="inherit">
-                  <Typography variant="body2">Events</Typography>
-                </Button>
-              </Link>
-              <Link href="/blog" passHref>
-                <Button color="inherit">
-                  <Typography variant="body2">Blog</Typography>
-                </Button>
-              </Link>
-              <Button
-                color="inherit"
-                onClick={(event) => handleMenuOpen(event, setAnchorElAboutUs)}
-              >
-                <Typography variant="body2">About Us</Typography>
-              </Button>
-              <Menu
-                anchorEl={anchorElAboutUs}
-                open={Boolean(anchorElAboutUs)}
-                onClose={() => handleMenuClose(setAnchorElAboutUs)}
-              >
-                <MenuItem onClick={() => handleMenuClose(setAnchorElAboutUs)}>
-                  Option 1
-                </MenuItem>
-                <MenuItem onClick={() => handleMenuClose(setAnchorElAboutUs)}>
-                  Option 2
-                </MenuItem>
-                <MenuItem onClick={() => handleMenuClose(setAnchorElAboutUs)}>
-                  Option 3
-                </MenuItem>
-              </Menu>
-              <Button
-                variant="outlined"
-                color="inherit"
-                sx={{ borderRadius: '16px' }}
-              >
-                Find a mentor
-              </Button>
-            </Box>
-          </Toolbar>
-        </Container>
+              </Grid>
+              {Object.keys(menuItems).map((key) =>
+                menuItems[key].subNav
+                  ? renderDropdownMenu(
+                      key as keyof typeof anchorElements,
+                      menuItems[key].subNav as SubNavItem[],
+                    )
+                  : null,
+              )}
+            </>
+          )}
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={handleDrawerToggle}
+            sx={{ display: { xs: 'block', md: 'none' } }}
+          >
+            <MenuIcon fontSize="large" />
+          </IconButton>
+        </Toolbar>
       </AppBar>
+      <Drawer
+        anchor="left"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        sx={{ display: { xs: 'block', md: 'none' } }}
+      >
+        {/* <List>
+        // Todo how does the mobile look like
+        /List> */}
+      </Drawer>
     </Box>
   );
-}
+};
