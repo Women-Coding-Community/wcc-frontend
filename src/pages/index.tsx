@@ -36,10 +36,7 @@ function OpportunitiesProgrammes(props: {
   programmes: LandingPageResponse['programmesSection']['programmes'];
 }) {
   return (
-    <GradientBox
-      colors={['#FFB59D', '#FFDEA6']}
-      className="opportunities-programmes"
-    >
+    <GradientBox colors={['#FFB59D', '#FFDEA6']}>
       <Box sx={{ display: 'grid', gap: '1rem', justifyItems: 'center' }}>
         <Typography
           variant="h3"
