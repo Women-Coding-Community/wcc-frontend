@@ -1,10 +1,17 @@
+import { ThemeProvider } from '@mui/material';
 import { render, screen } from '@testing-library/react';
+
+import theme from 'theme';
 
 import { Tile } from '../Tile';
 
 describe('Tile', () => {
   beforeEach(() => {
-    render(<Tile name="Section" icon="diversity_2" link="google.com"></Tile>);
+    render(
+      <ThemeProvider theme={theme}>
+        <Tile name="Section" icon="diversity_2" link="google.com" />
+      </ThemeProvider>,
+    );
   });
 
   it('has a link to the specified path', () => {
