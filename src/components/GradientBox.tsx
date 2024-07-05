@@ -12,7 +12,7 @@ export const GradientBox = (props: GradientBoxProps) => {
     <Box
       sx={{
         background: `linear-gradient(to right, ${colorString})`,
-        padding: '5rem 1rem',
+        padding: '3rem 1rem',
       }}
       {...props}
     ></Box>
