@@ -1,44 +1,44 @@
-import { Button, Card, Typography } from '@mui/material';
+import { Card, Icon, Typography } from '@mui/material';
 import Link from 'next/link';
 
 type TileProps = {
   name: string;
   link: string;
   icon: string;
-  onTileClick?: () => void;
 };
 
 export const Tile = (props: TileProps) => {
   return (
     <Card
-      style={{
+      sx={{
         display: 'flex',
-        alignContent: 'center',
         height: '100%',
-        borderRadius: '10px',
+        borderRadius: '12px',
       }}
     >
-      <Button onClick={props.onTileClick} style={{ width: '100%' }}>
-        <Link
-          href={props.link}
-          style={{
-            textDecoration: 'none',
-            padding: '1rem',
-            textAlign: 'center',
-          }}
+      <Link
+        href={props.link}
+        style={{
+          textDecoration: 'none',
+          padding: '15px',
+          textAlign: 'center',
+          width: '100%',
+          gap: '8px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Icon
+          sx={{ fontSize: '40px!important', color: 'primary.main' }} //fontsize is not applying
         >
-          <Typography
-            className="material-symbols-outlined"
-            color="primary.main"
-            style={{ fontSize: '40px' }}
-          >
-            {props.icon}
-          </Typography>
-          <Typography variant="h6" color="primary.main">
-            {props.name}
-          </Typography>
-        </Link>
-      </Button>
+          {props.icon}
+        </Icon>
+        <Typography variant="h6" color="primary.main" fontSize={22}>
+          {props.name}
+        </Typography>
+      </Link>
     </Card>
   );
 };
