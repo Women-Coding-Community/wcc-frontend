@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 
 import { Hero, OpportunitiesProgrammes } from '@components';
 import { LandingPageResponse } from '@utils/types';
+import { MentorBanner } from 'components/MentorBanner';
 import { fetchData } from 'lib/api';
 
 interface HomePageProps {
@@ -24,6 +25,7 @@ const HomePage = ({ data, error }: HomePageProps) => {
     <div>
       <Hero {...data.heroSection} />
       <OpportunitiesProgrammes content={data.programmesSection} />
+      <MentorBanner {...data.fullBannerSection} />
     </div>
   );
 };
