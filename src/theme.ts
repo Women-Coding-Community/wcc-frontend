@@ -61,6 +61,11 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiIcon: {
+      defaultProps: {
+        baseClassName: 'material-symbols-outlined',
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

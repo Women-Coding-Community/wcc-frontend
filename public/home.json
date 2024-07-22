@@ -4,7 +4,7 @@
     "description": "Empowering Women in Their Tech Careers",
     "images": [
       {
-        "path": "https://cloudprovider.com/image.png",
+        "path": "/hero-img.png",
         "alt": "There are two women talking during a productive mentoring session",
         "type": "desktop"
       }
@@ -17,7 +17,32 @@
       {
         "name": "Mentorship",
         "link": "/mentorship",
-        "icon": "diversity2"
+        "icon": "diversity_2"
+      },
+      {
+        "name": "Online and in-person Events",
+        "link": "/events",
+        "icon": "calendar_month"
+      },
+      {
+        "name": "Book Club",
+        "link": "/book-club",
+        "icon": "book_2"
+      },
+      {
+        "name": "CV clinic",
+        "link": "/cv-clinic",
+        "icon": "work"
+      },
+      {
+        "name": "Mock interviews",
+        "link": "/interviews",
+        "icon": "group"
+      },
+      {
+        "name": "Leetcode",
+        "link": "/leetcode",
+        "icon": "code_blocks"
       }
     ]
   },

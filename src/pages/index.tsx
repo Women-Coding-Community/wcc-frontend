@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import { Hero, OpportunitiesProgrammes } from '@components';
 import { LandingPageResponse } from '@utils/types';
 import { MentorBanner } from 'components/MentorBanner';
 import { fetchData } from 'lib/api';
@@ -22,7 +23,8 @@ const HomePage = ({ data, error }: HomePageProps) => {
 
   return (
     <div>
-      <h1>Home Page</h1>
+      <Hero {...data.heroSection} />
+      <OpportunitiesProgrammes content={data.programmesSection} />
       <MentorBanner {...data.fullBannerSection} />
     </div>
   );
