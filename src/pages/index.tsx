@@ -2,8 +2,9 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-import { EventCard } from '@components';
+import { Hero, OpportunitiesProgrammes, EventCard } from '@components';
 import { LandingPageResponse } from '@utils/types';
+import { MentorBanner } from 'components/MentorBanner';
 import { fetchData } from 'lib/api';
 
 interface HomePageProps {
@@ -24,6 +25,9 @@ const HomePage = ({ data, error }: HomePageProps) => {
     <div>
       <EventCard data={data.eventsSection} />
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+      <Hero {...data.heroSection} />
+      <OpportunitiesProgrammes content={data.programmesSection} />
+      <MentorBanner {...data.fullBannerSection} />
     </div>
   );
 };

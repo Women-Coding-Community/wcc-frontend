@@ -25,6 +25,9 @@ importers:
       axios:
         specifier: ^1.7.2
         version: 1.7.2
+      css-mediaquery:
+        specifier: ^0.1.2
+        version: 0.1.2
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.0)
@@ -50,6 +53,9 @@ importers:
       '@testing-library/react':
         specifier: ^15.0.7
         version: 15.0.7(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@types/css-mediaquery':
+        specifier: ^0.1.4
+        version: 0.1.4
       '@types/jest':
         specifier: ^29.5.12
         version: 29.5.12
@@ -1145,6 +1151,12 @@ packages:
         integrity: sha512-WXCyOcRtH37HAUkpXhUduaxdm82b4GSlyTqajXviN4EfiuPgNYR109xMCKvpl6zPIpua0DGlMEDCq+g8EdoheQ==,
       }
 
+  '@types/css-mediaquery@0.1.4':
+    resolution:
+      {
+        integrity: sha512-DZyHAz716ZUctpqkUU2COwUoZ4gI6mZK2Q1oIz/fvNS6XHVpKSJgDnE7vRxZUBn9vjJHDVelCVW0dkshKOLFsA==,
+      }
+
   '@types/graceful-fs@4.1.9':
     resolution:
       {
@@ -1867,6 +1879,12 @@ packages:
         integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==,
       }
     engines: { node: '>= 8' }
+
+  css-mediaquery@0.1.2:
+    resolution:
+      {
+        integrity: sha512-COtn4EROW5dBGlE/4PiKnh6rZpAPxDeFLaEEwt4i10jpDMFt2EhQGS79QmmrO+iKCHv0PU/HrOWEhijFd1x99Q==,
+      }
 
   css.escape@1.5.1:
     resolution:
@@ -5751,6 +5769,8 @@ snapshots:
     dependencies:
       '@babel/types': 7.24.5
 
+  '@types/css-mediaquery@0.1.4': {}
+
   '@types/graceful-fs@4.1.9':
     dependencies:
       '@types/node': 20.12.12
@@ -6250,6 +6270,8 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  css-mediaquery@0.1.2: {}
 
   css.escape@1.5.1: {}
 
