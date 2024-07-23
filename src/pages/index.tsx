@@ -21,13 +21,14 @@ const HomePage = ({ data, error }: HomePageProps) => {
     }
   }, [error, router]);
 
+  const { heroSection, programmesSection, fullBannerSection } = data;
+
   return (
     <div>
       <EventCard data={data.eventsSection} />
-      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-      <Hero {...data.heroSection} />
-      <OpportunitiesProgrammes content={data.programmesSection} />
-      <MentorBanner {...data.fullBannerSection} />
+      <Hero {...heroSection} />
+      <OpportunitiesProgrammes {...programmesSection} />
+      <MentorBanner {...fullBannerSection} />
     </div>
   );
 };

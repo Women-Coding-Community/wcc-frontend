@@ -12,7 +12,7 @@ describe('OpportunitiesProgrammes', () => {
     ],
   };
   beforeEach(() => {
-    render(<OpportunitiesProgrammes content={content} />);
+    render(<OpportunitiesProgrammes {...content} />);
   });
 
   it('has a title', () => {

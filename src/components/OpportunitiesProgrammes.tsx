@@ -1,15 +1,14 @@
 import { Box, Grid, Typography } from '@mui/material';
+import React from 'react';
 
 import { LandingPageResponse } from '@utils/types';
 import { Tile } from 'components/Tile';
 
 import { GradientBox } from './GradientBox';
 
-export const OpportunitiesProgrammes = ({
-  content,
-}: {
-  content: LandingPageResponse['programmesSection'];
-}) => {
+export const OpportunitiesProgrammes: React.FC<
+  LandingPageResponse['programmesSection']
+> = ({ title, description, programmes }) => {
   return (
     <GradientBox colors={['#FFB59D', '#FFDEA6']}>
       <Box
@@ -29,7 +28,7 @@ export const OpportunitiesProgrammes = ({
             fontSize: { xs: '28px', sm: '28px' },
           }}
         >
-          {content.title}
+          {title}
         </Typography>
         <Typography
           variant="h5"
@@ -40,7 +39,7 @@ export const OpportunitiesProgrammes = ({
             maxWidth: { xs: '361px', sm: '361px', md: '742px' },
           }}
         >
-          {content.description}
+          {description}
         </Typography>
         <Grid
           container
@@ -50,9 +49,13 @@ export const OpportunitiesProgrammes = ({
             justifyContent: 'center',
           }}
         >
-          {content.programmes.map((p) => (
-            <Grid item xs={12} sm={6} md={4} key={p.name}>
-              <Tile name={p.name} link={p.link} icon={p.icon} />
+          {programmes.map((programme) => (
+            <Grid item xs={12} sm={6} md={4} key={programme.name}>
+              <Tile
+                name={programme.name}
+                link={programme.link}
+                icon={programme.icon}
+              />
             </Grid>
           ))}
         </Grid>
