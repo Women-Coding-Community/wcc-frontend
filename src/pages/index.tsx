@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import { EventCard } from '@components';
 import { LandingPageResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
 
@@ -12,7 +13,7 @@ interface HomePageProps {
 
 const HomePage = ({ data, error }: HomePageProps) => {
   const router = useRouter();
-
+  
   useEffect(() => {
     if (error) {
       router.push('/500');
@@ -21,8 +22,8 @@ const HomePage = ({ data, error }: HomePageProps) => {
 
   return (
     <div>
-      <h1>Home Page</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <EventCard data={data.eventsSection} />
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
   );
 };
