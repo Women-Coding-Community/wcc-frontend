@@ -14,7 +14,7 @@ interface HomePageProps {
 
 const HomePage = ({ data, error }: HomePageProps) => {
   const router = useRouter();
-  
+
   useEffect(() => {
     if (error) {
       router.push('/500');
