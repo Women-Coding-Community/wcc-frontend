@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable unused-imports/no-unused-vars */
 // use client
+
 import { createTheme } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
@@ -39,7 +42,7 @@ const theme = createTheme({
     button: {
       textTransform: 'none',
       fontSize: '0.875rem',
-      color: "rgba(34, 100, 136, 1)",
+      color: 'rgba(34, 100, 136, 1)',
     },
     body1: {
       fontSize: '20px',
