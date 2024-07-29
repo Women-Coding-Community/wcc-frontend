@@ -33,7 +33,7 @@ describe('NavBar', () => {
     renderWithRouter(<NavBar />);
 
     fireEvent.click(screen.getByText('Programmes'));
-    expect(screen.getByTestId('subNav')).toBeInTheDocument();
+    expect(screen.getByRole('menuitem', { name: /Book Club/i })).toBeInTheDocument();
     expect(screen.getByText('Book Club')).toBeInTheDocument();
     fireEvent.click(screen.getByText('Book Club'));
     expect(mockRouter).toMatchObject({ pathname: '/programmes/book-club' });
