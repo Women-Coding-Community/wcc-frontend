@@ -19,14 +19,18 @@ describe('NavBar', () => {
 
   it('should render logo and menu items', () => {
     renderWithRouter(<NavBar />);
-    
+    const navItems = [
+      'Find a mentor',
+      'Programmes',
+      'About Us',
+      'Jobs',
+      'Events',
+      'Blog'
+    ]
+    navItems.forEach((item) => {
+      expect(screen.getByText(item)).toBeInTheDocument();
+    })
     expect(screen.getByAltText('Logo')).toBeInTheDocument();
-    expect(screen.getByText('Find a mentor')).toBeInTheDocument();
-    expect(screen.getByText('Programmes')).toBeInTheDocument();
-    expect(screen.getByText('About Us')).toBeInTheDocument();
-    expect(screen.getByText('Jobs')).toBeInTheDocument();
-    expect(screen.getByText('Events')).toBeInTheDocument();
-    expect(screen.getByText('Blog')).toBeInTheDocument();
   });
 
   it('should navigate to the correct path on menu item click', () => {
