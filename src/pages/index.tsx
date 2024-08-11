@@ -2,17 +2,27 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-import { Hero, OpportunitiesProgrammes } from '@components';
-import { LandingPageResponse } from '@utils/types';
-import { MentorBanner } from 'components/MentorBanner';
+import {
+  Hero,
+  OpportunitiesProgrammes,
+  MentorBanner,
+  Footer,
+} from '@components';
+import { FooterResponse, LandingPageResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
+
+type CombinedResponse = {
+  data: LandingPageResponse;
+  footer: FooterResponse;
+};
 
 interface HomePageProps {
   data: LandingPageResponse;
+  footer: FooterResponse;
   error: string | null;
 }
 
-const HomePage = ({ data, error }: HomePageProps) => {
+const HomePage = ({ data, footer, error }: HomePageProps) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -28,6 +38,7 @@ const HomePage = ({ data, error }: HomePageProps) => {
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmesSection} />
       <MentorBanner {...fullBannerSection} />
+      <Footer {...footer} />
     </div>
   );
 };
@@ -35,11 +46,12 @@ const HomePage = ({ data, error }: HomePageProps) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   const path = 'home.json'; // temporary setup to get correct json
   try {
-    const data: LandingPageResponse = await fetchData(path);
+    const combinedResponse: CombinedResponse = await fetchData(path);
 
     return {
       props: {
-        data,
+        data: combinedResponse.data,
+        footer: combinedResponse.footer,
       },
     };
   } catch (error) {

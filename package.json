@@ -29,6 +29,7 @@
     "ts-jest": "^29.1.2"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
     "@types/css-mediaquery": "^0.1.4",
