@@ -45,10 +45,31 @@ const theme = createTheme({
       color: 'rgba(34, 100, 136, 1)',
     },
     body1: {
-      fontSize: '20px',
+      fontSize: '14px',
+      '@media (min-width:600px)': {
+        fontSize: '16px',
+      },
     },
     body2: {
-      fontSize: '16px',
+      fontSize: '12px',
+      '@media (min-width:600px)': {
+        fontSize: '14px',
+      },
+    },
+    h1: {
+      fontSize: '6rem',
+    },
+    h2: {
+      fontSize: '3.75rem',
+    },
+    h3: {
+      fontSize: '3rem',
+    },
+    h4: {
+      fontSize: '2.125rem',
+    },
+    h5: {
+      fontSize: '1.5rem',
     },
 
     fontWeightBold: 600,
@@ -57,7 +78,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#1976d2', // to be defined per design
-      dark: '#343a40',
+      dark: '#1b1919',
     },
     secondary: {
       main: '#dc004e',

@@ -2,10 +2,10 @@ import { Box, Typography, Grid, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 
+import { GradientBorderDivider } from '@components';
+
 import theme from '../theme';
 import { LandingPageResponse } from '../utils/types';
-
-import GradientBorderDivider from './GradientBorderDivider';
 
 interface HeroProps {
   title: string;
