@@ -8,11 +8,11 @@ import Image from 'next/image';
 import React from 'react';
 
 import { GradientBorderDivider } from '@components';
+import { addLineBreakAfterPeriod } from '@utils/helpers';
 import { FooterResponse, Network } from '@utils/types';
 import theme from 'theme';
 
 import SlackIcon from '../../public/icons/slack-icon.svg';
-import { addLineBreakAfterPeriod } from '@utils/helpers';
 
 const iconNetworkMapper = {
   linkedIn: <LinkedInIcon fontSize="large" />,

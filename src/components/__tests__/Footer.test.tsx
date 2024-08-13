@@ -1,9 +1,11 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { Footer } from '../Footer';
-import { FooterResponse } from '@utils/types';
 import { ThemeProvider } from '@mui/material';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+
+import { FooterResponse } from '@utils/types';
 import theme from 'theme';
+
+import { Footer } from '../Footer';
 
 describe('Footer Component', () => {
   const mockData: FooterResponse = {
