@@ -114,7 +114,7 @@ export const NavBar = () => {
               router.push(item.path);
             }}
           >
-            <Typography variant="body2">{item.title}</Typography>
+            <Typography variant="body1">{item.title}</Typography>
           </MenuItem>
         ))}
       </Menu>

@@ -8,7 +8,7 @@ interface GradientBorderDividerProps {
   margin?: string;
 }
 
-const GradientBorderDivider: React.FC<GradientBorderDividerProps> = ({
+export const GradientBorderDivider: React.FC<GradientBorderDividerProps> = ({
   height,
   width,
   gradientColors,
@@ -25,5 +25,3 @@ const GradientBorderDivider: React.FC<GradientBorderDividerProps> = ({
     />
   );
 };
-
-export default GradientBorderDivider;
