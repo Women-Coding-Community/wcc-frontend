@@ -1,8 +1,9 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { NavBar } from 'components/NavBar';
-import mockRouter from 'next-router-mock';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { render, screen, fireEvent } from '@testing-library/react';
+import mockRouter from 'next-router-mock';
+import React from 'react';
+
+import { NavBar } from 'components/NavBar';
 
 jest.mock('next/router', () => require('next-router-mock'));
 
@@ -25,11 +26,11 @@ describe('NavBar', () => {
       'About Us',
       'Jobs',
       'Events',
-      'Blog'
-    ]
+      'Blog',
+    ];
     navItems.forEach((item) => {
       expect(screen.getByText(item)).toBeInTheDocument();
-    })
+    });
     expect(screen.getByAltText('Logo')).toBeInTheDocument();
   });
 
@@ -37,13 +38,17 @@ describe('NavBar', () => {
     renderWithRouter(<NavBar />);
 
     fireEvent.click(screen.getByText('Programmes'));
-    expect(screen.getByRole('menuitem', { name: /Book Club/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('menuitem', { name: /Book Club/i }),
+    ).toBeInTheDocument();
     expect(screen.getByText('Book Club')).toBeInTheDocument();
     fireEvent.click(screen.getByText('Book Club'));
     expect(mockRouter).toMatchObject({ pathname: '/programmes/book-club' });
 
     fireEvent.click(screen.getByText('Programmes'));
-    expect(screen.getByRole('menuitem', { name: /Our Programmes/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('menuitem', { name: /Our Programmes/i }),
+    ).toBeInTheDocument();
     expect(screen.getByText('Our Programmes')).toBeInTheDocument();
     fireEvent.click(screen.getByText('Our Programmes'));
     expect(mockRouter).toMatchObject({ pathname: '/programmes' });
@@ -54,9 +59,10 @@ describe('NavBar', () => {
     fireEvent.click(screen.getByText('Team'));
     expect(mockRouter).toMatchObject({ pathname: '/about-us/team' });
 
-
     fireEvent.click(screen.getByText('Mentorship'));
-    expect(screen.getByRole('menuitem', { name: /Mentors/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('menuitem', { name: /Mentors/i }),
+    ).toBeInTheDocument();
     expect(screen.getByText('Mentors')).toBeInTheDocument();
     fireEvent.click(screen.getByText('Mentors'));
     expect(mockRouter).toMatchObject({ pathname: '/mentorship/mentors' });
