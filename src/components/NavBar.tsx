@@ -15,7 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import { headerSetup } from '@utils/staticContent';
@@ -104,6 +104,7 @@ export const NavBar = () => {
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={() => handleMenuClose(menuKey)}
+        data-testid="subNav"
       >
         {items.map((item: SubNavItem, index: number) => (
           <MenuItem
@@ -113,7 +114,7 @@ export const NavBar = () => {
               router.push(item.path);
             }}
           >
-            <Typography variant="body2">{item.title}</Typography>
+            <Typography variant="body1">{item.title}</Typography>
           </MenuItem>
         ))}
       </Menu>

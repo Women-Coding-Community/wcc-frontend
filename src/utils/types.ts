@@ -61,3 +61,16 @@ export type LandingPageResponse = {
     link: Link;
   };
 };
+
+export type Network = {
+  type: string;
+  link: string;
+};
+
+export type FooterResponse = {
+  title: string;
+  subtitle: string;
+  description: string;
+  network: Network[];
+  link: Link;
+};
