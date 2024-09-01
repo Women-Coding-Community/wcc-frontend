@@ -38,7 +38,7 @@ describe('OpportunitiesProgrammes', () => {
     programmes.forEach((programme) => {
       const link = screen.getByRole('link', { name: programme.name });
       expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute('href', programme.link);
+      expect(link).toHaveAttribute('href', programme.link.uri);
 
       const iconSpan = link.querySelector('span');
       expect(iconSpan?.textContent).toBe(programme.icon);
