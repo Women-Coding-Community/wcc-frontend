@@ -45,7 +45,7 @@ Before you can start development you need to create a .env.local in your root fo
 In this file please paste the following:
 
 ```
-API_BASE_URL=http://localhost:3000
+API_BASE_URL=https://wcc-backend.fly.dev/api/cms/v1
 ```
 
 This will allow your localhost to serve the json which is used to populate the pages while the
