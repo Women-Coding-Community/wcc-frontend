@@ -1,6 +1,9 @@
 export { NavBar } from './NavBar';
+export { MentorBanner } from './MentorBanner';
 export { OpportunitiesProgrammes } from './OpportunitiesProgrammes';
 export { MentorshipProgramme } from './MentorshipProgramme';
 export { Tile } from './Tile';
 export { GradientBox } from './GradientBox';
-export { default as Hero } from './Hero';
+export { Hero } from './Hero';
+export { Footer } from './Footer';
+export { GradientBorderDivider } from './GradientBorderDivider';

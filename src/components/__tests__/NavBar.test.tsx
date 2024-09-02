@@ -1,105 +1,93 @@
-// /**
-//  * @jest-environment jsdom
-//  */
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { render, screen, fireEvent } from '@testing-library/react';
+import mockRouter from 'next-router-mock';
+import React from 'react';
 
-// TODO opening another PR to fix the jest issue we currently have with the packages
+import { NavBar } from 'components/NavBar';
 
-// import { fireEvent, screen } from '@testing-library/dom';
-// import { render } from '@testing-library/react';
-// import { createMemoryHistory } from 'history';
-// import { Router } from 'next/router'; // Import the correct component
-// import mockRouter from 'next-router-mock';
+jest.mock('next/router', () => require('next-router-mock'));
 
-// import { NavBar } from '@components';
+const theme = createTheme();
 
-// jest.mock('next/router', () => jest.requireActual('next-router-mock'));
+describe('NavBar', () => {
+  beforeEach(() => {
+    mockRouter.setCurrentUrl('/');
+  });
 
-// describe('Navbar', () => {
-//   beforeEach(() => {
-//     mockRouter.setCurrentUrl('/');
-//   });
+  const renderWithRouter = (ui: React.ReactElement) => {
+    return render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
+  };
 
-//   // ...
+  it('should render logo and menu items', () => {
+    renderWithRouter(<NavBar />);
+    const navItems = [
+      'Find a mentor',
+      'Programmes',
+      'About Us',
+      'Jobs',
+      'Events',
+      'Blog',
+    ];
+    navItems.forEach((item) => {
+      expect(screen.getByText(item)).toBeInTheDocument();
+    });
+    expect(screen.getByAltText('Logo')).toBeInTheDocument();
+  });
 
-//   it.only('renders the logo', () => {
-//     const history = createMemoryHistory();
-//     render(
-//       <Router history={history}>
-//         <NavBar />
-//       </Router>,
-//     );
-//     const logo = screen.getByAltText('Logo');
-//     expect(logo).toBeInTheDocument();
-//   });
+  it('should navigate to the correct path on menu item click', () => {
+    renderWithRouter(<NavBar />);
 
-//   it('renders all navigation buttons', () => {
-//     render(<NavBar />);
-//     const navItems = [
-//       'Home',
-//       'Mentorship',
-//       'Programmes',
-//       'Events',
-//       'Blog',
-//       'About Us',
-//       'Find a mentor',
-//     ];
-//     navItems.forEach((item) => {
-//       expect(screen.getByText(item)).toBeInTheDocument();
-//     });
-//   });
+    fireEvent.click(screen.getByText('Programmes'));
+    expect(
+      screen.getByRole('menuitem', { name: /Book Club/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Book Club')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Book Club'));
+    expect(mockRouter).toMatchObject({ pathname: '/programmes/book-club' });
 
-//   it.skip('renders all navigation buttons', () => {
-//     render(<NavBar />);
-//     expect(screen.getByText('Home')).toBeInTheDocument();
-//     expect(screen.getByText('Mentorship')).toBeInTheDocument();
-//     expect(screen.getByText('Programmes')).toBeInTheDocument();
-//     expect(screen.getByText('Events')).toBeInTheDocument();
-//     expect(screen.getByText('Blog')).toBeInTheDocument();
-//     expect(screen.getByText('About Us')).toBeInTheDocument();
-//     expect(screen.getByText('Find a mentor')).toBeInTheDocument();
-//   });
+    fireEvent.click(screen.getByText('Programmes'));
+    expect(
+      screen.getByRole('menuitem', { name: /Our Programmes/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Our Programmes')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Our Programmes'));
+    expect(mockRouter).toMatchObject({ pathname: '/programmes' });
 
-//   it('opens and closes the Mentorship menu', () => {
-//     render(<NavBar />);
-//     const mentorshipButton = screen.getByText('Mentorship');
-//     fireEvent.click(mentorshipButton);
+    fireEvent.click(screen.getByText('About Us'));
+    expect(screen.getByRole('menuitem', { name: /Team/i })).toBeInTheDocument();
+    expect(screen.getByText('Team')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Team'));
+    expect(mockRouter).toMatchObject({ pathname: '/about-us/team' });
 
-//     expect(screen.getByText('Overview')).toBeInTheDocument();
-//     expect(screen.getByText('Mentors')).toBeInTheDocument();
-//     expect(screen.getByText('Resources')).toBeInTheDocument();
-//     expect(screen.getByText('Code of Conduct')).toBeInTheDocument();
-//     expect(screen.getByText('FAQ')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Mentorship'));
+    expect(
+      screen.getByRole('menuitem', { name: /Mentors/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Mentors')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Mentors'));
+    expect(mockRouter).toMatchObject({ pathname: '/mentorship/mentors' });
 
-//     const closeMentorshipButton = screen.getByText('Overview');
+    fireEvent.click(screen.getByText('Events'));
+    expect(mockRouter).toMatchObject({ pathname: '/events' });
+    fireEvent.click(screen.getByText('Blog'));
+    expect(mockRouter).toMatchObject({ pathname: '/blog' });
+    fireEvent.click(screen.getByText('Jobs'));
+    expect(mockRouter).toMatchObject({ pathname: '/jobs' });
+  });
 
-//     fireEvent.click(closeMentorshipButton);
-//   });
+  it('should open and close the dropdown menu', () => {
+    renderWithRouter(<NavBar />);
+    fireEvent.click(screen.getByText('About Us'));
+    expect(screen.getByTestId('subNav')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('About Us'));
+    expect(screen.queryByRole('subNav')).not.toBeInTheDocument();
+  });
 
-//   it('opens and closes the Programmes menu', () => {
-//     render(<NavBar />);
-//     const programmesButton = screen.getByText('Programmes');
-//     fireEvent.click(programmesButton);
-
-//     expect(screen.getByText('Book Club')).toBeInTheDocument();
-//     expect(screen.getByText('Interview Preparation')).toBeInTheDocument();
-//     expect(screen.getByText('Study Groups')).toBeInTheDocument();
-
-//     const closeProgrammesButton = screen.getByText('Book Club');
-
-//     fireEvent.click(closeProgrammesButton);
-//   });
-
-//   it('opens and closes the About Us menu', async () => {
-//     render(<NavBar />);
-//     const aboutUsButton = screen.getByText('About Us');
-//     fireEvent.click(aboutUsButton);
-
-//     expect(screen.getByText('Option 1')).toBeInTheDocument();
-//     expect(screen.getByText('Option 2')).toBeInTheDocument();
-//     expect(screen.getByText('Option 3')).toBeInTheDocument();
-
-//     const closeAboutUsButton = screen.getByText('Option 1');
-
-//     fireEvent.click(closeAboutUsButton);
-//   });
-// });
+  it('should toggle the mobile drawer', () => {
+    renderWithRouter(<NavBar />);
+    fireEvent.click(screen.getByLabelText('menu'));
+    expect(screen.getByRole('presentation')).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText('menu'));
+    expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
+  });
+});

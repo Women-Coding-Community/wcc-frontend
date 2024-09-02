@@ -103,5 +103,32 @@
         "type": "desktop"
       }
     ]
+  },
+
+  "fullBannerSection": {
+    "title": "Become a Mentor",
+    "description": "Ready to empower and be empowered in tech? Become a mentor! Expand your network, give back, share expertise, and discover new perspectives.",
+    "link": {
+      "label": "Join as a mentor",
+      "uri": "https://docs.google.com/forms/d/e/1FAIpQLSdtf7-upMp1m5kJ4MSpexS-UwGJHhACEW-yPoEQoROHi4kVcg/viewform",
+      "title": "Join as a mentor"
+    },
+    "images": [
+      {
+        "path": "/wcc-home-cta-banner-img-1_21x9.jpg",
+        "alt": "There are two women talking during a productive mentoring session",
+        "type": "desktop"
+      },
+      {
+        "path": "/wcc-home-cta-banner-img-1_square.jpg",
+        "alt": "There are two women talking during a productive mentoring session",
+        "type": "mobile"
+      },
+      {
+        "path": "/wcc-home-cta-banner-img-1_square.jpg",
+        "alt": "There are two women talking during a productive mentoring session",
+        "type": "tablet"
+      }
+    ]
   }
 }
