@@ -7,6 +7,7 @@ import {
   OpportunitiesProgrammes,
   MentorBanner,
   Footer,
+  FeedbackCard,
 } from '@components';
 import { FooterResponse, LandingPageResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
@@ -38,6 +39,14 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmesSection} />
       <MentorBanner {...fullBannerSection} />
+      <FeedbackCard
+        name="Lucy"
+        feedback={
+          'It is great to be able to share my experience as a newbie in Tech with someone that has more years and experience in the industry. It has definitely made me feel more comfortable with been a completely beginner again and confident that, if a put the hours in, one day it will be pay off.'
+        }
+        mentee={true}
+        year={2024}
+      />
       <Footer {...footer} />
     </div>
   );
