@@ -7,6 +7,7 @@ import {
   OpportunitiesProgrammes,
   MentorBanner,
   Footer,
+  EventCard,
 } from '@components';
 import { FooterResponse, LandingPageResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
@@ -35,6 +36,7 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
 
   return (
     <div>
+      <EventCard data={data.eventsSection} />
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmes} />
       <MentorBanner {...fullBannerSection} />

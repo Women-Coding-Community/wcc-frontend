@@ -79,7 +79,7 @@
         "description": "Join us for a discussion of this essential guide to writing clear and maintainable code!\n",
         "images": [
           {
-            "path": "https://cloudprovider.com/image.png",
+            "path": "/event-mobile-img.png",
             "alt": "There are two women talking during a productive mentoring session",
             "type": "desktop"
           }
