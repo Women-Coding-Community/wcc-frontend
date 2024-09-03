@@ -24,10 +24,23 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({
         borderRadius: '12px',
         backgroundColor: 'white',
         padding: '2rem',
-        weight: '360px',
+        maxWidth: '400px',
+        margin: '0 auto',
+        border: '1px solid red',
       }}
     >
-      <span style={{ fontSize: '4rem' }}>“</span>
+      <Typography
+        sx={{
+          fontSize: '96px',
+          fontWeight: '400',
+          color: 'secondary60',
+          fontFamily: 'RocknRoll One',
+          lineHeight: '24px',
+          letterSpacing: '0.5px',
+        }}
+      >
+        “
+      </Typography>
       <Typography variant="body2">{feedback}</Typography>
       <Typography variant="subtitle2">{boldText}</Typography>
     </Box>
