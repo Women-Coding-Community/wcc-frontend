@@ -26,7 +26,6 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({
         padding: '2rem',
         maxWidth: '400px',
         margin: '0 auto',
-        border: '1px solid red',
       }}
     >
       <Typography
@@ -42,7 +41,12 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({
         “
       </Typography>
       <Typography variant="body2">{feedback}</Typography>
-      <Typography variant="subtitle2">{boldText}</Typography>
+      <Typography
+        variant="subtitle2"
+        sx={{ fontWeight: '500', lineHeight: '20px', letterSpacing: '0.1px' }}
+      >
+        {boldText}
+      </Typography>
     </Box>
   );
 };
