@@ -10,13 +10,13 @@ export type Programme = {
   icon: string;
 };
 
-type Link = {
-  title?: string;
+export type Link = {
+  title: string;
   uri: string;
   label: string;
 };
 
-type Event = {
+export type Event = {
   title: string;
   type: string;
   host: string;
