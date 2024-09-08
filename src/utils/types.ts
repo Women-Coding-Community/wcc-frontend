@@ -11,7 +11,7 @@ export type Programme = {
 };
 
 export type Link = {
-  title: string;
+  title?: string;
   uri: string;
   label: string;
 };
