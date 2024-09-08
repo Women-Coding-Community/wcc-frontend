@@ -7,7 +7,6 @@ import {
   OpportunitiesProgrammes,
   MentorBanner,
   Footer,
-  EventCard,
 } from '@components';
 import { FooterResponse, LandingPageResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
@@ -32,13 +31,12 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
     }
   }, [error, router]);
 
-  const { heroSection, programmesSection, fullBannerSection } = data;
+  const { heroSection, programmes, fullBannerSection } = data;
 
   return (
     <div>
-      <EventCard data={data.eventsSection} />
       <Hero {...heroSection} />
-      <OpportunitiesProgrammes {...programmesSection} />
+      <OpportunitiesProgrammes {...programmes} />
       <MentorBanner {...fullBannerSection} />
       <Footer {...footer} />
     </div>
@@ -46,9 +44,8 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const path = 'home.json'; // temporary setup to get correct json
   try {
-    const combinedResponse: CombinedResponse = await fetchData(path);
+    const combinedResponse: CombinedResponse = await fetchData('landingPage');
 
     return {
       props: {

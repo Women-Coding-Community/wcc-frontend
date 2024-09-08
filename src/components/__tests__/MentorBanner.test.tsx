@@ -37,7 +37,7 @@ const BannerProps = {
       type: 'tablet',
     },
   ],
-  link: { title: 'link title', uri: 'www.google.com', label: 'link label' },
+  link: { uri: 'www.google.com', label: 'link label' },
 };
 
 describe('MentorBanner', () => {
@@ -53,11 +53,11 @@ describe('MentorBanner', () => {
 
     it('returns the correct link with text', () => {
       const link = screen.getByRole('link');
-      const linkTitle = screen.getByText('link title');
+      const linkLabel = screen.getByText('link label');
 
       expect(link).toBeInTheDocument();
       expect(link.getAttribute('href')).toBe('www.google.com');
-      expect(linkTitle).toBeInTheDocument();
+      expect(linkLabel).toBeInTheDocument();
     });
   });
 
