@@ -27,9 +27,7 @@ export const fetchData = async (path: string) => {
 
 export const fetchFooter = async () => {
   try {
-    const response = await axios.get(
-      'https://wcc-backend.fly.dev/api/cms/v1/footer',
-    );
+    const response = await axios.get(`${apiBaseUrl}/footer`);
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch footer data');
