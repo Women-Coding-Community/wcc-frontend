@@ -39,7 +39,7 @@ export type LandingPageResponse = {
     description: string;
     items: Programme[];
   };
-  eventsSection: {
+  events: {
     title: string;
     events: Event[];
   };

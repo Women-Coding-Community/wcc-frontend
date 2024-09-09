@@ -31,8 +31,8 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
     }
   }, [error, router]);
 
-  const { heroSection, programmes, fullBannerSection } = data;
-
+  const { heroSection, programmes, fullBannerSection, events } = data;
+  console.log(events)
   return (
     <div>
       <Hero {...heroSection} />
