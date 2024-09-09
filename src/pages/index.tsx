@@ -40,6 +40,7 @@ const HomePage = ({ data, footer, mentorship, error }: HomePageProps) => {
     <div>
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmes} />
+      <MentorshipProgramme {...mentorship} />
       <MentorBanner {...fullBannerSection} />
       <Footer {...footer} />
     </div>
