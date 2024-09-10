@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 
 import {
   Hero,
-  MentorshipProgramme,
   OpportunitiesProgrammes,
   MentorBanner,
   Footer,
@@ -15,17 +14,16 @@ import { fetchData } from 'lib/api';
 type CombinedResponse = {
   data: LandingPageResponse;
   footer: FooterResponse;
-  mentorship: any;
 };
 
 interface HomePageProps {
   data: LandingPageResponse;
   footer: FooterResponse;
-  mentorship: any;
   error: string | null;
 }
 
-const HomePage = ({ data, footer, mentorship, error }: HomePageProps) => {
+const HomePage = ({ data, footer, error }: HomePageProps) => {
+  //
   const router = useRouter();
 
   useEffect(() => {
@@ -40,7 +38,6 @@ const HomePage = ({ data, footer, mentorship, error }: HomePageProps) => {
     <div>
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmes} />
-      <MentorshipProgramme {...mentorship} />
       <MentorBanner {...fullBannerSection} />
       <Footer {...footer} />
     </div>
@@ -55,7 +52,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
       props: {
         data: combinedResponse.data,
         footer: combinedResponse.footer,
-        mentorship: combinedResponse.mentorship,
       },
     };
   } catch (error) {
