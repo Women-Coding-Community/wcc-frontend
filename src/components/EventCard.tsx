@@ -4,17 +4,27 @@ import { Box, Grid, Typography, useMediaQuery, Button } from '@mui/material';
 import Image from 'next/image';
 
 import theme from '../theme';
-import { Event } from '../utils/types';
+import { Image as ImageType, Link } from '../utils/types';
 
-type EventCardProps = {
-  data: {
-    events: Event[];
-  };
-};
+interface EventCardProps {
+  title: string;
+  speaker: string;
+  date: string;
+  description: string;
+  link: Link;
+  images: ImageType[];
+  type: string;
+}
 
-export const EventCard = ({ data }: EventCardProps) => {
-  const event = data.events[0];
-  const { title, speaker, date, description, link, images, type } = event;
+export const EventCard = ({
+  title,
+  speaker,
+  date,
+  description,
+  link,
+  images,
+  type,
+}: EventCardProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(544));
 
   return (
