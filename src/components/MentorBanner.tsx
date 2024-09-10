@@ -23,9 +23,9 @@ export const MentorBanner: React.FC<BannerProps> = ({
 
   const { alt: desktopAlt, path: desktopPath } = images[0];
   const { alt: mobileAlt, path: mobilePath } = images[1];
-  const { title: linkTitle, uri: linkUri, label: linkLabel } = link;
+  const { uri: linkUri, label: linkLabel } = link;
 
-  const image = isMobile ? mobilePath : desktopPath;
+  const image = isMobile ? `/${mobilePath}` : `/${desktopPath}`;
   const alt = isMobile ? mobileAlt : desktopAlt;
 
   return (
@@ -129,7 +129,7 @@ export const MentorBanner: React.FC<BannerProps> = ({
             lineHeight="20px"
             letterSpacing="0.1px"
           >
-            {linkTitle}
+            {linkLabel}
           </Typography>
         </Link>
       </Button>

@@ -32,12 +32,12 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
     }
   }, [error, router]);
 
-  const { heroSection, programmesSection, fullBannerSection } = data;
+  const { heroSection, programmes, fullBannerSection } = data;
 
   return (
     <div>
       <Hero {...heroSection} />
-      <OpportunitiesProgrammes {...programmesSection} />
+      <OpportunitiesProgrammes {...programmes} />
       <MentorBanner {...fullBannerSection} />
       <FeedbackCard
         name="Lucy"
@@ -53,9 +53,8 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const path = 'home.json'; // temporary setup to get correct json
   try {
-    const combinedResponse: CombinedResponse = await fetchData(path);
+    const combinedResponse: CombinedResponse = await fetchData('landingPage');
 
     return {
       props: {
