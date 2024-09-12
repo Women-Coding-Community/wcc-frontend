@@ -23,7 +23,6 @@ interface HomePageProps {
 }
 
 const HomePage = ({ data, footer, error }: HomePageProps) => {
-  //
   const router = useRouter();
 
   useEffect(() => {
