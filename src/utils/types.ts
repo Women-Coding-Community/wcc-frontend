@@ -75,36 +75,27 @@ export type FooterResponse = {
   link: Link;
 };
 
-export type MentorshipPageProps = {
-  mentorship: MentorshipProgrammeData;
-  error: string | null;
-};
-
 export type MentorshipProgrammeData = {
-  page: PageProps;
-  mentorSection: MentorOrMenteeProps;
-  menteeSection: MentorOrMenteeProps;
-  feedback: FeedbackProps;
+  page: {
+    title: string;
+    description: string;
+  };
+  mentorSection: MentorOrMenteeSectionData;
+  menteeSection: MentorOrMenteeSectionData;
+  feedback: FeedbackSectionData;
 };
 
-export type PageProps = {
+export type MentorOrMenteeSectionData = {
   title: string;
   description: string;
-};
-
-export type LinkProps = {
-  label: string;
-  url: string;
-};
-
-export type MentorOrMenteeProps = {
-  title: string;
-  description: string;
-  link: LinkProps;
+  link: {
+    label: string;
+    url: string;
+  };
   topics: string[];
 };
 
-export type FeedbackProps = {
+export type FeedbackSectionData = {
   title: string;
   feedbacks: [
     {
