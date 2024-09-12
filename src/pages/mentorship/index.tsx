@@ -1,8 +1,13 @@
-// path: /mentorship
 import { GetServerSideProps } from 'next';
 
-import { MentorshipPageProps } from '@utils/types';
+import { FooterResponse, MentorshipProgrammeData } from '@utils/types';
 import { fetchData } from 'lib/api';
+
+interface MentorshipPageProps {
+  mentorship: MentorshipProgrammeData;
+  footer: FooterResponse;
+  error: string | null;
+}
 
 const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
   return <div>{JSON.stringify(mentorship)}</div>;
@@ -15,6 +20,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     return {
       props: {
         mentorship: combinedResponse.data,
+        footer: combinedResponse.footer,
       },
     };
   } catch (error) {
