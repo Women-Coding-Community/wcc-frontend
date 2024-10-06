@@ -1,6 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 
+import QuoteIcon from '../../public/icons/quote-icon-custom_orange.svg';
+
 interface FeedbackCardProps {
   name: string;
   feedback: string;
@@ -28,18 +30,8 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({
         margin: '0 auto',
       }}
     >
-      <Typography
-        sx={{
-          fontSize: '96px',
-          fontWeight: '400',
-          color: 'secondary60',
-          fontFamily: 'RocknRoll One',
-          lineHeight: '24px',
-          letterSpacing: '0.5px',
-        }}
-      >
-        “
-      </Typography>
+      <QuoteIcon />
+
       <Typography variant="body2">{feedback}</Typography>
       <Typography
         variant="subtitle2"
