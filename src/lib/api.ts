@@ -14,7 +14,10 @@ export const fetchData = async (path: string) => {
     if (response.status !== 200) {
       throw new Error('Failed to fetch data');
     }
-    return { data: response.data, footer: footerData };
+    return {
+      data: response.data,
+      footer: footerData,
+    };
   } catch (error) {
     throw new Error('Failed to fetch data');
   }
