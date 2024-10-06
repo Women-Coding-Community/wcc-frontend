@@ -1,11 +1,10 @@
 import { GetServerSideProps } from 'next';
 
-import { FooterResponse, MentorshipProgrammeData } from '@utils/types';
+import { MentorshipProgrammeData } from '@utils/types';
 import { fetchData } from 'lib/api';
 
 interface MentorshipPageProps {
   mentorship: MentorshipProgrammeData;
-  footer: FooterResponse;
   error: string | null;
 }
 
@@ -20,7 +19,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     return {
       props: {
         mentorship: combinedResponse.data,
-        footer: combinedResponse.footer,
       },
     };
   } catch (error) {
