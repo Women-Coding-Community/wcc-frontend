@@ -1,34 +1,37 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
+import { ComponentProps } from 'react';
 
-import { FeedbackCard } from 'components/FeedbackCard';
+import { FeedbackCard } from '@components';
+
+jest.mock('../../public/icons/quote-icon-custom_orange.svg', () => {
+  const MockedQuoteIcon = () => <div data-testid="quote-icon" />;
+  MockedQuoteIcon.displayName = 'QuoteIcon';
+  return MockedQuoteIcon;
+});
+
+const feedbackCardProps: ComponentProps<typeof FeedbackCard> = {
+  name: 'Lucy',
+  feedback:
+    'It is great to be able to share my experience as a newbie in Tech with someone that has more years and experience in the industry. It has definitely made me feel more comfortable with been a completely beginner again and confident that, if a put the hours in, one day it will be pay off.',
+  mentee: true,
+  year: 2024,
+};
 
 describe('FeedbackCard', () => {
-  // Does this variable make sense?
-  let firstRender: any;
   beforeEach(() => {
-    firstRender = render(
-      <FeedbackCard
-        name="Lucy"
-        feedback={
-          'It is great to be able to share my experience as a newbie in Tech with someone that has more years and experience in the industry. It has definitely made me feel more comfortable with been a completely beginner again and confident that, if a put the hours in, one day it will be pay off.'
-        }
-        mentee={true}
-        year={2024}
-      />,
-    );
+    render(<FeedbackCard {...feedbackCardProps} />);
+  });
+  afterEach(() => {
+    cleanup();
   });
 
-  it('has a quotes', () => {
-    const quotes = screen.getByText('“');
+  it('has a quotes icon', () => {
+    const quotes = screen.getByTestId('quote-icon');
     expect(quotes).toBeInTheDocument();
   });
 
   it('has a feedback content', () => {
-    expect(
-      screen.getByText(
-        'It is great to be able to share my experience as a newbie in Tech with someone that has more years and experience in the industry. It has definitely made me feel more comfortable with been a completely beginner again and confident that, if a put the hours in, one day it will be pay off.',
-      ),
-    ).toBeInTheDocument();
+    expect(screen.getByText(feedbackCardProps.feedback)).toBeInTheDocument();
   });
 
   it('has a name', () => {
@@ -40,9 +43,9 @@ describe('FeedbackCard', () => {
   });
 
   it('if mentee is false displays "Mentor"', () => {
-    // Using the rerender method for when mentee is true and false
-    const { rerender } = firstRender;
-    rerender(<FeedbackCard name="" feedback={''} mentee={false} year={2024} />);
+    cleanup();
+    render(<FeedbackCard name="" feedback={''} mentee={false} year={2024} />);
+
     expect(screen.getByText(/Mentor/i)).toBeInTheDocument();
   });
 
