@@ -1,51 +1,81 @@
+import { Typography, useMediaQuery, Box, Grid } from '@mui/material';
+import theme from '../theme';
 import { EventData } from '../utils/types';
 
 import { EventCard } from './EventCard';
-import {Typography} from "@mui/material";
 
 interface EventContainerProps extends EventData {}
 export const EventContainer = ({ title, link, items }: EventContainerProps) => {
   console.log(`EventContainer events`, title, link, items);
 
+  const isMobile = useMediaQuery(theme.breakpoints.down(750));
+
   return (
     <>
-      <Typography
-      variant="h2"
+    <Box
       sx={{
-        fontSize: '45px',
-        fontWeight: 600,
+        background: '#F6FAFE',
+        width: '100%',
+        padding: '80px 0'
+      }}
+    >
+      <Box
+        sx={{
+          maxWidth: '1128px',
+          margin: '0 auto',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+            marginBottom: '16px',
           }}
         >
-      {title}
-      </Typography>
-      <a href={link.uri}>{link.label}</a>
-      {items.map((event, index) => {
-        const {
-          title,
-          description,
-          startDate,
-          endDate,
-          eventType,
-          speakerProfile,
-          eventLink,
-          images,
-        } = event;
-        const date = `${startDate} - ${endDate}`;
-        const speaker = speakerProfile.label;
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: isMobile ? '28px' : '45px',
+              fontWeight: isMobile ? '500' : '600',
+              textAlign: 'left',
+            }}
+          >
+            {title}
+          </Typography>
+          <a href={link.uri} style={{ textAlign: 'right' }}>
+            {link.label}
+          </a>
+        </Box>
+          {items.map((event, index) => {
+            const {
+              title,
+              description,
+              startDate,
+              endDate,
+              eventType,
+              speakerProfile,
+              eventLink,
+              images,
+            } = event;
+            const date = `${startDate} - ${endDate}`;
+            const speaker = speakerProfile.label;
 
-        return (
-          <EventCard
-            key={index}
-            title={title}
-            speaker={speaker}
-            date={date}
-            description={description}
-            link={eventLink}
-            images={images}
-            type={eventType}
-          />
-        );
-      })}
+            return (
+              <EventCard
+                key={index}
+                title={title}
+                speaker={speaker}
+                date={date}
+                description={description}
+                link={eventLink}
+                images={images}
+                type={eventType}
+              />
+            );
+          })}
+          </Box>
+        </Box>
     </>
   );
 };
