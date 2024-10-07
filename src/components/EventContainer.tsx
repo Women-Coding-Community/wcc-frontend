@@ -1,4 +1,5 @@
-import { Typography, useMediaQuery, Box, Grid } from '@mui/material';
+import { Typography, useMediaQuery, Box } from '@mui/material';
+
 import theme from '../theme';
 import { EventData } from '../utils/types';
 
@@ -12,41 +13,41 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
 
   return (
     <>
-    <Box
-      sx={{
-        background: '#F6FAFE',
-        width: '100%',
-        padding: '80px 0'
-      }}
-    >
       <Box
         sx={{
-          maxWidth: '1128px',
-          margin: '0 auto',
+          background: '#F6FAFE',
+          width: '100%',
+          padding: '80px 0',
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-end',
-            marginBottom: '16px',
+            maxWidth: '1128px',
+            margin: '0 auto',
           }}
         >
-          <Typography
-            variant="h2"
+          <Box
             sx={{
-              fontSize: isMobile ? '28px' : '45px',
-              fontWeight: isMobile ? '500' : '600',
-              textAlign: 'left',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-end',
+              marginBottom: '16px',
             }}
           >
-            {title}
-          </Typography>
-          <a href={link.uri} style={{ textAlign: 'right' }}>
-            {link.label}
-          </a>
-        </Box>
+            <Typography
+              variant="h2"
+              sx={{
+                fontSize: isMobile ? '28px' : '45px',
+                fontWeight: isMobile ? '500' : '600',
+                textAlign: 'left',
+              }}
+            >
+              {title}
+            </Typography>
+            <a href={link.uri} style={{ textAlign: 'right' }}>
+              {link.label}
+            </a>
+          </Box>
           {items.map((event, index) => {
             const {
               title,
@@ -74,8 +75,8 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
               />
             );
           })}
-          </Box>
         </Box>
+      </Box>
     </>
   );
 };
