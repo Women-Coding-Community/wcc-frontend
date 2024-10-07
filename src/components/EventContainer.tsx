@@ -1,6 +1,7 @@
 import { EventData } from '../utils/types';
 
 import { EventCard } from './EventCard';
+import {Typography} from "@mui/material";
 
 interface EventContainerProps extends EventData {}
 export const EventContainer = ({ title, link, items }: EventContainerProps) => {
@@ -8,7 +9,15 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
 
   return (
     <>
-      <h2>{title}</h2>
+      <Typography
+      variant="h2"
+      sx={{
+        fontSize: '45px',
+        fontWeight: 600,
+          }}
+        >
+      {title}
+      </Typography>
       <a href={link.uri}>{link.label}</a>
       {items.map((event, index) => {
         const {
