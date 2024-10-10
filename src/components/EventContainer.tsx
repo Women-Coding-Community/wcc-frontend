@@ -17,7 +17,7 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
         sx={{
           background: '#F6FAFE',
           width: '100%',
-          padding: '80px 0',
+          padding: '40px 16px',
         }}
       >
         <Box
@@ -44,7 +44,7 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
             >
               {title}
             </Typography>
-            <a href={link.uri} style={{ textAlign: 'right' }}>
+            <a href={link.uri} style={{ textAlign: 'right', fontSize: '16px', textDecoration: 'none', color: '#1A4B66' }}>
               {link.label}
             </a>
           </Box>
