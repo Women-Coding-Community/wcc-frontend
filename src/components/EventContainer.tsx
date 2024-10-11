@@ -1,8 +1,7 @@
 import { Typography, useMediaQuery, Box } from '@mui/material';
-
+import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import theme from '../theme';
 import { EventData } from '../utils/types';
-
 import { EventCard } from './EventCard';
 
 interface EventContainerProps extends EventData {}
@@ -30,8 +29,9 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              alignItems: 'flex-end',
+              alignItems: isMobile ? 'center' : 'flex-end',
               marginBottom: '16px',
+              background: 'red'
             }}
           >
             <Typography
@@ -44,9 +44,27 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
             >
               {title}
             </Typography>
-            <a href={link.uri} style={{ textAlign: 'right', fontSize: '16px', textDecoration: 'none', color: '#1A4B66' }}>
+            <Typography
+              component="a"
+              href={link.uri}
+              style={{
+                display: 'flex',
+                textAlign: 'right',
+                fontSize: '16px',
+                textDecoration: 'none',
+                color: '#1A4B66',
+                lineHeight: '1.5',
+                fontWeight: '500',
+                gap: '5px',
+                letterSpacing: '0.15px',
+                background: 'yellow'
+              }}
+            >
               {link.label}
-            </a>
+              <Box>
+                <ArrowCircleRightOutlinedIcon sx={{ color: '#1A4B66', display: 'flex', alignItems: 'center' }} />
+              </Box>
+            </Typography>
           </Box>
           {items.map((event, index) => {
             const {
