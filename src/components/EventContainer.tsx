@@ -1,8 +1,9 @@
-import { Typography, useMediaQuery, Box } from '@mui/material';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
+import { Typography, useMediaQuery, Box } from '@mui/material';
 import theme from '../theme';
 import { EventData } from '../utils/types';
 import { EventCard } from './EventCard';
+import { GradientBorderDivider } from './GradientBorderDivider';
 
 interface EventContainerProps extends EventData {}
 export const EventContainer = ({ title, link, items }: EventContainerProps) => {
@@ -30,8 +31,6 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: isMobile ? 'center' : 'flex-end',
-              marginBottom: '16px',
-              background: 'red'
             }}
           >
             <Typography
@@ -57,15 +56,26 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
                 fontWeight: '500',
                 gap: '5px',
                 letterSpacing: '0.15px',
-                background: 'yellow'
               }}
             >
               {link.label}
               <Box>
-                <ArrowCircleRightOutlinedIcon sx={{ color: '#1A4B66', display: 'flex', alignItems: 'center' }} />
+                <ArrowCircleRightOutlinedIcon
+                  sx={{
+                    color: '#1A4B66',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                />
               </Box>
             </Typography>
           </Box>
+          <GradientBorderDivider
+            height="0.5rem"
+            width="100%"
+            margin={isMobile ? '8px auto 30px' : '13px auto 39px'}
+            gradientColors="linear-gradient(to right, #84B1D0, #FFDEA6, #FFB59D)"
+          />
           {items.map((event, index) => {
             const {
               title,
