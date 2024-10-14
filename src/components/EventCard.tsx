@@ -34,14 +34,16 @@ export const EventCard = ({
         maxWidth: isMobile ? '362px' : '544px',
         margin: '0 auto',
         padding: isMobile ? '24px' : '32px',
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#226488',
         color: '#FFFFFF',
         borderRadius: 3,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        minHeight: isMobile ? 'auto' : '400px',
       }}
     >
-      <Grid item>
+      <Box sx={{ flexGrow: 1 }}>
         <Box
           sx={{
             display: 'flex',
@@ -132,39 +134,42 @@ export const EventCard = ({
           >
             {description}
           </Typography>
-          <Button
-            variant="contained"
-            disableElevation
-            color="primary"
-            href={link.uri}
-            target="_blank"
-            endIcon={
-              <LaunchIcon sx={{ marginLeft: '-4px', width: 16, height: 16 }} />
-            }
-            sx={{
-              backgroundColor: 'white',
-              color: '#226488',
-              fontWeight: 500,
-              lineHeight: 1.4,
-              cursor: 'pointer',
-              padding: '10px 12px',
-              border: `1px solid #226488`,
-              borderRadius: 8,
-              '&:hover': {
-                backgroundColor: 'white',
-              },
-              '&:focus': {
-                outline: 'none',
-              },
-              '&.MuiButton-root': {
-                boxShadow: 'none',
-              },
-            }}
-          >
-            {link.label}
-          </Button>
+          
         </Box>
-      </Grid>
+      </Box>
+      <Box sx={{ marginTop: 'auto' }}>
+            <Button
+              variant="contained"
+              disableElevation
+              color="primary"
+              href={link.uri}
+              target="_blank"
+              endIcon={
+                <LaunchIcon sx={{ marginLeft: '-4px', width: 16, height: 16 }} />
+              }
+              sx={{
+                backgroundColor: 'white',
+                color: '#226488',
+                fontWeight: 500,
+                lineHeight: 1.4,
+                cursor: 'pointer',
+                padding: '10px 12px',
+                border: `1px solid #226488`,
+                borderRadius: 8,
+                '&:hover': {
+                  backgroundColor: 'white',
+                },
+                '&:focus': {
+                  outline: 'none',
+                },
+                '&.MuiButton-root': {
+                  boxShadow: 'none',
+                },
+              }}
+            >
+              {link.label}
+            </Button>
+          </Box>
     </Grid>
   );
 };

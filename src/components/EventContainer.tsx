@@ -81,37 +81,37 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
           <Box
             sx={{
               display: 'grid',
-              gap: isMobile ? '20px': '40px',
+              gap: isMobile ? '20px' : '40px',
               gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
             }}
-          >          
-          {items.map((event, index) => {
-            const {
-              title,
-              description,
-              startDate,
-              endDate,
-              eventType,
-              speakerProfile,
-              eventLink,
-              images,
-            } = event;
-            const date = `${startDate} - ${endDate}`;
-            const speaker = speakerProfile.label;
+          >
+            {items.map((event, index) => {
+              const {
+                title,
+                description,
+                startDate,
+                endDate,
+                eventType,
+                speakerProfile,
+                eventLink,
+                images,
+              } = event;
+              const date = `${startDate} - ${endDate}`;
+              const speaker = speakerProfile.label;
 
-            return (
-              <EventCard
-                key={index}
-                title={title}
-                speaker={speaker}
-                date={date}
-                description={description}
-                link={eventLink}
-                images={images}
-                type={eventType}
-              />
-            );
-          })}
+              return (
+                <EventCard
+                  key={index}
+                  title={title}
+                  speaker={speaker}
+                  date={date}
+                  description={description}
+                  link={eventLink}
+                  images={images}
+                  type={eventType}
+                />
+              );
+            })}
           </Box>
         </Box>
       </Box>
