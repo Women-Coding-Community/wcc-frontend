@@ -1,7 +1,9 @@
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import { Typography, useMediaQuery, Box } from '@mui/material';
+
 import theme from '../theme';
 import { EventData } from '../utils/types';
+
 import { EventCard } from './EventCard';
 import { GradientBorderDivider } from './GradientBorderDivider';
 
@@ -76,6 +78,13 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
             margin={isMobile ? '8px auto 30px' : '13px auto 39px'}
             gradientColors="linear-gradient(to right, #84B1D0, #FFDEA6, #FFB59D)"
           />
+          <Box
+            sx={{
+              display: 'grid',
+              gap: isMobile ? '20px': '40px',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+            }}
+          >          
           {items.map((event, index) => {
             const {
               title,
@@ -103,6 +112,7 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
               />
             );
           })}
+          </Box>
         </Box>
       </Box>
     </>
