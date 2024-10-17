@@ -95,7 +95,7 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
             } = event;
             const endTime = endDate.split(', ').slice(-1)[0];
             const date = `${startDate} - ${endTime}`;
-            const key = `${title}-${startDate}-${Math.random()}`;
+            const key = `${title}-${startDate}}`;
             const speaker = speakerProfile.label;
 
             return (
