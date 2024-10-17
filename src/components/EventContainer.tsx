@@ -12,7 +12,6 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
 
   return (
-    <>
       <Box
         sx={{
           background: '#F6FAFE',
@@ -115,6 +114,5 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
           </Box>
         </Box>
       </Box>
-    </>
   );
 };

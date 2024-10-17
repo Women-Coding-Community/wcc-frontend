@@ -26,7 +26,7 @@ export const EventCard = ({
   type,
 }: EventCardProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(544));
-  
+
   return (
     <Grid
       container
