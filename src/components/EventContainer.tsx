@@ -9,8 +9,6 @@ import { GradientBorderDivider } from './GradientBorderDivider';
 
 interface EventContainerProps extends EventData {}
 export const EventContainer = ({ title, link, items }: EventContainerProps) => {
-  console.log(`EventContainer events`, title, link, items);
-
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
 
   return (
@@ -76,7 +74,7 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
             height="0.5rem"
             width="100%"
             margin={isMobile ? '8px auto 30px' : '13px auto 39px'}
-            gradientColors="linear-gradient(to right, #84B1D0, #FFDEA6, #FFB59D)"
+            gradientColors="linear-gradient(90deg, #C7E7FF 0%, #FFDEA6 100%)"
           />
           <Box
             sx={{
@@ -96,7 +94,9 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
                 eventLink,
                 images,
               } = event;
-              const date = `${startDate} - ${endDate}`;
+              const endTime = endDate.split(', ').slice(-1)[0];
+              const date = `${startDate} - ${endTime}`;
+
               const speaker = speakerProfile.label;
 
               return (

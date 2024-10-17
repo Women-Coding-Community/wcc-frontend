@@ -26,7 +26,7 @@ export const EventCard = ({
   type,
 }: EventCardProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(544));
-
+  
   return (
     <Grid
       container
@@ -134,42 +134,41 @@ export const EventCard = ({
           >
             {description}
           </Typography>
-          
         </Box>
       </Box>
       <Box sx={{ marginTop: 'auto' }}>
-            <Button
-              variant="contained"
-              disableElevation
-              color="primary"
-              href={link.uri}
-              target="_blank"
-              endIcon={
-                <LaunchIcon sx={{ marginLeft: '-4px', width: 16, height: 16 }} />
-              }
-              sx={{
-                backgroundColor: 'white',
-                color: '#226488',
-                fontWeight: 500,
-                lineHeight: 1.4,
-                cursor: 'pointer',
-                padding: '10px 12px',
-                border: `1px solid #226488`,
-                borderRadius: 8,
-                '&:hover': {
-                  backgroundColor: 'white',
-                },
-                '&:focus': {
-                  outline: 'none',
-                },
-                '&.MuiButton-root': {
-                  boxShadow: 'none',
-                },
-              }}
-            >
-              {link.label}
-            </Button>
-          </Box>
+        <Button
+          variant="contained"
+          disableElevation
+          color="primary"
+          href={link.uri}
+          target="_blank"
+          endIcon={
+            <LaunchIcon sx={{ marginLeft: '-4px', width: 16, height: 16 }} />
+          }
+          sx={{
+            backgroundColor: 'white',
+            color: '#226488',
+            fontWeight: 500,
+            lineHeight: 1.4,
+            cursor: 'pointer',
+            padding: '10px 12px',
+            border: `1px solid #226488`,
+            borderRadius: 8,
+            '&:hover': {
+              backgroundColor: 'white',
+            },
+            '&:focus': {
+              outline: 'none',
+            },
+            '&.MuiButton-root': {
+              boxShadow: 'none',
+            },
+          }}
+        >
+          {link.label}
+        </Button>
+      </Box>
     </Grid>
   );
 };
