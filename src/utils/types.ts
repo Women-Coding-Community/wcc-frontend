@@ -1,9 +1,3 @@
-// type Image = {
-//   path: string;
-//   alt: string;
-//   type?: string;
-// };
-
 export type Programme = {
   name: string;
   link: Link;
