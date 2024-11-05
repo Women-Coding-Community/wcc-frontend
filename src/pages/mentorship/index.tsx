@@ -3,22 +3,31 @@ import { GetServerSideProps } from 'next';
 import { MentorshipProgrammeData } from '@utils/types';
 import { fetchData } from 'lib/api';
 
+import { FeedbackSection } from './feedback-section';
+
 interface MentorshipPageProps {
   mentorship: MentorshipProgrammeData;
   error: string | null;
 }
 
 const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
-  return <div>{JSON.stringify(mentorship)}</div>;
+  return (
+    <div>
+      <FeedbackSection
+        title={mentorship.feedbackSection.title}
+        feedbacks={mentorship.feedbackSection.feedbacks}
+      />
+    </div>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const combinedResponse = await fetchData('mentorship/overview');
+    const response = await fetchData('mentorship/overview');
 
     return {
       props: {
-        mentorship: combinedResponse.data,
+        mentorship: response.data,
       },
     };
   } catch (error) {
