@@ -74,3 +74,35 @@ export type FooterResponse = {
   network: Network[];
   link: Link;
 };
+
+export type MentorshipProgrammeData = {
+  page: {
+    title: string;
+    description: string;
+  };
+  mentorSection: MentorOrMenteeSectionData;
+  menteeSection: MentorOrMenteeSectionData;
+  feedback: FeedbackSectionData;
+};
+
+export type MentorOrMenteeSectionData = {
+  title: string;
+  description: string;
+  link: {
+    label: string;
+    url: string;
+  };
+  topics: string[];
+};
+
+export type FeedbackSectionData = {
+  title: string;
+  feedbacks: [
+    {
+      name: string;
+      feedback: string;
+      mentee: boolean;
+      year: number;
+    },
+  ];
+};

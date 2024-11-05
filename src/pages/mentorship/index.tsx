@@ -1,20 +1,34 @@
-// path: /mentorship
+import { GetServerSideProps } from 'next';
 
-import { FeedbackCard } from '@components';
+import { MentorshipProgrammeData } from '@utils/types';
+import { fetchData } from 'lib/api';
 
-const MentorshipPage = () => {
-  return (
-    <div>
-      <FeedbackCard
-        name="Lucy"
-        feedback={
-          'It is great to be able to share my experience as a newbie in Tech with someone that has more years and experience in the industry. It has definitely made me feel more comfortable with been a completely beginner again and confident that, if a put the hours in, one day it will be pay off.'
-        }
-        mentee={true}
-        year={2024}
-      />
-    </div>
-  );
+interface MentorshipPageProps {
+  mentorship: MentorshipProgrammeData;
+  error: string | null;
+}
+
+const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
+  return <div>{JSON.stringify(mentorship)}</div>;
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const combinedResponse = await fetchData('mentorship/overview');
+
+    return {
+      props: {
+        mentorship: combinedResponse.data,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        data: null,
+        error: error instanceof Error ? error.message : 'An error occurred',
+      },
+    };
+  }
 };
 
 export default MentorshipPage;
