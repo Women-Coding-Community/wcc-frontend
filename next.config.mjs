@@ -1,6 +1,7 @@
 // next.config.mjs
 // eslint-disable-next-line import/no-anonymous-default-export
-export default {
+
+const nextConfig = {
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -9,4 +10,16 @@ export default {
 
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'secure.meetupstatic.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
 };
+
+export default nextConfig;

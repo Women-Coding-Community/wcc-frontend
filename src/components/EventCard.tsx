@@ -4,17 +4,27 @@ import { Box, Grid, Typography, useMediaQuery, Button } from '@mui/material';
 import Image from 'next/image';
 
 import theme from '../theme';
-import { Event } from '../utils/types';
+import { Image as ImageType, Link } from '../utils/types';
 
-type EventCardProps = {
-  data: {
-    events: Event[];
-  };
-};
+interface EventCardProps {
+  title: string;
+  speaker: string;
+  date: string;
+  description: string;
+  link: Link;
+  images: ImageType[];
+  type: string;
+}
 
-export const EventCard = ({ data }: EventCardProps) => {
-  const event = data.events[0];
-  const { title, speaker, date, description, link, images, type } = event;
+export const EventCard = ({
+  title,
+  speaker,
+  date,
+  description,
+  link,
+  images,
+  type,
+}: EventCardProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(544));
 
   return (
@@ -24,14 +34,16 @@ export const EventCard = ({ data }: EventCardProps) => {
         maxWidth: isMobile ? '362px' : '544px',
         margin: '0 auto',
         padding: isMobile ? '24px' : '32px',
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#226488',
         color: '#FFFFFF',
         borderRadius: 3,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        minHeight: isMobile ? 'auto' : '400px',
       }}
     >
-      <Grid item>
+      <Box sx={{ flexGrow: 1 }}>
         <Box
           sx={{
             display: 'flex',
@@ -122,39 +134,41 @@ export const EventCard = ({ data }: EventCardProps) => {
           >
             {description}
           </Typography>
-          <Button
-            variant="contained"
-            disableElevation
-            color="primary"
-            href={link.uri}
-            target="_blank"
-            endIcon={
-              <LaunchIcon sx={{ marginLeft: '-4px', width: 16, height: 16 }} />
-            }
-            sx={{
-              backgroundColor: 'white',
-              color: '#226488',
-              fontWeight: 500,
-              lineHeight: 1.4,
-              cursor: 'pointer',
-              padding: '10px 12px',
-              border: `1px solid #226488`,
-              borderRadius: 8,
-              '&:hover': {
-                backgroundColor: 'white',
-              },
-              '&:focus': {
-                outline: 'none',
-              },
-              '&.MuiButton-root': {
-                boxShadow: 'none',
-              },
-            }}
-          >
-            {link.label}
-          </Button>
         </Box>
-      </Grid>
+      </Box>
+      <Box sx={{ marginTop: 'auto' }}>
+        <Button
+          variant="contained"
+          disableElevation
+          color="primary"
+          href={link.uri}
+          target="_blank"
+          endIcon={
+            <LaunchIcon sx={{ marginLeft: '-4px', width: 16, height: 16 }} />
+          }
+          sx={{
+            backgroundColor: 'white',
+            color: '#226488',
+            fontWeight: 500,
+            lineHeight: 1.4,
+            cursor: 'pointer',
+            padding: '10px 12px',
+            border: `1px solid #226488`,
+            borderRadius: 8,
+            '&:hover': {
+              backgroundColor: 'white',
+            },
+            '&:focus': {
+              outline: 'none',
+            },
+            '&.MuiButton-root': {
+              boxShadow: 'none',
+            },
+          }}
+        >
+          {link.label}
+        </Button>
+      </Box>
     </Grid>
   );
 };
