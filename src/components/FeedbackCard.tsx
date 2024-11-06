@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
-import QuoteIcon from '@public/icons/quote-icon-custom_orange.svg';
 import React from 'react';
+
+import QuoteIcon from '@public/icons/quote-icon-custom_orange.svg';
 
 export interface FeedbackCardProps {
   name: string;
