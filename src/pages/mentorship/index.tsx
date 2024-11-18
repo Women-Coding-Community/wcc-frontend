@@ -5,9 +5,6 @@ import { Typography, Grid, useMediaQuery } from '@mui/material';
 import MentorBecomeCard from 'components/MentorBecomeCard';
 import theme from 'theme';
 
-const mentorTopics = ['foo', 'bar'];
-const menteeTopics = ['Hello', 'World'];
-
 const MentorshipPage = () => {
   return (
     <div>

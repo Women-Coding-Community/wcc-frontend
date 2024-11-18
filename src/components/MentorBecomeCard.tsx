@@ -50,7 +50,10 @@ const MentorBecomeCard = ({
 
       <ol>
         {topics.map((topic: any, index: number) => (
-          <li style={{ fontSize: '24px' }} key={`become-${title}-topic-${index}`}>
+          <li
+            style={{ fontSize: '24px' }}
+            key={`become-${title}-topic-${index}`}
+          >
             <Typography variant="h5">{topic}</Typography>
           </li>
         ))}
