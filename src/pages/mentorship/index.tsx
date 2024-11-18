@@ -14,7 +14,7 @@ const MentorshipPage = () => {
         style={{
           background: '#F6FAFE',
           padding: useMediaQuery(theme.breakpoints.down(544))
-            ? '40px auto'
+            ? '35px 15px'
             : '160px 80px',
         }}
       >

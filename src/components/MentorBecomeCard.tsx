@@ -41,7 +41,7 @@ const MentorBecomeCard = ({
       <GradientBorderDivider
         height="4px"
         width="80%"
-        margin={isMobile ? '12px auto' : 'auto auto  15px 0'}
+        margin={isMobile ? '12px 0' : 'auto auto  15px 0'}
         gradientColors="linear-gradient(to right, #84B1D0, #FFDEA6, #FFB59D)"
       />
       <Typography variant={'h5'}>
