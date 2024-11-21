@@ -28,7 +28,6 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({
         padding: '2rem',
         maxWidth: '400px',
         margin: '0 auto',
-        height: '100%',
       }}
     >
       <QuoteIcon />
