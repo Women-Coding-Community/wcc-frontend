@@ -58,7 +58,7 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
                   key={feedback.name}
                   sx={{
                     display: 'flex',
-                    alignItems: 'stretch', // alignContent
+                    alignItems: 'stretch',
                   }}
                 >
                   <FeedbackCard
