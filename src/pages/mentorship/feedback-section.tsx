@@ -1,7 +1,7 @@
 // path: /mentorship/faqs
 
 import { Typography, Button, Box, Grid } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ColoredBox, FeedbackCard } from '@components';
 import { FeedbackCardProps } from 'components/FeedbackCard';
@@ -15,6 +15,12 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
   title,
   feedbacks,
 }) => {
+  const [feedbacksDisplayed, setFeedbacksDisplayed] = useState<number>(3);
+  const showMoreFeedbacks = () => {
+    setFeedbacksDisplayed((prevCount) =>
+      Math.min(prevCount + 3, feedbacks.length),
+    );
+  };
   return (
     <>
       <ColoredBox color={'#FFDEA6'}>
@@ -34,13 +40,27 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           </Typography>
           <Grid
             container
+            alignItems="stretch"
             spacing={{ xs: 3, sm: 3, md: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
-            sx={{ justifyContent: 'center', maxWidth: '70rem' }}
+            sx={{
+              justifyContent: 'flex-start',
+              maxWidth: '70rem',
+            }}
           >
             {feedbacks && feedbacks.length > 0 ? (
-              feedbacks.map((feedback, index) => (
-                <Grid item xs={12} sm={6} md={4} key={feedback.name}>
+              feedbacks.slice(0, feedbacksDisplayed).map((feedback, index) => (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  key={feedback.name}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'stretch', // alignContent
+                  }}
+                >
                   <FeedbackCard
                     key={index}
                     name={feedback.name}
@@ -56,6 +76,8 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           </Grid>
 
           <Button
+            onClick={showMoreFeedbacks}
+            disabled={feedbacksDisplayed >= feedbacks.length}
             variant="outlined"
             sx={{
               borderRadius: '20px',
