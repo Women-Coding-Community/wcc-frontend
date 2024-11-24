@@ -6,14 +6,14 @@ import theme from 'theme';
 import { GradientBorderDivider } from './GradientBorderDivider';
 
 interface MentorBecomeCardProps {
-  title: string;
+  mentorOrMentee: string;
   topics: string[];
   buttonText: string;
   buttonUrl: string;
 }
 
 const MentorBecomeCard = ({
-  title,
+  mentorOrMentee,
   topics,
   buttonText,
   buttonUrl,
@@ -36,7 +36,7 @@ const MentorBecomeCard = ({
         }}
         variant="h4"
       >
-        Become a {title}
+        Become a {mentorOrMentee}
       </Typography>
       <GradientBorderDivider
         height="4px"
@@ -45,14 +45,14 @@ const MentorBecomeCard = ({
         gradientColors="linear-gradient(to right, #84B1D0, #FFDEA6, #FFB59D)"
       />
       <Typography variant={'h5'}>
-        You should become a {title} if you:
+        You should become a {mentorOrMentee} if you:
       </Typography>
 
       <ol>
         {topics.map((topic: any, index: number) => (
           <li
             style={{ fontSize: '24px' }}
-            key={`become-${title}-topic-${index}`}
+            key={`become-${mentorOrMentee}-topic-${index}`}
           >
             <Typography variant="h5">{topic}</Typography>
           </li>

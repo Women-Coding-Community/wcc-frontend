@@ -19,7 +19,7 @@ const MentorshipPage = () => {
         }}
       >
         <MentorBecomeCard
-          title="mentor"
+          mentorOrMentee="mentor"
           topics={[
             'Want to extend your professional network',
             'Want to contribute to the community',
@@ -30,7 +30,7 @@ const MentorshipPage = () => {
           buttonText={'Join as a mentor'}
         ></MentorBecomeCard>
         <MentorBecomeCard
-          title="mentee"
+          mentorOrMentee="mentee"
           topics={[
             'Want to start a career in software engineering',
             'Want to find a better job',
