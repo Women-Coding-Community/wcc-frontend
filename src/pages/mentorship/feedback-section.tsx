@@ -1,6 +1,6 @@
 // path: /mentorship/faqs
 
-import { Typography, Button, Box, Grid } from '@mui/material';
+import { Typography, Button, Box } from '@mui/material';
 import React, { useState } from 'react';
 
 import { ColoredBox, FeedbackCard } from '@components';
@@ -37,41 +37,33 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
         >
           {title}
         </Typography>
-        <Grid
-          container
-          alignItems="stretch"
-          spacing={{ xs: 3, sm: 3, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
+        <Box
           sx={{
-            justifyContent: 'flex-start',
-            maxWidth: '70rem',
+            display: 'grid',
+            gridTemplateColumns: { sm: 'repeat(3, 1fr)', md: '' },
+            gap: 2,
+            gridTemplateRows: {
+              sm: feedbacksDisplayed > 3 ? '1fr 1fr' : '',
+              md: '',
+            },
           }}
         >
           {feedbacks && feedbacks.length > 0 ? (
-            feedbacks.slice(0, feedbacksDisplayed).map((feedback) => (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                key={feedback.name}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'stretch',
-                }}
-              >
+            feedbacks
+              .slice(0, feedbacksDisplayed)
+              .map((feedback) => (
                 <FeedbackCard
+                  key={feedback.name}
                   name={feedback.name}
                   feedback={feedback.feedback}
                   mentee={feedback.mentee}
                   year={feedback.year}
                 />
-              </Grid>
-            ))
+              ))
           ) : (
             <p>There‵s no feedback yet!</p>
           )}
-        </Grid>
+        </Box>
 
         <Button
           onClick={showMoreFeedbacks}
