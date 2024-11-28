@@ -34,7 +34,11 @@ const TeamLeadershipPage = ({ data, footer, error }: TeamLeadershipProps) => {
   const { page, contact } = data;
   return (
     <div>
-      <Box sx={{ flexGrow: 1, padding: 2 }}>
+      <Box
+        sx={{
+          height: '60vh',
+        }}
+      >
         <Grid
           container
           spacing={0}
