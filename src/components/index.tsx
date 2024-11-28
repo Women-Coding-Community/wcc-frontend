@@ -8,3 +8,5 @@ export { Hero } from './Hero';
 export { Footer } from './Footer';
 export { GradientBorderDivider } from './GradientBorderDivider';
 export { FeedbackCard } from './FeedbackCard';
+export { Section } from './Section';
+export { ContactUsCard } from './ContactUsCard';
