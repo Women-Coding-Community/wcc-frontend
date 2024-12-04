@@ -113,9 +113,11 @@ export const Footer = ({
               paddingTop: '0.5rem',
             }}
           >
-            {network.map((socialMediaNetwork) =>
-              renderSocialNetworkIcon(socialMediaNetwork),
-            )}
+            {network.map((socialMediaNetwork, index) => (
+              <div key={socialMediaNetwork.type || index}>
+                {renderSocialNetworkIcon(socialMediaNetwork)}
+              </div>
+            ))}
           </Box>
           <Typography
             variant="body1"

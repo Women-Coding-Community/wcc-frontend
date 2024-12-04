@@ -106,3 +106,30 @@ export type FeedbackSectionData = {
     },
   ];
 };
+export type Member = {
+  fullName: string;
+  position: string;
+  images: Image[];
+  network: Link[];
+};
+export type TeamLeadershipResponse = {
+  page: {
+    title: string;
+    subtitle: string;
+    description: string;
+  };
+  contact: {
+    title: string;
+    links: ContactLink[];
+  };
+  membersByType: {
+    directors: Member[];
+    leads: Member[];
+    evangelists: Member[];
+  };
+};
+
+export type ContactLink = {
+  type: string;
+  link: string;
+};
