@@ -63,7 +63,7 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
               {description}
             </Typography>
             <Link
-              href=""
+              href="https://join.slack.com/t/womencodingcommunity/shared_invite/zt-2hpjwpx7l-rgceYBIWp6pCiwc0hVsX8A"
               target="_blank"
               rel="noopener noreferrer"
               sx={{
@@ -75,7 +75,7 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
                 },
               }}
             >
-              Join our Slack             
+              Join our Slack
             </Link>
           </Box>
         </Grid>
