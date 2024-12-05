@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, useMediaQuery } from '@mui/material';
+import { Box, Typography, Grid, useMediaQuery, Link } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 
@@ -62,6 +62,21 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
             >
               {description}
             </Typography>
+            <Link
+              href=""
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                fontSize: '1.25rem',
+                textDecoration: 'underline',
+                color: 'theme.palette.primary.main',
+                '&:hover': {
+                  textDecoration: 'none',
+                },
+              }}
+            >
+              Join our Slack             
+            </Link>
           </Box>
         </Grid>
         <Grid item xs={12} sm={7} style={{ padding: 0, margin: 0 }}>
