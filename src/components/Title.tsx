@@ -1,6 +1,8 @@
 import { Box, Typography } from '@mui/material';
-import { GradientBox } from './GradientBox';
+
 import theme from 'theme';
+
+import { GradientBox } from './GradientBox';
 
 type TitleProps = {
   title: string;
