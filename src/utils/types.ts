@@ -76,7 +76,7 @@ export type MentorshipProgrammeData = {
   };
   mentorSection: MentorOrMenteeSectionData;
   menteeSection: MentorOrMenteeSectionData;
-  feedback: FeedbackSectionData;
+  feedbackSection: FeedbackSectionData;
 };
 
 export type MentorOrMenteeSectionData = {
