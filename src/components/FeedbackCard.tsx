@@ -3,7 +3,7 @@ import React from 'react';
 
 import QuoteIcon from '@public/icons/quote-icon-custom_orange.svg';
 
-interface FeedbackCardProps {
+export interface FeedbackCardProps {
   name: string;
   feedback: string;
   mentee: boolean;
