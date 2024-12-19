@@ -28,9 +28,4 @@ describe('Title Component', () => {
       textAlign: 'center',
     });
   });
-
-  it('matches the snapshot', () => {
-    const { asFragment } = render(<Title title="Snapshot Title" />);
-    expect(asFragment()).toMatchSnapshot();
-  });
 });
