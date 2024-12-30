@@ -3,7 +3,6 @@
 import { Typography } from '@mui/material';
 import { GetServerSideProps } from 'next';
 
-// import { TeamCoreData, TeamContactData, TeamMembersData } from '@utils/types';
 import { TeamApiResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
 
@@ -16,7 +15,7 @@ const TeamLeadershipPage = ({ team }: TeamPageProps) => {
   return (
     <div>
       {membersByType.directors.map((director) => (
-        <span key={director.fullName}>{director.fullName}</span> //Example how to use the data
+        <span key={director.fullName}>{director.fullName}</span>
       ))}
       <Typography variant="h4">Welcome to the TeamPage</Typography>
     </div>
