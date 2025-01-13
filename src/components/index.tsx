@@ -9,3 +9,4 @@ export { Footer } from './Footer';
 export { GradientBorderDivider } from './GradientBorderDivider';
 export { FeedbackCard } from './FeedbackCard';
 export { ColoredBox } from './ColoredBox';
+export { VolunteerSection } from './VolunteerSection';

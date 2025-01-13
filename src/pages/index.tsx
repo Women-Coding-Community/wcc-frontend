@@ -6,6 +6,7 @@ import {
   Hero,
   OpportunitiesProgrammes,
   MentorBanner,
+  VolunteerSection,
   Footer,
 } from '@components';
 import { FooterResponse, LandingPageResponse } from '@utils/types';
@@ -31,13 +32,14 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
     }
   }, [error, router]);
 
-  const { heroSection, programmes, fullBannerSection } = data;
+  const { heroSection, programmes, fullBannerSection, volunteerSection } = data;
 
   return (
     <div>
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmes} />
       <MentorBanner {...fullBannerSection} />
+      <VolunteerSection {...volunteerSection} />
       <Footer {...footer} />
     </div>
   );
