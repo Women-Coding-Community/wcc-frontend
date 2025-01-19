@@ -15,7 +15,6 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
   const { alt: imageAlt, path: imagePath } = images[0];
-  // currently the `/` is missing from the path value
   const tempImagePathForApplication = `${imagePath}`;
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
 
