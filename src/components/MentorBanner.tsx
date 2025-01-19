@@ -25,8 +25,8 @@ export const MentorBanner: React.FC<BannerProps> = ({
   const { alt: mobileAlt, path: mobilePath } = images[1] || images[0];
   const { uri: linkUri, label: linkLabel } = link;
 
-  const image = isMobile ? `/${mobilePath}` : `/${desktopPath}`;
   const alt = isMobile ? mobileAlt : desktopAlt;
+  const path = isMobile ? mobilePath : desktopPath;
 
   return (
     <Box
@@ -45,7 +45,7 @@ export const MentorBanner: React.FC<BannerProps> = ({
         },
 
         width: '100%',
-        background: `linear-gradient(rgba(26, 75, 102, 1),rgba(0, 52, 76, 0.7)), url(${image}) no-repeat`,
+        background: `linear-gradient(rgba(26, 75, 102, 1),rgba(0, 52, 76, 0.7)), url(${path}) no-repeat`,
         backgroundSize: 'cover',
         opacity: '0.8px',
         backgroundPosition: 'center',
