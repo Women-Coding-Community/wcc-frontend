@@ -33,6 +33,8 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
 
   const { heroSection, programmes, fullBannerSection } = data;
 
+  console.log(process.env);
+  console.log(data);
   return (
     <div>
       <Hero {...heroSection} />
