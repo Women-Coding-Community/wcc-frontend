@@ -9,7 +9,6 @@ import theme from '../theme';
 
 interface VolunteerProps {
   title: string;
-  subtitle: string;
   description: string;
   images: LandingPageResponse['volunteerSection']['images'];
   link: LandingPageResponse['volunteerSection']['link'];
@@ -31,7 +30,7 @@ export const VolunteerSection: React.FC<VolunteerProps> = ({
 
   return (
     <>
-      <Box bgcolor="#FFDBD0">
+      <Box bgcolor="#FFDBD0" aria-label={alt} data-testid="volunteer-section">
         <Box
           sx={{
             padding: '21px 16px 48px 16px',
