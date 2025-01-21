@@ -10,6 +10,7 @@ import {
   Footer,
 } from '@components';
 import { FooterResponse, LandingPageResponse } from '@utils/types';
+import { EventContainer } from 'components/EventContainer';
 import { fetchData } from 'lib/api';
 
 type CombinedResponse = {
@@ -32,12 +33,13 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
     }
   }, [error, router]);
 
-  const { heroSection, programmes, fullBannerSection, volunteerSection } = data;
+  const { heroSection, programmes, fullBannerSection, volunteerSection, events } = data;
 
   return (
     <div>
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmes} />
+      <EventContainer {...events} />
       <MentorBanner {...fullBannerSection} />
       <VolunteerSection {...volunteerSection} />
       <Footer {...footer} />
