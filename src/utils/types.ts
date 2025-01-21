@@ -44,7 +44,7 @@ export type LandingPageResponse = {
   volunteerSection: {
     title: string;
     description: string;
-    link: string;
+    link: Link;
     images: Image[];
   };
   fullBannerSection: {
