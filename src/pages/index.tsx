@@ -32,7 +32,7 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
   }, [error, router]);
 
   const { heroSection, programmes, fullBannerSection } = data;
-
+  
   return (
     <div>
       <Hero {...heroSection} />
