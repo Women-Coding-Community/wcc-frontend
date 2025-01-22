@@ -14,8 +14,14 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
-  const { alt: imageAlt, path: imagePath } = images[0];
+
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
+  const desktopImage = images.find((image) => image.type === 'desktop');
+  const mobileImage = images.find((image) => image.type === 'mobile');
+
+  const image = isMobile ? (mobileImage?.path || desktopImage?.path) : (desktopImage?.path);
+  const alt = isMobile ? (mobileImage?.alt || desktopImage?.alt) : (desktopImage?.alt);
+
 
   return (
     <>
@@ -26,13 +32,12 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
         alignItems="center"
         sx={{
           padding: '21px 16px 48px 16px',
-          '@media (min-width: 600px)': { padding: '75px 16px' },
-          maxWidth: isMobile ? '100%' : '1100px',
+          maxWidth: isMobile ? '100%' : '1128px',
           margin: '0 auto',
         }}
         direction={isMobile ? 'column' : 'row'}
       >
-        <Grid item xs={12} sm={5} style={{ padding: 0, margin: 0 }}>
+        <Grid item xs={12} sm={5} style={{ padding: 0, margin: 0, }}>
           <Box
             textAlign={isMobile ? 'center' : 'left'}
             marginRight={isMobile ? '' : '52px'}
@@ -79,16 +84,47 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
             </Link>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={7} style={{ padding: 0, margin: 0 }}>
-          <Box>
-            <Image
-              src={imagePath}
-              alt={imageAlt}
-              width={647}
-              height={374}
-              style={{ maxWidth: '100%', height: '100%' }}
-              priority
-            />
+        <Grid item xs={12} sm={7} style={{ padding: 0, margin: 0, background: 'yellow', boxSizing: 'border-box' }}>
+          <Box
+            sx={{
+              position: 'relative',             
+              overflow: 'visible',
+              width: '100%',
+              maxWidth: '647px',     
+              borderRadius: '4px',
+              height: 'auto',              
+            }}
+          >    
+          <Image
+            src={image || ''}
+            alt={alt || ''}
+            objectFit="cover"
+            objectPosition="center 25%"
+            style={{ 
+              borderRadius: '4px', 
+              display: 'block',
+              filter: isMobile ? 'drop-shadow(10px 10px 0px rgba(255, 181, 157, 0.8))' : 'drop-shadow(20px 20px 0px rgba(255, 181, 157, 0.8))',
+            }}
+            quality={100}
+            priority
+            layout="responsive"
+            width={343}
+            height={195}
+            sizes="(max-width: 750px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />   
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(to right, #507C99, #FFB59D)',
+              opacity: 0.8,
+              pointerEvents: 'none',
+              borderRadius: '4px',
+            }}
+          />
           </Box>
         </Grid>
       </Grid>
