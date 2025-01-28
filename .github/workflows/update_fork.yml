@@ -1,12 +1,12 @@
 name: Update Fork
 
 on:
-  pull_request:
-    types: [closed]
+  push:
+    branches:
+      - main 
 
 jobs:
   update-fork:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
