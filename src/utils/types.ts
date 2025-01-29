@@ -1,9 +1,3 @@
-type Image = {
-  path: string;
-  alt: string;
-  type?: string;
-};
-
 export type Programme = {
   name: string;
   link: Link;
@@ -53,13 +47,13 @@ export type LandingPageResponse = {
     link: string;
     images: Image[];
   };
-
   fullBannerSection: {
     title: string;
     description: string;
     images: Image[];
     link: Link;
   };
+  events: EventData;
 };
 
 export type Network = {
@@ -82,7 +76,7 @@ export type MentorshipProgrammeData = {
   };
   mentorSection: MentorOrMenteeSectionData;
   menteeSection: MentorOrMenteeSectionData;
-  feedback: FeedbackSectionData;
+  feedbackSection: FeedbackSectionData;
 };
 
 export type MentorOrMenteeSectionData = {
@@ -106,6 +100,46 @@ export type FeedbackSectionData = {
     },
   ];
 };
+export interface EventData {
+  title: string;
+  link: Link;
+  items: Item[];
+}
+
+export interface Item {
+  title: string;
+  description: string;
+  eventType: string;
+  startDate: string;
+  endDate: string;
+  topics: string;
+  images: Image[];
+  speakerProfile: SpeakerProfile;
+  hostProfile: HostProfile;
+  eventLink: EventLink;
+}
+
+export interface Image {
+  path: string;
+  alt: string;
+  type: string;
+}
+
+export interface SpeakerProfile {
+  label: string;
+  uri: string;
+}
+
+export interface HostProfile {
+  label: string;
+  uri: string;
+}
+
+export interface EventLink {
+  label: string;
+  uri: string;
+}
+
 export type Member = {
   fullName: string;
   position: string;
