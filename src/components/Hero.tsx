@@ -15,8 +15,6 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
   const { alt: imageAlt, path: imagePath } = images[0];
-  // currently the `/` is missing from the path value
-  const tempImagePathForApplication = `/${imagePath}`;
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
 
   return (
@@ -69,7 +67,7 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
         <Grid item xs={12} sm={7} style={{ padding: 0, margin: 0 }}>
           <Box>
             <Image
-              src={tempImagePathForApplication}
+              src={imagePath}
               alt={imageAlt}
               width={647}
               height={374}
