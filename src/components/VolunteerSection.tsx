@@ -30,7 +30,7 @@ export const VolunteerSection: React.FC<VolunteerProps> = ({
 
   return (
     <>
-      <Box bgcolor="#FFDBD0" aria-label={alt} data-testid="volunteer-section">
+      <Box bgcolor="#FFDBD0" aria-label={alt}>
         <Box
           sx={{
             padding: '21px 16px 48px 16px',
@@ -114,6 +114,7 @@ export const VolunteerSection: React.FC<VolunteerProps> = ({
             >
               <Image
                 src={image}
+                data-testid="volunteer-section"
                 alt={alt}
                 width={634}
                 height={493}
