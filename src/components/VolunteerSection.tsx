@@ -10,8 +10,8 @@ import theme from '../theme';
 interface VolunteerProps {
   title: string;
   description: string;
-  images: LandingPageResponse['volunteerSection']['images'];
   link: LandingPageResponse['volunteerSection']['link'];
+  images: LandingPageResponse['volunteerSection']['images'];
 }
 
 export const VolunteerSection: React.FC<VolunteerProps> = ({
@@ -23,7 +23,7 @@ export const VolunteerSection: React.FC<VolunteerProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { alt: imageAlt, path: imagePath } = images[0];
-  const { title: linkTitle, uri: linkUri, label: linkLabel } = link;
+  const { title: linkTitle, uri: linkUri } = link;
 
   const image = `${imagePath}`;
   const alt = imageAlt;
@@ -83,7 +83,6 @@ export const VolunteerSection: React.FC<VolunteerProps> = ({
                 >
                   <Link
                     href={linkUri}
-                    aria-label={linkLabel}
                     style={{
                       textDecoration: 'none',
                       padding: '1rem',

@@ -33,7 +33,13 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
     }
   }, [error, router]);
 
-  const { heroSection, programmes, fullBannerSection, volunteerSection, events } = data;
+  const {
+    heroSection,
+    programmes,
+    fullBannerSection,
+    volunteerSection,
+    events,
+  } = data;
 
   return (
     <div>
