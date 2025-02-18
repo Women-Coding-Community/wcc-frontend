@@ -24,9 +24,6 @@ describe('VolunteerSection', () => {
     render(<VolunteerSection {...VolunteerProps} />);
   });
 
-  afterEach(() => {
-    cleanup();
-  });
   it('returns the title of the Volunteer', () => {
     const title = screen.getByText('Do you want to volunteer');
     expect(title).toBeInTheDocument();

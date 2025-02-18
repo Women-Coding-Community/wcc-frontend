@@ -121,7 +121,7 @@ export const VolunteerSection: React.FC<VolunteerProps> = ({
                 style={{
                   maxWidth: '100%',
                 }}
-                priority
+                priority={true}
               />
             </Grid>
           </Grid>
