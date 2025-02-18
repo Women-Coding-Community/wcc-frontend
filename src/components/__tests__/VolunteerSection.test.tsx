@@ -28,7 +28,7 @@ describe('VolunteerSection', () => {
     cleanup();
   });
   it('returns the title of the Volunteer', () => {
-    const title = screen.getByText('Volunteer Title');
+    const title = screen.getByText('Do you want to volunteer');
     expect(title).toBeInTheDocument();
   });
 
@@ -36,7 +36,7 @@ describe('VolunteerSection', () => {
     const link = screen.getByRole('link');
     const linkTitle = screen.getByText('This will link to another page');
 
-    expect(linkTitle).toBeInTheDocument;
+    expect(linkTitle).toBeInTheDocument();
     expect(link).toBeInTheDocument();
     expect(link.getAttribute('href')).toBe('/about-us/volunteer');
   });
@@ -44,9 +44,7 @@ describe('VolunteerSection', () => {
 
 describe('Volunteer Image', () => {
   it('returns alt text for desktop', () => {
-    const volunteerSection = screen.getByTestId('volunteer-section');
-    expect(volunteerSection.getAttribute('aria-label')).toBe(
-      'alt desktop text',
-    );
+    const volunteerImage = screen.getByTestId('image-section');
+    expect(volunteerImage.getAttribute('alt')).toBe('alt desktop text');
   });
 });

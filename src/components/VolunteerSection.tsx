@@ -114,7 +114,7 @@ export const VolunteerSection: React.FC<VolunteerProps> = ({
             >
               <Image
                 src={image}
-                data-testid="volunteer-section"
+                data-testid="image-section"
                 alt={alt}
                 width={634}
                 height={493}
