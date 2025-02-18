@@ -1,14 +1,16 @@
 import axios from 'axios';
 
 const apiBaseUrl = process.env.API_BASE_URL;
-
-if (!apiBaseUrl) {
-  throw new Error('Base URL is missing, check your env file');
-}
+const API_KEY = process.env.API_KEY;
 
 export const fetchData = async (path: string) => {
   try {
-    const response = await axios.get(`${apiBaseUrl}/${path}`);
+    const response = await axios.get(`${apiBaseUrl}/${path}`, {
+      headers: {
+        'X-API-KEY': API_KEY,
+      },
+    });
+
     const footerData = await fetchFooter();
 
     if (response.status !== 200) {
@@ -25,7 +27,11 @@ export const fetchData = async (path: string) => {
 
 export const fetchFooter = async () => {
   try {
-    const response = await axios.get(`${apiBaseUrl}/footer`);
+    const response = await axios.get(`${apiBaseUrl}/footer`, {
+      headers: {
+        'X-API-KEY': API_KEY,
+      },
+    });
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch footer data');
