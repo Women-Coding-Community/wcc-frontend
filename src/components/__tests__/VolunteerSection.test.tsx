@@ -43,8 +43,8 @@ describe('VolunteerSection', () => {
 });
 
 describe('Volunteer Image', () => {
-  it('returns alt text for desktop', () => {
-    const volunteerImage = screen.getByTestId('image-section');
+  it('returns alt text for desktop', async () => {
+    const volunteerImage = await screen.findByTestId('image-section');
     expect(volunteerImage.getAttribute('alt')).toBe('alt desktop text');
   });
 });
