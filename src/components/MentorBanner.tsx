@@ -22,7 +22,7 @@ export const MentorBanner: React.FC<BannerProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { alt: desktopAlt, path: desktopPath } = images[0];
-  const { alt: mobileAlt, path: mobilePath } = images[1] || {};
+  const { alt: mobileAlt, path: mobilePath } = images[1] || images[0];
 
   const { uri: linkUri, label: linkLabel } = link;
 
