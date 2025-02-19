@@ -107,25 +107,31 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
               height: 'auto',
             }}
           >
-            <Image
-              src={image || ''}
-              alt={alt || ''}
-              objectFit="cover"
-              objectPosition="center 25%"
-              style={{
-                borderRadius: '4px',
-                display: 'block',
-                filter: isMobile
-                  ? 'drop-shadow(10px 10px 0px rgba(255, 181, 157, 0.8))'
-                  : 'drop-shadow(20px 20px 0px rgba(255, 181, 157, 0.8))',
-              }}
-              quality={100}
-              priority
-              layout="responsive"
-              width={343}
-              height={195}
-              sizes="(max-width: 750px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
+            {image && alt ? (
+                <Image
+                src={image || ''}
+                alt={alt || ''}
+                objectFit="cover"
+                objectPosition="center 25%"
+                style={{
+                  borderRadius: '4px',
+                  display: 'block',
+                  filter: isMobile
+                    ? 'drop-shadow(10px 10px 0px rgba(255, 181, 157, 0.8))'
+                    : 'drop-shadow(20px 20px 0px rgba(255, 181, 157, 0.8))',
+                }}
+                quality={100}
+                priority
+                layout="responsive"
+                width={343}
+                height={195}
+                sizes="(max-width: 750px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+              ) : (               
+                <Box>
+                    {/* Placeholder Content */}
+                </Box>               
+              )}            
             <Box
               sx={{
                 position: 'absolute',

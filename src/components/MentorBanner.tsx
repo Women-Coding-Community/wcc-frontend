@@ -29,7 +29,6 @@ export const MentorBanner: React.FC<BannerProps> = ({
 
   const { uri: linkUri, label: linkLabel } = link;
 
-  // const image = isMobile ? `${mobilePath}` : `/${desktopPath}`;
   const alt = isMobile ? mobileAlt : desktopAlt;
   const path = isMobile ? mobilePath : desktopPath;
 
