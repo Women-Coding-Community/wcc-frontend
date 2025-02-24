@@ -108,9 +108,9 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
             }}
           >
             {image && alt ? (
-                <Image
-                src={image || ''}
-                alt={alt || ''}
+              <Image
+                src={image}
+                alt={alt}
                 objectFit="cover"
                 objectPosition="center 25%"
                 style={{
@@ -127,11 +127,9 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
                 height={195}
                 sizes="(max-width: 750px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
-              ) : (               
-                <Box>
-                    {/* Placeholder Content */}
-                </Box>               
-              )}            
+            ) : (
+              <Box></Box>
+            )}
             <Box
               sx={{
                 position: 'absolute',
