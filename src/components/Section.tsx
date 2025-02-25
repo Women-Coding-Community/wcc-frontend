@@ -10,7 +10,7 @@ type TeamSectionProps = {
 export const Section = (props: TeamSectionProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
   return (
-    <Box textAlign={'left'} marginRight={isMobile ? '' : '52px'}>
+    <Box textAlign="left" marginRight={isMobile ? '' : '52px'}>
       <Typography
         variant="h3"
         color="text.primary"

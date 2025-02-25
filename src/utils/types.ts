@@ -154,16 +154,11 @@ export type TeamLeadershipResponse = {
   };
   contact: {
     title: string;
-    links: ContactLink[];
+    links: Network[];
   };
   membersByType: {
     directors: Member[];
     leads: Member[];
     evangelists: Member[];
   };
-};
-
-export type ContactLink = {
-  type: string;
-  link: string;
 };
