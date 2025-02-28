@@ -2,12 +2,11 @@ import { Box, Typography, useMediaQuery } from '@mui/material';
 
 import theme from 'theme';
 
-type TeamSectionProps = {
+type TextContentProps = {
   title: string;
-  subtitle: string;
   description: string;
 };
-export const Section = (props: TeamSectionProps) => {
+export const TextContent = ({ title, description }: TextContentProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
   return (
     <Box textAlign="left" marginRight={isMobile ? '' : '52px'}>
@@ -20,7 +19,7 @@ export const Section = (props: TeamSectionProps) => {
           fontSize: { xs: '45px', sm: '45px' },
         }}
       >
-        {props.subtitle}
+        {title}
       </Typography>
       <Typography
         variant="h6"
@@ -32,7 +31,7 @@ export const Section = (props: TeamSectionProps) => {
           lineHeight: '1.2',
         }}
       >
-        {props.description}
+        {description}
       </Typography>
     </Box>
   );
