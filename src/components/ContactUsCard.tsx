@@ -1,39 +1,37 @@
-import EmailIcon from '@mui/icons-material/Email';
 import { Grid, Box, Typography, useMediaQuery } from '@mui/material';
 
-import { ContactLink, TeamLeadershipResponse } from '@utils/types';
+import { TeamLeadershipResponse } from '@utils/types';
 import theme from 'theme';
 
 import OpenInNewIcon from '../../public/icons/open_in_new.png';
-import SlackIcon from '../../public/icons/slack-icon.png';
+import { iconNetworkMapper } from './Footer';
 
 interface ContactUsProps {
   title: string;
   links: TeamLeadershipResponse['contact']['links'];
 }
-const iconNetworkMapper = {
-  EMAIL: (
-    <EmailIcon fontSize="small" style={{ width: '24px', height: '24px' }} />
-  ),
-  SLACK: (
-    <img
-      src={SlackIcon.src}
-      alt="Slack"
-      style={{ width: '24px', height: '24px' }}
-    />
-  ),
-};
+
 export const ContactUsCard = ({ title, links }: ContactUsProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
+
+  interface ContactLink {
+    type: string;
+    link: string;
+  }
+
   const renderSocialNetworkIcon = (network: ContactLink) => {
     const linkLabel =
-      network.type === 'SLACK' ? 'WomenCodingCommunity' : network.link;
+      network.type.toLowerCase() === 'slack'
+        ? 'WomenCodingCommunity'
+        : network.link;
 
     return (
       <Box sx={{ direction: 'column' }}>
         <a
           href={
-            network.type === 'EMAIL' ? `mailto:${network.link}` : network.link
+            network.type.toLowerCase() === 'email'
+              ? `mailto:${network.link}`
+              : network.link
           }
           target={network.type === 'EMAIL' ? undefined : '_blank'} // No `target="_blank"` for email links
           rel={network.type === 'EMAIL' ? undefined : 'noopener noreferrer'}
