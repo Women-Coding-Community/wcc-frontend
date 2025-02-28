@@ -147,9 +147,11 @@ export type Member = {
   network: Link[];
 };
 export type TeamLeadershipResponse = {
-  page: {
+  id: string;
+  heroSection: {
     title: string;
-    subtitle: string;
+  };
+  section: {
     description: string;
   };
   contact: {
