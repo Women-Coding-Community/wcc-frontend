@@ -14,7 +14,7 @@ import theme from 'theme';
 
 import SlackIcon from '../../public/icons/slack-icon.svg';
 
-const iconNetworkMapper = {
+export const iconNetworkMapper = {
   linkedIn: <LinkedInIcon fontSize="large" />,
   github: <GitHubIcon fontSize="large" />,
   instagram: <InstagramIcon fontSize="large" />,
