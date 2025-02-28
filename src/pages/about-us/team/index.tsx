@@ -5,9 +5,9 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-import { ContactUsCard, Footer } from '@components';
+import { ContactUsCard, Footer, Title } from '@components';
 import { FooterResponse, TeamLeadershipResponse } from '@utils/types';
-import { Section } from 'components/Section';
+import { TextContent } from 'components/TextContent';
 import { fetchData } from 'lib/api';
 import theme from 'theme';
 
@@ -31,7 +31,10 @@ const TeamLeadershipPage = ({ data, footer, error }: TeamLeadershipProps) => {
   }, [error, router]);
 
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
-  const { page, contact } = data;
+  if (!data) {
+    return null;
+  }
+  const { section, heroSection, contact } = data;
   return (
     <div>
       <Box
@@ -39,6 +42,7 @@ const TeamLeadershipPage = ({ data, footer, error }: TeamLeadershipProps) => {
           height: '60vh',
         }}
       >
+        <Title title="Welcome to the TeamPage" />
         <Grid
           container
           spacing={0}
@@ -53,7 +57,18 @@ const TeamLeadershipPage = ({ data, footer, error }: TeamLeadershipProps) => {
           direction={isMobile ? 'column' : 'row'}
         >
           <Grid item xs={12} md={8}>
-            <Section {...page} />
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: 'flex-start',
+              }}
+            >
+              <TextContent
+                description={section.description}
+                title={heroSection.title}
+              />
+            </Box>
           </Grid>
 
           <Grid item xs={12} md={4}>
