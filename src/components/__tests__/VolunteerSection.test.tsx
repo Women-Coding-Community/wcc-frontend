@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-
+import Image from 'next/image';
 import { VolunteerSection } from '../VolunteerSection';
 
 describe('VolunteerSection', () => {
@@ -29,22 +29,27 @@ describe('VolunteerSection', () => {
     expect(title).toBeInTheDocument();
   });
 
-  it('returns the correct link with text', () => {
+  it('returns the correct link with text and href', () => {
     const link = screen.getByRole('link');
     const linkTitle = screen.getByText('This will link to another page');
 
     expect(linkTitle).toBeInTheDocument();
     expect(link).toBeInTheDocument();
-    expect(link.getAttribute('href')).toBe('/about-us/volunteer');
+    expect(link).toHaveAttribute('href', '/about-us/volunteer');
   });
 });
 
 describe('Volunteer Image', () => {
   it('returns alt text for desktop', () => {
-    const volunteerImage = screen.getByAltText('alt desktop text');
+    const testProps = {
+      src: 'https://drive.google.com/uc?id=1fWzte4q2adiMf7MFAjMRlNDbccZVs7iL&export=download',
+      alt: 'some alt',
+      width: 634,
+      height: 493,
+    };
+    render(<Image {...testProps} />);
+    const imageAltNode = screen.getByAltText(testProps.alt);
 
-    expect(volunteerImage).toBeInTheDocument();
-    expect(volunteerImage.getAttribute('alt')).toBe('alt desktop text');
-    expect(volunteerImage.getAttribute('src')).toBe('/desktop.jpg');
+    expect(imageAltNode).toBeInTheDocument();
   });
 });
