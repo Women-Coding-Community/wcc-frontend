@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import Image from 'next/image';
+import React from 'react';
+
 import { VolunteerSection } from '../VolunteerSection';
 
 describe('VolunteerSection', () => {
