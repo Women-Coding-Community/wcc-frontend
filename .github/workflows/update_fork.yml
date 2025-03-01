@@ -3,7 +3,7 @@ name: Update Fork
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   update-fork:

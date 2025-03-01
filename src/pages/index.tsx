@@ -6,6 +6,7 @@ import {
   Hero,
   OpportunitiesProgrammes,
   MentorBanner,
+  VolunteerSection,
   Footer,
 } from '@components';
 import { FooterResponse, LandingPageResponse } from '@utils/types';
@@ -32,7 +33,13 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
     }
   }, [error, router]);
 
-  const { heroSection, programmes, fullBannerSection, events } = data;
+  const {
+    heroSection,
+    programmes,
+    fullBannerSection,
+    volunteerSection,
+    events,
+  } = data;
 
   return (
     <div>
@@ -40,6 +47,7 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
       <OpportunitiesProgrammes {...programmes} />
       <EventContainer {...events} />
       <MentorBanner {...fullBannerSection} />
+      <VolunteerSection {...volunteerSection} />
       <Footer {...footer} />
     </div>
   );
