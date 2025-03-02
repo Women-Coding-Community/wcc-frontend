@@ -14,7 +14,7 @@ import theme from 'theme';
 
 import SlackIcon from '../../public/icons/slack-icon.svg';
 
-const iconNetworkMapper = {
+export const iconNetworkMapper = {
   linkedIn: <LinkedInIcon fontSize="large" />,
   github: <GitHubIcon fontSize="large" />,
   instagram: <InstagramIcon fontSize="large" />,
@@ -113,9 +113,11 @@ export const Footer = ({
               paddingTop: '0.5rem',
             }}
           >
-            {network.map((socialMediaNetwork) =>
-              renderSocialNetworkIcon(socialMediaNetwork),
-            )}
+            {network.map((socialMediaNetwork, index) => (
+              <div key={socialMediaNetwork.type || index}>
+                {renderSocialNetworkIcon(socialMediaNetwork)}
+              </div>
+            ))}
           </Box>
           <Typography
             variant="body1"

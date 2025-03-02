@@ -10,3 +10,5 @@ export { GradientBorderDivider } from './GradientBorderDivider';
 export { FeedbackCard } from './FeedbackCard';
 export { Title } from './Title';
 export { ColoredBox } from './ColoredBox';
+export { TextContent } from './TextContent';
+export { ContactUsCard } from './ContactUsCard';
