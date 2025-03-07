@@ -27,15 +27,18 @@ describe('Hero Component', () => {
     ],
   };
 
-  const renderComponent = (isMobile: boolean) => {
+  const renderComponent = (
+    isMobile: boolean,
+    data?: LandingPageResponse['heroSection'],
+  ) => {
     mockUseMediaQuery.mockReturnValue(isMobile);
 
     return render(
       <ThemeProvider theme={theme}>
         <Hero
-          title={mockData.title}
-          description={mockData.description}
-          images={mockData.images}
+          title={data?.title || mockData.title}
+          description={data?.description || mockData.description}
+          images={data?.images || mockData.images}
         />
       </ThemeProvider>,
     );
@@ -67,5 +70,40 @@ describe('Hero Component', () => {
 
     expect(screen.getByRole('grid')).toHaveStyle('maxWidth: 1100px');
     expect(screen.getByText(mockData.title)).toBeInTheDocument();
+  });
+
+  it('selects the correct image when mobile image is first', () => {
+    const mockDataWithMobileFirst: LandingPageResponse['heroSection'] = {
+      title: 'Women Coding Community',
+      description: 'Empowering Women in Their Tech Careers',
+      images: [
+        {
+          alt: 'Mobile Image Alt',
+          path: '/hero-3x2.jpg', // TODO: Update this once the mobile image is available.
+          type: 'mobile',
+        },
+        {
+          alt: 'Desktop Image Alt',
+          path: '/hero-3x2.jpg',
+          type: 'desktop',
+        },
+      ],
+    };
+
+    renderComponent(true, mockDataWithMobileFirst);
+
+    const mobileImage = screen.getByRole('img', {
+      name: mockDataWithMobileFirst.images[0].alt,
+    });
+    expect(mobileImage).toBeInTheDocument();
+    expect(mobileImage).toHaveAttribute(
+      'src',
+      mockDataWithMobileFirst.images[0].path,
+    );
+
+    const desktopImage = screen.queryByRole('img', {
+      name: /desktop image alt/i,
+    });
+    expect(desktopImage).not.toBeInTheDocument();
   });
 });
