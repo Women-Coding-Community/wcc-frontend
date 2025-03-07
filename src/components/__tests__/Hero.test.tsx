@@ -36,9 +36,9 @@ describe('Hero Component', () => {
     return render(
       <ThemeProvider theme={theme}>
         <Hero
-          title={data?.title || mockData.title}
-          description={data?.description || mockData.description}
-          images={data?.images || mockData.images}
+          title={data?.title ?? mockData.title}
+          description={data?.description ?? mockData.description}
+          images={data?.images ?? mockData.images}
         />
       </ThemeProvider>,
     );
@@ -79,7 +79,7 @@ describe('Hero Component', () => {
       images: [
         {
           alt: 'Mobile Image Alt',
-          path: '/hero-3x2.jpg', // TODO: Update this once the mobile image is available.
+          path: '/hero-3x2.jpg', // Update this once the mobile image is available.
           type: 'mobile',
         },
         {
