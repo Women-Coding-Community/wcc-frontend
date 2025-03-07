@@ -14,10 +14,10 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
-  const { alt: imageAlt, path: imagePath } = images[0];
-  const tempImagePathForApplication = `${imagePath}`;
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
 
+  const image = images.find(img => (isMobile && img.type === 'mobile') || (!isMobile && img.type === 'desktop'));
+  
   return (
     <>
       <Grid
@@ -67,14 +67,24 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
         </Grid>
         <Grid item xs={12} sm={7} style={{ padding: 0, margin: 0 }}>
           <Box>
-            <Image
-              src={tempImagePathForApplication}
-              alt={imageAlt}
+            {image ? (
+              <Image
+              src={image.path}
+              alt={image.alt}
               width={647}
               height={374}
               style={{ maxWidth: '100%', height: '100%' }}
               priority
             />
+            ):(           
+            <Image
+              src={images[0].path}
+              alt={images[0].alt}
+              width={647}
+              height={374}
+              style={{ maxWidth: '100%', height: '100%' }}
+              priority
+            />)}    
           </Box>
         </Grid>
       </Grid>
