@@ -33,7 +33,7 @@ export const ContactUsCard = ({ title, links }: ContactUsProps) => {
               ? `mailto:${network.link}`
               : network.link
           }
-          target={network.type === 'EMAIL' ? undefined : '_blank'} // No `target="_blank"` for email links
+          target="_blank"
           rel={network.type === 'EMAIL' ? undefined : 'noopener noreferrer'}
           style={{
             display: 'flex',
