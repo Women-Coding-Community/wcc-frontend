@@ -139,3 +139,28 @@ export interface EventLink {
   label: string;
   uri: string;
 }
+
+export type Member = {
+  fullName: string;
+  position: string;
+  images: Image[];
+  network: Link[];
+};
+export type TeamLeadershipResponse = {
+  id: string;
+  heroSection: {
+    title: string;
+  };
+  section: {
+    description: string;
+  };
+  contact: {
+    title: string;
+    links: Network[];
+  };
+  membersByType: {
+    directors: Member[];
+    leads: Member[];
+    evangelists: Member[];
+  };
+};
