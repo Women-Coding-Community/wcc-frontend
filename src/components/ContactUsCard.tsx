@@ -4,6 +4,7 @@ import { TeamLeadershipResponse } from '@utils/types';
 import theme from 'theme';
 
 import OpenInNewIcon from '../../public/icons/open_in_new.png';
+
 import { iconNetworkMapper } from './Footer';
 
 interface ContactUsProps {
