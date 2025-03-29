@@ -2,23 +2,28 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-import { Hero, OpportunitiesProgrammes, MentorBanner } from '@components';
-import { LandingPageResponse } from '@utils/types';
+import {
+  Hero,
+  OpportunitiesProgrammes,
+  MentorBanner,
+  Footer,
+} from '@components';
+import { FooterResponse, LandingPageResponse } from '@utils/types';
 import { EventContainer } from 'components/EventContainer';
 import { fetchData } from 'lib/api';
 
 type CombinedResponse = {
-  data: LandingPageResponse | null;
-  footer: LandingPageResponse;
-  error?: string | null;
+  data: LandingPageResponse;
+  footer: FooterResponse;
 };
 
 interface HomePageProps {
   data: LandingPageResponse;
+  footer: FooterResponse;
   error: string | null;
 }
 
-const HomePage = ({ data, error }: HomePageProps) => {
+const HomePage = ({ data, footer, error }: HomePageProps) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -26,10 +31,6 @@ const HomePage = ({ data, error }: HomePageProps) => {
       router.push('/500');
     }
   }, [error, router]);
-
-  if (!data) {
-    return <div>Loading...</div>;
-  }
 
   const { heroSection, programmes, fullBannerSection, events } = data;
 
@@ -39,7 +40,7 @@ const HomePage = ({ data, error }: HomePageProps) => {
       <OpportunitiesProgrammes {...programmes} />
       <EventContainer {...events} />
       <MentorBanner {...fullBannerSection} />
-      {/* <Footer {...footer} /> */}
+      <Footer {...footer} />
     </div>
   );
 };
@@ -47,11 +48,10 @@ const HomePage = ({ data, error }: HomePageProps) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const combinedResponse: CombinedResponse = await fetchData('landingPage');
-
     return {
       props: {
         data: combinedResponse.data,
-        error: null,
+        footer: combinedResponse.footer,
       },
     };
   } catch (error) {
