@@ -48,7 +48,6 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const combinedResponse: CombinedResponse = await fetchData('landingPage');
-
     return {
       props: {
         data: combinedResponse.data,
