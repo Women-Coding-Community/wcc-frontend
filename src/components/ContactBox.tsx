@@ -4,50 +4,51 @@ import React, { CSSProperties } from 'react';
 
 import SlackIcon from '@public/icons/slack-icon.svg';
 
+import theme from '../theme';
+
 interface ContactBoxProps {
   title: string;
   titleLink?: string;
-  // titleIcon?: React.ReactNode;
+  showIcon?: boolean;
   text?: string;
   children?: React.ReactNode;
   links?: Array<{ linkText: string; path: string; icon: React.ReactNode }>;
   titleStyle?: CSSProperties;
-  // boxStylePosition: CSSProperties;
 }
 
 export const ContactBox: React.FC<ContactBoxProps> = ({
   title,
   titleLink,
-  // titleIcon,
   text,
   children,
   links,
   titleStyle,
-  // boxStylePosition,
+  showIcon,
 }) => {
   return (
     <Box
       sx={{
-        maxWidth: '358px',
-        // height: 304,
+        width: '358px',
         bgcolor: 'primary.light',
         borderRadius: '12px',
         textAlign: 'left',
         padding: '24px',
-        // gap: '32px',
-        border: '2px solid red',
         margin: '1px 15px',
-        // ...boxStylePosition,
+        justifySelf: { xs: 'center' },
       }}
     >
-      <SlackIcon />
-      <Typography variant="h5" lineHeight={'36px'}>
+      <Typography variant="h5" lineHeight={'36px'} marginBottom={'10px'}>
+        {showIcon && (
+          <Box display={'flex'} flexDirection="column" alignItems="flex-start">
+            <SlackIcon sx={{ fontSize: 24 }} />
+          </Box>
+        )}
         {titleLink ? (
           <Link
             href={titleLink}
             style={{
               textDecoration: 'none',
-              color: 'primary.main', // Style not applying
+              color: theme.palette.primary.main,
               ...titleStyle,
             }}
           >
@@ -57,25 +58,31 @@ export const ContactBox: React.FC<ContactBoxProps> = ({
           title
         )}
       </Typography>
-      <Typography>{text}</Typography>
+      <Typography
+        variant="body2"
+        gap={'12px'}
+        fontSize={'14px'}
+        margin={'5px 0'}
+      >
+        {text}
+      </Typography>
       {Array.isArray(links) &&
         links.map(({ linkText, path, icon }) => (
           <Link href={path} key={path} style={{ textDecoration: 'none' }}>
-            <span style={{ fontSize: '24px', paddingRight: '3px' }}>
-              {icon}
-            </span>
-            <span
-              style={{
-                textDecoration: 'underline',
-                color: '#1A4B66',
-                paddingLeft: '3px',
-              }}
-            >
-              {linkText}
-            </span>
+            <div style={{ gap: '6px', display: 'flex', alignItems: 'center' }}>
+              <span style={{ fontSize: '24px' }}>{icon}</span>
+              <span
+                style={{
+                  textDecoration: 'underline',
+                  color: theme.palette.primary.main,
+                }}
+              >
+                {linkText}
+              </span>
+            </div>
           </Link>
         ))}
-      {children}
+      <div>{children}</div>
     </Box>
   );
 };
