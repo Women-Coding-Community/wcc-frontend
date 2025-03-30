@@ -23,7 +23,7 @@ export const ContactBox: React.FC<ContactBoxProps> = ({
   children,
   links,
   titleStyle,
-  showIcon,
+  showIcon = false,
 }) => {
   return (
     <Box
