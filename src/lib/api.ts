@@ -5,6 +5,15 @@ const API_KEY = process.env.API_KEY;
 
 import footerData from './responses/footer.json';
 import landingPageData from './responses/landingPage.json';
+import mentorShipPage from './responses/mentorship.json';
+// for new pages: import the json file
+// (which you copied from https://github.com/Women-Coding-Community/wcc-backend/tree/main/src/main/resources)
+// and add it to pageData with the path in the pages path (e.g. mentorship/index.ts = mentorship/overview)
+
+const pageData = {
+  landingPage: landingPageData,
+  'mentorship/overview': mentorShipPage,
+};
 
 export const fetchData = async (path: string) => {
   try {
@@ -25,8 +34,10 @@ export const fetchData = async (path: string) => {
     };
   } catch (error) {
     // This temporarily allows responses if the database is down, should be removed once it's more stable
+    // the pageData[path] takes the response you mapped the key of pageData to the import in this file
     return {
-      data: landingPageData,
+      //@ts-ignore
+      data: pageData[path],
       footer: footerData,
     };
   }
