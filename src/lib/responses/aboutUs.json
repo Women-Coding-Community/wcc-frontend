@@ -1,0 +1,15 @@
+{
+    "id": "page:ABOUT_US",
+    "celebrateHer": {
+      "lists": [
+        {
+          "title": "Shannon Lee",
+          "description": "Celebrate Sharon for publishing the most beautiful diagram explaining the REST Api",
+          "uri": "https://linkedin",
+          "link": "Linkedin post",
+          "bgColor": "#C7E7FF",
+          "tagText": "#celebrate_her"
+        }
+      ]
+    }
+  }
