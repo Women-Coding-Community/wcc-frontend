@@ -1,11 +1,12 @@
 // path: about-us/celebrate-her
 
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import { GetServerSideProps } from 'next';
+import { FC } from 'react';
+
 import { AboutUsPageData } from '@utils/types';
 import { GroupCard } from 'components/GroupCard';
 import { fetchData } from 'lib/api';
-import { GetServerSideProps } from 'next';
-import { FC } from 'react';
 
 interface CelebrateHerPageProps {
   celebrateHer: AboutUsPageData;

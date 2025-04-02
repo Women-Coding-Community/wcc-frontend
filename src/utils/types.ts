@@ -76,9 +76,9 @@ export type celebrateHerData = {
     uri: string;
     link: string;
     bgColor: string;
-    tagText: string
+    tagText: string;
   }[];
-}
+};
 
 export type StudyGroupSectionData = {
   groups: {
@@ -96,8 +96,8 @@ export type OurProgrammesData = {
 };
 
 export type AboutUsPageData = {
-  celebrateHer: celebrateHerData
-}
+  celebrateHer: celebrateHerData;
+};
 
 export type MentorshipProgrammeData = {
   page: {

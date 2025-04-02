@@ -1,9 +1,10 @@
 import { Box } from '@mui/material';
+import { GetServerSideProps } from 'next';
+import { FC } from 'react';
+
 import { OurProgrammesData } from '@utils/types';
 import { GroupCard } from 'components/GroupCard';
 import { fetchData } from 'lib/api';
-import { GetServerSideProps } from 'next';
-import { FC } from 'react';
 
 interface StudyGroupsPageProps {
   groups: OurProgrammesData;

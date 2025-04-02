@@ -1,11 +1,4 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Divider,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, Card, Divider, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
 
