@@ -1,8 +1,9 @@
 import { Box, Typography } from '@mui/material';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { CSSProperties } from 'react';
 
-import SlackIcon from '@public/icons/slack-icon.svg';
+import slackIconUrl from '@public/icons/slack-icon.svg';
 
 import theme from '../theme';
 
@@ -40,7 +41,12 @@ export const ContactBox: React.FC<ContactBoxProps> = ({
       <Typography variant="h5" lineHeight={'36px'} marginBottom={'10px'}>
         {showIcon && (
           <Box display={'flex'} flexDirection="column" alignItems="flex-start">
-            <SlackIcon sx={{ fontSize: 24 }} />
+            <Image
+              src={slackIconUrl}
+              alt="Slack Icon"
+              data-testid="slack-icon"
+              style={{ fontSize: 24 }}
+            />
           </Box>
         )}
         {titleLink ? (
@@ -70,7 +76,9 @@ export const ContactBox: React.FC<ContactBoxProps> = ({
         links.map(({ linkText, path, icon }) => (
           <Link href={path} key={path} style={{ textDecoration: 'none' }}>
             <div style={{ gap: '6px', display: 'flex', alignItems: 'center' }}>
-              <span style={{ fontSize: '24px' }}>{icon}</span>
+              <span data-testid="icon" style={{ fontSize: '24px' }}>
+                {icon}
+              </span>
               <span
                 style={{
                   textDecoration: 'underline',
