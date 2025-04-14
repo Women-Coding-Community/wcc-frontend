@@ -20,7 +20,7 @@ const iconNetworkMapper = {
   instagram: <InstagramIcon fontSize="large" />,
   twitter: <TwitterIcon fontSize="large" />,
   email: <EmailIcon fontSize="large" />,
-  slack: <SlackIcon width={32} height={32} fill={'FFF'} />,
+  slack: <img src={SlackIcon} width={32} height={32} alt="Slack"/>,
 };
 
 export const Footer = ({
@@ -33,7 +33,7 @@ export const Footer = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const renderSocialNetworkIcon = (network: Network) => {
     return (
-      <a href={network.link}>
+      <a href={network.link} key={network.type}>
         <Icon
           sx={{
             color: 'primary.dark',
@@ -112,6 +112,7 @@ export const Footer = ({
               justifyContent: 'center',
               paddingTop: '0.5rem',
             }}
+            key="social-icons-container"
           >
             {network.map((socialMediaNetwork) =>
               renderSocialNetworkIcon(socialMediaNetwork),

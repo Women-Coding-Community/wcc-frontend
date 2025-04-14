@@ -26,6 +26,7 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
     <>
       <Grid
         container
+        data-testid="hero-container"
         spacing={0}
         justifyContent="center"
         alignItems="center"

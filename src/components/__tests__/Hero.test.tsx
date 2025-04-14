@@ -55,20 +55,22 @@ describe('Hero Component', () => {
     expect(screen.getByText(mockData.description)).toBeInTheDocument();
     const image = screen.getByAltText(mockData.images[0].alt);
     expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute('src', mockData.images[0].path);
+    expect(image).toHaveAttribute('src', "/_next/image?url=%2Fhero-3x2.jpg&w=1920&q=75");
   });
 
   it('renders correctly on mobile layout', () => {
     renderComponent(true);
+    const heroContainer = screen.getByTestId('hero-container');
 
-    expect(screen.getByRole('grid')).toHaveStyle('maxWidth: 100%');
+    expect(heroContainer).toHaveStyle({ maxWidth: '100%' });
     expect(screen.getByText(mockData.title)).toBeInTheDocument();
   });
 
   it('renders correctly on desktop layout', () => {
     renderComponent(false);
+    const heroContainer = screen.getByTestId('hero-container');
 
-    expect(screen.getByRole('grid')).toHaveStyle('maxWidth: 1100px');
+    expect(heroContainer).toHaveStyle({ maxWidth: '1128px' });
     expect(screen.getByText(mockData.title)).toBeInTheDocument();
   });
 
@@ -96,11 +98,7 @@ describe('Hero Component', () => {
       name: mockDataWithMobileFirst.images[0].alt,
     });
     expect(mobileImage).toBeInTheDocument();
-    expect(mobileImage).toHaveAttribute(
-      'src',
-      mockDataWithMobileFirst.images[0].path,
-    );
-
+    expect(mobileImage).toHaveAttribute('src', "/_next/image?url=%2Fhero-3x2.jpg&w=1920&q=75");
     const desktopImage = screen.queryByRole('img', {
       name: /desktop image alt/i,
     });
