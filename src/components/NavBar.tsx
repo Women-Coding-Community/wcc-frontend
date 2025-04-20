@@ -258,7 +258,7 @@ export const NavBar = () => {
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            width: isMobile ? '100%' : '100%',
+            width: '100%',
             height: isMobile ? '80%' : '100%',
           }}
         >
