@@ -1,4 +1,5 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import mediaQuery from 'css-mediaquery';
 import { render, screen, fireEvent } from '@testing-library/react';
 import mockRouter from 'next-router-mock';
 import React from 'react';
@@ -8,6 +9,19 @@ import { NavBar } from 'components/NavBar';
 jest.mock('next/router', () => require('next-router-mock'));
 
 const theme = createTheme();
+
+export const createMatchMedia =
+  (width: number) =>
+  (query: string): MediaQueryList => ({
+    matches: mediaQuery.match(query, { width }),
+    media: query,
+    onchange: null,
+    addListener: () => jest.fn(),
+    removeListener: () => jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  });
 
 describe('NavBar', () => {
   beforeEach(() => {
@@ -81,6 +95,13 @@ describe('NavBar', () => {
     expect(screen.getByTestId('subNav')).toBeInTheDocument();
     fireEvent.click(screen.getByText('About Us'));
     expect(screen.queryByRole('subNav')).not.toBeInTheDocument();
+  });
+
+  it('should display toggle on mobile', () => {
+    window.matchMedia = createMatchMedia(800);
+    renderWithRouter(<NavBar />);
+    const menuButton = screen.getByRole('button', { name: 'menu' });
+    expect(menuButton).toBeVisible();
   });
 
   it('should toggle the mobile drawer', () => {

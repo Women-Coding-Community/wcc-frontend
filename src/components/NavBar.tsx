@@ -5,6 +5,9 @@ import {
   Drawer,
   Grid,
   Icon,
+  List,
+  ListItemButton,
+  ListItemText,
   MenuItem,
   Typography,
   useMediaQuery,
@@ -12,6 +15,7 @@ import {
 } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import Menu from '@mui/material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Image from 'next/image';
@@ -19,6 +23,8 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import { headerSetup } from '@utils/staticContent';
+import { ExpandMore } from '@mui/icons-material';
+import { ExpandLess } from '@mui/icons-material';
 
 type SubNavItem = {
   title: string;
@@ -38,7 +44,9 @@ export const NavBar = () => {
   const [anchorElements, setAnchorElements] = React.useState<
     {} | { [key: string]: HTMLElement }
   >({ mentorship: null, programmes: null, aboutUs: null });
+
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -50,6 +58,7 @@ export const NavBar = () => {
       ...prev,
       [menuKey]: event.currentTarget,
     }));
+    setActiveDropdown((prev) => (prev === menuKey ? null : menuKey));
   };
 
   const handleMenuClose = (menuKey: string) => {
@@ -57,20 +66,29 @@ export const NavBar = () => {
       ...prev,
       [menuKey]: null,
     }));
+
+    setMobileOpen(false);
+    setActiveDropdown(null);
   };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleNavItemClick = (path: string) => {
+    router.push(path);
+    setActiveDropdown(null);
+    setMobileOpen(false);
+  };
+
   const menuItems: { [key: string]: NavBarMenuItem } = headerSetup;
 
   const renderNavItems = (items: NavBarMenuItem[]) => {
-    return items.map((item: NavBarMenuItem) => {
+    return items.map((item: NavBarMenuItem, index) => {
       if (item.path) {
         return (
           <Button
-            key={item.title}
+            key={`${item.path}-${index}`}
             sx={{ color: 'primary.dark', padding: '0 1.5rem' }}
             onClick={() => router.push(item.path || '')}
           >
@@ -80,7 +98,7 @@ export const NavBar = () => {
       } else {
         return (
           <Button
-            key={item.title}
+            key={`${item.title}-${index}`}
             aria-controls={`${item.title}-menu`}
             aria-haspopup="true"
             sx={{ color: 'primary.dark', padding: '0 1.5rem' }}
@@ -108,7 +126,7 @@ export const NavBar = () => {
       >
         {items.map((item: SubNavItem, index: number) => (
           <MenuItem
-            key={`${item.title}-${index}`}
+            key={`${item.title}-${index}-menu-item`}
             onClick={() => {
               handleMenuClose(menuKey);
               router.push(item.path);
@@ -121,13 +139,116 @@ export const NavBar = () => {
     );
   };
 
+  const renderMobileNavItems = (items: NavBarMenuItem[]) => {
+    return items.map((item: NavBarMenuItem, index) => {
+      if (item.path) {
+        return (
+          <List component="div" disablePadding key={`${item.path}-${index}`}>
+            <ListItemButton
+              sx={{
+                color: 'primary.dark',
+                padding: '0.5rem 1rem',
+                fontSize: '18px',
+                '&.Mui-active': {
+                  backgroundColor: '#F4F0EF',
+                },
+                '&:hover': {
+                  backgroundColor: '#F4F0EF',
+                  borderRadius: '100px',
+                },
+              }}
+              onClick={() => {
+                router.push(item.path || '');
+                handleMenuClose(item.title);
+              }}
+            >
+              <ListItemText
+                primary={item.title}
+                primaryTypographyProps={{ fontSize: '16px' }}
+              />
+            </ListItemButton>
+          </List>
+        );
+      } else {
+        return (
+          <div key={`${item.title}-${index}`}>
+            <List component="div" disablePadding>
+              <ListItemButton
+                sx={{
+                  color: 'primary.dark',
+                  padding: '0.5rem 1rem',
+                  fontSize: '18px',
+                  '&.Mui-selected': {
+                    backgroundColor: '#F4F0EF',
+                  },
+                  '&:hover': {
+                    backgroundColor: '#F4F0EF',
+                    borderRadius: '100px',
+                  },
+                }}
+                onClick={(event) => handleMenuOpen(item.title, event)}
+              >
+                <ListItemText
+                  primary={item.title}
+                  primaryTypographyProps={{ fontSize: '16px' }}
+                />
+                {activeDropdown === item.title ? (
+                  <ExpandLess />
+                ) : (
+                  <ExpandMore />
+                )}
+              </ListItemButton>
+              {activeDropdown === item.title &&
+                item.subNav &&
+                renderMobileDropdownMenu(item.title, item.subNav)}
+            </List>
+          </div>
+        );
+      }
+    });
+  };
+
+  const renderMobileDropdownMenu = (menuKey: string, items: SubNavItem[]) => {
+    return (
+      <List component="div" disablePadding>
+        {items.map((item: SubNavItem, index: number) => (
+          <ListItemButton
+            key={`${item.title}-${index}-subitem`}
+            sx={{
+              color: 'primary.dark',
+              padding: '0.2rem 1rem',
+              margin: '1rem 2rem',
+              '&.Mui-active': {
+                backgroundColor: '#FFDBD0',
+                borderRadius: '100px',
+                '&:hover': {
+                  backgroundColor: '#FFDBD0',
+                },
+              },
+              '&:hover': {
+                backgroundColor: '#FFDBD0',
+                borderRadius: '100px',
+              },
+            }}
+            onClick={() => {
+              handleNavItemClick(item.path);
+            }}
+            data-testid="subNav"
+          >
+            <ListItemText primary={item.title} />
+          </ListItemButton>
+        ))}
+      </List>
+    );
+  };
+
   return (
     <Box>
       <AppBar
         position="static"
         color="transparent"
         sx={{
-          height: '130px',
+          height: isMobile ? '90px' : '130px',
           display: 'flex',
           justifyContent: isMobile ? 'space-around' : 'center',
           alignItems: 'center',
@@ -138,11 +259,16 @@ export const NavBar = () => {
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            width: isMobile ? '100%' : '60%',
-            height: '100%',
+            width: isMobile ? '100%' : '100%',
+            height: isMobile ? '80%' : '100%',
           }}
         >
-          <Image src="/logo_white.png" alt="Logo" width={80} height={80} />
+          <Image
+            src="/logo_white.png"
+            alt="Logo"
+            width={isMobile ? 60 : 80}
+            height={isMobile ? 60 : 80}
+          />
           {!isMobile && (
             <>
               <Grid container justifyContent="end">
@@ -150,7 +276,7 @@ export const NavBar = () => {
                 <Button
                   variant="outlined"
                   color="inherit"
-                  sx={{ borderRadius: '16px' }} // should be replaced once we update the design
+                  sx={{ borderRadius: '100px' }}
                 >
                   Find a mentor
                 </Button>
@@ -180,11 +306,66 @@ export const NavBar = () => {
         anchor="left"
         open={mobileOpen}
         onClose={handleDrawerToggle}
-        sx={{ display: { xs: 'block', md: 'none' } }}
+        sx={{
+          flexShrink: 0,
+          display: { xs: 'inherit', sm: 'none' },
+          '& .MuiDrawer-paper': {
+            height: '100%',
+            width: '354px',
+          },
+        }}
       >
-        {/* <List>
-        // Todo how does the mobile look like
-        /List> */}
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="close"
+          onClick={handleDrawerToggle}
+          sx={{
+            display: { xs: 'flex', md: 'none' },
+            justifyContent: 'flex-start',
+            padding: '0.875rem 0.75rem',
+            margin: '0.5rem 1rem',
+          }}
+        >
+          <MenuOpenIcon />
+        </IconButton>
+
+        {isMobile && (
+          <>
+            <Grid
+              container
+              alignItems="left"
+              direction="column"
+              sx={{
+                width: '100%',
+                height: 'auto',
+                margin: '0rem',
+              }}
+            >
+              <Box
+                sx={{
+                  padding: '0rem 1rem',
+                }}
+              >
+                {renderMobileNavItems(Object.values(menuItems))}
+              </Box>
+
+              <Button
+                variant="outlined"
+                size="small"
+                color="inherit"
+                sx={{
+                  borderRadius: '100px',
+                  width: '40%',
+                  padding: '0.5rem 1rem',
+                  margin: ' 0.8rem 1.5rem',
+                }}
+              >
+                Find a mentor
+              </Button>
+            </Grid>
+          </>
+        )}
       </Drawer>
     </Box>
   );
