@@ -1,4 +1,6 @@
+import { ExpandMore, ExpandLess } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import {
   Box,
   Button,
@@ -15,7 +17,6 @@ import {
 } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import Menu from '@mui/material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Image from 'next/image';
@@ -23,8 +24,6 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import { headerSetup } from '@utils/staticContent';
-import { ExpandMore } from '@mui/icons-material';
-import { ExpandLess } from '@mui/icons-material';
 
 type SubNavItem = {
   title: string;

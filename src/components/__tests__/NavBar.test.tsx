@@ -1,6 +1,6 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import mediaQuery from 'css-mediaquery';
 import { render, screen, fireEvent } from '@testing-library/react';
+import mediaQuery from 'css-mediaquery';
 import mockRouter from 'next-router-mock';
 import React from 'react';
 
