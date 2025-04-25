@@ -92,12 +92,11 @@ const theme = createTheme({
     },
     secondary: {
       main: '#dc004e',
-      light: '#FFDBD0'
+      light: '#FFDBD0',
     },
     custom: {
-      softGray: '#F4F0EF'
-    }
-    
+      softGray: '#F4F0EF',
+    },
   },
   components: {
     MuiIcon: {
@@ -113,7 +112,6 @@ const theme = createTheme({
       },
     },
   },
-  
 });
 
 export default theme;
