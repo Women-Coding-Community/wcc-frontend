@@ -149,10 +149,10 @@ export const NavBar = () => {
                 padding: '0.5rem 1rem',
                 fontSize: '18px',
                 '&.Mui-active': {
-                  backgroundColor: '#F4F0EF',
+                  backgroundColor: theme.palette.custom?.softGray,
                 },
                 '&:hover': {
-                  backgroundColor: '#F4F0EF',
+                  backgroundColor: theme.palette.custom?.softGray,
                   borderRadius: '100px',
                 },
               }}
@@ -178,10 +178,10 @@ export const NavBar = () => {
                   padding: '0.5rem 1rem',
                   fontSize: '18px',
                   '&.Mui-selected': {
-                    backgroundColor: '#F4F0EF',
+                    backgroundColor: theme.palette.custom?.softGray,
                   },
                   '&:hover': {
-                    backgroundColor: '#F4F0EF',
+                    backgroundColor: theme.palette.custom?.softGray,
                     borderRadius: '100px',
                   },
                 }}
@@ -218,14 +218,14 @@ export const NavBar = () => {
               padding: '0.2rem 1rem',
               margin: '1rem 2rem',
               '&.Mui-active': {
-                backgroundColor: '#FFDBD0',
+                backgroundColor: theme.palette.secondary.light,
                 borderRadius: '100px',
                 '&:hover': {
-                  backgroundColor: '#FFDBD0',
+                  backgroundColor: theme.palette.secondary.light,
                 },
               },
               '&:hover': {
-                backgroundColor: '#FFDBD0',
+                backgroundColor: theme.palette.secondary.light,
                 borderRadius: '100px',
               },
             }}

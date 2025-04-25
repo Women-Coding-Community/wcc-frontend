@@ -20,6 +20,16 @@ declare module '@mui/material/styles' {
       desktop?: string;
     };
   }
+  interface Palette {
+    custom: {
+      softGray: string;
+    };
+  }
+  interface PaletteOptions {
+    custom?: {
+      softGray?: string;
+    };
+  }
 }
 
 const theme = createTheme({
@@ -82,7 +92,12 @@ const theme = createTheme({
     },
     secondary: {
       main: '#dc004e',
+      light: '#FFDBD0'
     },
+    custom: {
+      softGray: '#F4F0EF'
+    }
+    
   },
   components: {
     MuiIcon: {
@@ -98,6 +113,7 @@ const theme = createTheme({
       },
     },
   },
+  
 });
 
 export default theme;

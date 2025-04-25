@@ -111,4 +111,11 @@ describe('NavBar', () => {
     fireEvent.click(screen.getByLabelText('menu'));
     expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
   });
+
+  it('should show submenu on click in desktop', () => {
+    window.matchMedia = createMatchMedia(1200);
+    renderWithRouter(<NavBar />);
+    fireEvent.click(screen.getByText('Programmes'));
+    expect(screen.getByText('Book Club')).toBeVisible();
+  });
 });
