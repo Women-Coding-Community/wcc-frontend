@@ -122,19 +122,20 @@ export const NavBar = () => {
   };
 
   return (
-    <Box>
+    <>
       <AppBar
         position="static"
         color="transparent"
         sx={{
           height: '130px',
           display: 'flex',
-          justifyContent: isMobile ? 'space-around' : 'center',
+          justifyContent: isMobile ? 'space-around' : 'space-between',
           alignItems: 'center',
           marginBottom: '1rem',
         }}
       >
         <Toolbar
+          disableGutters
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -186,6 +187,6 @@ export const NavBar = () => {
         // Todo how does the mobile look like
         /List> */}
       </Drawer>
-    </Box>
+    </>
   );
 };

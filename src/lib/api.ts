@@ -5,6 +5,7 @@ const API_KEY = process.env.API_KEY;
 
 import footerData from './responses/footer.json';
 import landingPageData from './responses/landingPage.json';
+import mentors from './responses/mentors.json';
 import mentorShipPage from './responses/mentorship.json';
 // for new pages: import the json file
 // (which you copied from https://github.com/Women-Coding-Community/wcc-backend/tree/main/src/main/resources)
@@ -13,6 +14,7 @@ import mentorShipPage from './responses/mentorship.json';
 const pageData = {
   landingPage: landingPageData,
   'mentorship/overview': mentorShipPage,
+  'mentorship/mentors': mentors,
 };
 
 export const fetchData = async (path: string) => {
