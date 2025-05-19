@@ -12,3 +12,4 @@ export { Title } from './Title';
 export { ColoredBox } from './ColoredBox';
 export { TextContent } from './TextContent';
 export { ContactUsCard } from './ContactUsCard';
+export { ContactBox } from './ContactBox';
