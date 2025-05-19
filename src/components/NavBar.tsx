@@ -1,6 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import {
-  Box,
   Button,
   Drawer,
   Grid,
