@@ -100,6 +100,57 @@ export type FeedbackSectionData = {
     },
   ];
 };
+
+export type TeamApiResponse = {
+  page: TeamCoreData;
+  contact: TeamContactData;
+  membersByType: TeamMembersData;
+};
+
+export type TeamCoreData = {
+  title: string;
+  subtitle: string;
+  description: string;
+  link: {
+    title: string;
+    label: string;
+    uri: string;
+  };
+  images: { path: string; alt: string; type: string }[];
+};
+
+export type TeamContactData = {
+  title: string;
+  links: {
+    type: string;
+    link: string;
+  }[];
+};
+
+type PersonalData = {
+  fullName: string;
+  position: string;
+  email: string;
+  country: {
+    countryCode: string;
+    countryName: string;
+  };
+  city: string;
+  jobTitle: string;
+  companyName: string;
+  images: { path: string; alt: string; type: string }[];
+  network: {
+    type: string;
+    link: string;
+  }[];
+};
+
+export type TeamMembersData = {
+  directors: PersonalData[];
+  leads: PersonalData[];
+  evangelists: PersonalData[];
+};
+
 export interface EventData {
   title: string;
   link: Link;
