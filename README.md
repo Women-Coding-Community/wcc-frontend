@@ -46,10 +46,10 @@ In this file please paste the following:
 
 ```
 API_BASE_URL=https://wcc-backend.fly.dev/api/cms/v1
+API_KEY={your_api_key}
 ```
 
-This will allow your localhost to serve the json which is used to populate the pages while the
-API is not available.
+This will allow your local to connect to the backend, if you don't yet have an API_KEY please send a message via our dedicated Slack channel. This will never be committed to the github repository
 
 You can run the application using
 

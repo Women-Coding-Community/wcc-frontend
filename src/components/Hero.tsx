@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, useMediaQuery } from '@mui/material';
+import { Box, Typography, Grid, useMediaQuery, Link } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 
@@ -14,10 +14,16 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
-  const { alt: imageAlt, path: imagePath } = images[0];
-  // currently the `/` is missing from the path value
-  const tempImagePathForApplication = `/${imagePath}`;
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
+  const desktopImage = images.find((image) => image.type === 'desktop');
+  const mobileImage = images.find((image) => image.type === 'mobile');
+
+  const image = isMobile
+    ? mobileImage?.path || desktopImage?.path
+    : desktopImage?.path;
+  const alt = isMobile
+    ? mobileImage?.alt || desktopImage?.alt
+    : desktopImage?.alt;
 
   return (
     <>
@@ -28,8 +34,7 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
         alignItems="center"
         sx={{
           padding: '21px 16px 48px 16px',
-          '@media (min-width: 600px)': { padding: '75px 16px' },
-          maxWidth: isMobile ? '100%' : '1100px',
+          maxWidth: isMobile ? '100%' : '1128px',
           margin: '0 auto',
         }}
         direction={isMobile ? 'column' : 'row'}
@@ -64,17 +69,79 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
             >
               {description}
             </Typography>
+            <Link
+              href="https://join.slack.com/t/womencodingcommunity/shared_invite/zt-2hpjwpx7l-rgceYBIWp6pCiwc0hVsX8A"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                fontSize: '1.25rem',
+                textDecoration: 'underline',
+                color: 'theme.palette.primary.main',
+                '&:hover': {
+                  textDecoration: 'none',
+                },
+              }}
+            >
+              Join our Slack
+            </Link>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={7} style={{ padding: 0, margin: 0 }}>
-          <Box>
-            <Image
-              src={tempImagePathForApplication}
-              alt={imageAlt}
-              width={647}
-              height={374}
-              style={{ maxWidth: '100%', height: '100%' }}
-              priority
+        <Grid
+          item
+          xs={12}
+          sm={7}
+          style={{
+            padding: 0,
+            margin: 0,
+            background: 'yellow',
+            boxSizing: 'border-box',
+          }}
+        >
+          <Box
+            sx={{
+              position: 'relative',
+              overflow: 'visible',
+              width: '100%',
+              maxWidth: '647px',
+              borderRadius: '4px',
+              height: 'auto',
+            }}
+          >
+            {image && alt ? (
+              <Image
+                src={image}
+                alt={alt}
+                objectFit="cover"
+                objectPosition="center 25%"
+                style={{
+                  borderRadius: '4px',
+                  display: 'block',
+                  filter: isMobile
+                    ? 'drop-shadow(10px 10px 0px rgba(255, 181, 157, 0.8))'
+                    : 'drop-shadow(20px 20px 0px rgba(255, 181, 157, 0.8))',
+                }}
+                quality={100}
+                priority
+                layout="responsive"
+                width={343}
+                height={195}
+                sizes="(max-width: 750px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            ) : (
+              <Box></Box>
+            )}
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'linear-gradient(to right, #507C99, #FFB59D)',
+                opacity: 0.8,
+                pointerEvents: 'none',
+                borderRadius: '4px',
+              }}
             />
           </Box>
         </Grid>
