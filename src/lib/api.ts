@@ -62,6 +62,7 @@ export const fetchFooter = async () => {
     // }
     return response.data;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Failed to fetch data, generating fallback footer');
     return footerData;
   }
