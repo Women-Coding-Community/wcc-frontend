@@ -14,6 +14,7 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
+  const { alt: imageAlt, path: imagePath } = images[0] || images[1];
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
 
   const image = images.find(

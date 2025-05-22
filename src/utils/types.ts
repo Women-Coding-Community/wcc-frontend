@@ -44,7 +44,10 @@ export type LandingPageResponse = {
   volunteerSection: {
     title: string;
     description: string;
-    link: string;
+    link: {
+      title: string;
+      uri: string;
+    };
     images: Image[];
   };
   fullBannerSection: {
