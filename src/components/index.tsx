@@ -10,4 +10,5 @@ export { GradientBorderDivider } from './GradientBorderDivider';
 export { FeedbackCard } from './FeedbackCard';
 export { Title } from './Title';
 export { ColoredBox } from './ColoredBox';
+export { VolunteerSection } from './VolunteerSection';
 export { ContactBox } from './ContactBox';
