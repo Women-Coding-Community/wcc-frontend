@@ -32,6 +32,7 @@ export const Footer = ({
 }: FooterResponse) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const renderSocialNetworkIcon = (network: Network) => {
+        
     return (
       <a href={network.link}>
         <Icon
@@ -112,6 +113,7 @@ export const Footer = ({
               justifyContent: 'center',
               paddingTop: '0.5rem',
             }}
+            key="social-icons-container"
           >
             {network.map((socialMediaNetwork) =>
               renderSocialNetworkIcon(socialMediaNetwork),
@@ -137,6 +139,13 @@ export const Footer = ({
           </Typography>
         </Box>
       </Box>
+      <style>
+        {`
+          .slack-icon {
+            color: #000;           
+          }
+        `}
+      </style>
     </>
   );
 };

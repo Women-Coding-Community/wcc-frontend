@@ -77,8 +77,9 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#1976d2', // to be defined per design
+      main: '#226488', // to be defined per design -> Joana changed the previous: #1976d2 to Figma color  #226488
       dark: '#1b1919',
+      light: '#F6FAFE',
     },
     secondary: {
       main: '#dc004e',
