@@ -72,6 +72,36 @@ export type FooterResponse = {
   link: Link;
 };
 
+export type celebrateHerData = {
+  lists: {
+    title: string;
+    description: string;
+    uri: string;
+    link: string;
+    bgColor: string;
+    tagText: string;
+  }[];
+};
+
+export type StudyGroupSectionData = {
+  groups: {
+    title: string;
+    description: string;
+    mentor: string;
+    participants: number;
+    uri: string;
+    bgColor: string;
+  }[];
+};
+
+export type OurProgrammesData = {
+  studyGroupSection: StudyGroupSectionData;
+};
+
+export type AboutUsPageData = {
+  celebrateHer: celebrateHerData;
+};
+
 export type MentorshipProgrammeData = {
   page: {
     title: string;
