@@ -9,6 +9,7 @@ import {
   Footer,
 } from '@components';
 import { FooterResponse, LandingPageResponse } from '@utils/types';
+import { EventContainer } from 'components/EventContainer';
 import { fetchData } from 'lib/api';
 
 type CombinedResponse = {
@@ -31,12 +32,13 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
     }
   }, [error, router]);
 
-  const { heroSection, programmes, fullBannerSection } = data;
+  const { heroSection, programmes, fullBannerSection, events } = data;
 
   return (
     <div>
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmes} />
+      <EventContainer {...events} />
       <MentorBanner {...fullBannerSection} />
       <Footer {...footer} />
     </div>
@@ -46,7 +48,6 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const combinedResponse: CombinedResponse = await fetchData('landingPage');
-
     return {
       props: {
         data: combinedResponse.data,

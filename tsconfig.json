@@ -22,7 +22,8 @@
     "baseUrl": "./src",
     "paths": {
       "@components": ["components"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@public/*": ["../public/*"]
     },
     "incremental": true,
     "types": ["jest", "node", "@testing-library/jest-dom"]
