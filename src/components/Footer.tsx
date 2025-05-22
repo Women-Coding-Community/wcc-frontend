@@ -32,7 +32,6 @@ export const Footer = ({
 }: FooterResponse) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const renderSocialNetworkIcon = (network: Network) => {
-        
     return (
       <a href={network.link}>
         <Icon

@@ -11,6 +11,16 @@ declare module '@mui/material/styles' {
       tablet: string;
       desktop: string;
     };
+    custom: {
+      containerBox: {
+        display: string;
+        flexDirection: string;
+        alignItems: string;
+        justifyContent: string;
+        width: string;
+        backgroundColor: string;
+      };
+    };
   }
 
   interface ThemeOptions {
@@ -18,6 +28,16 @@ declare module '@mui/material/styles' {
       mobile?: string;
       tablet?: string;
       desktop?: string;
+    };
+    custom?: {
+      containerBox?: {
+        display?: string;
+        flexDirection?: string;
+        alignItems?: string;
+        justifyContent?: string;
+        width?: string;
+        backgroundColor?: string;
+      };
     };
   }
 }
@@ -100,5 +120,16 @@ const theme = createTheme({
     },
   },
 });
+
+theme.custom = {
+  containerBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    backgroundColor: '#fff',
+  },
+};
 
 export default theme;

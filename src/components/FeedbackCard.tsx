@@ -1,5 +1,5 @@
-import { Box, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Button, Typography } from '@mui/material';
+import React, { useState } from 'react';
 
 import QuoteIcon from '@public/icons/quote-icon-custom_orange.svg';
 
@@ -16,6 +16,10 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({
   mentee,
   year,
 }) => {
+  const [showMore, setShowMore] = useState(false);
+  const isLong = feedback.length > 300;
+  const displayedFeedback =
+    isLong && !showMore ? feedback.slice(0, 300) + '...' : feedback;
   const boldText = `${name}, ${mentee ? 'Mentee' : 'Mentor'} ${year}`;
 
   return (
@@ -32,7 +36,24 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({
     >
       <QuoteIcon />
 
-      <Typography variant="body2">{feedback}</Typography>
+      <Typography variant="body2">
+        {displayedFeedback}{' '}
+        {isLong && (
+          <Button
+            size="small"
+            onClick={() => setShowMore((prev) => !prev)}
+            sx={{
+              justifySelf: 'end',
+              textTransform: 'none',
+              padding: 0,
+              minWidth: 0,
+            }}
+          >
+            {showMore ? 'Show less' : 'Show more'}
+          </Button>
+        )}
+      </Typography>
+
       <Typography
         variant="subtitle2"
         sx={{ fontWeight: '500', lineHeight: '20px', letterSpacing: '0.1px' }}

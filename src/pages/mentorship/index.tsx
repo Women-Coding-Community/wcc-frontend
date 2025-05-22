@@ -2,13 +2,12 @@ import { Typography, Button, Box, Grid, useMediaQuery } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React, { useState } from 'react';
 
-import MentorBecomeCard from 'components/MentorBecomeCard';
-import theme from 'theme';
 import { ColoredBox, FeedbackCard } from '@components';
 import { MentorshipProgrammeData } from '@utils/types';
 import { FeedbackCardProps } from 'components/FeedbackCard';
+import MentorBecomeCard from 'components/MentorBecomeCard';
 import { fetchData } from 'lib/api';
-
+import theme from 'theme';
 
 interface MentorshipPageProps {
   mentorship: MentorshipProgrammeData;

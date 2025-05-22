@@ -48,6 +48,7 @@ describe('Volunteer Image', () => {
       width: 634,
       height: 493,
     };
+    // eslint-disable-next-line jsx-a11y/alt-text
     render(<Image {...testProps} />);
     const imageAltNode = screen.getByAltText(testProps.alt);
 

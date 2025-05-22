@@ -15,7 +15,15 @@ export const headerSetup = {
         path: '/mentorship/mentors',
       },
       {
+        title: 'Study Groups',
+        path: '/mentorship/study-groups',
+      },
+      {
         title: 'Mentor Registration',
+        path: '/mentorship/mentor-registration',
+      },
+      {
+        title: 'Mentee Registration',
         path: '/mentorship/mentor-registration',
       },
       {
@@ -29,6 +37,14 @@ export const headerSetup = {
       {
         title: 'FAQs',
         path: '/mentorship/faqs',
+      },
+      {
+        title: 'Long-Term Timeline',
+        path: '/mentorship/long-term-timeline',
+      },
+      {
+        title: 'Ad-Hoc Timeline',
+        path: '/mentorship/ad-hoc-timeline',
       },
     ],
   },
