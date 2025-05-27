@@ -12,8 +12,8 @@ interface LinkButtonProps extends ButtonProps {
 
 function isSafeExternalUrl(url: string) {
   try {
-    const parsed = new URL(url, 'http://dummy.base'); // base for relative URLs
-    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    const parsed = new URL(url, 'https://dummy.base'); // base for relative URLs
+    return parsed.protocol === 'https:';
   } catch {
     return false;
   }
