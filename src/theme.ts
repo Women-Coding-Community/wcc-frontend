@@ -161,7 +161,7 @@ theme.custom = {
   },
   innerBox: {
     width: '100%',
-    maxWidth: '1127px', // or your preferred desktop width
+    maxWidth: '1127px',
     margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',
