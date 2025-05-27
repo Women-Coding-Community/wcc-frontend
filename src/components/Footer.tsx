@@ -3,14 +3,14 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { Box, Typography, Link, Icon, useMediaQuery } from '@mui/material';
+import { Box, Typography, Link, Icon } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 
 import { GradientBorderDivider } from '@components';
 import { addLineBreakAfterPeriod } from '@utils/helpers';
+import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, Network } from '@utils/types';
-import theme from 'theme';
 
 import SlackIcon from '../../public/icons/slack-icon.svg';
 
@@ -30,7 +30,7 @@ export const Footer = ({
   network,
   link,
 }: FooterResponse) => {
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useIsMobile();
   const renderSocialNetworkIcon = (network: Network) => {
     return (
       <a href={network.link} key={network.link}>

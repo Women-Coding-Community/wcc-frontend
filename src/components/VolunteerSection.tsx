@@ -1,8 +1,9 @@
-import { Box, Typography, Button, Grid, useMediaQuery } from '@mui/material';
+import { Box, Typography, Button, Grid } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
+import { useIsMobile } from '@utils/theme-utils';
 import { LandingPageResponse } from '@utils/types';
 
 import theme from '../theme';
@@ -20,7 +21,7 @@ export const VolunteerSection: React.FC<VolunteerProps> = ({
   images,
   link,
 }) => {
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useIsMobile();
 
   const { alt: imageAlt, path: imagePath } = images[0];
   const { title: linkTitle, uri: linkUri } = link;
