@@ -29,18 +29,12 @@ export const GroupCard: React.FC<GroupCardProps> = ({
     <Card sx={{ backgroundColor: bgColor, borderRadius: 3, maxWidth: 400 }}>
       <Stack my={3}>
         {tags && (
-          <Typography variant="body2" style={{ fontWeight: 600 }} mb={2} mx={2}>
+          <Typography variant="body2" style={{ fontWeight: 600 }} mb={2}>
             {tagText}
           </Typography>
         )}
 
-        <Typography
-          variant="h2"
-          mx={2}
-          sx={{ fontSize: '1.2rem', fontWeight: 600 }}
-        >
-          {title}
-        </Typography>
+        <Typography variant="h2">{title}</Typography>
 
         <Typography
           variant="body1"

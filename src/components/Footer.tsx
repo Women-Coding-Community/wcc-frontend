@@ -33,7 +33,7 @@ export const Footer = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const renderSocialNetworkIcon = (network: Network) => {
     return (
-      <a href={network.link}>
+      <a href={network.link} key={network.link}>
         <Icon
           sx={{
             color: 'primary.dark',
@@ -84,7 +84,8 @@ export const Footer = ({
             height={80}
           />
 
-          <p
+          <Typography
+            variant="body2"
             style={{ fontSize: isMobile ? '12px' : '14px' }}
             dangerouslySetInnerHTML={{ __html: modifyFooterDescription }}
           />
@@ -97,7 +98,7 @@ export const Footer = ({
           }}
         >
           <Typography
-            sx={{ fontSize: '16px' }}
+            variant="body1"
             color="primary.dark"
             typography={{ fontWeight: '600' }}
           >
@@ -118,13 +119,7 @@ export const Footer = ({
               renderSocialNetworkIcon(socialMediaNetwork),
             )}
           </Box>
-          <Typography
-            variant="body1"
-            color="primary.dark"
-            typography={{ fontWeight: '600' }}
-            pt={2}
-            sx={{ fontSize: '16px' }}
-          >
+          <Typography variant="body1" typography={{ fontWeight: '600' }} pt={2}>
             {link.title} <br />
             <Link
               href={link.uri}
@@ -141,7 +136,7 @@ export const Footer = ({
       <style>
         {`
           .slack-icon {
-            color: #000;           
+            color: #000;
           }
         `}
       </style>

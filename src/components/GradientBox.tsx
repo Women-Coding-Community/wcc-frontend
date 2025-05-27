@@ -1,20 +1,28 @@
-import { Box } from '@mui/material';
-import { HTMLAttributes } from 'react';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
+import { PropsWithChildren } from 'react';
 
 type GradientBoxProps = {
   colors: Array<string>;
-} & HTMLAttributes<HTMLDivElement>;
+};
 
-export const GradientBox = (props: GradientBoxProps) => {
-  const colorString = props.colors.join(', ');
+export const GradientBox = ({
+  colors,
+  children,
+  ...rest
+}: PropsWithChildren<GradientBoxProps>) => {
+  const theme = useTheme();
+  const colorString = colors.join(', ');
 
   return (
     <Box
       sx={{
         background: `linear-gradient(to right, ${colorString})`,
-        padding: '3rem 1rem',
+        ...theme.custom.containerBox,
       }}
-      {...props}
-    ></Box>
+      {...rest}
+    >
+      {children}
+    </Box>
   );
 };

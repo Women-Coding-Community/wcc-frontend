@@ -18,7 +18,15 @@ declare module '@mui/material/styles' {
         alignItems: string;
         justifyContent: string;
         width: string;
-        backgroundColor: string;
+        padding: string;
+      };
+      innerBox: {
+        width: string;
+        maxWidth: string;
+        margin: string;
+        display: string;
+        flexDirection: string;
+        alignItems: string;
       };
     };
   }
@@ -29,15 +37,14 @@ declare module '@mui/material/styles' {
       tablet?: string;
       desktop?: string;
     };
-    custom?: {
-      containerBox?: {
-        display?: string;
-        flexDirection?: string;
-        alignItems?: string;
-        justifyContent?: string;
-        width?: string;
-        backgroundColor?: string;
-      };
+    containerBox?: {
+      display?: string;
+      flexDirection?: string;
+      alignItems?: string;
+      justifyContent?: string;
+      width?: string;
+      backgroundColor?: string;
+      padding?: string;
     };
   }
 }
@@ -68,6 +75,7 @@ const theme = createTheme({
       fontSize: '14px',
       '@media (min-width:600px)': {
         fontSize: '16px',
+        lineHeight: '24px',
       },
     },
     body2: {
@@ -80,24 +88,33 @@ const theme = createTheme({
       fontSize: '6rem',
     },
     h2: {
-      fontSize: '3.75rem',
+      fontSize: '2.25rem',
+      fontWeight: 600,
+      lineHeight: 1.2,
     },
     h3: {
       fontSize: '3rem',
+      fontWeight: 600,
+      lineHeight: 1.2,
+      paddingBottom: '1rem',
+      paddingTop: '1rem',
     },
     h4: {
       fontSize: '2.125rem',
     },
     h5: {
       fontSize: '1.5rem',
+      fontWeight: 500,
+      lineHeight: '1.5',
+      paddingBottom: '1rem',
+      paddingTop: '1rem',
     },
-
     fontWeightBold: 600,
     fontWeightMedium: 400,
   },
   palette: {
     primary: {
-      main: '#226488', // to be defined per design -> Joana changed the previous: #1976d2 to Figma color  #226488
+      main: '#226488',
       dark: '#1b1919',
       light: '#F6FAFE',
     },
@@ -121,6 +138,17 @@ const theme = createTheme({
   },
 });
 
+theme.components = {
+  ...theme.components,
+  MuiTypography: {
+    styleOverrides: {
+      root: {
+        color: theme.palette.primary.dark,
+      },
+    },
+  },
+};
+
 theme.custom = {
   containerBox: {
     display: 'flex',
@@ -128,7 +156,15 @@ theme.custom = {
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    backgroundColor: '#fff',
+    padding: '3rem 1.5rem',
+  },
+  innerBox: {
+    width: '100%',
+    maxWidth: '1127px', // or your preferred desktop width
+    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 };
 

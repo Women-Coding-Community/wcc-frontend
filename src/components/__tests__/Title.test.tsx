@@ -1,13 +1,19 @@
+import { ThemeProvider } from '@mui/material/styles';
 import { render, screen } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
 import { Title } from '@components';
+import theme from 'theme';
 
 describe('Title Component', () => {
   it('renders the title text passed as a prop', () => {
     const testTitle = 'Test Title';
 
-    render(<Title title={testTitle} />);
+    render(
+      <ThemeProvider theme={theme}>
+        <Title title={testTitle} />
+      </ThemeProvider>,
+    );
 
     const titleElement = screen.getByText(testTitle);
     expect(titleElement).toBeInTheDocument();
@@ -17,7 +23,11 @@ describe('Title Component', () => {
   it('applies correct styles to the Typography component', () => {
     const testTitle = 'Styled Title';
 
-    render(<Title title={testTitle} />);
+    render(
+      <ThemeProvider theme={theme}>
+        <Title title={testTitle} />
+      </ThemeProvider>,
+    );
 
     const titleElement = screen.getByText(testTitle);
 

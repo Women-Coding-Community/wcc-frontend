@@ -69,7 +69,7 @@ export const NavBar = () => {
       if (item.path) {
         return (
           <Button
-            key={item.title}
+            key={`${item.path}`}
             sx={{ color: 'primary.dark', padding: '0 1.5rem' }}
             onClick={() => router.push(item.path || '')}
           >
@@ -105,9 +105,9 @@ export const NavBar = () => {
         onClose={() => handleMenuClose(menuKey)}
         data-testid="subNav"
       >
-        {items.map((item: SubNavItem, index: number) => (
+        {items.map((item: SubNavItem) => (
           <MenuItem
-            key={`${item.title}-${index}`}
+            key={item.path}
             onClick={() => {
               handleMenuClose(menuKey);
               router.push(item.path);

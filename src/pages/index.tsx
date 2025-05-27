@@ -44,14 +44,14 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
   } = data;
 
   return (
-    <Box sx={theme.custom.containerBox}>
+    <>
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmes} />
       <EventContainer {...events} />
       <MentorBanner {...fullBannerSection} />
       <VolunteerSection {...volunteerSection} />
       <Footer {...footer} />
-    </Box>
+    </>
   );
 };
 

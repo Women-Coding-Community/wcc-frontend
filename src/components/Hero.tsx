@@ -23,11 +23,10 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
   );
 
   return (
-    <>
+    <Box sx={theme.custom.containerBox}>
       <Grid
         container
         data-testid="hero-container"
-        spacing={0}
         justifyContent="center"
         alignItems="center"
         sx={{
@@ -42,11 +41,7 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
             textAlign={isMobile ? 'center' : 'left'}
             marginRight={isMobile ? '' : '52px'}
           >
-            <Typography
-              variant="h2"
-              color={theme.palette.primary.main}
-              sx={{ fontSize: '2.25rem', fontWeight: '600', lineHeight: '1.2' }}
-            >
+            <Typography variant="h3" color={theme.palette.primary.main}>
               {title}
             </Typography>
             <GradientBorderDivider
@@ -56,13 +51,10 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
               gradientColors="linear-gradient(to right, #84B1D0, #FFDEA6, #FFB59D)"
             />
             <Typography
-              variant="h4"
+              variant="h5"
               color={theme.palette.primary.dark}
               sx={{
                 marginY: 2,
-                fontSize: '1.5rem',
-                fontWeight: '500',
-                lineHeight: '1.2',
               }}
             >
               {description}
@@ -108,6 +100,6 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
           </Box>
         </Grid>
       </Grid>
-    </>
+    </Box>
   );
 };
