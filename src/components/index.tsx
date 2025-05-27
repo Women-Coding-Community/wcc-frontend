@@ -12,3 +12,4 @@ export { Title } from './Title';
 export { ColoredBox } from './ColoredBox';
 export { VolunteerSection } from './VolunteerSection';
 export { ContactBox } from './ContactBox';
+export { EventContainer } from './EventContainer';

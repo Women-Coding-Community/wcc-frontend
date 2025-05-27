@@ -97,43 +97,19 @@ export const EventCard = ({
               }}
             >
               <DateRange width="20px" height="20px" />
-              <Typography
-                variant="body2"
-                fontSize={12}
-                fontWeight={500}
-                lineHeight={1.3}
-              >
-                {date}
-              </Typography>
+              <Typography variant="body2">{date}</Typography>
             </Box>
-            <Typography
-              variant="h5"
-              fontSize={24}
-              lineHeight={1.3}
-              fontWeight={400}
-              marginBottom="7px"
-            >
+            <Typography variant="h5" marginBottom="7px">
               {title}
             </Typography>
-            <Typography
-              variant="body2"
-              fontSize={14}
-              fontWeight={400}
-              lineHeight={1.4}
-            >
+            <Typography variant="body2">
               {speaker && `Speaker: ${speaker}`}
             </Typography>
           </Box>
         </Box>
 
         <Box>
-          <Typography
-            variant="body1"
-            fontSize={16}
-            fontWeight={400}
-            lineHeight={1.5}
-            margin="20px 0"
-          >
+          <Typography variant="body1" margin="20px 0">
             {description}
           </Typography>
         </Box>

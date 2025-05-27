@@ -50,15 +50,7 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
               margin={isMobile ? '12px auto 16px' : '29px 23px auto 0'}
               gradientColors="linear-gradient(to right, #84B1D0, #FFDEA6, #FFB59D)"
             />
-            <Typography
-              variant="h5"
-              color={theme.palette.primary.dark}
-              sx={{
-                marginY: 2,
-              }}
-            >
-              {description}
-            </Typography>
+            <Typography variant="h5">{description}</Typography>
             <Link
               href="https://join.slack.com/t/womencodingcommunity/shared_invite/zt-2hpjwpx7l-rgceYBIWp6pCiwc0hVsX8A"
               target="_blank"

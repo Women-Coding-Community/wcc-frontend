@@ -80,6 +80,7 @@ const theme = createTheme({
     },
     body2: {
       fontSize: '12px',
+      lineHeight: 1.3,
       '@media (min-width:600px)': {
         fontSize: '14px',
       },
