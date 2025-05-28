@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -13,7 +12,6 @@ import {
 import { FooterResponse, LandingPageResponse } from '@utils/types';
 import { EventContainer } from 'components/EventContainer';
 import { fetchData } from 'lib/api';
-import theme from 'theme';
 
 type CombinedResponse = {
   data: LandingPageResponse;
@@ -44,14 +42,14 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
   } = data;
 
   return (
-    <Box sx={theme.custom.containerBox}>
+    <>
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmes} />
       <EventContainer {...events} />
       <MentorBanner {...fullBannerSection} />
       <VolunteerSection {...volunteerSection} />
       <Footer {...footer} />
-    </Box>
+    </>
   );
 };
 

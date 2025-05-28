@@ -62,11 +62,9 @@ export const VolunteerSection: React.FC<VolunteerProps> = ({
               }}
             >
               <Box textAlign={isMobile ? 'center' : 'left'}>
-                <Typography variant="h4" color="text.primary">
-                  {title}
-                </Typography>
+                <Typography variant="h4">{title}</Typography>
 
-                <Typography variant="body1" color="primary.dark" pt={2}>
+                <Typography color="primary.dark" pt={2}>
                   {description}
                 </Typography>
                 <Button
