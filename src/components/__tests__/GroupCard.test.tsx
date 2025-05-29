@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
-import { GroupCard, GroupCardProps } from 'components/GroupCard';
+import { GroupCard, GroupCardProps } from '@components';
 
 describe('GroupCard Component', () => {
   const defaultProps: GroupCardProps = {

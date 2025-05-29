@@ -1,7 +1,7 @@
 import { ThemeProvider } from '@mui/material';
 import { cleanup, render, screen } from '@testing-library/react';
 
-import { GradientBox } from 'components/GradientBox';
+import { GradientBox } from '@components';
 import theme from 'theme';
 
 describe('GradientBox', () => {

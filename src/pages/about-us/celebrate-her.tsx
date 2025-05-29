@@ -4,8 +4,8 @@ import { Box } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import { FC } from 'react';
 
+import { GroupCard } from '@components';
 import { AboutUsPageData } from '@utils/types';
-import { GroupCard } from 'components/GroupCard';
 import { fetchData } from 'lib/api';
 
 interface CelebrateHerPageProps {
