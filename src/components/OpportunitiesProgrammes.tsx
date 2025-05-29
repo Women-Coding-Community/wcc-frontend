@@ -1,10 +1,8 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 
+import { Tile, GradientBox } from '@components';
 import { LandingPageResponse, Programme } from '@utils/types';
-import { Tile } from 'components/Tile';
-
-import { GradientBox } from './GradientBox';
 import theme from 'theme';
 
 export const OpportunitiesProgrammes: React.FC<

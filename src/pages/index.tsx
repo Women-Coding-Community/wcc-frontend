@@ -8,9 +8,9 @@ import {
   MentorBanner,
   VolunteerSection,
   Footer,
+  EventContainer,
 } from '@components';
 import { FooterResponse, LandingPageResponse } from '@utils/types';
-import { EventContainer } from 'components/EventContainer';
 import { fetchData } from 'lib/api';
 
 type CombinedResponse = {

@@ -12,7 +12,7 @@ interface MentorBecomeCardProps {
   buttonUrl: string;
 }
 
-const MentorBecomeCard = ({
+export const MentorBecomeCard = ({
   mentorOrMentee,
   topics,
   buttonText,
@@ -73,5 +73,3 @@ const MentorBecomeCard = ({
     </Grid>
   );
 };
-
-export default MentorBecomeCard;

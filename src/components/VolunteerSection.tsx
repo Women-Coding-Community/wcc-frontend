@@ -1,8 +1,8 @@
-import { Box, Typography, Button, Grid, useMediaQuery } from '@mui/material';
+import { Box, Typography, Grid, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
+import { LinkButton } from '@components';
 import { LandingPageResponse } from '@utils/types';
 
 import theme from '../theme';
@@ -64,41 +64,10 @@ export const VolunteerSection: React.FC<VolunteerProps> = ({
               <Box textAlign={isMobile ? 'center' : 'left'}>
                 <Typography variant="h4">{title}</Typography>
 
-                <Typography color="primary.dark" pt={2}>
+                <Typography color="primary.dark" pt={2} pb={3}>
                   {description}
                 </Typography>
-                <Button
-                  size="large"
-                  sx={{
-                    backgroundColor: theme.typography.button.color,
-                    height: '40px',
-                    borderRadius: '100px',
-                    marginTop: '1.3rem',
-                    '&:hover': {
-                      backgroundColor: 'rgb(86, 180, 231)',
-                    },
-                  }}
-                >
-                  <Link
-                    href={linkUri}
-                    style={{
-                      textDecoration: 'none',
-                      padding: '1rem',
-                      textAlign: 'left',
-                      color: '#00000',
-                    }}
-                  >
-                    <Typography
-                      variant="body2"
-                      color="#fff"
-                      textAlign="center"
-                      fontWeight={theme.typography.fontWeightBold}
-                      letterSpacing="0.1px"
-                    >
-                      {linkTitle}
-                    </Typography>
-                  </Link>
-                </Button>
+                <LinkButton href={linkUri}> {linkTitle}</LinkButton>
               </Box>
             </Grid>
             <Grid
