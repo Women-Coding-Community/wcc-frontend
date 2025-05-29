@@ -1,10 +1,11 @@
 import { DateRange } from '@mui/icons-material';
 import LaunchIcon from '@mui/icons-material/Launch';
-import { Box, Grid, Typography, useMediaQuery, Button } from '@mui/material';
+import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 
 import theme from '../theme';
 import { Image as ImageType, Link } from '../utils/types';
+
 import { LinkButton } from './LinkButton';
 
 interface EventCardProps {

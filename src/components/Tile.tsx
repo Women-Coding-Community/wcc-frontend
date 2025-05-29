@@ -1,5 +1,4 @@
 import { Card, Icon, Typography } from '@mui/material';
-
 import Link from 'next/link';
 
 type TileProps = {
