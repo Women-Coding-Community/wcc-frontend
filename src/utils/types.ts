@@ -25,7 +25,7 @@ export type Event = {
 export type LandingPageResponse = {
   heroSection: {
     title: string;
-    description: string;
+    subtitle: string;
     images: Image[];
   };
   programmes: {

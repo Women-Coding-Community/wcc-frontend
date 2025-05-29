@@ -1,4 +1,5 @@
 import { Card, Icon, Typography } from '@mui/material';
+
 import Link from 'next/link';
 
 type TileProps = {
@@ -35,7 +36,7 @@ export const Tile = (props: TileProps) => {
         >
           {props.icon}
         </Icon>
-        <Typography variant="h6" color="primary.main" fontSize={22}>
+        <Typography variant="h6" color="primary.main">
           {props.name}
         </Typography>
       </Link>

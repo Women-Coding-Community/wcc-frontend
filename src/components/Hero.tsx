@@ -9,11 +9,11 @@ import { LandingPageResponse } from '../utils/types';
 
 interface HeroProps {
   title: string;
-  description: string;
+  subtitle: string;
   images: LandingPageResponse['heroSection']['images'];
 }
 
-export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
+export const Hero: React.FC<HeroProps> = ({ title, subtitle, images }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
 
   const image = images.find(
@@ -42,11 +42,7 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
             textAlign={isMobile ? 'center' : 'left'}
             marginRight={isMobile ? '' : '52px'}
           >
-            <Typography
-              variant="h2"
-              color={theme.palette.primary.main}
-              sx={{ fontSize: '2.25rem', fontWeight: '600', lineHeight: '1.2' }}
-            >
+            <Typography variant="h2" color={theme.palette.primary.main}>
               {title}
             </Typography>
             <GradientBorderDivider
@@ -60,12 +56,9 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
               color={theme.palette.primary.dark}
               sx={{
                 marginY: 2,
-                fontSize: '1.5rem',
-                fontWeight: '500',
-                lineHeight: '1.2',
               }}
             >
-              {description}
+              {subtitle}
             </Typography>
             <Link
               href="https://join.slack.com/t/womencodingcommunity/shared_invite/zt-2hpjwpx7l-rgceYBIWp6pCiwc0hVsX8A"

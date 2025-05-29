@@ -69,8 +69,12 @@ export const NavBar = () => {
       if (item.path) {
         return (
           <Button
-            key={item.title}
-            sx={{ color: 'primary.dark', padding: '0 1.5rem' }}
+            key={item.path}
+            sx={{
+              color: 'primary.dark',
+              padding: '0 1.5rem',
+              fontSize: '1rem',
+            }}
             onClick={() => router.push(item.path || '')}
           >
             {item.title}
@@ -82,7 +86,11 @@ export const NavBar = () => {
             key={item.title}
             aria-controls={`${item.title}-menu`}
             aria-haspopup="true"
-            sx={{ color: 'primary.dark', padding: '0 1.5rem' }}
+            sx={{
+              color: 'primary.dark',
+              padding: '0 1.5rem',
+              fontSize: '1rem',
+            }}
             onClick={(event) => handleMenuOpen(item.title, event)}
           >
             {item.title} <Icon>arrow_drop_down</Icon>
@@ -113,7 +121,7 @@ export const NavBar = () => {
               router.push(item.path);
             }}
           >
-            <Typography variant="body1">{item.title}</Typography>
+            <Typography>{item.title}</Typography>
           </MenuItem>
         ))}
       </Menu>
