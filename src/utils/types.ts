@@ -223,3 +223,52 @@ export interface EventLink {
   label: string;
   uri: string;
 }
+
+export type Mentor = {
+  fullName: string;
+  position: string;
+  companyName: string;
+  city: string;
+  country: {
+    countryCode: string;
+    countryName: string;
+  };
+  images: Image[];
+  network: Network[];
+  profileStatus: string;
+  bio: string;
+  spokenLanguages: string[];
+  skills: {
+    yearsExperience: number;
+    experienceRange: string;
+    areas: string[];
+    languages: string[];
+  };
+  menteeSection: {
+    mentorshipType: string[];
+    availability: {
+      months: string[];
+      hours: number;
+    };
+    idealMentee: string;
+    focus: string[];
+    additional: string;
+  };
+  feedbackSection: {
+    feedbacks: {
+      rating: string;
+      date: string;
+      feedback: string;
+      name: string;
+      type: string;
+    }[];
+  };
+  resources: {
+    id: string;
+    name: string;
+    description: string;
+    rawContent?: string;
+    type: string;
+    link?: Link;
+  }[];
+};
