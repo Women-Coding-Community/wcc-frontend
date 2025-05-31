@@ -5,10 +5,16 @@ import React from 'react';
 type LinkButtonProps = {
   href: string;
   reversed?: boolean;
+  small?: boolean;
   children: React.ReactNode;
 };
 
-export const LinkButton = ({ href, reversed, children }: LinkButtonProps) => {
+export const LinkButton = ({
+  href,
+  reversed,
+  small,
+  children,
+}: LinkButtonProps) => {
   const isExternal = href.startsWith('https');
 
   if (isExternal) {
@@ -45,8 +51,9 @@ export const LinkButton = ({ href, reversed, children }: LinkButtonProps) => {
           borderRadius: '100px',
           textTransform: 'none',
           fontWeight: 600,
-          fontSize: '1rem',
-          padding: '10px 32px',
+          // width: small ? 'fit-content' : '100%',
+          fontSize: small ? '0.8rem' : '1rem',
+          padding: small ? '7px 16px' : '10px 32px',
         }}
       >
         {children}
