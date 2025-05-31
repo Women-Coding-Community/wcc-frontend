@@ -63,7 +63,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
         border: '1px solid #e0e0e0',
         borderRadius: '16px',
         minWidth: isMobile ? '100%' : 700,
-        width: isMobile ? '100%' : 700,
+        width: isMobile ? '100%' : 800,
         boxShadow: 1,
         flexDirection: isMobile ? 'column' : 'row',
         mb: 3,
