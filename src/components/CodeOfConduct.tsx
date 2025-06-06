@@ -4,23 +4,48 @@ interface CodeOfConductSectionProps {
   title: string;
   items: string[];
 }
-// FIXME: reflect the styling according to figma design: wcc-mentorship-code-of-conduct
+
 export const CodeOfConductSection = ({
   title,
   items,
 }: CodeOfConductSectionProps) => {
   return (
-    <Box sx={{ marginBottom: '3rem' }}>
-      <Typography variant="h4" sx={{ marginBottom: '2rem' }}>
+    <Box
+      sx={{
+        width: '745px',
+        height: '1830px',
+        marginLeft: '347px',
+        marginTop: '394px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '32px',
+      }}
+    >
+      <Typography
+        variant="h3"
+        sx={{
+          marginBottom: '2rem',
+          textAlign: 'center',
+          width: '100%',
+        }}
+      >
         {title}
       </Typography>
-      <Box component="ul" sx={{ paddingLeft: '2rem' }}>
-        {items.map((item, key) => (
+      <Box
+        component="ol"
+        sx={{
+          paddingLeft: '2rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '32px',
+        }}
+      >
+        {items.map((item, index) => (
           <Typography
             component="li"
             variant="h5"
-            key={`conduct-item-${key}`}
-            sx={{ marginBottom: '1rem' }}
+            key={`conduct-item-${index}`}
+            sx={{ margin: 0 }}
           >
             {item}
           </Typography>
