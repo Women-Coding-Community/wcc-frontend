@@ -38,7 +38,7 @@ export const ContactBox: React.FC<ContactBoxProps> = ({
         justifySelf: { xs: 'center' },
       }}
     >
-      <Typography variant="h5" lineHeight={'36px'} marginBottom={'10px'}>
+      <Typography variant="h5" marginBottom={'10px'}>
         {showIcon && (
           <Box display={'flex'} flexDirection="column" alignItems="flex-start">
             <Image

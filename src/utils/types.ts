@@ -25,7 +25,7 @@ export type Event = {
 export type LandingPageResponse = {
   heroSection: {
     title: string;
-    description: string;
+    subtitle: string;
     images: Image[];
   };
   programmes: {
@@ -44,7 +44,10 @@ export type LandingPageResponse = {
   volunteerSection: {
     title: string;
     description: string;
-    link: string;
+    link: {
+      title: string;
+      uri: string;
+    };
     images: Image[];
   };
   fullBannerSection: {
@@ -67,6 +70,36 @@ export type FooterResponse = {
   description: string;
   network: Network[];
   link: Link;
+};
+
+export type celebrateHerData = {
+  lists: {
+    title: string;
+    description: string;
+    uri: string;
+    link: string;
+    bgColor: string;
+    tagText: string;
+  }[];
+};
+
+export type StudyGroupSectionData = {
+  groups: {
+    title: string;
+    description: string;
+    mentor: string;
+    participants: number;
+    uri: string;
+    bgColor: string;
+  }[];
+};
+
+export type OurProgrammesData = {
+  studyGroupSection: StudyGroupSectionData;
+};
+
+export type AboutUsPageData = {
+  celebrateHer: celebrateHerData;
 };
 
 export type MentorshipProgrammeData = {
@@ -100,6 +133,57 @@ export type FeedbackSectionData = {
     },
   ];
 };
+
+export type TeamApiResponse = {
+  page: TeamCoreData;
+  contact: TeamContactData;
+  membersByType: TeamMembersData;
+};
+
+export type TeamCoreData = {
+  title: string;
+  subtitle: string;
+  description: string;
+  link: {
+    title: string;
+    label: string;
+    uri: string;
+  };
+  images: { path: string; alt: string; type: string }[];
+};
+
+export type TeamContactData = {
+  title: string;
+  links: {
+    type: string;
+    link: string;
+  }[];
+};
+
+type PersonalData = {
+  fullName: string;
+  position: string;
+  email: string;
+  country: {
+    countryCode: string;
+    countryName: string;
+  };
+  city: string;
+  jobTitle: string;
+  companyName: string;
+  images: { path: string; alt: string; type: string }[];
+  network: {
+    type: string;
+    link: string;
+  }[];
+};
+
+export type TeamMembersData = {
+  directors: PersonalData[];
+  leads: PersonalData[];
+  evangelists: PersonalData[];
+};
+
 export interface EventData {
   title: string;
   link: Link;

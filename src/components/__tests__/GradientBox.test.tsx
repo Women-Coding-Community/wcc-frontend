@@ -1,6 +1,8 @@
+import { ThemeProvider } from '@mui/material';
 import { cleanup, render, screen } from '@testing-library/react';
 
-import { GradientBox } from 'components/GradientBox';
+import { GradientBox } from '@components';
+import theme from 'theme';
 
 describe('GradientBox', () => {
   it('has the right background css style', () => {
@@ -10,7 +12,9 @@ describe('GradientBox', () => {
     ];
     colorGradients.forEach((colors) => {
       render(
-        <GradientBox colors={colors} data-testid="container"></GradientBox>,
+        <ThemeProvider theme={theme}>
+          <GradientBox colors={colors} data-testid="container"></GradientBox>
+        </ThemeProvider>,
       );
 
       const box = screen.getByTestId('container');
@@ -24,9 +28,11 @@ describe('GradientBox', () => {
 
   it('has the content passed in as children', () => {
     render(
-      <GradientBox colors={['#fff', '#000']}>
-        <button>Click me</button>
-      </GradientBox>,
+      <ThemeProvider theme={theme}>
+        <GradientBox colors={['#fff', '#000']}>
+          <button>Click me</button>
+        </GradientBox>
+      </ThemeProvider>,
     );
 
     const button = screen.getByRole('button', { name: 'Click me' });

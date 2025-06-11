@@ -2,7 +2,6 @@ import { ExpandMore, ExpandLess } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import {
-  Box,
   Button,
   Drawer,
   Grid,
@@ -100,7 +99,11 @@ export const NavBar = () => {
             key={`${item.title}-${index}`}
             aria-controls={`${item.title}-menu`}
             aria-haspopup="true"
-            sx={{ color: 'primary.dark', padding: '0 1.5rem' }}
+            sx={{
+              color: 'primary.dark',
+              padding: '0 1.5rem',
+              fontSize: '1rem',
+            }}
             onClick={(event) => handleMenuOpen(item.title, event)}
           >
             {item.title} <Icon>arrow_drop_down</Icon>
@@ -131,7 +134,7 @@ export const NavBar = () => {
               router.push(item.path);
             }}
           >
-            <Typography variant="body1">{item.title}</Typography>
+            <Typography>{item.title}</Typography>
           </MenuItem>
         ))}
       </Menu>
@@ -242,19 +245,20 @@ export const NavBar = () => {
   };
 
   return (
-    <Box>
+    <>
       <AppBar
         position="static"
         color="transparent"
         sx={{
           height: isMobile ? '90px' : '130px',
           display: 'flex',
-          justifyContent: isMobile ? 'space-around' : 'center',
+          justifyContent: isMobile ? 'space-around' : 'space-between',
           alignItems: 'center',
           marginBottom: '1rem',
         }}
       >
         <Toolbar
+          disableGutters
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -366,6 +370,6 @@ export const NavBar = () => {
           </>
         )}
       </Drawer>
-    </Box>
+    </>
   );
 };

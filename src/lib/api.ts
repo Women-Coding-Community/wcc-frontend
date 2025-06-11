@@ -3,9 +3,12 @@ import axios from 'axios';
 const apiBaseUrl = process.env.API_BASE_URL;
 const API_KEY = process.env.API_KEY;
 
+import aboutUsPage from './responses/aboutUs.json';
 import footerData from './responses/footer.json';
 import landingPageData from './responses/landingPage.json';
+import mentors from './responses/mentors.json';
 import mentorShipPage from './responses/mentorship.json';
+import ourProgrammesPage from './responses/programmes.json';
 // for new pages: import the json file
 // (which you copied from https://github.com/Women-Coding-Community/wcc-backend/tree/main/src/main/resources)
 // and add it to pageData with the path in the pages path (e.g. mentorship/index.ts = mentorship/overview)
@@ -13,6 +16,9 @@ import mentorShipPage from './responses/mentorship.json';
 const pageData = {
   landingPage: landingPageData,
   'mentorship/overview': mentorShipPage,
+  'programmes/study-groups': ourProgrammesPage,
+  'about-us/celebrate-her': aboutUsPage,
+  'mentorship/mentors': mentors,
 };
 
 export const fetchData = async (path: string) => {
@@ -56,6 +62,7 @@ export const fetchFooter = async () => {
     // }
     return response.data;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Failed to fetch data, generating fallback footer');
     return footerData;
   }

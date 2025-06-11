@@ -1,43 +1,23 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 
+import { Tile, GradientBox } from '@components';
 import { LandingPageResponse, Programme } from '@utils/types';
-import { Tile } from 'components/Tile';
-
-import { GradientBox } from './GradientBox';
+import theme from 'theme';
 
 export const OpportunitiesProgrammes: React.FC<
   LandingPageResponse['programmes']
 > = ({ title, description, items }) => {
   return (
     <GradientBox colors={['#FFB59D', '#FFDEA6']}>
-      <Box
-        sx={{
-          display: 'grid',
-          gap: '24px',
-          justifyItems: 'center',
-          padding: { md: '0 80px' },
-        }}
-      >
-        <Typography
-          variant="h3"
-          color="text.primary"
-          align="center"
-          sx={{
-            fontWeight: { xs: 500, md: 'bold' },
-            fontSize: { xs: '28px', sm: '28px' },
-          }}
-        >
+      <Box sx={theme.custom.innerBox}>
+        <Typography variant="h3" align="center" sx={{ marginBottom: 4 }}>
           {title}
         </Typography>
         <Typography
           variant="h5"
-          color="text.primary"
           align="center"
-          sx={{
-            fontSize: { xs: '16px', sm: '16px', md: '24px' },
-            maxWidth: { xs: '361px', sm: '361px', md: '742px' },
-          }}
+          sx={{ margin: '0 auto', marginBottom: 4, maxWidth: '800px' }}
         >
           {description}
         </Typography>

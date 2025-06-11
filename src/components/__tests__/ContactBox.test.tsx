@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { ContactBox } from 'components/ContactBox';
+import { ContactBox } from '@components';
 
 it('has a title', () => {
   render(<ContactBox title="Contact Us" />);

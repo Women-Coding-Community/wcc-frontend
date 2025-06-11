@@ -9,26 +9,24 @@ import { LandingPageResponse } from '../utils/types';
 
 interface HeroProps {
   title: string;
-  description: string;
+  subtitle: string;
   images: LandingPageResponse['heroSection']['images'];
 }
 
-export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
+export const Hero: React.FC<HeroProps> = ({ title, subtitle, images }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
-  const desktopImage = images.find((image) => image.type === 'desktop');
-  const mobileImage = images.find((image) => image.type === 'mobile');
 
-  const image = isMobile
-    ? mobileImage?.path || desktopImage?.path
-    : desktopImage?.path;
-  const alt = isMobile
-    ? mobileImage?.alt || desktopImage?.alt
-    : desktopImage?.alt;
+  const image = images.find(
+    (img) =>
+      (isMobile && img.type === 'mobile') ||
+      (!isMobile && img.type === 'desktop'),
+  );
 
   return (
     <>
       <Grid
         container
+        data-testid="hero-container"
         spacing={0}
         justifyContent="center"
         alignItems="center"
@@ -44,11 +42,7 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
             textAlign={isMobile ? 'center' : 'left'}
             marginRight={isMobile ? '' : '52px'}
           >
-            <Typography
-              variant="h2"
-              color={theme.palette.primary.main}
-              sx={{ fontSize: '2.25rem', fontWeight: '600', lineHeight: '1.2' }}
-            >
+            <Typography variant="h2" color={theme.palette.primary.main}>
               {title}
             </Typography>
             <GradientBorderDivider
@@ -62,12 +56,9 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
               color={theme.palette.primary.dark}
               sx={{
                 marginY: 2,
-                fontSize: '1.5rem',
-                fontWeight: '500',
-                lineHeight: '1.2',
               }}
             >
-              {description}
+              {subtitle}
             </Typography>
             <Link
               href="https://join.slack.com/t/womencodingcommunity/shared_invite/zt-2hpjwpx7l-rgceYBIWp6pCiwc0hVsX8A"
@@ -86,63 +77,27 @@ export const Hero: React.FC<HeroProps> = ({ title, description, images }) => {
             </Link>
           </Box>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={7}
-          style={{
-            padding: 0,
-            margin: 0,
-            background: 'yellow',
-            boxSizing: 'border-box',
-          }}
-        >
-          <Box
-            sx={{
-              position: 'relative',
-              overflow: 'visible',
-              width: '100%',
-              maxWidth: '647px',
-              borderRadius: '4px',
-              height: 'auto',
-            }}
-          >
-            {image && alt ? (
+        <Grid item xs={12} sm={7} style={{ padding: 0, margin: 0 }}>
+          <Box>
+            {image ? (
               <Image
-                src={image}
-                alt={alt}
-                objectFit="cover"
-                objectPosition="center 25%"
-                style={{
-                  borderRadius: '4px',
-                  display: 'block',
-                  filter: isMobile
-                    ? 'drop-shadow(10px 10px 0px rgba(255, 181, 157, 0.8))'
-                    : 'drop-shadow(20px 20px 0px rgba(255, 181, 157, 0.8))',
-                }}
-                quality={100}
+                src={image.path}
+                alt={image.alt}
+                width={647}
+                height={374}
+                style={{ maxWidth: '100%', height: '100%' }}
                 priority
-                layout="responsive"
-                width={343}
-                height={195}
-                sizes="(max-width: 750px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             ) : (
-              <Box></Box>
+              <Image
+                src={images[0].path}
+                alt={images[0].alt}
+                width={647}
+                height={374}
+                style={{ maxWidth: '100%', height: '100%' }}
+                priority
+              />
             )}
-            <Box
-              sx={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'linear-gradient(to right, #507C99, #FFB59D)',
-                opacity: 0.8,
-                pointerEvents: 'none',
-                borderRadius: '4px',
-              }}
-            />
           </Box>
         </Grid>
       </Grid>

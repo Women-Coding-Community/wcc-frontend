@@ -112,6 +112,7 @@ export const Footer = ({
               justifyContent: 'center',
               paddingTop: '0.5rem',
             }}
+            key="social-icons-container"
           >
             {network.map((socialMediaNetwork) =>
               renderSocialNetworkIcon(socialMediaNetwork),
@@ -137,6 +138,13 @@ export const Footer = ({
           </Typography>
         </Box>
       </Box>
+      <style>
+        {`
+          .slack-icon {
+            color: #000;           
+          }
+        `}
+      </style>
     </>
   );
 };

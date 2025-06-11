@@ -4,7 +4,7 @@ import mediaQuery from 'css-mediaquery';
 import mockRouter from 'next-router-mock';
 import React from 'react';
 
-import { NavBar } from 'components/NavBar';
+import { NavBar } from '../';
 
 jest.mock('next/router', () => require('next-router-mock'));
 
