@@ -13,6 +13,7 @@ export { Hero } from './Hero';
 export { LinkButton } from './LinkButton';
 export { MentorBanner } from './MentorBanner';
 export { MentorBecomeCard } from './MentorBecomeCard';
+export { MentorProfileCard } from './MentorProfileCard';
 export { NavBar } from './NavBar';
 export { OpportunitiesProgrammes } from './OpportunitiesProgrammes';
 export { Tile } from './Tile';
