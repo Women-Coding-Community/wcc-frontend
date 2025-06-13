@@ -1,6 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 
-
 export default defineConfig({
   testDir: 'playwright-tests/tests',
   /* Run tests in files in parallel */
@@ -28,5 +27,5 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-  ]
+  ],
 });
