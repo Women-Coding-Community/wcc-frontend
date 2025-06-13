@@ -11,7 +11,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "e2e:test": "playwright test"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -29,6 +30,7 @@
     "ts-jest": "^29.1.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "@svgr/webpack": "^8.1.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
@@ -37,6 +39,7 @@
     "@types/node": "^20",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18",
+    "dotenv": "^16.5.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "eslint-plugin-import": "^2.29.1",
@@ -49,6 +52,7 @@
     "next-router-mock": "^0.9.13",
     "postcss": "^8",
     "prettier": "^3.2.5",
+    "start-server-and-test": "^2.0.12",
     "ts-node": "^10.9.2",
     "typescript": "^5"
   },
