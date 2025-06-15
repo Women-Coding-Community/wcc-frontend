@@ -1,7 +1,7 @@
 import { test as base } from '@playwright/test';
 
-import { BasePage } from '../pages/base.page';
-import { LandingPage } from '../pages/landing.page';
+import { BasePage } from '@pages/base.page';
+import { LandingPage } from '@pages/landing.page';
 
 // Declare the types of your fixtures.
 type PageObjectFixtures = {

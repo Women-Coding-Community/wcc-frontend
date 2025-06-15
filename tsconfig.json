@@ -22,8 +22,9 @@
     "baseUrl": "./src",
     "paths": {
       "@components": ["components"],
-      "@utils/*": ["utils/*"],
-      "@public/*": ["../public/*"]
+      "@utils/*": ["utils/*", "../playwright-tests/utils/*"],
+      "@public/*": ["../public/*"],
+      "@pages/*": ["../playwright-tests/pages/*"]
     },
     "incremental": true,
     "types": ["jest", "node", "@testing-library/jest-dom"]

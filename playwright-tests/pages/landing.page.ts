@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 
-import { BasePage } from './base.page';
+import { BasePage } from '@pages/base.page';
 
 export class LandingPage extends BasePage {
   readonly heroTitle: Locator;
