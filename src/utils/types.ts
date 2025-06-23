@@ -184,6 +184,27 @@ export type TeamMembersData = {
   evangelists: PersonalData[];
 };
 
+export type MentorshipCodeOfConductData = {
+  id: string;
+  heroSection: {
+    title: string;
+  };
+  menteeCodeSection: {
+    title: string;
+    items: string[];
+  };
+  mentorCodeSection: {
+    title: string;
+    items: string[];
+  };
+  wccCodeSection: {
+    link: {
+      label: string;
+      uri: string;
+    };
+  };
+};
+
 export interface EventData {
   title: string;
   link: Link;

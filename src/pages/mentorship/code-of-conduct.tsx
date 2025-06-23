@@ -1,16 +1,50 @@
 // path: /mentorship/code-of-conduct
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { GetServerSideProps } from 'next';
 
+import { MentorshipCodeOfConductData } from '@utils/types';
 import { CodeOfConductSection } from 'components/CodeOfConduct';
+import { fetchData } from 'lib/api';
 
-import mentorshipCodeOfConduct from '../../lib/responses/mentorshipCodeOfConduct.json';
+interface AboutUsCodeOfConductPageProps {
+  mentorshipCodeOfConduct: MentorshipCodeOfConductData;
+}
 
-// TODO: this needs to be integrated with actual data fetching
-const MentorshipCodeOfConductPage = () => {
+const MentorshipCodeOfConductPage = ({
+  mentorshipCodeOfConduct,
+}: AboutUsCodeOfConductPageProps) => {
   return (
-    <Box sx={{ padding: '2rem' }}>
-      {/* TODO: Hero Title Banner goes here */}
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '40px',
+        paddingBottom: '4rem',
+      }}
+    >
+      <Box
+        sx={{
+          background: 'linear-gradient(to right, #e0f7fa, #bbdefb)',
+          padding: '20px',
+          textAlign: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '160px',
+        }}
+      >
+        <Typography
+          variant="h2"
+          component="h1"
+          sx={{
+            fontWeight: 'bold',
+            color: '#001e2e',
+          }}
+        >
+          Mentorship Code of Conduct
+        </Typography>
+      </Box>
       <CodeOfConductSection
         title={mentorshipCodeOfConduct.menteeCodeSection.title}
         items={mentorshipCodeOfConduct.menteeCodeSection.items}
@@ -22,6 +56,25 @@ const MentorshipCodeOfConductPage = () => {
       />
     </Box>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const response = await fetchData('mentorship/code-of-conduct');
+    const props: AboutUsCodeOfConductPageProps = {
+      mentorshipCodeOfConduct: response.data,
+    };
+    return {
+      props,
+    };
+  } catch (error) {
+    return {
+      props: {
+        data: null,
+        error: error instanceof Error ? error.message : 'An error occurred',
+      },
+    };
+  }
 };
 
 export default MentorshipCodeOfConductPage;
