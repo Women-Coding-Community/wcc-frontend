@@ -184,7 +184,7 @@ export type TeamMembersData = {
   evangelists: PersonalData[];
 };
 
-export type MentorshipCodeOfConductData = {
+export interface MentorshipCodeOfConductData {
   id: string;
   heroSection: {
     title: string;
@@ -203,7 +203,7 @@ export type MentorshipCodeOfConductData = {
       uri: string;
     };
   };
-};
+}
 
 export interface EventData {
   title: string;

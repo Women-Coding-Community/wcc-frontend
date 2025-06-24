@@ -79,7 +79,7 @@ export const CodeOfConductSection = ({
           }}
           onClick={handleClick}
         >
-          {isCollapsed ? 'Show more' : 'Show lees'}
+          {isCollapsed ? 'Show more' : 'Show less'}
         </Button>
       </Box>
     </Box>
