@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+
 import { MentorshipCodeOfConductData } from '@utils/types';
 import MentorshipCodeOfConductPage from 'pages/mentorship/code-of-conduct';
 
