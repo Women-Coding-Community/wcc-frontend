@@ -1,8 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { MentorshipCodeOfConductData } from '@utils/types';
 import { CodeOfConductSection } from 'components/CodeOfConduct';
-import MentorshipCodeOfConductPage from 'pages/mentorship/code-of-conduct';
 
 describe('CodeOfConductSection', () => {
   const codeOfConductSection = {
