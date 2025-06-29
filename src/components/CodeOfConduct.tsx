@@ -1,4 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { Box, Button, Typography } from '@mui/material';
+import { useState } from 'react';
 
 interface CodeOfConductSectionProps {
   title: string;
@@ -9,14 +12,22 @@ export const CodeOfConductSection = ({
   title,
   items,
 }: CodeOfConductSectionProps) => {
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
+  function handleClick() {
+    setIsCollapsed(!isCollapsed);
+  }
+
+  const itemsToRender = isCollapsed ? items.slice(0, 3) : items;
+
   return (
     <Box
       sx={{
-        width: '745px',
-        height: '1830px',
-        marginLeft: '347px',
-        marginTop: '394px',
+        padding: '2rem',
+        maxWidth: '745px',
+        marginX: 'auto',
         display: 'flex',
+        alignItems: 'center',
         flexDirection: 'column',
         gap: '32px',
       }}
@@ -24,7 +35,6 @@ export const CodeOfConductSection = ({
       <Typography
         variant="h3"
         sx={{
-          marginBottom: '2rem',
           textAlign: 'center',
           width: '100%',
         }}
@@ -34,13 +44,13 @@ export const CodeOfConductSection = ({
       <Box
         component="ol"
         sx={{
-          paddingLeft: '2rem',
+          marginBottom: '2rem',
           display: 'flex',
           flexDirection: 'column',
           gap: '32px',
         }}
       >
-        {items.map((item, index) => (
+        {itemsToRender.map((item, index) => (
           <Typography
             component="li"
             variant="h5"
@@ -50,6 +60,27 @@ export const CodeOfConductSection = ({
             {item}
           </Typography>
         ))}
+      </Box>
+      <Box>
+        <Typography paragraph></Typography>
+        <Button
+          variant="outlined"
+          startIcon={isCollapsed ? <AddIcon /> : <RemoveIcon />}
+          sx={{
+            borderRadius: '999px',
+            paddingX: 2,
+            paddingY: 0.5,
+            borderColor: '#c4c4c4',
+            color: '#1976d2',
+            '&:hover': {
+              backgroundColor: '#f5f5f5',
+              borderColor: '#1976d2',
+            },
+          }}
+          onClick={handleClick}
+        >
+          {isCollapsed ? 'Show more' : 'Show less'}
+        </Button>
       </Box>
     </Box>
   );
