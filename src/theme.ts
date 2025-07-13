@@ -181,9 +181,6 @@ const theme = createTheme({
     },
     custom: {
       softGray: '#F4F0EF',
-      main: '#a23e19',
-      dark: '#ffdbd0',
-      light: '#390C00',
     },
     text: {
       primary: '#1b1919',

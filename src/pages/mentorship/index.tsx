@@ -140,7 +140,6 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const response = await fetchData('mentorship/overview');
-    console.log(response);
 
     return {
       props: {
