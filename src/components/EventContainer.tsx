@@ -1,5 +1,5 @@
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
-import { Typography, useMediaQuery, Box } from '@mui/material';
+import { Typography, useMediaQuery, Box, Link } from '@mui/material';
 
 import theme from '../theme';
 import { EventData } from '../utils/types';
@@ -12,62 +12,36 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
 
   return (
-    <Box
-      sx={{
-        background: '#F6FAFE',
-        width: '100%',
-        padding: '40px 16px',
-      }}
-    >
-      <Box
-        sx={{
-          maxWidth: '1128px',
-          margin: '0 auto',
-        }}
-      >
+    <Box sx={theme.custom.containerBox}>
+      <Box sx={theme.custom.innerBox}>
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: isMobile ? 'center' : 'flex-end',
+            flexDirection: isMobile ? 'column' : 'row',
+            width: '100%',
           }}
         >
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: isMobile ? '28px' : '45px',
-              fontWeight: isMobile ? '500' : '600',
-              textAlign: 'left',
-            }}
-          >
-            {title}
-          </Typography>
-          <Typography
-            component="a"
+          <Typography variant="h3">{title}</Typography>
+          <Link
             href={link.uri}
-            style={{
+            underline="none"
+            sx={{
               display: 'flex',
-              textAlign: 'right',
-              fontSize: '16px',
-              textDecoration: 'none',
+              alignItems: 'center',
+              fontSize: 16,
+              fontWeight: 500,
               color: '#1A4B66',
-              lineHeight: '1.5',
-              fontWeight: '500',
               gap: '5px',
               letterSpacing: '0.15px',
+              ml: isMobile ? 0 : 2,
+              mt: isMobile ? 2 : 0,
+              alignSelf: isMobile ? 'flex-start' : 'center',
             }}
           >
             {link.label}
-            <Box>
-              <ArrowCircleRightOutlinedIcon
-                sx={{
-                  color: '#1A4B66',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              />
-            </Box>
-          </Typography>
+            <ArrowCircleRightOutlinedIcon sx={{ color: '#1A4B66' }} />
+          </Link>
         </Box>
         <GradientBorderDivider
           height="0.5rem"
@@ -80,34 +54,22 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
             display: 'grid',
             gap: isMobile ? '20px' : '40px',
             gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+            width: '100%',
           }}
         >
           {items.map((event) => {
-            const {
-              title,
-              description,
-              startDate,
-              endDate,
-              eventType,
-              speakerProfile,
-              eventLink,
-              images,
-            } = event;
-            const endTime = endDate.split(', ').slice(-1)[0];
-            const date = `${startDate} - ${endTime}`;
-            const key = `${title}-${startDate}}`;
-            const speaker = speakerProfile.label;
-
+            const endTime = event.endDate.split(', ').slice(-1)[0];
+            const date = `${event.startDate} - ${endTime}`;
             return (
               <EventCard
-                key={key}
-                title={title}
-                speaker={speaker}
+                key={`${event.title}-${event.startDate}`}
+                title={event.title}
+                speaker={event.speakerProfile.label}
                 date={date}
-                description={description}
-                link={eventLink}
-                images={images}
-                type={eventType}
+                description={event.description}
+                link={event.eventLink}
+                images={event.images}
+                type={event.eventType}
               />
             );
           })}

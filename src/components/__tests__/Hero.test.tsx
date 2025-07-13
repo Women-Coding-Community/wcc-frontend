@@ -17,7 +17,7 @@ const mockUseMediaQuery = require('@mui/material').useMediaQuery;
 describe('Hero Component', () => {
   const mockData: LandingPageResponse['heroSection'] = {
     title: 'Women Coding Community',
-    description: 'Empowering Women in Their Tech Careers',
+    subtitle: 'Empowering Women in Their Tech Careers',
     images: [
       {
         alt: 'There are two women talking during a productive mentoring session',
@@ -37,7 +37,7 @@ describe('Hero Component', () => {
       <ThemeProvider theme={theme}>
         <Hero
           title={data?.title ?? mockData.title}
-          description={data?.description ?? mockData.description}
+          subtitle={data?.subtitle ?? mockData.subtitle}
           images={data?.images ?? mockData.images}
         />
       </ThemeProvider>,
@@ -48,11 +48,11 @@ describe('Hero Component', () => {
     jest.clearAllMocks();
   });
 
-  it('renders the title, description, and image correctly', () => {
+  it('renders the title, subtitle, and image correctly', () => {
     renderComponent(false);
 
     expect(screen.getByText(mockData.title)).toBeInTheDocument();
-    expect(screen.getByText(mockData.description)).toBeInTheDocument();
+    expect(screen.getByText(mockData.subtitle)).toBeInTheDocument();
     const image = screen.getByAltText(mockData.images[0].alt);
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute(
@@ -80,7 +80,7 @@ describe('Hero Component', () => {
   it('selects the correct image when mobile image is first', () => {
     const mockDataWithMobileFirst: LandingPageResponse['heroSection'] = {
       title: 'Women Coding Community',
-      description: 'Empowering Women in Their Tech Careers',
+      subtitle: 'Empowering Women in Their Tech Careers',
       images: [
         {
           alt: 'Mobile Image Alt',

@@ -1,6 +1,9 @@
+import { ThemeProvider } from '@mui/material';
 import { render, screen } from '@testing-library/react';
 
-import { OpportunitiesProgrammes } from 'components/OpportunitiesProgrammes';
+import theme from 'theme';
+
+import { OpportunitiesProgrammes } from '../';
 
 describe('OpportunitiesProgrammes', () => {
   const content = {
@@ -20,7 +23,11 @@ describe('OpportunitiesProgrammes', () => {
     ],
   };
   beforeEach(() => {
-    render(<OpportunitiesProgrammes {...content} />);
+    render(
+      <ThemeProvider theme={theme}>
+        <OpportunitiesProgrammes {...content} />{' '}
+      </ThemeProvider>,
+    );
   });
 
   it('has a title', () => {

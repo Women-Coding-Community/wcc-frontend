@@ -15,7 +15,6 @@ const config: Config = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   coverageProvider: 'v8',
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
@@ -23,10 +22,16 @@ const config: Config = {
     '^@/components/(.*)$': '<rootDir>/components/$1',
     '^@next/router': 'next-router-mock',
   },
-  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
+  testMatch: ['**/__tests__/**/*.[jt]s?(x)'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'ts-jest',
   },
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '\\.spec\\.ts$',
+    '\\.spec\\.tsx$',
+    '/.next/',
+  ],
 };
 
 export default createJestConfig(config);

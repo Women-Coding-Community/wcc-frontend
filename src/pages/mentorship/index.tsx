@@ -2,13 +2,15 @@ import { Typography, Button, Box, Grid, useMediaQuery } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React, { useState } from 'react';
 
-import MentorBecomeCard from 'components/MentorBecomeCard';
-import theme from 'theme';
-import { ColoredBox, FeedbackCard } from '@components';
+import {
+  ColoredBox,
+  FeedbackCard,
+  MentorBecomeCard,
+  FeedbackCardProps,
+} from '@components';
 import { MentorshipProgrammeData } from '@utils/types';
-import { FeedbackCardProps } from 'components/FeedbackCard';
 import { fetchData } from 'lib/api';
-
+import theme from 'theme';
 
 interface MentorshipPageProps {
   mentorship: MentorshipProgrammeData;
@@ -22,8 +24,7 @@ interface FeedbackSectionProps {
 
 const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
   return (
-    <div>
-      <Typography variant="h4">Welcome to the Mentorship Page</Typography>
+    <>
       <Grid
         container
         style={{
@@ -61,7 +62,7 @@ const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
         title={mentorship.feedbackSection.title}
         feedbacks={mentorship.feedbackSection.feedbacks}
       />
-    </div>
+    </>
   );
 };
 

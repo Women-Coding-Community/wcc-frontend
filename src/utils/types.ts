@@ -25,7 +25,7 @@ export type Event = {
 export type LandingPageResponse = {
   heroSection: {
     title: string;
-    description: string;
+    subtitle: string;
     images: Image[];
   };
   programmes: {
@@ -44,7 +44,10 @@ export type LandingPageResponse = {
   volunteerSection: {
     title: string;
     description: string;
-    link: string;
+    link: {
+      title: string;
+      uri: string;
+    };
     images: Image[];
   };
   fullBannerSection: {
@@ -67,6 +70,36 @@ export type FooterResponse = {
   description: string;
   network: Network[];
   link: Link;
+};
+
+export type celebrateHerData = {
+  lists: {
+    title: string;
+    description: string;
+    uri: string;
+    link: string;
+    bgColor: string;
+    tagText: string;
+  }[];
+};
+
+export type StudyGroupSectionData = {
+  groups: {
+    title: string;
+    description: string;
+    mentor: string;
+    participants: number;
+    uri: string;
+    bgColor: string;
+  }[];
+};
+
+export type OurProgrammesData = {
+  studyGroupSection: StudyGroupSectionData;
+};
+
+export type AboutUsPageData = {
+  celebrateHer: celebrateHerData;
 };
 
 export type MentorshipProgrammeData = {
@@ -190,3 +223,52 @@ export interface EventLink {
   label: string;
   uri: string;
 }
+
+export type Mentor = {
+  fullName: string;
+  position: string;
+  companyName: string;
+  city: string;
+  country: {
+    countryCode: string;
+    countryName: string;
+  };
+  images: Image[];
+  network: Network[];
+  profileStatus: string;
+  bio: string;
+  spokenLanguages: string[];
+  skills: {
+    yearsExperience: number;
+    experienceRange: string;
+    areas: string[];
+    languages: string[];
+  };
+  menteeSection: {
+    mentorshipType: string[];
+    availability: {
+      months: string[];
+      hours: number;
+    };
+    idealMentee: string;
+    focus: string[];
+    additional: string;
+  };
+  feedbackSection: {
+    feedbacks: {
+      rating: string;
+      date: string;
+      feedback: string;
+      name: string;
+      type: string;
+    }[];
+  };
+  resources: {
+    id: string;
+    name: string;
+    description: string;
+    rawContent?: string;
+    type: string;
+    link?: Link;
+  }[];
+};
