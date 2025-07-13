@@ -1,13 +1,14 @@
 // path: /mentorship/mentors
 
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import { Footer } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
-import { FooterResponse } from '@utils/types';
+import { FooterResponse, Mentor } from '@utils/types';
+import { MentorProfileCard } from 'components/MentorProfileCard';
 import { fetchData } from 'lib/api';
 import theme from 'theme';
 
@@ -49,9 +50,9 @@ const MentorsPage = ({ data, footer, error }: MentorsPageProps) => {
           }}
           direction={isMobile ? 'column' : 'row'}
         >
-          <Typography variant="h4">
-            {mentors ? 'Got mentors data' : 'Welcome to the Mentors Page'}
-          </Typography>
+          {mentors.map((mentor: Mentor) => (
+            <MentorProfileCard mentor={mentor} key={mentor.fullName} />
+          ))}
         </Grid>
       </Box>
       <Footer {...footer} />
