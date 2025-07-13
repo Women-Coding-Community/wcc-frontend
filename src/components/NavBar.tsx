@@ -13,8 +13,7 @@ import {
   MenuItem,
   Typography,
   useMediaQuery,
-  useTheme,
-  Box,
+  useTheme
 } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
