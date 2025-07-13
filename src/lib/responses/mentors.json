@@ -1,89 +1,323 @@
 {
-  "id": "page:MENTORS",
+  "id": "page:MENTORS_PAGE",
   "heroSection": {
-    "title": "Meet Our Mentors!"
+    "title": "Meet Our Mentors!",
+    "customStyle": {
+      "backgroundColour": {
+        "color": "primary",
+        "shade": {
+          "name": "light",
+          "value": 90
+        }
+      }
+    }
   },
   "mentors": [
     {
-      "fullName": "firstname lastname",
-      "position": "job title",
-      "companyName": "company name",
-      "city": "Madrid",
+      "fullName": "Sonali Goel",
+      "position": "Senior Software Engineer",
+      "companyName": "Tesco Technology",
+      "city": "London",
       "country": {
-        "countryCode": "ES",
-        "countryName": "Spain"
+        "countryCode": "GB",
+        "countryName": "United Kingdom"
       },
       "images": [
         {
-          "path": "google drive link",
+          "path": "assets/images/mentors/sonali_goel.jpg",
           "alt": "mentor profile image",
-          "type": "desktop/mobile"
+          "type": "desktop"
         }
       ],
       "network": [
         {
           "type": "linkedin",
-          "link": "https://www.linkedin.com/member"
+          "link": "https://www.linkedin.com/in/sonali-goel-tech"
         },
         {
           "type": "github",
-          "link": "https://github.com/xyz"
+          "link": "https://github.com/goelsonali"
         },
         {
           "type": "website",
-          "link": "https://xyz.com/"
+          "link": "https://sonaligoel.carrd.co"
+        },
+        {
+          "type": "medium",
+          "link": "https://medium.com/@goelsonali"
         }
       ],
-      "status": "published/review/disabled",
-      "mentorshipType": "Ad-Hoc Format/Long-Term Format/Both",
-      "availability": [5, 6, 7, 8, 9, 10, 11],
-      "hours": 5,
-      "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "languages": ["Language1", "Language2", "Language3"],
+      "profileStatus": "DISABLED",
+      "bio": "As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability. As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.",
+      "spokenLanguages": ["English", "Hindi"],
       "skills": {
-        "experience": "10-15 years",
-        "areas": [
-          "Backend Developer",
-          "Frontend Developer",
-          "Fullstack Developer",
-          "DevOps"
-        ],
-        "languages": ["Java", "C", "C++", "C#"],
+        "yearsExperience": 15,
+        "experienceRange": "10-15 years",
+        "areas": ["BACKEND", "FRONTEND", "DEVOPS"],
+        "languages": ["Java", "C", "C++", "C#"]
+      },
+      "menteeSection": {
+        "mentorshipType": ["AD_HOC", "LONG_TERM"],
+        "availability": {
+          "months": [
+            "MAY",
+            "JUNE",
+            "JULY",
+            "AUGUST",
+            "SEPTEMBER",
+            "OCTOBER",
+            "NOVEMBER"
+          ],
+          "hours": 2
+        },
+        "idealMentee": "I am seeking mentees who are enthusiastic about learning and growing in the field of technology. Whether you're a beginner looking to enhance your programming skills or an experienced professional aiming to delve deeper into cloud architecture and e-commerce systems, I am here to support your journey.",
         "focus": [
           "Switch career to IT",
           "Grow from beginner to mid-level",
-          "Grow from mid-level to senior-level"
+          "Grow from mid-level to senior-level",
+          "Engineering management"
         ],
-        "extra": "Test Automation, Code Review, Exploratory Testing, Web Testing (Manual & Automation), API Testing (Postman, PactumJS), ISTQB Certification Preparation guidelines (Foundation Level and Test Automation Engineer), Starting career in IT, CV Review, Preparation for the Interview, Career Advice.",
-        "mentee": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        "additional": "Test Automation, Code Review, Exploratory Testing, Web Testing (Manual & Automation), API Testing (Postman, PactumJS), ISTQB Certification Preparation guidelines (Foundation Level and Test Automation Engineer), Starting career in IT, CV Review, Preparation for the Interview, Career Advice."
       },
-      "feedbackList": [
-        {
-          "status": "Draft/Hidden/Approved",
-          "score": "1/2/3/4/5",
-          "date": "Thu, May 30, 2024, 8:00 PM CEST",
-          "title": "feedback title",
-          "feedback": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          "name": "firstname lastname of mentee/Anonymous",
-          "mentorshipType": "Ad-Hoc Format/Long-Term Format/Both"
-        }
-      ],
+      "feedbackSection": {
+        "feedbacks": [
+          {
+            "rating": "5",
+            "date": "Thu, May 30, 2024",
+            "feedback": "Sonali answered all my questions patiently and provided with a lot of valuable insights on how to prepare and approach for a job search. ",
+            "name": "Anonymous",
+            "type": "Ad-hoc"
+          },
+          {
+            "rating": "4",
+            "date": "Thu, Jun 30, 2024",
+            "feedback": "Sonali answered all my questions patiently and provided with a lot of valuable insights on how to prepare and approach for a job search. ",
+            "name": "Rajashree Munoli",
+            "type": "Long-Term"
+          }
+        ]
+      },
       "resources": [
         {
           "id": "1",
-          "name": "My Book Recommendations",
+          "name": "Book Recommendations",
           "description": "Books related to Java skills",
           "rawContent": "Book 1, Book 2",
-          "type": "DESCRIPTION",
-          "images": null,
-          "link": null
+          "type": "DESCRIPTION"
         },
         {
           "id": "2",
           "name": "Recommendations of java course",
           "description": "nice website to learn about java",
           "type": "LINK",
-          "images": null,
+          "link": {
+            "label": "Java course 1",
+            "uri": "https://linkexample.com/"
+          }
+        }
+      ]
+    },
+    {
+      "fullName": "Sonali Goel",
+      "position": "Senior Software Engineer",
+      "companyName": "Tesco Technology",
+      "city": "London",
+      "country": {
+        "countryCode": "GB",
+        "countryName": "United Kingdom"
+      },
+      "images": [
+        {
+          "path": "assets/images/mentors/sonali_goel.jpg",
+          "alt": "mentor profile image",
+          "type": "desktop"
+        }
+      ],
+      "network": [
+        {
+          "type": "linkedin",
+          "link": "https://www.linkedin.com/in/sonali-goel-tech"
+        },
+        {
+          "type": "github",
+          "link": "https://github.com/goelsonali"
+        },
+        {
+          "type": "website",
+          "link": "https://sonaligoel.carrd.co"
+        },
+        {
+          "type": "medium",
+          "link": "https://medium.com/@goelsonali"
+        }
+      ],
+      "profileStatus": "DISABLED",
+      "bio": "As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability. As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.",
+      "spokenLanguages": ["English", "Hindi"],
+      "skills": {
+        "yearsExperience": 15,
+        "experienceRange": "10-15 years",
+        "areas": ["BACKEND", "FRONTEND", "DEVOPS"],
+        "languages": ["Java", "C", "C++", "C#"]
+      },
+      "menteeSection": {
+        "mentorshipType": ["AD_HOC", "LONG_TERM"],
+        "availability": {
+          "months": [
+            "MAY",
+            "JUNE",
+            "JULY",
+            "AUGUST",
+            "SEPTEMBER",
+            "OCTOBER",
+            "NOVEMBER"
+          ],
+          "hours": 2
+        },
+        "idealMentee": "I am seeking mentees who are enthusiastic about learning and growing in the field of technology. Whether you're a beginner looking to enhance your programming skills or an experienced professional aiming to delve deeper into cloud architecture and e-commerce systems, I am here to support your journey.",
+        "focus": [
+          "Switch career to IT",
+          "Grow from beginner to mid-level",
+          "Grow from mid-level to senior-level",
+          "Engineering management"
+        ],
+        "additional": "Test Automation, Code Review, Exploratory Testing, Web Testing (Manual & Automation), API Testing (Postman, PactumJS), ISTQB Certification Preparation guidelines (Foundation Level and Test Automation Engineer), Starting career in IT, CV Review, Preparation for the Interview, Career Advice."
+      },
+      "feedbackSection": {
+        "feedbacks": [
+          {
+            "rating": "5",
+            "date": "Thu, May 30, 2024",
+            "feedback": "Sonali answered all my questions patiently and provided with a lot of valuable insights on how to prepare and approach for a job search. ",
+            "name": "Anonymous",
+            "type": "Ad-hoc"
+          },
+          {
+            "rating": "4",
+            "date": "Thu, Jun 30, 2024",
+            "feedback": "Sonali answered all my questions patiently and provided with a lot of valuable insights on how to prepare and approach for a job search. ",
+            "name": "Rajashree Munoli",
+            "type": "Long-Term"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "id": "1",
+          "name": "Book Recommendations",
+          "description": "Books related to Java skills",
+          "rawContent": "Book 1, Book 2",
+          "type": "DESCRIPTION"
+        },
+        {
+          "id": "2",
+          "name": "Recommendations of java course",
+          "description": "nice website to learn about java",
+          "type": "LINK",
+          "link": {
+            "label": "Java course 1",
+            "uri": "https://linkexample.com/"
+          }
+        }
+      ]
+    },
+    {
+      "fullName": "Sonali Goel",
+      "position": "Senior Software Engineer",
+      "companyName": "Tesco Technology",
+      "city": "London",
+      "country": {
+        "countryCode": "GB",
+        "countryName": "United Kingdom"
+      },
+      "images": [
+        {
+          "path": "assets/images/mentors/sonali_goel.jpg",
+          "alt": "mentor profile image",
+          "type": "desktop"
+        }
+      ],
+      "network": [
+        {
+          "type": "linkedin",
+          "link": "https://www.linkedin.com/in/sonali-goel-tech"
+        },
+        {
+          "type": "github",
+          "link": "https://github.com/goelsonali"
+        },
+        {
+          "type": "website",
+          "link": "https://sonaligoel.carrd.co"
+        },
+        {
+          "type": "medium",
+          "link": "https://medium.com/@goelsonali"
+        }
+      ],
+      "profileStatus": "DISABLED",
+      "bio": "As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability. As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.As a Senior Software Engineer, I specialize in designing and implementing solutions that prioritize reliability, flexibility, and scalability.",
+      "spokenLanguages": ["English"],
+      "skills": {
+        "yearsExperience": 15,
+        "experienceRange": "10-15 years",
+        "areas": ["BACKEND", "FRONTEND", "DEVOPS"],
+        "languages": ["Java", "C", "C++", "C#"]
+      },
+      "menteeSection": {
+        "mentorshipType": ["AD_HOC", "LONG_TERM"],
+        "availability": {
+          "months": [
+            "MAY",
+            "JUNE",
+            "JULY",
+            "AUGUST",
+            "SEPTEMBER",
+            "OCTOBER",
+            "NOVEMBER"
+          ],
+          "hours": 2
+        },
+        "idealMentee": "I am seeking mentees who are enthusiastic about learning and growing in the field of technology. Whether you're a beginner looking to enhance your programming skills or an experienced professional aiming to delve deeper into cloud architecture and e-commerce systems, I am here to support your journey.",
+        "focus": [
+          "Switch career to IT",
+          "Grow from beginner to mid-level",
+          "Grow from mid-level to senior-level",
+          "Engineering management"
+        ],
+        "additional": "Test Automation, Code Review, Exploratory Testing, Web Testing (Manual & Automation), API Testing (Postman, PactumJS), ISTQB Certification Preparation guidelines (Foundation Level and Test Automation Engineer), Starting career in IT, CV Review, Preparation for the Interview, Career Advice."
+      },
+      "feedbackSection": {
+        "feedbacks": [
+          {
+            "rating": "5",
+            "date": "Thu, May 30, 2024",
+            "feedback": "Sonali answered all my questions patiently and provided with a lot of valuable insights on how to prepare and approach for a job search. ",
+            "name": "Anonymous",
+            "type": "Ad-hoc"
+          },
+          {
+            "rating": "4",
+            "date": "Thu, Jun 30, 2024",
+            "feedback": "Sonali answered all my questions patiently and provided with a lot of valuable insights on how to prepare and approach for a job search. ",
+            "name": "Rajashree Munoli",
+            "type": "Long-Term"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "id": "1",
+          "name": "Book Recommendations",
+          "description": "Books related to Java skills",
+          "rawContent": "Book 1, Book 2",
+          "type": "DESCRIPTION"
+        },
+        {
+          "id": "2",
+          "name": "Recommendations of java course",
+          "description": "nice website to learn about java",
+          "type": "LINK",
           "link": {
             "label": "Java course 1",
             "uri": "https://linkexample.com/"
