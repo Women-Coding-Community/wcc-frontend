@@ -47,6 +47,16 @@ declare module '@mui/material/styles' {
       padding?: string;
     };
   }
+  interface Palette {
+    custom: {
+      softGray: string;
+    };
+  }
+  interface PaletteOptions {
+    custom?: {
+      softGray?: string;
+    };
+  }
 }
 
 const theme = createTheme({
@@ -166,9 +176,11 @@ const theme = createTheme({
       light: '#F6FAFE',
     },
     secondary: {
-      main: '#a23e19',
-      dark: '#ffdbd0',
-      light: '#390C00',
+      main: '#dc004e',
+      light: '#FFDBD0',
+    },
+    custom: {
+      softGray: '#F4F0EF',
     },
     text: {
       primary: '#1b1919',
