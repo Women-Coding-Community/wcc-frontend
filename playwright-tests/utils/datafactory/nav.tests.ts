@@ -1,4 +1,4 @@
-import { LandingPage } from "@pages/landing.page";
+import { LandingPage } from '@pages/landing.page';
 
 export const navTests = [
   {
