@@ -198,10 +198,7 @@ export interface MentorshipCodeOfConductData {
     items: string[];
   };
   wccCodeSection: {
-    link: {
-      label: string;
-      uri: string;
-    };
+    link: Link;
   };
 }
 
