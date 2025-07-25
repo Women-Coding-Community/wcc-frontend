@@ -1,4 +1,5 @@
 import { expect } from '@playwright/test';
+
 import { test } from '@utils/fixtures';
 
 test('should display complete navigation menu', async ({
