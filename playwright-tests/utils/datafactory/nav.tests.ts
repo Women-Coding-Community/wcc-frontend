@@ -25,4 +25,12 @@ export const navTests = [
     expectedURL: '/blog',
     expectedText: 'Welcome to the Blog Page',
   },
+  {
+    id: 'NAV-004',
+    linkName: 'Jobs',
+    pathToStart: '/',
+    linkLocator: (landingPage: LandingPage) => landingPage.jobsLink,
+    expectedURL: '/jobs',
+    expectedText: 'Welcome to the JobsPage',
+  }
 ];
