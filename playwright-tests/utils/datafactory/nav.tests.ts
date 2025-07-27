@@ -32,5 +32,5 @@ export const navTests = [
     linkLocator: (landingPage: LandingPage) => landingPage.jobsLink,
     expectedURL: '/jobs',
     expectedText: 'Welcome to the JobsPage',
-  }
+  },
 ];
