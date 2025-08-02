@@ -36,7 +36,6 @@ const MentorshipCodeOfConductPage = ({
       >
         <Typography
           variant="h2"
-          component="h1"
           sx={{
             fontWeight: 'bold',
             color: '#001e2e',

@@ -3,10 +3,9 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { Box, Button, Typography } from '@mui/material';
 import { useState } from 'react';
 
-interface CodeOfConductSectionProps {
-  title: string;
-  items: string[];
-}
+import { CodeOfConductSectionType } from '@utils/types';
+
+type CodeOfConductSectionProps = CodeOfConductSectionType;
 
 export const CodeOfConductSection = ({
   title,
@@ -34,10 +33,10 @@ export const CodeOfConductSection = ({
     >
       <Typography
         variant="h3"
-        sx={{
-          textAlign: 'center',
-          width: '100%',
-        }}
+        // sx={{
+        //   textAlign: 'center',
+        //   width: '100%',
+        // }}
       >
         {title}
       </Typography>
