@@ -1,4 +1,4 @@
-import type { Page, Locator } from '@playwright/test';
+import { Page, Locator, test, expect } from '@playwright/test';
 
 export class BasePage {
   readonly page: Page;
@@ -21,5 +21,32 @@ export class BasePage {
     this.blogLink = page.getByRole('button', { name: 'Blog' });
     this.jobsLink = page.getByRole('button', { name: 'Jobs' });
     this.aboutUsDropdown = page.getByRole('button', { name: 'About Us' });
+  }
+
+  async navigateToPath(path: string) {
+    await test.step(`Navigate to path: ${path}`, async () => {
+      await this.page.goto(path);
+      await this.page.waitForLoadState('networkidle');
+    });
+  }
+
+  async clickElement(elementLocator: Locator) {
+    await test.step(`Click the "${elementLocator}" link`, async () => {
+      await elementLocator.click();
+    });
+  }
+
+  async verifyURL(expectedURL: string) {
+    await test.step(`Verify URL is "${expectedURL}"`, async () => {
+      await expect(this.page).toHaveURL(expectedURL);
+    });
+  }
+
+  async verifyPageContainsText(expectedText: string) {
+    await test.step(`Verify page contains text "${expectedText}"`, async () => {
+      await expect(
+        this.page.getByText(expectedText, { exact: true }),
+      ).toBeVisible();
+    });
   }
 }
