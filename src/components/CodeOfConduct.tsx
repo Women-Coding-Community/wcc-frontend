@@ -33,10 +33,10 @@ export const CodeOfConductSection = ({
     >
       <Typography
         variant="h3"
-        // sx={{
-        //   textAlign: 'center',
-        //   width: '100%',
-        // }}
+        sx={{
+          textAlign: 'center',
+          width: '100%',
+        }}
       >
         {title}
       </Typography>
