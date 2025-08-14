@@ -11,7 +11,7 @@ test.describe('Validate Navigation Menu', () => {
       expectedURL,
       expectedText,
     }) => {
-      test.only(`${id}: Test "${linkName}" Link Navigation`, async ({
+      test(`${id}: Test "${linkName}" Link Navigation`, async ({
         landingPage,
         basePage,
       }) => {
