@@ -12,15 +12,13 @@ export class HomePage extends BasePage {
     super(page);
     this.becomeMentorSection = page.getByTestId('mentor-banner');
     this.sectionTitle = page.getByRole('heading', {
-      name: 'Become a Mentor', exact: true 
+      name: 'Become a Mentor',
+      exact: true,
     });
     this.sectionDescription = page.getByRole('heading', {
-      name: 'Ready to empower and be empowered in tech? Become a mentor! Expand your network, give back, share expertise, and discover new perspectives.', exact: true
+      name: 'Ready to empower and be empowered in tech? Become a mentor! Expand your network, give back, share expertise, and discover new perspectives.',
+      exact: true,
     });
     this.joinAsMentorBtn = page.getByRole('link', { name: 'Join as a mentor' });
-  }
-
-  async scrollToBecomeMentor() {
-    await this.becomeMentorSection.scrollIntoViewIfNeeded();
   }
 }

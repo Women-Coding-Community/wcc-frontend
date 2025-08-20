@@ -7,9 +7,7 @@ test.describe('Become Mentor section', () => {
     homePage,
     basePage,
   }) => {
-
     await basePage.navigateToPath('/');
-    await homePage.scrollToBecomeMentor();
 
     await expect(homePage.sectionTitle).toBeVisible();
 
@@ -18,7 +16,7 @@ test.describe('Become Mentor section', () => {
     await expect(homePage.joinAsMentorBtn).toBeVisible();
     await basePage.clickElement(homePage.joinAsMentorBtn);
 
-    await basePage.verifyURL("/mentorship/mentor-registration");
+    await basePage.verifyURL('/mentorship/mentor-registration');
     await basePage.verifyPageContainsText(
       'Welcome to the MentorRegistrationPage',
     );
