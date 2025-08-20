@@ -7,33 +7,20 @@ export class HomePage extends BasePage {
   readonly sectionTitle: Locator;
   readonly sectionDescription: Locator;
   readonly joinAsMentorBtn: Locator;
-  readonly mentorRegistrationPageTitle: Locator;
 
   constructor(page: Page) {
     super(page);
     this.becomeMentorSection = page.getByTestId('mentor-banner');
     this.sectionTitle = page.getByRole('heading', {
-      name: 'Become a Mentor',
-      exact: true,
+      name: 'Become a Mentor', exact: true 
     });
     this.sectionDescription = page.getByRole('heading', {
-      name: /Ready to empower and be empowered in tech/i,
+      name: 'Ready to empower and be empowered in tech? Become a mentor! Expand your network, give back, share expertise, and discover new perspectives.', exact: true
     });
     this.joinAsMentorBtn = page.getByRole('link', { name: 'Join as a mentor' });
-    this.mentorRegistrationPageTitle = page.getByRole('heading', {
-      name: 'Welcome to the MentorRegistrationPage',
-    });
-  }
-
-  async goto() {
-    await this.page.goto('/');
   }
 
   async scrollToBecomeMentor() {
     await this.becomeMentorSection.scrollIntoViewIfNeeded();
-  }
-
-  async clickJoinAsMentor() {
-    await this.joinAsMentorBtn.click();
   }
 }
