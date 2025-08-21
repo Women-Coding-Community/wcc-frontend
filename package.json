@@ -12,7 +12,7 @@
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
     "test": "jest",
-    "e2e:test": "playwright test"
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

@@ -2,11 +2,11 @@ import { expect } from '@playwright/test';
 
 import { test } from '@utils/fixtures';
 
-test.beforeEach(async ({ page }) => {
+test('should display complete navigation menu', async ({
+  page,
+  landingPage,
+}) => {
   await page.goto('/');
-});
-
-test('should display complete navigation menu', async ({ landingPage }) => {
   await expect(landingPage.homeLink).toBeVisible();
   await expect(landingPage.mentorshipDropdown).toBeVisible();
   await expect(landingPage.programmesDropdown).toBeVisible();
@@ -20,6 +20,7 @@ test('Join Slack button navigates to Slack invite in the new page', async ({
   page,
   landingPage,
 }) => {
+  await page.goto('/');
   const newPagePromise = page.waitForEvent('popup');
   await landingPage.joinSlackButton.click();
   const newPage = await newPagePromise;
