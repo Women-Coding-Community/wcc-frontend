@@ -10,6 +10,7 @@ export class BasePage {
   readonly blogLink: Locator;
   readonly jobsLink: Locator;
   readonly aboutUsDropdown: Locator;
+  readonly menuitem: (itemTitle: string) => Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -21,6 +22,7 @@ export class BasePage {
     this.blogLink = page.getByRole('button', { name: 'Blog' });
     this.jobsLink = page.getByRole('button', { name: 'Jobs' });
     this.aboutUsDropdown = page.getByRole('button', { name: 'About Us' });
+    this.menuitem = (itemTitle: string) => page.getByRole('menuitem', { name: itemTitle });
   }
 
   async navigateToPath(path: string) {
