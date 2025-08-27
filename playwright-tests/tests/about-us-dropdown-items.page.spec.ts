@@ -11,7 +11,7 @@ test.describe('About Us Dropdown Navigation', () => {
         await basePage.navigateToPath('/');
       await basePage.clickElement(basePage.aboutUsDropdown);
       await basePage.clickElement(
-        basePage.page.getByRole('menuitem', { name }),
+        basePage.menuitem(name),
       );
       await basePage.verifyURL(expectedURL);
       await basePage.verifyPageContainsText(expectedText);
