@@ -11,6 +11,7 @@ export class BasePage {
   readonly jobsLink: Locator;
   readonly aboutUsDropdown: Locator;
   readonly menuitem: (itemTitle: string) => Locator;
+  readonly mentorCard: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -22,7 +23,9 @@ export class BasePage {
     this.blogLink = page.getByRole('button', { name: 'Blog' });
     this.jobsLink = page.getByRole('button', { name: 'Jobs' });
     this.aboutUsDropdown = page.getByRole('button', { name: 'About Us' });
-    this.menuitem = (itemTitle: string) => page.getByRole('menuitem', { name: itemTitle });
+    this.menuitem = (itemTitle: string) =>
+      page.getByRole('menuitem', { name: itemTitle });
+    this.mentorCard = page.getByTestId('mentor-card');
   }
 
   async navigateToPath(path: string) {
@@ -48,6 +51,15 @@ export class BasePage {
     await test.step(`Verify page contains text "${expectedText}"`, async () => {
       await expect(
         this.page.getByText(expectedText, { exact: true }),
+      ).toBeVisible();
+    });
+  }
+
+  async verifyLocatorContainsText(locator: Locator, expectedText: string) {
+    await test.step(`Verify locator contains text "${expectedText}"`, async () => {
+      const firstCard = locator.first();
+      await expect(
+        firstCard.getByText(expectedText, {exact:true}),
       ).toBeVisible();
     });
   }
