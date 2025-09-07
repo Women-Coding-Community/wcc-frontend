@@ -1,19 +1,16 @@
-import { test, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
 
-import { BasePage } from '@pages/base.page';
 import {
   programmesTestData,
   programmesExpectedItems,
 } from '@utils/datafactory/programmes.tests';
+import { test } from '@utils/fixtures';
 
 test.describe('Programmes Dropdown Navigation', () => {
-  let basePage: BasePage;
-
-  test.beforeEach(async ({ page }) => {
-    basePage = new BasePage(page);
-  });
-
-  test('should navigate to all programmes dropdown items', async ({ page }) => {
+  test('should navigate to all programmes dropdown items', async ({
+    page,
+    basePage,
+  }) => {
     await basePage.navigateToPath('/');
 
     for (const item of programmesTestData) {
@@ -38,6 +35,7 @@ test.describe('Programmes Dropdown Navigation', () => {
 
   test('should verify programmes dropdown menu items are visible', async ({
     page,
+    basePage,
   }) => {
     await basePage.navigateToPath('/');
 
@@ -51,7 +49,10 @@ test.describe('Programmes Dropdown Navigation', () => {
     }
   });
 
-  test('should close dropdown when clicking outside', async ({ page }) => {
+  test('should close dropdown when clicking outside', async ({
+    page,
+    basePage,
+  }) => {
     await basePage.navigateToPath('/');
 
     await basePage.programmesDropdown.click();
