@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test';
 
 import { BasePage } from '@pages/base.page';
+import {
+  programmesTestData,
+  programmesExpectedItems,
+} from '@utils/datafactory/programmes.tests';
 
 test.describe('Programmes Dropdown Navigation', () => {
   let basePage: BasePage;
@@ -12,34 +16,7 @@ test.describe('Programmes Dropdown Navigation', () => {
   test('should navigate to all programmes dropdown items', async ({ page }) => {
     await basePage.navigateToPath('/');
 
-    const programmesItems: Array<{
-      name: string;
-      path: string;
-      expectedText: string | null;
-    }> = [
-      {
-        name: 'Our Programmes',
-        path: '/programmes',
-        expectedText: 'Welcome to the ProgrammesPage',
-      },
-      {
-        name: 'Book Club',
-        path: '/programmes/book-club',
-        expectedText: 'Welcome to the BookClubPage',
-      },
-      {
-        name: 'Study Groups',
-        path: '/programmes/study-groups',
-        expectedText: null,
-      },
-      {
-        name: 'Interview Preparation',
-        path: '/programmes/interview-preparation',
-        expectedText: 'Welcome to the InterviewPreparationPage',
-      },
-    ];
-
-    for (const item of programmesItems) {
+    for (const item of programmesTestData) {
       await test.step(`Test navigation to ${item.name}`, async () => {
         await basePage.navigateToPath('/');
 
@@ -68,14 +45,7 @@ test.describe('Programmes Dropdown Navigation', () => {
 
     await page.waitForSelector('[data-testid="subNav"]');
 
-    const expectedItems = [
-      'Our Programmes',
-      'Book Club',
-      'Study Groups',
-      'Interview Preparation',
-    ];
-
-    for (const itemName of expectedItems) {
+    for (const itemName of programmesExpectedItems) {
       const menuItem = page.getByRole('menuitem', { name: itemName });
       await expect(menuItem).toBeVisible();
     }
