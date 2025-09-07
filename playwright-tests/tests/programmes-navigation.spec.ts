@@ -21,7 +21,7 @@ test.describe('Programmes Dropdown Navigation', () => {
 
         await page.waitForSelector('[data-testid="subNav"]');
 
-        const menuItem = page.getByRole('menuitem', { name: item.name });
+        const menuItem = basePage.menuitem(item.name);
         await menuItem.click();
 
         await basePage.verifyURL(item.path);
@@ -44,7 +44,7 @@ test.describe('Programmes Dropdown Navigation', () => {
     await page.waitForSelector('[data-testid="subNav"]');
 
     for (const itemName of programmesExpectedItems) {
-      const menuItem = page.getByRole('menuitem', { name: itemName });
+      const menuItem = basePage.menuitem(itemName);
       await expect(menuItem).toBeVisible();
     }
   });
@@ -61,8 +61,6 @@ test.describe('Programmes Dropdown Navigation', () => {
 
     await page.click('body', { position: { x: 100, y: 100 } });
 
-    await expect(
-      page.getByRole('menuitem', { name: 'Our Programmes' }),
-    ).not.toBeVisible();
+    await expect(basePage.menuitem('Our Programmes')).not.toBeVisible();
   });
 });
