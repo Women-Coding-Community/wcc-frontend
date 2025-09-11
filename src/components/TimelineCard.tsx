@@ -3,12 +3,11 @@ import { Box, Card, CardContent, Typography } from '@mui/material';
 import { useIsMobile } from '@utils/theme-utils';
 
 interface TimelineCardProps {
-  date: string;
+  date?: string;
   title: string;
   description: string;
 }
 
-// FIXME: double-check typography style with figma again
 export const TimelineCard = (props: TimelineCardProps) => {
   const isMobile = useIsMobile();
 
@@ -49,7 +48,7 @@ export const TimelineCard = (props: TimelineCardProps) => {
       >
         <CardContent>
           <Typography
-            variant="h5"
+            variant={isMobile ? 'subtitle1' : 'h5'}
             color="primary.main"
             gutterBottom
             fontWeight="bold"
@@ -57,7 +56,7 @@ export const TimelineCard = (props: TimelineCardProps) => {
             {props.date}
           </Typography>
           <Typography
-            variant="h4"
+            variant={isMobile ? 'h6' : 'h4'}
             color="primary.main"
             gutterBottom
             sx={{
@@ -66,9 +65,12 @@ export const TimelineCard = (props: TimelineCardProps) => {
           >
             {props.title}
           </Typography>
-          <Typography variant="h6" fontWeight="medium">
+          <Typography
+            variant={isMobile ? 'subtitle2' : 'h6'}
+            fontWeight="medium"
+          >
             {props.description}
-          </Typography>{' '}
+          </Typography>
         </CardContent>
       </Card>
     </Box>
