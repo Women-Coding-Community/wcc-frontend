@@ -5,6 +5,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
+import { fetchData } from 'lib/api';
 import theme from 'theme';
 
 import { FaqSection } from '../../components/FaqSection';
@@ -71,10 +72,22 @@ const MentorshipFaqsPage = ({ data, error }: FaqsPageProps) => {
 export default MentorshipFaqsPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {
-      data: null,
-      error: null,
-    },
-  };
+  try {
+    const combinedResponse = await fetchData('mentorship-faq-page');
+    const data: MentorshipPageData = combinedResponse.data;
+
+    return {
+      props: {
+        data: data,
+        error: null,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        data: null,
+        error: error instanceof Error ? error.message : 'An error occurred',
+      },
+    };
+  }
 };
