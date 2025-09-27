@@ -1,6 +1,6 @@
 // path: /mentorship/faqs
 
-import { Typography, Box, Container } from '@mui/material';
+import { Typography, Box, Container, Link } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -44,27 +44,80 @@ const MentorshipFaqsPage = ({ data, error }: FaqsPageProps) => {
 
   return (
     <>
-      <Box sx={{ ...theme.custom.containerBox, py: 0 }}>
-        <Container maxWidth="md" sx={{ px: theme.spacing(2) }}>
-          <Box sx={{ textAlign: 'center', mb: 5 }}>
-            <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
-              {heroSection.title}
+      <Container maxWidth="md">
+        <Box
+          sx={{
+            mb: '15px',
+            textAlign: 'left',
+            marginLeft: { xs: 0, md: theme.spacing(-25) },
+          }}
+        >
+          <Box
+            sx={{
+              fontSize: '14px',
+              lineHeight: 1.4286,
+              fontWeight: 400,
+              letterSpacing: '0.25px',
+              color: theme.palette.text.primary,
+
+              '& a': {
+                color: theme.palette.primary.main,
+                textDecoration: 'none',
+                marginRight: '8px',
+              },
+              '& span': {
+                color: theme.palette.text.primary,
+                marginRight: '8px',
+              },
+            }}
+          >
+            <Link href="/">Home</Link>
+            <Typography component="span">/</Typography>
+            <Link href="/mentorship">Mentorship</Link>
+            <Typography component="span">/</Typography>
+            <Typography component="span" color="inherit">
+              FAQ
             </Typography>
           </Box>
-          <FaqSection
-            title={commonFaqSection.title}
-            items={commonFaqSection.items}
-          />
-          <FaqSection
-            title={mentorsFaqSection.title}
-            items={mentorsFaqSection.items}
-          />
-          <FaqSection
-            title={menteesFaqSection.title}
-            items={menteesFaqSection.items}
-          />
-        </Container>
+        </Box>
+      </Container>
+      <Box
+        sx={{
+          backgroundImage: 'linear-gradient(to right, #9FCEEC, #C7E7FF)',
+          width: '100%',
+        }}
+      >
+        <Box sx={{ textAlign: 'center', py: '48px' }}>
+          <Typography
+            variant="h2"
+            component="h1"
+            sx={{
+              fontFamily: 'Roboto, "Helvetica Neue", Arial, sans-serif',
+              fontSize: '57px',
+              fontWeight: 600,
+              lineHeight: 1.123,
+              letterSpacing: '-0.25px',
+              color: '#001E2E',
+            }}
+          >
+            {heroSection.title}
+          </Typography>
+        </Box>
       </Box>
+      <Container maxWidth="md" sx={{ marginTop: '57px', mb: 8 }}>
+        <FaqSection
+          title={commonFaqSection.title}
+          items={commonFaqSection.items}
+        />
+        <FaqSection
+          title={mentorsFaqSection.title}
+          items={mentorsFaqSection.items}
+        />
+        <FaqSection
+          title={menteesFaqSection.title}
+          items={menteesFaqSection.items}
+        />
+      </Container>
     </>
   );
 };

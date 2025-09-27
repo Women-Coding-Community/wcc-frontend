@@ -8,6 +8,8 @@ import {
 } from '@mui/material';
 import React, { useState, SyntheticEvent } from 'react';
 
+import theme from 'theme';
+
 import { FaqSectionProps } from '../utils/types';
 
 export const FaqSection: React.FC<FaqSectionProps> = ({ title, items }) => {
@@ -20,7 +22,18 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ title, items }) => {
 
   return (
     <Box sx={{ mb: 4 }}>
-      <Typography variant="h5">{title}</Typography>
+      <Typography
+        variant="h3"
+        component="h2"
+        sx={{
+          mb: 3,
+          fontSize: '45px',
+          lineHeight: 1.156,
+          color: theme.palette.text.primary,
+        }}
+      >
+        {title}
+      </Typography>
       {items.map((item, index) => {
         const accordionId = `accordion-${index}`;
 
@@ -46,6 +59,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ title, items }) => {
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`${accordionId}-content`}
               id={`${accordionId}-header`}
+              sx={{ py: 1.25 }}
             >
               <Typography>{item.question}</Typography>
             </AccordionSummary>
