@@ -72,8 +72,10 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ title, items }) => {
                   },
                 },
                 '& .MuiAccordionSummary-expandIconWrapper': {
+                  margin: 0,
+                  paddingTop: 0,
+                  paddingBottom: 0,
                   paddingRight: theme.spacing(2),
-                  '& .MuiSvgIcon-root': { fontSize: '40px' },
                 },
               }}
             >
