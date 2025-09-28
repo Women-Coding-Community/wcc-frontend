@@ -43,15 +43,18 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ title, items }) => {
             expanded={expanded === accordionId}
             onChange={handleChange(accordionId)}
             sx={{
+              borderTop: '1px solid',
+              borderColor: '#92908F',
               '&:before': {
                 display: 'none',
               },
-              borderBottom: '1px solid',
-              borderColor: 'divider',
               boxShadow: 'none',
               '&:first-of-type': {
                 borderTop: '1px solid',
                 borderColor: 'divider',
+              },
+              '&.Mui-expanded': {
+                margin: '0',
               },
             }}
           >
@@ -59,9 +62,34 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ title, items }) => {
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`${accordionId}-content`}
               id={`${accordionId}-header`}
-              sx={{ py: 1.25 }}
+              sx={{
+                padding: 0,
+                backgroundColor: theme.palette.custom.softGray,
+                '&.Mui-expanded': {
+                  '& .MuiAccordionSummary-content': {
+                    marginTop: 0,
+                    marginBottom: 0,
+                  },
+                },
+                '& .MuiAccordionSummary-expandIconWrapper': {
+                  paddingRight: theme.spacing(2),
+                  '& .MuiSvgIcon-root': { fontSize: '40px' },
+                },
+              }}
             >
-              <Typography>{item.question}</Typography>
+              <Typography
+                sx={{
+                  py: 1,
+                  px: 2,
+                  fontWeight: 400,
+                  fontSize: '16px',
+                  lineHeight: 1.5,
+                  letterSpacing: '0.5px',
+                  color: theme.palette.text.primary,
+                }}
+              >
+                {item.question}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>{item.answer}</Typography>
