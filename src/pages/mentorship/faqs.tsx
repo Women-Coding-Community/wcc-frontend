@@ -42,6 +42,8 @@ const MentorshipFaqsPage = ({ data, error }: FaqsPageProps) => {
     menteesFaqSection,
   } = data;
 
+  const faqSections = [commonFaqSection, mentorsFaqSection, menteesFaqSection];
+
   return (
     <>
       <Container maxWidth="md">
@@ -105,18 +107,9 @@ const MentorshipFaqsPage = ({ data, error }: FaqsPageProps) => {
         </Box>
       </Box>
       <Container maxWidth="md" sx={{ marginTop: '57px', mb: 8 }}>
-        <FaqSection
-          title={commonFaqSection.title}
-          items={commonFaqSection.items}
-        />
-        <FaqSection
-          title={mentorsFaqSection.title}
-          items={mentorsFaqSection.items}
-        />
-        <FaqSection
-          title={menteesFaqSection.title}
-          items={menteesFaqSection.items}
-        />
+        {faqSections.map((section, index) => (
+          <FaqSection key={index} title={section.title} items={section.items} />
+        ))}
       </Container>
     </>
   );
