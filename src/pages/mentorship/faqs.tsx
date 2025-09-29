@@ -2,8 +2,7 @@
 
 import { Typography, Box, Container, Link } from '@mui/material';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { fetchData } from 'lib/api';
 import theme from 'theme';
@@ -12,19 +11,11 @@ import { FaqSection } from '../../components/FaqSection';
 import { MentorshipPageData } from '../../utils/types';
 
 interface FaqsPageProps {
-  data: MentorshipPageData | null;
+  data: MentorshipPageData;
   error: string | null;
 }
 
-const MentorshipFaqsPage = ({ data, error }: FaqsPageProps) => {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (error) {
-      router.push('/500');
-    }
-  }, [error, router]);
-
+const MentorshipFaqsPage = ({ data }: FaqsPageProps) => {
   if (!data) {
     return (
       <Container maxWidth="md" sx={{ mt: 4, mb: 8 }}>
@@ -130,9 +121,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
   } catch (error) {
     return {
-      props: {
-        data: null,
-        error: error instanceof Error ? error.message : 'An error occurred',
+      redirect: {
+        destination: '/500',
+        permanent: false,
       },
     };
   }
