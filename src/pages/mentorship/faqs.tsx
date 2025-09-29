@@ -12,20 +12,9 @@ import { MentorshipPageData } from '../../utils/types';
 
 interface FaqsPageProps {
   data: MentorshipPageData;
-  error: string | null;
 }
 
 const MentorshipFaqsPage = ({ data }: FaqsPageProps) => {
-  if (!data) {
-    return (
-      <Container maxWidth="md" sx={{ mt: 4, mb: 8 }}>
-        <Typography variant="h6" color="error">
-          An error occurred while loading the FAQ page.
-        </Typography>
-      </Container>
-    );
-  }
-
   const {
     heroSection,
     commonFaqSection,
@@ -98,8 +87,12 @@ const MentorshipFaqsPage = ({ data }: FaqsPageProps) => {
         </Box>
       </Box>
       <Container maxWidth="md" sx={{ marginTop: '57px', mb: 8 }}>
-        {faqSections.map((section, index) => (
-          <FaqSection key={index} title={section.title} items={section.items} />
+        {faqSections.map((section) => (
+          <FaqSection
+            key={section.title}
+            title={section.title}
+            items={section.items}
+          />
         ))}
       </Container>
     </>
@@ -120,6 +113,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       },
     };
   } catch (error) {
+    console.error('Error fetching mentorship FAQ data:', error);
     return {
       redirect: {
         destination: '/500',
