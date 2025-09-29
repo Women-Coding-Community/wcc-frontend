@@ -3,9 +3,9 @@ import { Box, Card, CardContent, Typography } from '@mui/material';
 import { useIsMobile } from '@utils/theme-utils';
 
 interface TimelineCardProps {
-  date?: string;
   title: string;
   description: string;
+  date?: string;
 }
 
 export const TimelineCard = (props: TimelineCardProps) => {
@@ -49,7 +49,6 @@ export const TimelineCard = (props: TimelineCardProps) => {
         <CardContent>
           <Typography
             variant={isMobile ? 'subtitle1' : 'h5'}
-            color="primary.main"
             gutterBottom
             fontWeight="bold"
           >
@@ -57,7 +56,6 @@ export const TimelineCard = (props: TimelineCardProps) => {
           </Typography>
           <Typography
             variant={isMobile ? 'h6' : 'h4'}
-            color="primary.main"
             gutterBottom
             sx={{
               fontWeight: 600,
