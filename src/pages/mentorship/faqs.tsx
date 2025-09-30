@@ -76,7 +76,6 @@ const MentorshipFaqsPage = ({ data }: FaqsPageProps) => {
             sx={{
               fontFamily: 'Roboto, "Helvetica Neue", Arial, sans-serif',
               fontSize: '57px',
-              fontWeight: 600,
               lineHeight: 1.123,
               letterSpacing: '-0.25px',
               color: '#001E2E',
@@ -113,6 +112,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       },
     };
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Error fetching mentorship FAQ data:', error);
     return {
       redirect: {
