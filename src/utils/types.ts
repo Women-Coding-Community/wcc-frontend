@@ -272,3 +272,30 @@ export type Mentor = {
     link?: Link;
   }[];
 };
+
+export interface FaqHeroSection {
+  title: string;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface FAQContentSection {
+  title: string;
+  items: FAQItem[];
+}
+
+export interface MentorshipPageData {
+  id: string;
+  heroSection: FaqHeroSection;
+  commonFaqSection: FAQContentSection;
+  mentorsFaqSection: FAQContentSection;
+  menteesFaqSection: FAQContentSection;
+}
+
+export interface FaqSectionProps {
+  title: string;
+  items: FAQItem[];
+}

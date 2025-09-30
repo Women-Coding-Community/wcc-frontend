@@ -22,7 +22,8 @@ export class BasePage {
     this.blogLink = page.getByRole('button', { name: 'Blog' });
     this.jobsLink = page.getByRole('button', { name: 'Jobs' });
     this.aboutUsDropdown = page.getByRole('button', { name: 'About Us' });
-    this.menuitem = (itemTitle: string) => page.getByRole('menuitem', { name: itemTitle });
+    this.menuitem = (itemTitle: string) =>
+      page.getByRole('menuitem', { name: itemTitle });
   }
 
   async navigateToPath(path: string) {
