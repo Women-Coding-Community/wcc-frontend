@@ -17,7 +17,7 @@ test.describe('Mentorship Dropdown Navigation', () => {
       await basePage.verifyURL(expectedURL);
       if (useLocator) {
         await basePage.verifyLocatorContainsText(
-          basePage.mentorCard,
+          basePage.mentorCard.first(),
           expectedText,
         );
       } else {

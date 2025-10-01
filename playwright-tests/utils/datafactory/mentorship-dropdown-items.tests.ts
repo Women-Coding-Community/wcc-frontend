@@ -1,12 +1,51 @@
-export const mentorshipMenuItems = [
-  { name: 'Overview', expectedURL: '/mentorship', expectedText: 'Become a mentor' },
-  { name: 'Mentors', expectedURL: '/mentorship/mentors', expectedText: 'Apply for this mentor',useLocator:true },
-  { name: 'Study Groups', expectedURL: '/mentorship/study-groups', expectedText: 'Welcome to the MentorShipStudyGroupsPage' },
-  { name: 'Mentor Registration', expectedURL: '/mentorship/mentor-registration', expectedText: 'Welcome to the MentorRegistrationPage' },
-  { name: 'Mentee Registration', expectedURL: '/mentorship/mentee-registration', expectedText: 'Welcome to the MenteeRegistrationPage' },
-  { name: 'Resources', expectedURL: '/mentorship/resources', expectedText: 'Welcome to the MentorshipResourcesPage' },
-  { name: 'Code of Conduct', expectedURL: '/mentorship/code-of-conduct', expectedText: 'Welcome to the MentorshipCodeOfConductPage' },
-  { name: 'FAQs', expectedURL: '/mentorship/faqs', expectedText: 'Welcome to the MentorshipFaqsPage' },
-  { name: 'Long-Term Timeline', expectedURL: '/mentorship/long-term-timeline', expectedText: 'Welcome to the Long Term Timeline Page' },
-  { name: 'Ad-Hoc Timeline', expectedURL: '/mentorship/ad-hoc-timeline', expectedText: 'Welcome to the Ad-Hoc Timeline Page' }
+type ItemTuple = [string, string, string] | [string, string, string, boolean];
+
+const items: ItemTuple[] = [
+  ['Overview', '/mentorship', 'Become a mentor'],
+  ['Mentors', '/mentorship/mentors', 'Apply for this mentor', true],
+  [
+    'Study Groups',
+    '/mentorship/study-groups',
+    'Welcome to the MentorShipStudyGroupsPage',
+  ],
+  [
+    'Mentor Registration',
+    '/mentorship/mentor-registration',
+    'Welcome to the MentorRegistrationPage',
+  ],
+  [
+    'Mentee Registration',
+    '/mentorship/mentee-registration',
+    'Welcome to the MenteeRegistrationPage',
+  ],
+  [
+    'Resources',
+    '/mentorship/resources',
+    'Welcome to the MentorshipResourcesPage',
+  ],
+  [
+    'Code of Conduct',
+    '/mentorship/code-of-conduct',
+    'Welcome to the MentorshipCodeOfConductPage',
+  ],
+  ['FAQs', '/mentorship/faqs', 'Welcome to the MentorshipFaqsPage'],
+  [
+    'Long-Term Timeline',
+    '/mentorship/long-term-timeline',
+    'Welcome to the Long Term Timeline Page',
+  ],
+  [
+    'Ad-Hoc Timeline',
+    '/mentorship/ad-hoc-timeline',
+    'Welcome to the Ad-Hoc Timeline Page',
+  ],
 ];
+
+export const mentorshipMenuItems = items.map(
+  ([name, expectedURL, expectedText, useLocator]) => ({
+    name,
+    expectedURL,
+    expectedText,
+    ...(useLocator ? { useLocator } : {}),
+  }),
+);

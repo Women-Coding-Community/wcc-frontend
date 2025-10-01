@@ -57,9 +57,8 @@ export class BasePage {
 
   async verifyLocatorContainsText(locator: Locator, expectedText: string) {
     await test.step(`Verify locator contains text "${expectedText}"`, async () => {
-      const firstCard = locator.first();
       await expect(
-        firstCard.getByText(expectedText, {exact:true}),
+        locator.getByText(expectedText, { exact: true }),
       ).toBeVisible();
     });
   }
