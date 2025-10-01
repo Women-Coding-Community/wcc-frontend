@@ -58,6 +58,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
 
   return (
     <Box
+     data-testid="mentor-card"
       sx={{
         display: 'flex',
         border: '1px solid #e0e0e0',
