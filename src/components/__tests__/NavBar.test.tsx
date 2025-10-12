@@ -87,6 +87,12 @@ describe('NavBar', () => {
     expect(mockRouter).toMatchObject({ pathname: '/blog' });
     fireEvent.click(screen.getByText('Jobs'));
     expect(mockRouter).toMatchObject({ pathname: '/jobs' });
+
+    fireEvent.click(screen.getByText('Find a mentor'));
+    expect(mockRouter).toMatchObject({ pathname: '/mentorship/mentors' });
+
+    fireEvent.click(screen.getByRole('img', { name: 'Logo' }));
+    expect(mockRouter).toMatchObject({ pathname: '/' });
   });
 
   it('should open and close the dropdown menu', () => {
