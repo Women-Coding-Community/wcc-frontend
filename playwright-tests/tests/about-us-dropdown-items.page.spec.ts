@@ -1,5 +1,5 @@
-import { test } from '@utils/fixtures';
 import { aboutUsMenuItems } from '@utils/datafactory/about-us-dropdown-items.tests';
+import { test } from '@utils/fixtures';
 
 test.describe('About Us Dropdown Navigation', () => {
   test('NAV-012: Click and navigate through About Us dropdown items', async ({
