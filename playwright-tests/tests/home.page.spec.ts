@@ -20,7 +20,7 @@ test.describe('Become Mentor section', () => {
       'Welcome to the MentorRegistrationPage',
     );
   });
-})
+});
 
 // Tests for Volunteer section on Home Page
 test.describe('Volunteer section', () => {
@@ -31,7 +31,9 @@ test.describe('Volunteer section', () => {
     await basePage.navigateToPath('/');
 
     await expect(homePage.volunteerSectionTitle).toBeVisible();
-    await expect(homePage.volunteerSectionDescription).toHaveText('Empowering women in their tech careers through education, mentorship, community building, and career services is our mission. We provide workshops and events, connect members with industry mentors, foster a supportive community through meetups and conferences, and raise awareness for more inclusive industry practices.');
+    await expect(homePage.volunteerSectionDescription).toHaveText(
+      'Empowering women in their tech careers through education, mentorship, community building, and career services is our mission. We provide workshops and events, connect members with industry mentors, foster a supportive community through meetups and conferences, and raise awareness for more inclusive industry practices.',
+    );
     await expect(homePage.learnMoreVolunteerBtn).toBeVisible();
     await basePage.clickElement(homePage.learnMoreVolunteerBtn);
 
