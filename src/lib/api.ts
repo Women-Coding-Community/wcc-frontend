@@ -11,6 +11,7 @@ import mentors from './responses/mentors.json';
 import mentorShipPage from './responses/mentorship.json';
 import mentorshipFaqPageData from './responses/mentorshipFaqPage.json';
 import ourProgrammesPage from './responses/programmes.json';
+import mentorshipStudyGroupsPage from './responses/mentorshipStudyGroupsPage.json';
 // for new pages: import the json file
 // (which you copied from https://github.com/Women-Coding-Community/wcc-backend/tree/main/src/main/resources)
 // and add it to pageData with the path in the pages path (e.g. mentorship/index.ts = mentorship/overview)
@@ -23,6 +24,7 @@ const pageData = {
   'mentorship/mentors': mentors,
   team: aboutUsTeam,
   'mentorship-faq-page': mentorshipFaqPageData,
+  'mentorship-study-groups-page': mentorshipStudyGroupsPage,
 };
 
 export const fetchData = async (path: string) => {
