@@ -33,4 +33,12 @@ export const navTests = [
     expectedURL: '/jobs',
     expectedText: 'Welcome to the JobsPage',
   },
+  {
+    id: 'NAV-005',
+    linkName: 'Mentorship',
+    pathToStart: '/mentorship',
+    linkLocator: (landingPage: LandingPage) => landingPage.homeLink,
+    expectedURL: '',
+    expectedText: 'Women Coding Community',
+  },   
 ];
