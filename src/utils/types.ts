@@ -299,3 +299,40 @@ export interface FaqSectionProps {
   title: string;
   items: FAQItem[];
 }
+
+export interface StudyGroupItem {
+  title: string;
+  description: string;
+  coordinators: string;
+  participants: number;
+  link: Link;
+}
+
+export interface ContactLink {
+  type: string;
+  link: string;
+}
+
+export interface StudyGroupSection {
+  items: StudyGroupItem[];
+}
+
+export interface OverviewSection {
+  description: string;
+}
+
+export interface ContactSection {
+  title: string;
+  links: ContactLink[];
+}
+
+export interface StudyGroupsPageData {
+  id: string;
+  heroSection: {
+    title: string;
+    images: Image[];
+  };
+  section: OverviewSection;
+  contact: ContactSection;
+  studyGroupSection: StudyGroupSection;
+}

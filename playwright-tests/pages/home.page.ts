@@ -30,7 +30,11 @@ export class HomePage extends BasePage {
       name: 'Do you want to volunteer with us?',
       exact: true,
     });
-    this.volunteerSectionDescription = page.locator('p.MuiTypography-root.MuiTypography-body1.css-11xjirw-MuiTypography-root');
-    this.learnMoreVolunteerBtn = page.getByRole('link', { name: 'Learn more about volunteering' });
+    this.volunteerSectionDescription = page.locator(
+      'p.MuiTypography-root.MuiTypography-body1.css-11xjirw-MuiTypography-root',
+    );
+    this.learnMoreVolunteerBtn = page.getByRole('link', {
+      name: 'Learn more about volunteering',
+    });
   }
 }

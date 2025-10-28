@@ -1,11 +1,10 @@
 // path: /mentorship/study-groups
-
 import { Typography } from '@mui/material';
 import { StudyGroupsHero } from '../../components/StudyGroupHero';
 import { Footer } from '@components';
 import footerData from '../../lib/responses/footer.json';
 
-const MentorShipStudyGroupsPage = () => {
+const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
   return (
     <div>
       <StudyGroupsHero
@@ -24,3 +23,25 @@ const MentorShipStudyGroupsPage = () => {
 };
 
 export default MentorShipStudyGroupsPage;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const combinedResponse = await fetchData('mentorship-study-groups-page');
+
+    return {
+      props: {
+        data: combinedResponse.data,
+        error: null,
+      },
+    };
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error fetching Study Groups data:', error);
+    return {
+      redirect: {
+        destination: '/500',
+        permanent: false,
+      },
+    };
+  }
+};
