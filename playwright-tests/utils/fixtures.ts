@@ -3,12 +3,14 @@ import { test as base } from '@playwright/test';
 import { BasePage } from '@pages/base.page';
 import { HomePage } from '@pages/home.page';
 import { LandingPage } from '@pages/landing.page';
+import { MentorshipDropdownPage } from '@pages/mentorshipdropdown.page';
 
 // Declare the types of your fixtures.
 type PageObjectFixtures = {
   landingPage: LandingPage;
   basePage: BasePage;
   homePage: HomePage;
+  mentorshipDropdownPage: MentorshipDropdownPage;
 };
 
 export const test = base.extend<PageObjectFixtures>({
@@ -23,5 +25,10 @@ export const test = base.extend<PageObjectFixtures>({
   homePage: async ({ page }, use) => {
     const homePage = new HomePage(page);
     await use(homePage);
+  },
+
+  mentorshipDropdownPage: async ({ page }, use) => {
+    const mentorshipDropdownPage = new MentorshipDropdownPage(page);
+    await use(mentorshipDropdownPage);
   },
 });
