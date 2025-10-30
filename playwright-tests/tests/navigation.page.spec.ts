@@ -3,10 +3,7 @@ import { test } from '@utils/fixtures';
 import { aboutUsMenuItems } from '@utils/datafactory/nav.tests';
 import { expect } from '@playwright/test';
 
-test('should display complete navigation menu', async ({
-  page,
-  homePage,
-}) => {
+test('should display complete navigation menu', async ({ page, homePage }) => {
   await page.goto('/');
   await expect(homePage.homeLink).toBeVisible();
   await expect(homePage.mentorshipDropdown).toBeVisible();

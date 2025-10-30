@@ -1,9 +1,7 @@
 import { expect } from '@playwright/test';
 import { test } from '@utils/fixtures';
 
-
 test.describe('Validate Home Page', () => {
-
   test.beforeEach(async ({ basePage }) => {
     await basePage.navigateToPath('/');
   });
@@ -16,16 +14,13 @@ test.describe('Validate Home Page', () => {
     const newPagePromise = page.waitForEvent('popup');
     await homePage.joinSlackButton.click();
     const newPage = await newPagePromise;
-  
+
     await newPage.waitForLoadState();
     expect(newPage.url()).toContain('slack.com');
     await expect(newPage).toHaveTitle(/Slack/i);
   });
 
-  test('HP-004: Become Mentor section', async ({
-    homePage,
-    basePage,
-  }) => {
+  test('HP-004: Become Mentor section', async ({ homePage, basePage }) => {
     await expect(homePage.becomeMentorSectionTitle).toBeVisible();
     await expect(homePage.becomeMentorSectionDescription).toBeVisible();
     await expect(homePage.joinAsMentorBtn).toBeVisible();
@@ -37,10 +32,7 @@ test.describe('Validate Home Page', () => {
     );
   });
 
-  test('HP-005: Volunteer section', async ({
-    homePage,
-    basePage,
-  }) => {
+  test('HP-005: Volunteer section', async ({ homePage, basePage }) => {
     await basePage.navigateToPath('/');
 
     await expect(homePage.volunteerSectionTitle).toBeVisible();
