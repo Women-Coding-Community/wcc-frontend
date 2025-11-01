@@ -1,6 +1,5 @@
-import { navTests } from '@utils/datafactory/nav.tests';
+import { navTests, aboutUsMenuItems } from '@utils/datafactory/nav.tests';
 import { test } from '@utils/fixtures';
-import { aboutUsMenuItems } from '@utils/datafactory/nav.tests';
 import { expect } from '@playwright/test';
 
 test('should display complete navigation menu', async ({ page, homePage }) => {
