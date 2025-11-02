@@ -1,8 +1,8 @@
 // path: /mentorship/study-groups
-import { Typography } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React from 'react';
 
+import { StudyGroupsInfoBlock } from 'components/StudyGroupsInfoBlock';
 import { fetchData } from 'lib/api';
 
 import { StudyGroupsPageData } from '../../utils/types';
@@ -13,10 +13,13 @@ export interface StudyGroupsPageProps {
 }
 
 const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
+  const {
+    section: { description: introText },
+    contact: { links: contactLinks },
+  } = data;
   return (
     <div>
-      <Typography variant="h4">Study Groups</Typography>
-      {data ? <p> Data Loaded </p> : <p> No Data </p>}
+      <StudyGroupsInfoBlock introText={introText} contactLinks={contactLinks} />
     </div>
   );
 };
