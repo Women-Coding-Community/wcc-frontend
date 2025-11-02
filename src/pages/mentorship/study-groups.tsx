@@ -17,9 +17,10 @@ const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
     section: { description: introText },
     contact: { links: contactLinks },
   } = data;
+  const cleanedIntroText = introText.replace(/\n /g, '\n\n');
   return (
     <div>
-      <StudyGroupsInfoBlock introText={introText} contactLinks={contactLinks} />
+      <StudyGroupsInfoBlock introText={cleanedIntroText} contactLinks={contactLinks} />
     </div>
   );
 };
