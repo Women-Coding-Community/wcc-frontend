@@ -95,7 +95,9 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
                 width={24}
                 height={24}
               />
-              Join us in our Study Group Slack Channel
+              <Typography variant="h5" component="span">
+                Join us in our Study Group Slack Channel
+              </Typography>
             </Link>
           </ContactBox>
         </Box>
