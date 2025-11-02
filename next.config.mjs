@@ -24,8 +24,6 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
-    ],
-    remotePatterns: [
       {
         protocol: 'https',
         hostname: 'a.slack-edge.com',
