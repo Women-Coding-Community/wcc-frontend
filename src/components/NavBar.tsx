@@ -6,7 +6,6 @@ import {
   Button,
   Drawer,
   Grid,
-  Icon,
   List,
   ListItemButton,
   ListItemText,
@@ -107,7 +106,7 @@ export const NavBar = () => {
             }}
             onClick={(event) => handleMenuOpen(item.title, event)}
           >
-            {item.title} <Icon>arrow_drop_down</Icon>
+            {item.title} <ExpandMore />
           </Button>
         );
       }
