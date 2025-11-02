@@ -271,6 +271,7 @@ export const NavBar = () => {
             alt="Logo"
             width={isMobile ? 60 : 80}
             height={isMobile ? 60 : 80}
+            onClick={() => router.push('/')}
           />
           {!isMobile && (
             <>
@@ -280,6 +281,7 @@ export const NavBar = () => {
                   variant="outlined"
                   color="inherit"
                   sx={{ borderRadius: '100px' }}
+                  onClick={() => router.push('/mentorship/mentors')}
                 >
                   Find a mentor
                 </Button>
