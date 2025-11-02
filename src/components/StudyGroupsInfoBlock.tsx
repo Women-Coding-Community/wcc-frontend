@@ -68,7 +68,6 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
           pb: { xs: '30px', md: 0 },
           alignItems: 'flex-start',
         }}
-        
       >
         <Box
           sx={{
@@ -77,15 +76,15 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
             width: '358px',
             pt: { xs: 0, md: '75px' },
             '& > *': {
-            mx: { xs: 0 },
-          }
+              mx: { xs: 0 },
+            },
           }}
         >
-          <ContactBox 
-            title=""
-            >
+          <ContactBox title="">
             <Link
               href={slackLink}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: 'flex',
                 flexDirection: 'column',
