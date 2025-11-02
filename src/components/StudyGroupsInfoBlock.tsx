@@ -27,8 +27,9 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
         xs={12}
         md={6}
         sx={{
-          pr: { xs: 0, md: '62px' },
-          pt: '16px',
+          px: { xs: '20px', md: 0 },
+          pr: { md: '62px' },
+          pt: { xs: '30px', md: '16px' },
         }}
       >
         <Box>
@@ -50,7 +51,7 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
             color="text.secondary"
             sx={{
               whiteSpace: 'pre-line',
-              marginBottom: '80px',
+              marginBottom: { xs: '30px', md: '80px' },
             }}
           >
             {introText}
@@ -62,19 +63,27 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
         xs={12}
         md={4}
         sx={{
-          pl: { xs: 0, md: '62px' },
+          px: { xs: '20px', md: 0 },
+          pl: { md: '62px' },
+          pb: { xs: '30px', md: 0 },
           alignItems: 'flex-start',
         }}
+        
       >
         <Box
           sx={{
             display: 'flex',
             justifyContent: { xs: 'center', md: 'flex-start' },
             width: '358px',
-            pt: '75px',
+            pt: { xs: 0, md: '75px' },
+            '& > *': {
+            mx: { xs: 0 },
+          }
           }}
         >
-          <ContactBox title="">
+          <ContactBox 
+            title=""
+            >
             <Link
               href={slackLink}
               style={{
