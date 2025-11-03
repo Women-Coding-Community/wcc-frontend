@@ -1,4 +1,5 @@
 // path: /mentorship/study-groups
+import { Box } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React from 'react';
 
@@ -19,12 +20,18 @@ const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
   } = data;
   const cleanedIntroText = introText.replace(/\n /g, '\n\n');
   return (
-    <div>
+    <Box
+      sx={{
+        maxWidth: '1128px',
+        mx: 'auto',
+        pt: 4,
+      }}
+    >
       <StudyGroupsInfoBlock
         introText={cleanedIntroText}
         contactLinks={contactLinks}
       />
-    </div>
+    </Box>
   );
 };
 
