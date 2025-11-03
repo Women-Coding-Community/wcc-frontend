@@ -5,12 +5,18 @@ import { BasePage } from '@pages/base.page';
 export class MentorshipPage extends BasePage {
   // Main section locators
   readonly testimonialsTitle: Locator;
+  readonly showMoreButton: Locator;
 
   constructor(page: Page) {
     super(page);
 
     this.testimonialsTitle = page.getByRole('heading', {
       name: 'What do participants think about our Mentorship Programme?',
+      exact: true,
+    });
+
+    this.showMoreButton = page.getByRole('button', {
+      name: '+ Show more',
       exact: true,
     });
   }
