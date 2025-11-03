@@ -9,7 +9,6 @@ import { ContactBox } from './ContactBox';
 
 interface StudyGroupInfoBlockProps {
   introText: string;
-  // contactTitle: string;
   contactLinks: ContactLink[];
 }
 
@@ -21,15 +20,20 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
     contactLinks.find((link) => link.type === 'slack')?.link || '#';
 
   return (
-    <Grid container justifyContent="center" alignItems="flex-start">
+    <Grid
+      container
+      justifyContent="center"
+      px={{ xs: '20px', md: 0 }}
+      pt={{ xs: '30px', md: '16px' }}
+      pb={{ xs: '30px', md: 0 }}
+    >
       <Grid
         item
         xs={12}
-        md={6}
+        md={7}
         sx={{
-          px: { xs: '20px', md: 0 },
-          pr: { md: '62px' },
-          pt: { xs: '30px', md: '16px' },
+          mr: { md: '62px' },
+          mb: { xs: '30px', md: 0 },
         }}
       >
         <Box>
@@ -51,7 +55,6 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
             color="text.secondary"
             sx={{
               whiteSpace: 'pre-line',
-              marginBottom: { xs: '30px', md: '80px' },
             }}
           >
             {introText}
@@ -63,10 +66,7 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
         xs={12}
         md={4}
         sx={{
-          px: { xs: '20px', md: 0 },
-          pl: { md: '62px' },
-          pb: { xs: '30px', md: 0 },
-          alignItems: 'flex-start',
+          pt: { xs: 0, md: '75px' },
         }}
       >
         <Box
