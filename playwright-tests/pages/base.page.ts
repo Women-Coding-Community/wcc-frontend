@@ -11,6 +11,7 @@ export class BasePage {
   readonly jobsLink: Locator;
   readonly aboutUsDropdown: Locator;
   readonly menuitem: (itemTitle: string) => Locator;
+  readonly menuItems: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -24,7 +25,9 @@ export class BasePage {
     this.aboutUsDropdown = page.getByRole('button', { name: 'About Us' });
     this.menuitem = (itemTitle: string) =>
       page.getByRole('menuitem', { name: itemTitle });
+      this.menuItems = page.locator('#drop1');
   }
+     
 
   async navigateToPath(path: string) {
     await test.step(`Navigate to path: ${path}`, async () => {
@@ -51,5 +54,9 @@ export class BasePage {
         this.page.getByText(expectedText, { exact: true }),
       ).toBeVisible();
     });
+  }
+
+   async getMenuItemCount(): Promise<number> {
+    return await this.menuItems.count();
   }
 }
