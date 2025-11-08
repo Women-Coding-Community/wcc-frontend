@@ -25,29 +25,24 @@ export class BasePage {
     this.aboutUsDropdown = page.getByRole('button', { name: 'About Us' });
     this.menuitem = (itemTitle: string) =>
       page.getByRole('menuitem', { name: itemTitle });
-      this.menuItems = page.locator('#drop1');
+    this.menuItems = page.getByRole('listitem');
   }
-     
-
   async navigateToPath(path: string) {
     await test.step(`Navigate to path: ${path}`, async () => {
       await this.page.goto(path);
       await this.page.waitForLoadState('networkidle');
-    });
+  });
   }
-
   async clickElement(elementLocator: Locator) {
     await test.step(`Click the "${elementLocator}" link`, async () => {
       await elementLocator.click();
     });
   }
-
   async verifyURL(expectedURL: string) {
     await test.step(`Verify URL is "${expectedURL}"`, async () => {
       await expect(this.page).toHaveURL(expectedURL);
     });
   }
-
   async verifyPageContainsText(expectedText: string) {
     await test.step(`Verify page contains text "${expectedText}"`, async () => {
       await expect(
@@ -55,8 +50,13 @@ export class BasePage {
       ).toBeVisible();
     });
   }
-
-   async getMenuItemCount(): Promise<number> {
+   async openMentorshipDropdown() {
+   await this.mentorshipDropdown.click();
+     }
+  async getMenuItemCount() {
     return await this.menuItems.count();
+  }
+  async getMenuItemTexts(): Promise<string[]> {
+    return await this.menuItems.allTextContents();
   }
 }
