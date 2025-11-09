@@ -33,6 +33,15 @@ export const navTests = [
     expectedURL: '/jobs',
     expectedText: 'Welcome to the JobsPage',
   },
+  {
+    id: 'NAV-007',
+    linkName: 'Home',
+    pathToStart: '/programmes',
+    linkLocator: (homePage: HomePage) => homePage.homeLink,
+    expectedURL: '',
+    expectedText: 'Women Coding Community',
+  },
+   
 ];
 
 // about us dropdown data
@@ -60,3 +69,21 @@ export const aboutUsMenuItems = items.map(([name, url, text]) => ({
   expectedURL: url,
   expectedText: text,
 }));
+
+const Pitems =[
+  ['Interview Preperation',
+  'Machine Learning',
+  'Book Club',
+  'Writing Club',
+  'Coding Club',
+  'Speaking Club'
+  ] 
+]; 
+
+  export const programmeMenuItems = Pitems.map(([name, url, text]) => ({
+  name,
+  expectedURL: url,
+  expectedText: text,
+}));
+
+
