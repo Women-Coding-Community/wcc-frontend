@@ -22,6 +22,8 @@
     "baseUrl": "./src",
     "paths": {
       "@components": ["components"],
+      "@components/*": ["components/*"],
+      "@schemas/*": ["schemas/*"],
       "@utils/*": ["utils/*", "../playwright-tests/utils/*"],
       "@public/*": ["../public/*"],
       "@pages/*": ["../playwright-tests/pages/*"]
