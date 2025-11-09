@@ -1,45 +1,21 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
 
-import { Footer } from '@components';
+import { Footer } from 'components/Footer';
+import ArrowIcon from 'components/ArrowIcon';
+import { ResourcesCard } from 'components/ResourcesCard';
+import ResourcesHero from 'components/ResourcesHero';
 
-import ArrowIcon from '../../components/ArrowIcon';
-import { ResourcesCard } from '../../components/ResourcesCard';
-import ResourcesHero from '../../components/ResourcesHero';
-import footerData from '../../lib/responses/footer.json';
+import footerData from 'lib/responses/footer.json';
+import pageData from 'lib/responses/mentorshipResources.json';
 
 const MentorshipResourcesPage: React.FC = () => {
-  const resources = [
-    {
-      image: '/mentee_guideMedia.jpg',
-      title: 'Mentee’s Guide',
-      description: '',
-      buttonText: 'View Guide',
-      link: '#',
-      buttonIcon: <ArrowIcon />,
-    },
-    {
-      image: '/mentor_pocketbookMedia.jpg',
-      title: 'Mentor’s Pocketbook',
-      description: '',
-      buttonText: 'View Pocketbook',
-      link: '#',
-      buttonIcon: <ArrowIcon />,
-    },
-    {
-      image: '/mentor_guideeMedia.jpg',
-      title: 'Mentor’s Guide',
-      description: '',
-      buttonText: 'View Guide',
-      link: '#',
-      buttonIcon: <ArrowIcon />,
-    },
-  ];
+  const { heroTitle, heroDescription, resources } = pageData;
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Box sx={{ flexGrow: 1 }}>
-        <ResourcesHero />
+        <ResourcesHero title={heroTitle} description={heroDescription} />
 
         <Box
           sx={{
@@ -58,7 +34,7 @@ const MentorshipResourcesPage: React.FC = () => {
                   description={res.description}
                   buttonText={res.buttonText}
                   link={res.link}
-                  buttonIcon={res.buttonIcon}
+                  buttonIcon={<ArrowIcon />} // keep icon here
                 />
               </Grid>
             ))}

@@ -1,0 +1,28 @@
+{
+  "heroTitle": "Mentorship Resources",
+  "heroDescription": "Learn from mentors and resources",
+  "resources": [
+    {
+      "image": "/mentee_guideMedia.jpg",
+      "title": "Mentee’s Guide",
+      "description": "",
+      "buttonText": "View Guide",
+      "link": "#"
+    },
+    {
+      "image": "/mentor_pocketbookMedia.jpg",
+      "title": "Mentor’s Pocketbook",
+      "description": "",
+      "buttonText": "View Pocketbook",
+      "link": "#"
+    },
+    {
+      "image": "/mentor_guideeMedia.jpg",
+      "title": "Mentor’s Guide",
+      "description": "",
+      "buttonText": "View Guide",
+      "link": "#"
+    }
+  ],
+  "footer": "footerData.json content"
+}

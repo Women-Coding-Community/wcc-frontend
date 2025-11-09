@@ -1,6 +1,12 @@
 import { Typography, Box, Paper } from '@mui/material';
+import React from 'react';
 
-const ResourcesHero = () => {
+interface ResourcesHeroProps {
+  title: string;
+  description: string;
+}
+
+const ResourcesHero: React.FC<ResourcesHeroProps> = ({ title, description }) => {
   return (
     <>
       <Paper
@@ -26,7 +32,7 @@ const ResourcesHero = () => {
             },
           }}
         >
-          Mentorship Resources
+          {title}
         </Typography>
       </Paper>
 
@@ -45,10 +51,7 @@ const ResourcesHero = () => {
             lineHeight: 1.5,
           }}
         >
-          Whether you're a mentee looking to navigate your journey, a mentor
-          aiming to provide the best guidance, or a seasoned mentor seeking
-          quick tips, we have the tools you need. Explore our guides for
-          insightful mentorship advice and strategies.
+          {description}
         </Typography>
       </Box>
     </>

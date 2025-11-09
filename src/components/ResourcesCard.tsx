@@ -7,6 +7,7 @@ import {
   CardActions,
   Box,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 interface ResourcesCardProps {
@@ -26,13 +27,15 @@ export const ResourcesCard: React.FC<ResourcesCardProps> = ({
   link = '#',
   buttonIcon,
 }) => {
+  const theme = useTheme();
+
   return (
     <Card
       sx={{
         borderRadius: 1,
         boxShadow: 2,
         height: '100%',
-        backgroundColor: '#F6FAFE',
+        backgroundColor: theme.palette.background.paper,
         display: 'flex',
         flexDirection: 'column',
         transition: 'transform 0.2s ease, box-shadow 0.2s ease',
@@ -54,7 +57,7 @@ export const ResourcesCard: React.FC<ResourcesCardProps> = ({
         <Typography variant="h6" fontWeight="bold" gutterBottom>
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color={theme.palette.text.secondary}>
           {description}
         </Typography>
       </CardContent>
@@ -71,6 +74,7 @@ export const ResourcesCard: React.FC<ResourcesCardProps> = ({
             fontSize: '1rem',
             display: 'flex',
             alignItems: 'center',
+            '&:hover': { backgroundColor: theme.palette.primary.dark },
           }}
         >
           {buttonText}

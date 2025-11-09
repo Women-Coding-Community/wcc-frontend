@@ -1,6 +1,7 @@
 import { Typography, Button, Box, Grid, useMediaQuery } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React, { useState } from 'react';
+import OverviewHero from '../../components/OverviewHero';
 
 import {
   ColoredBox,
@@ -21,10 +22,13 @@ interface FeedbackSectionProps {
   title: string;
   feedbacks: FeedbackCardProps[];
 }
-
 const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
   return (
     <>
+      <OverviewHero
+        title={mentorship.heroSection.title}
+        text={mentorship.section.description}
+      />
       <Grid
         container
         style={{
