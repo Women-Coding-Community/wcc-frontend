@@ -9,12 +9,12 @@ import {
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
+import CheckboxGroup from '../../components/forms/CheckboxGroup';
 import MenteeFormLayout from '../../components/forms/MenteeFormLayout';
-import RHFCheckboxGroup from '../../components/forms/RHFCheckboxGroup';
-import RHFRadioGroup from '../../components/forms/RHFRadioGroup';
-import RHFSelect from '../../components/forms/RHFSelect';
-import RHFTextArea from '../../components/forms/RHFTextArea';
-import RHFTextField from '../../components/forms/RHFTextField';
+import RadioGroup from '../../components/forms/RadioGroup';
+import Select from '../../components/forms/Select';
+import TextArea from '../../components/forms/TextArea';
+import TextField from '../../components/forms/TextField';
 import {
   menteeFormDefaultValues,
   menteeFormSchema,
@@ -103,7 +103,7 @@ const MenteeRegistrationPage = () => {
             </Typography>
 
             <Box sx={{ mb: 2 }}>
-              <RHFTextField
+              <TextField
                 name="name"
                 control={control}
                 label="Name (first and last)"
@@ -113,7 +113,7 @@ const MenteeRegistrationPage = () => {
             </Box>
 
             <Box sx={{ mb: 2 }}>
-              <RHFTextField
+              <TextField
                 name="email"
                 control={control}
                 label="Email"
@@ -125,7 +125,7 @@ const MenteeRegistrationPage = () => {
 
             <Grid container spacing={2} sx={{ mb: 2 }}>
               <Grid item xs={12} sm={6}>
-                <RHFSelect
+                <Select
                   name="country"
                   control={control}
                   label="Country"
@@ -133,7 +133,7 @@ const MenteeRegistrationPage = () => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <RHFSelect
+                <Select
                   name="city"
                   control={control}
                   label="City"
@@ -143,7 +143,7 @@ const MenteeRegistrationPage = () => {
             </Grid>
 
             <Box sx={{ mb: 2 }}>
-              <RHFCheckboxGroup
+              <CheckboxGroup
                 name="languages"
                 control={control}
                 label="Select one or more"
@@ -165,7 +165,7 @@ const MenteeRegistrationPage = () => {
             </Typography>
 
             <Box sx={{ mb: 2 }}>
-              <RHFTextArea
+              <TextArea
                 name="textAreaField"
                 control={control}
                 label="Text area heading"
@@ -176,7 +176,7 @@ const MenteeRegistrationPage = () => {
             </Box>
 
             <Box sx={{ mb: 2 }}>
-              <RHFTextField
+              <TextField
                 name="textField1"
                 control={control}
                 label="Text field heading"
@@ -187,7 +187,7 @@ const MenteeRegistrationPage = () => {
             </Box>
 
             <Box sx={{ mb: 2 }}>
-              <RHFTextField
+              <TextField
                 name="textField2"
                 control={control}
                 label="Text field heading"
@@ -209,7 +209,7 @@ const MenteeRegistrationPage = () => {
             </Typography>
 
             <Box sx={{ mb: 2 }}>
-              <RHFRadioGroup
+              <RadioGroup
                 name="radioOption"
                 control={control}
                 label="Input heading"
@@ -218,7 +218,7 @@ const MenteeRegistrationPage = () => {
             </Box>
 
             <Box sx={{ mb: 2 }}>
-              <RHFTextField
+              <TextField
                 name="textField3"
                 control={control}
                 label="Text field heading"

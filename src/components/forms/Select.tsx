@@ -1,28 +1,28 @@
 import {
   FormControl,
   InputLabel,
-  Select,
+  Select as MuiSelect,
   MenuItem,
   FormHelperText,
 } from '@mui/material';
-import type { SelectProps } from '@mui/material';
+import type { SelectProps as MuiSelectProps } from '@mui/material';
 import { Controller, Control, FieldPath, FieldValues } from 'react-hook-form';
 
-interface RHFSelectProps<T extends FieldValues>
-  extends Omit<SelectProps, 'name'> {
+interface SelectProps<T extends FieldValues>
+  extends Omit<MuiSelectProps, 'name'> {
   name: FieldPath<T>;
   control: Control<T>;
   label: string;
   options: Array<{ value: string; label: string }>;
 }
 
-function RHFSelect<T extends FieldValues>({
+function Select<T extends FieldValues>({
   name,
   control,
   label,
   options,
   ...other
-}: RHFSelectProps<T>) {
+}: SelectProps<T>) {
   return (
     <Controller
       name={name}
@@ -30,9 +30,9 @@ function RHFSelect<T extends FieldValues>({
       render={({ field, fieldState: { error } }) => (
         <FormControl fullWidth error={!!error}>
           <InputLabel>{label}</InputLabel>
-          <Select
+          <MuiSelect
             {...field}
-            {...other}
+            {...(other as any)}
             label={label}
             sx={{
               backgroundColor: 'rgba(223, 227, 231, 1)',
@@ -56,7 +56,7 @@ function RHFSelect<T extends FieldValues>({
                 {option.label}
               </MenuItem>
             ))}
-          </Select>
+          </MuiSelect>
           {error && <FormHelperText>{error.message}</FormHelperText>}
         </FormControl>
       )}
@@ -64,4 +64,4 @@ function RHFSelect<T extends FieldValues>({
   );
 }
 
-export default RHFSelect;
+export default Select;
