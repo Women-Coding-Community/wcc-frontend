@@ -9,12 +9,14 @@ import {
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
-import CheckboxGroup from '@components/forms/CheckboxGroup';
-import MenteeFormLayout from '@components/forms/MenteeFormLayout';
-import RadioGroup from '@components/forms/RadioGroup';
-import Select from '@components/forms/Select';
-import TextArea from '@components/forms/TextArea';
-import TextField from '@components/forms/TextField';
+import {
+  CheckboxGroup,
+  MenteeFormLayout,
+  RadioGroup,
+  Select,
+  TextArea,
+  TextField,
+} from '@components';
 import {
   menteeFormDefaultValues,
   menteeFormSchema,
