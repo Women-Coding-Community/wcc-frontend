@@ -1,33 +1,29 @@
-import { TextField } from '@mui/material';
-import type { TextFieldProps } from '@mui/material';
+import { TextField as MuiTextField } from '@mui/material';
+import type { TextFieldProps as MuiTextFieldProps } from '@mui/material';
 import { Controller, Control, FieldPath, FieldValues } from 'react-hook-form';
 
-interface RHFTextAreaProps<T extends FieldValues>
-  extends Omit<TextFieldProps, 'name'> {
+interface TextFieldProps<T extends FieldValues>
+  extends Omit<MuiTextFieldProps, 'name'> {
   name: FieldPath<T>;
   control: Control<T>;
-  rows?: number;
 }
 
-function RHFTextArea<T extends FieldValues>({
+function TextField<T extends FieldValues>({
   name,
   control,
-  rows = 4,
   ...other
-}: RHFTextAreaProps<T>) {
+}: TextFieldProps<T>) {
   return (
     <Controller
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <TextField
+        <MuiTextField
           {...field}
           {...other}
           error={!!error}
           helperText={error ? error.message : other.helperText}
           fullWidth
-          multiline
-          rows={rows}
           sx={{
             '& .MuiOutlinedInput-root': {
               backgroundColor: 'rgba(223, 227, 231, 1)',
@@ -49,4 +45,4 @@ function RHFTextArea<T extends FieldValues>({
   );
 }
 
-export default RHFTextArea;
+export default TextField;

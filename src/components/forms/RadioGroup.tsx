@@ -1,26 +1,26 @@
 import {
   FormControl,
   FormLabel,
-  RadioGroup,
+  RadioGroup as MuiRadioGroup,
   FormControlLabel,
   Radio,
   FormHelperText,
 } from '@mui/material';
 import { Controller, Control, FieldPath, FieldValues } from 'react-hook-form';
 
-interface RHFRadioGroupProps<T extends FieldValues> {
+interface RadioGroupProps<T extends FieldValues> {
   name: FieldPath<T>;
   control: Control<T>;
   label: string;
   options: Array<{ value: string; label: string }>;
 }
 
-function RHFRadioGroup<T extends FieldValues>({
+function RadioGroup<T extends FieldValues>({
   name,
   control,
   label,
   options,
-}: RHFRadioGroupProps<T>) {
+}: RadioGroupProps<T>) {
   return (
     <Controller
       name={name}
@@ -28,7 +28,7 @@ function RHFRadioGroup<T extends FieldValues>({
       render={({ field, fieldState: { error } }) => (
         <FormControl component="fieldset" error={!!error} fullWidth>
           <FormLabel component="legend">{label}</FormLabel>
-          <RadioGroup {...field}>
+          <MuiRadioGroup {...field}>
             {options.map((option) => (
               <FormControlLabel
                 key={option.value}
@@ -37,7 +37,7 @@ function RHFRadioGroup<T extends FieldValues>({
                 label={option.label}
               />
             ))}
-          </RadioGroup>
+          </MuiRadioGroup>
           {error && <FormHelperText>{error.message}</FormHelperText>}
         </FormControl>
       )}
@@ -45,4 +45,4 @@ function RHFRadioGroup<T extends FieldValues>({
   );
 }
 
-export default RHFRadioGroup;
+export default RadioGroup;

@@ -5,11 +5,11 @@ import {
   FormControlLabel,
   Checkbox,
   FormHelperText,
-  TextField,
+  TextField as MuiTextField,
 } from '@mui/material';
 import { Controller, Control, FieldPath, FieldValues } from 'react-hook-form';
 
-interface RHFCheckboxGroupProps<T extends FieldValues> {
+interface CheckboxGroupProps<T extends FieldValues> {
   name: FieldPath<T>;
   control: Control<T>;
   label: string;
@@ -18,14 +18,14 @@ interface RHFCheckboxGroupProps<T extends FieldValues> {
   otherFieldName?: FieldPath<T>;
 }
 
-function RHFCheckboxGroup<T extends FieldValues>({
+function CheckboxGroup<T extends FieldValues>({
   name,
   control,
   label,
   options,
   showOtherOption = false,
   otherFieldName,
-}: RHFCheckboxGroupProps<T>) {
+}: CheckboxGroupProps<T>) {
   return (
     <Controller
       name={name}
@@ -80,7 +80,7 @@ function RHFCheckboxGroup<T extends FieldValues>({
                         name={otherFieldName}
                         control={control}
                         render={({ field: otherField }) => (
-                          <TextField
+                          <MuiTextField
                             {...otherField}
                             placeholder="Please specify"
                             size="small"
@@ -102,4 +102,4 @@ function RHFCheckboxGroup<T extends FieldValues>({
   );
 }
 
-export default RHFCheckboxGroup;
+export default CheckboxGroup;
