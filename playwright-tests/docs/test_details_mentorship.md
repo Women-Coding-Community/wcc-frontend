@@ -11,10 +11,12 @@ Tests to check mentorship page behaviour.
 **Description:** Testing basic accessibility and loading of the Mentorship page.
 
 **Steps to Reproduce:**
+
 1. Open a supported browser.
 2. In the browser's address bar, enter the URL: http://localhost:3001/mentorship.
 
 **Expected Result:**
+
 - The Mentorship page loads successfully without errors.
 - The page content (title, description, navigation bar, footer) is displayed correctly.
 - The page title in the browser tab should reflect Mentorship Programme.
@@ -30,12 +32,14 @@ Tests to check mentorship page behaviour.
 **Description:** Testing the Become a Mentor section display and functionality.
 
 **Steps to Reproduce:**
+
 1. Open a supported browser.
 2. Navigate to the Mentorship page: http://localhost:3001/mentorship.
 3. Scroll down to the section titled "Become a Mentor".
 4. Click on the "Join as a mentor" button.
 
 **Expected Result:**
+
 - The Title and Description are correctly displayed with proper formatting:
   - **Title:** "Become a Mentor"
   - **Description:** "You should become a mentor if you:
@@ -57,12 +61,14 @@ Tests to check mentorship page behaviour.
 **Description:** Testing the Become a Mentee section display and navigation.
 
 **Steps to Reproduce:**
+
 1. Open a supported browser.
 2. Navigate to the Mentorship page: http://localhost:3001/mentorship.
 3. Scroll down to the section titled "Become a mentee".
 4. Click on the "Find a mentor" button.
 
 **Expected Result:**
+
 - The Title and Description are correctly displayed with proper formatting:
   - **Title:** "Become a Mentee"
   - **Description:** "You should become a mentee if you:
@@ -86,11 +92,13 @@ Tests to check mentorship page behaviour.
 **Description:** Testing the display of testimonials in the Feedback section.
 
 **Steps to Reproduce:**
+
 1. Open a supported browser.
 2. Navigate to the Mentorship page: http://localhost:3001/mentorship.
 3. Scroll down to the section titled "What do participants think about our Mentorship Programme?"
 
 **Expected Result:**
+
 - The Title and Testimonials are correctly displayed with proper formatting.
 - **Title:** "What do participants think about our Mentorship Programme?"
 - Multiple testimonial cards are displayed with:
@@ -99,7 +107,7 @@ Tests to check mentorship page behaviour.
   - Mentor name and year (e.g., Lucy, Mentor 2024)
 - Each testimonial card should be properly aligned, styled, and without text cutoff.
 
-**Status:** Pending :x:
+**Status:** Done :white_check_mark:
 
 ---
 
@@ -110,12 +118,14 @@ Tests to check mentorship page behaviour.
 **Description:** Testing the Show More functionality to load additional testimonials.
 
 **Steps to Reproduce:**
+
 1. Open a supported browser.
 2. Navigate to the Mentorship page: http://localhost:3001/mentorship.
 3. Scroll down to the section titled "What do participants think about our Mentorship Programme?"
 4. Click on Show More Button.
 
 **Expected Result:**
+
 - On clicking the "Show more" button:
   - Additional testimonial cards are displayed.
   - The space with the testimonial cards is expanded to accommodate the newly loaded content.
