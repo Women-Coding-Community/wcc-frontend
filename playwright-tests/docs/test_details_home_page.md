@@ -11,12 +11,14 @@ Tests to check home page behaviour.
 **Description:** Testing the Join our Slack button functionality on the landing section.
 
 **Steps to Reproduce:**
+
 1. Launch WCC website on the browser
 2. Navigate to Home Page.
 3. On the landing section, locate the text link "Join our Slack" below the heading Women Coding Community and subheading Empowering Women in Their Tech Careers.
 4. Click on the "Join our Slack" link.
 
 **Expected Result:**
+
 - The user is redirected to the Slack invitation page in a new tab/window.
 - The Slack page should display the header: "Join Women Coding Community on Slack".
 - The page should provide options to join via:
@@ -36,6 +38,7 @@ Tests to check home page behaviour.
 **Description:** Testing the Opportunities and Programmes section display and navigation.
 
 **Steps to Reproduce:**
+
 1. Launch WCC website on the browser
 2. Navigate to Home Page.
 3. Scroll down until you see the section titled "Opportunities and Programmes".
@@ -49,6 +52,7 @@ Tests to check home page behaviour.
 5. Click each program link one by one.
 
 **Expected Result:**
+
 - On Home Page, the Title and Description under "Opportunities and Programmes" section are correctly displayed with proper formatting and alignment.
   - **Title:** "Opportunities and Programmes"
   - **Description:** "Join our community and unlock endless opportunities…help you achieve your goals."
@@ -73,12 +77,14 @@ Tests to check home page behaviour.
 **Description:** Testing the display and functionality of event cards in the Latest Events section.
 
 **Steps to Reproduce:**
+
 1. Launch WCC website on the browser
 2. Navigate to Home Page.
 3. Scroll down to the Events section.
 4. Click on the CTA Button of any event.
 
 **Expected Result:**
+
 - Event cards should display all below required information in a consistent and readable format:
   - Event Type (e.g., IN_PERSON, ONLINE_MEETUP) displayed as a label/tag
   - Date & Time with proper formatting (day, month, year, start–end time, timezone)
@@ -95,17 +101,20 @@ Tests to check home page behaviour.
 ---
 
 ## HP-004
+
 **Title:** Verify Description and the Title, click on Join as Mentor
 
 **Description:** Testing the Become a Mentor section and mentor registration flow.
 
 **Steps to Reproduce:**
+
 1. Launch WCC website on the browser
 2. Navigate to Home Page.
 3. Scroll down to the section titled "Become a Mentor".
 4. Click on the "Join as a mentor" button.
 
 **Expected Result:**
+
 - The Title and Description are correctly displayed with proper formatting:
   - **Title:** "Become a Mentor"
   - **Description:** "Ready to empower and be empowered in tech? Become a mentor! Expand your network, give back, share expertise, and discover new perspectives."
@@ -119,17 +128,20 @@ Tests to check home page behaviour.
 ---
 
 ## HP-005
+
 **Title:** Verify Description and Title, click on "Learn more about Volunteering" button
 
 **Description:** Testing the Volunteer section and navigation to volunteer information page.
 
 **Steps to Reproduce:**
+
 1. Launch WCC website on the browser
 2. Navigate to Home Page.
 3. Scroll down to the Volunteer Section.
 4. Click on the "Learn more about volunteering" button.
 
 **Expected Result:**
+
 - The Title and Description are correctly displayed with proper formatting and alignment:
   - **Title:** "Do you want to volunteer with us?"
   - **Description:** "Empowering women in their tech careers through education, mentorship, community building, and career services is our mission. We provide workshops and events, connect members with industry mentors, foster a supportive community through meetups and conferences, and raise awareness for more inclusive industry practices."
