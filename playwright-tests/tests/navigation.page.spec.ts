@@ -1,4 +1,4 @@
-import { navTests, aboutUsMenuItems } from '@utils/datafactory/nav.tests';
+import { navTests, aboutUsMenuItems,programmeMenuItems } from '@utils/datafactory/nav.tests';
 import { test } from '@utils/fixtures';
 import { expect } from '@playwright/test';
 
@@ -51,6 +51,17 @@ test('NAV-012: Click and navigate through About Us dropdown items', async ({
   for (const { name, expectedURL, expectedText } of aboutUsMenuItems) {
     await basePage.navigateToPath('/');
     await basePage.clickElement(basePage.aboutUsDropdown);
+    await basePage.clickElement(basePage.menuitem(name));
+    await basePage.verifyURL(expectedURL);
+    await basePage.verifyPageContainsText(expectedText);
+  }
+});
+test('NAV-009: Click and Validate Programme dropdown items', async ({
+  basePage,
+}) => {
+  for (const { name, expectedURL, expectedText } of programmeMenuItems) {
+    await basePage.navigateToPath('/');
+    await basePage.clickElement(basePage.programmesDropdown);
     await basePage.clickElement(basePage.menuitem(name));
     await basePage.verifyURL(expectedURL);
     await basePage.verifyPageContainsText(expectedText);
