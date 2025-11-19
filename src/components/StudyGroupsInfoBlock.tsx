@@ -22,18 +22,16 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
   return (
     <Grid
       container
-      justifyContent="center"
-      px={{ xs: '20px', md: 0 }}
-      pt={{ xs: '30px', md: '16px' }}
-      pb={{ xs: '30px', md: 0 }}
+      alignItems="flex-start"
+      columnSpacing={{ xs: 0, md: 15.5 }}
+      sx={{ px: { xs: 2, md: 0 }, pt: { xs: 4, md: 6 } }}
     >
       <Grid
         item
         xs={12}
-        md={7}
+        md={8}
         sx={{
-          mr: { md: '62px' },
-          mb: { xs: '30px', md: 0 },
+          mb: { xs: '31px', md: 0 },
         }}
       >
         <Box>
@@ -66,20 +64,14 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
         xs={12}
         md={4}
         sx={{
-          pt: { xs: 0, md: '75px' },
+          // width: { md: '358px' },
+          display: 'flex',
+          justifyContent: { xs: 'center', md: 'flex-end' },
+          alignItems: 'flex-start',
+          pt: { xs: 2, md: '62px' },
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: { xs: 'center', md: 'flex-start' },
-            width: '358px',
-            pt: { xs: 0, md: '75px' },
-            '& > *': {
-              mx: { xs: 0 },
-            },
-          }}
-        >
+        <Box sx={{ maxWidth: '358px' }}>
           <ContactBox title="">
             <Link
               href={slackLink}
