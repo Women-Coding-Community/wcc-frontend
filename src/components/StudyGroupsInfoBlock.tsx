@@ -64,7 +64,6 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
         xs={12}
         md={4}
         sx={{
-          // width: { md: '358px' },
           display: 'flex',
           justifyContent: { xs: 'center', md: 'flex-end' },
           alignItems: 'flex-start',
