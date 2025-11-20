@@ -12,6 +12,15 @@ export class BasePage {
   readonly aboutUsDropdown: Locator;
   readonly menuitem: (itemTitle: string) => Locator;
 
+  // Footer locators
+  readonly footerLogo: Locator;
+  readonly footerNonProfitText: Locator;
+  readonly footerCopyrightText: Locator;
+  readonly footerFollowUsTitle: Locator;
+  readonly footerFollowUsDescription: Locator;
+  readonly footerSocialLinks: { [key: string]: Locator };
+  readonly footerTechnicalIssuesText: Locator;
+
   constructor(page: Page) {
     this.page = page;
     this.logo = page.getByRole('img', { name: 'Logo' });
@@ -24,6 +33,24 @@ export class BasePage {
     this.aboutUsDropdown = page.getByRole('button', { name: 'About Us' });
     this.menuitem = (itemTitle: string) =>
       page.getByRole('menuitem', { name: itemTitle });
+
+    // Footer locators initialization
+    this.footerLogo = page.getByAltText('Woman Coding Community')
+    this.footerNonProfitText = page.getByText('Women Coding Community is a not-for-profit organisation.');
+    this.footerCopyrightText = page.getByText('© 2024 Women Coding Community');
+    this.footerFollowUsTitle = page.getByText('Follow Us', { exact: true });
+    this.footerFollowUsDescription = page.getByText('Join us on social media and stay tuned.', { exact: true });
+    this.footerTechnicalIssuesText = page.getByText('Experiencing Technical Issues?');
+
+    this.footerSocialLinks = {
+      'LinkedIn': page.getByTestId('LinkedInIcon'),
+      'Twitter': page.getByTestId('TwitterIcon'),
+      'GitHub': page.getByTestId('GitHubIcon'),
+      'Instagram': page.getByTestId('InstagramIcon'),
+      'Email': page.getByTestId('EmailIcon'),
+      'Slack': page.locator('a[href*="join.slack.com"]').last(),
+      'Send us a report': page.getByText('Send us a report', { exact: true })
+    }
   }
 
   async navigateToPath(path: string) {
@@ -51,5 +78,23 @@ export class BasePage {
         this.page.getByText(expectedText, { exact: true }),
       ).toBeVisible();
     });
+  }
+
+  async verifySocialLinkNavigation(socialPlatform: string, expectedURL: string, opensInNewTab: boolean) {
+     const locator = this.footerSocialLinks[socialPlatform];
+     await expect(locator).toBeVisible();
+
+     if (opensInNewTab === true) {
+       // Handle new tab navigation
+       const [newPage] = await Promise.all([
+         this.page.context().waitForEvent('page'),
+         this.clickElement(locator),
+       ]);
+       await expect(newPage).toHaveURL(expectedURL);
+     } else {
+       // Handle same tab navigation
+       await this.clickElement(locator);
+       await expect(this.page).toHaveURL(expectedURL);
+     }
   }
 }

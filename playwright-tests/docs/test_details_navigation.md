@@ -293,3 +293,197 @@ On clicking each option:
 **Status:** Done :white_check_mark:
 
 ---
+
+## NAV-013
+
+**Title:** Validate footer logo and static text
+
+**Description:** Testing footer logo and static text
+
+**Steps to Reproduce:**
+
+1. Launch the application in the browser.
+2. Scroll down to the Footer
+
+**Expected Result:**
+
+- Footer Logo should be visible and on clicking the Logo, user should be redirected to Home Page <br/>
+  Below text should be present:
+    - Women Coding Community is a not-for-profit organisation.
+    - © 2024 Women Coding Community
+    - Follow Us
+    - Join us on social media and stay tuned.
+    - Experiencing Technical Issues?
+
+**Status:** Done :white_check_mark:
+
+**Assigned to:** Pranita
+
+---
+
+## NAV-014
+
+**Title:** Check Footer LinkedIn Icon and Link
+
+**Description:** Testing LinkedIn social media link functionality in the footer
+
+**Steps to Reproduce:**
+
+1. Launch the application in the browser.
+2. Scroll down to the Footer
+3. Click on the LinkedIn icon
+
+**Expected Result:**
+
+- LinkedIn icon should be visible in the footer
+- On clicking the LinkedIn link, user should be redirected to the destination URL "https://www.linkedin.com/company/womencodingcommunity"
+- Link should open in a new tab/window
+
+**Status:** Done :white_check_mark:
+
+**Assigned to:** Pranita
+
+---
+
+## NAV-015
+
+**Title:** Check Footer Twitter Icon and Link
+
+**Description:** Testing X social media link functionality in the footer
+
+**Steps to Reproduce:**
+
+1. Launch the application in the browser.
+2. Scroll down to the Footer
+3. Click on the X icon
+
+**Expected Result:**
+
+- X icon should be visible in the footer
+- On clicking the X link, user should be redirected to the destination URL "https://x.com/WCC_Community"
+- Link should open in a new tab/window
+
+**Status:** Done :white_check_mark:
+
+**Assigned to:** Pranita
+
+---
+
+## NAV-016
+
+**Title:** Check Footer GitHub Icon and Link
+
+**Description:** Testing GitHub social media link functionality in the footer
+
+**Steps to Reproduce:**
+
+1. Launch the application in the browser.
+2. Scroll down to the Footer
+3. Click on the GitHub icon
+
+**Expected Result:**
+
+- GitHub icon should be visible in the footer
+- On clicking the GitHub link, user should be redirected to the destination URL "https://github.com/WomenCodingCommunity"
+- Link should open in a new tab/window
+
+**Status:** Done :white_check_mark:
+
+**Assigned to:** Pranita
+
+---
+
+## NAV-017
+
+**Title:** Check Footer Instagram Icon and Link
+
+**Description:** Testing Instagram social media link functionality in the footer
+
+**Steps to Reproduce:**
+
+1. Launch the application in the browser.
+2. Scroll down to the Footer
+3. Click on the Instagram icon
+
+**Expected Result:**
+
+- Instagram icon should be visible in the footer
+- On clicking the Instagram link, user should be redirected to the destination URL "https://www.instagram.com/women_coding_community/#"
+- Link should open in a new tab/window
+
+**Status:** Done :white_check_mark:
+
+**Assigned to:** Pranita
+
+---
+
+## NAV-018
+
+**Title:** Check Footer Slack icon and Link
+
+**Description:** Testing Slack community link functionality in the footer
+
+**Steps to Reproduce:**
+
+1. Launch the application in the browser.
+2. Scroll down to the Footer
+3. Click on the Slack icon
+
+**Expected Result:**
+
+- Slack icon should be visible in the footer
+- On clicking the Slack link, user should be redirected to the destination URL "https://womencodingcommunity.slack.com/signup#/domain-signup"
+- Link should open in a new tab/window
+
+**Status:** Done :white_check_mark:
+
+**Assigned to:** Pranita
+
+---
+
+## NAV-019
+
+**Title:** Check Footer Email Link
+
+**Description:** Testing Email icon and link 
+
+**Steps to Reproduce:**
+
+1. Launch the application in the browser.
+2. Scroll down to the Footer
+3. Click on the Email icon
+
+**Expected Result:**
+
+- Email icon should be visible in the footer
+- On clicking the Email link, user's default email client should open with the destination URL "mailto:london@womencodingcommunity.com"
+- The link should use "mailto:" protocol
+
+**Status:** Done :white_check_mark:
+
+**Assigned to:** Pranita
+
+---
+
+## NAV-020
+
+**Title:** Check Footer "Send a report" Link
+
+**Description:** Testing the technical issues report link functionality in the footer
+
+**Steps to Reproduce:**
+
+1. Launch the application in the browser.
+2. Scroll down to the Footer
+3. Click on the "Send us a report" link
+
+**Expected Result:**
+
+- "Send us a report" link should be visible in the footer
+- On clicking the link, user should be redirected to the destination URL "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FWomen-Coding-Community%2FWomenCodingCommunity.github.io%2Fissues%2Fnew%3Ftemplate%3Dbug_report.md%26title%3Dbug%2520title"
+- Link should open in a new tab/window
+
+**Status:** Done :white_check_mark:
+
+**Assigned to:** Pranita
+
