@@ -55,7 +55,18 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) =>
     setTab(newValue);
   const isMobile = useIsMobile();
-
+  /** Q1: Maybe it shouldn't return anything if mentor.profileStatus != 'active' | 'ENABLED'?
+   * Current code is not using that field at all
+   */
+  /** Q2: No more 'Copy link' or 'Email a friend'? Was it intentional to remove such features?
+   */
+  /** Q3: Most tabs have h6 subtitles (Reviews, Skills, Resources) but in the current version in
+   *  Prod we have the mentor's name there instead.
+   *  - (a) Was it intentional to make such a change?
+   *  - (b) Why the first tab (Presentation)doesn't have such subtitle at all?
+   */
+  /** Q4: No search or filtering functionality?
+   */
   return (
     <Box
       sx={{
@@ -95,20 +106,31 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           {/* question: image needs to be an actual url */}
           <Image
             src={'/profile-illustration.avif'}
+            datatest-id="mentor-image"
             alt={mentor.images[0].alt}
             width={120}
             height={120}
             objectFit="cover"
           />
         </Box>
-        <Typography variant="h6">{mentor.fullName}</Typography>
+        <Typography datatest-id="mentor-name" variant="h6">
+          {mentor.fullName}
+        </Typography>
         <Typography
           variant="body2"
           sx={{ mt: 1, color: 'text.secondary', fontWeight: 600 }}
         >
           Programming languages:
         </Typography>
-        <Typography variant="body2" sx={{ color: 'text.primary', mb: 3 }}>
+        <Typography
+          datatest-id="mentor-programming-languages"
+          variant="body2"
+          sx={{ color: 'text.primary', mb: 3 }}
+        >
+          {/*
+          Q5: What if mentor.skills is null or empty? Should this block be even shown?
+          Page breaks if this is null.
+          */}
           {mentor.skills.languages.join(', ')}
         </Typography>
         {/* question: this needs to be link to something? */}
@@ -143,10 +165,10 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           }}
         >
           {/* question: do we want to display the tab if no info provided? */}
-          <Tab label="Presentation" />
-          <Tab label="Skills & Support Areas" />
-          <Tab label="Reviews" />
-          <Tab label="Resources" />
+          <Tab datatest-id="mentor-presentation-tab" label="Presentation" />
+          <Tab datatest-id="mentor-skills-tab" label="Skills & Support Areas" />
+          <Tab datatest-id="mentor-reviews-tab" label="Reviews" />
+          <Tab datatest-id="mentor-resources-tab" label="Resources" />
         </Tabs>
         <TabPanel
           value={tab}
@@ -158,15 +180,36 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
             padding: 3,
           }}
         >
-          <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+          <Typography
+            datatest-id={'mentor-occupation'}
+            variant="subtitle1"
+            sx={{ fontWeight: 600 }}
+          >
+            {/**
+             * Q6: Shouldn't we accept mentors with no company or position?
+             * I mean:
+             * (a) do not show company name when mentor.companyName === undefined || mentor.companyName === null || mentor.companyName === ' '
+             * (b) do not show position when mentor.position === undefined || mentor.position === null || mentor.position === ' '
+             *
+             * Example of mentor without city: https://womencodingcommunity.com/mentors?keywords=Ima-Abasi Effiong
+             * Example of mentor without country: https://womencodingcommunity.com/mentors?keywords=Gabriel Oliveira
+             * */}
             {mentor.position}, {mentor.companyName}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
+          <Typography
+            datatest-id={'mentor-location'}
+            variant="body2"
+            sx={{ color: 'text.secondary', mb: 2 }}
+          >
             Based in: {mentor.city}, {mentor.country.countryName}
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
             {mentor.network.map((network: Network) => (
-              <a href={network.link} key={network.type}>
+              <a
+                datatest-id={'mentor-network-' + network.type}
+                href={network.link}
+                key={network.type}
+              >
                 <Icon
                   sx={{
                     color: 'primary.main',
@@ -175,12 +218,13 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
                   }}
                   fontSize="large"
                 >
+                  {/** Q7: Not showing the icon for `medium` type - why? */}
                   {networkIcons[network.type as keyof typeof networkIcons]}
                 </Icon>
               </a>
             ))}
           </Box>
-          <Typography variant="body2" sx={{ mb: 1 }}>
+          <Typography datatest-id="mentor-bio" variant="body2" sx={{ mb: 1 }}>
             {mentor.bio}
           </Typography>
         </TabPanel>
@@ -199,43 +243,58 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Tech Experience in years:{' '}
-            <Typography component="span">
+            <Typography datatest-id="mentor-experience-years" component="span">
               {mentor.skills.yearsExperience}
             </Typography>
           </Typography>
+          {/** Q8: No use for mentor.skills.experienceRange? Intentional? */}
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
+            {/** Q9: Best to make it safe and accept spokenLanguages can be null */}
             Language{mentor.spokenLanguages.length > 1 ? 's' : ''}:{' '}
-            <Typography component="span">
+            <Typography datatest-id="mentor-spoken-languages" component="span">
               {mentor.spokenLanguages.join(', ')}
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Mentorship types:{' '}
-            <Typography component="span">
+            {/** Q10: Why there's no explanation for the user what AD_HOC or LONG_TERM means anymore? */}
+            <Typography datatest-id="mentor-section-types" component="span">
               {mentor.menteeSection.mentorshipType.join(', ')}
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Availability: {/* question: these are capitalised */}{' '}
-            <Typography component="span">
+            <Typography
+              datatest-id="mentor-section-availability"
+              component="span"
+            >
               {mentor.menteeSection.availability.months.join(', ')}
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Hours per month:{' '}
-            <Typography component="span">
+            {/** Q11: We handled Language vs Languages above, but here we don't do hour vs hours. Why? */}
+            <Typography
+              datatest-id="mentor-hours-availability"
+              component="span"
+            >
               {mentor.menteeSection.availability.hours} hours
             </Typography>
           </Typography>
+          {/** Q12: Shouldn't mentor.menteeSection.idealMentee come here? The field is not being used anywhere else */}
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
+            {/** Q13: Should this really break if mentor.menteeSection.focus === undefined || mentor.menteeSection.focus === null */}
             Focus:{' '}
-            <Typography component="span">
+            <Typography datatest-id="mentor-section-focus" component="span">
               {mentor.menteeSection.focus.join(', ')}
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Additional:{' '}
-            <Typography component="span">
+            <Typography
+              datatest-id="mentor-section-additional"
+              component="span"
+            >
               {mentor.menteeSection.additional}
             </Typography>
           </Typography>
@@ -253,10 +312,22 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
             Reviews
           </Typography>
+          {/** Q14: Many mentors (especially new ones) have no reviews. In such cases, shouldn't
+           * we show something in that tab instead of a blank page? Or no tab at all?
+           * We used to display "This mentor hasn't received any reviews yet.", no ?
+           */}
           {mentor.feedbackSection.feedbacks.map(
             (feedback: any, index: number) => (
-              <Box key={index} sx={{ mb: 2 }}>
-                <Typography variant="body2" sx={{ fontWeight: 600 }}>
+              <Box
+                datatest-id={`mentor-review-${index}`}
+                key={index}
+                sx={{ mb: 2 }}
+              >
+                <Typography
+                  datatest-id={`mentor-review-${index}-rating-${feedback.rating}`}
+                  variant="body2"
+                  sx={{ fontWeight: 600 }}
+                >
                   {[...Array(Number(feedback.rating))].map((_, i) => (
                     <StarIcon
                       key={i}
@@ -264,11 +335,21 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
                     />
                   ))}
                 </Typography>
-                <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                <Typography
+                  datatest-id={`mentor-review-${index}-date-type`}
+                  variant="caption"
+                  sx={{ color: 'text.secondary' }}
+                >
                   {feedback.date} - {feedback.type}
                 </Typography>
-                <Typography variant="body2">{feedback.feedback}</Typography>
                 <Typography
+                  datatest-id={`mentor-review-${index}-feedback`}
+                  variant="body2"
+                >
+                  {feedback.feedback}
+                </Typography>
+                <Typography
+                  datatest-id={`mentor-review-${index}-author`}
                   variant="caption"
                   sx={{ color: 'text.secondary', mt: 1 }}
                 >
