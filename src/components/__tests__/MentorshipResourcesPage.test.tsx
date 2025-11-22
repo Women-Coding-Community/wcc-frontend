@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import MentorshipResourcesPage from 'pages/mentorship/resources';
+
 import pageData from 'lib/responses/mentorshipResources.json';
+import MentorshipResourcesPage from 'pages/mentorship/resources';
 
 jest.mock('@components/ResourcesCard', () => {
   const ResourcesCard = ({
