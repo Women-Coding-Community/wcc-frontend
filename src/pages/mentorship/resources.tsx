@@ -1,11 +1,8 @@
-import { Box, Grid } from '@mui/material';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 
-import { Footer } from 'components/Footer';
-import ArrowIcon from 'components/ArrowIcon';
-import { ResourcesCard } from 'components/ResourcesCard';
-import ResourcesHero from 'components/ResourcesHero';
-
+import { Title, ResourcesCard, Footer } from '@components';
 import footerData from 'lib/responses/footer.json';
 import pageData from 'lib/responses/mentorshipResources.json';
 
@@ -15,7 +12,26 @@ const MentorshipResourcesPage: React.FC = () => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Box sx={{ flexGrow: 1 }}>
-        <ResourcesHero title={heroTitle} description={heroDescription} />
+        <Title title={heroTitle} />
+
+        <Box
+          sx={{
+            maxWidth: 800,
+            margin: '40px auto',
+            paddingX: 2,
+            textAlign: 'center',
+          }}
+        >
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: { xs: '1.2rem', md: '1.4rem' },
+              lineHeight: 1.5,
+            }}
+          >
+            {heroDescription}
+          </Typography>
+        </Box>
 
         <Box
           sx={{
@@ -34,14 +50,13 @@ const MentorshipResourcesPage: React.FC = () => {
                   description={res.description}
                   buttonText={res.buttonText}
                   link={res.link}
-                  buttonIcon={<ArrowIcon />} // keep icon here
+                  buttonIcon={<OpenInNewIcon />}
                 />
               </Grid>
             ))}
           </Grid>
         </Box>
       </Box>
-
       <Footer {...footerData} />
     </Box>
   );

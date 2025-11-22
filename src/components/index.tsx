@@ -20,3 +20,4 @@ export { Tile } from './Tile';
 export { Title } from './Title';
 export { VolunteerSection } from './VolunteerSection';
 export { TimelineCard } from './TimelineCard';
+export { ResourcesCard } from './ResourcesCard';

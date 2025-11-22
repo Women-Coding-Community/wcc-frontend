@@ -1,29 +1,54 @@
 import { render, screen } from '@testing-library/react';
-
 import MentorshipResourcesPage from 'pages/mentorship/resources';
+import pageData from 'lib/responses/mentorshipResources.json';
 
-jest.mock('components/ResourcesHero', () => {
-  const ResourcesHero = () => <div>Hero</div>;
-  ResourcesHero.displayName = 'ResourcesHero';
-  return ResourcesHero;
-});
-
-jest.mock('components/ResourcesCard', () => {
-  const ResourcesCard = () => <div>Card</div>;
-  ResourcesCard.displayName = 'ResourcesCard';
+jest.mock('@components/ResourcesCard', () => {
+  const ResourcesCard = ({
+    title,
+    description,
+  }: {
+    title: string;
+    description: string;
+  }) => (
+    <div>
+      {' '}
+      <span>{title}</span> <span>{description}</span>{' '}
+    </div>
+  );
   return { ResourcesCard };
 });
 
-jest.mock('components/Footer', () => {
+jest.mock('@components/Footer', () => {
   const Footer = () => <div>Footer</div>;
-  Footer.displayName = 'Footer';
   return { Footer };
 });
 
-test('renders hero, cards, and footer', () => {
+jest.mock('@components/Title', () => {
+  const Title = ({ title }: { title: string }) => <h1>{title}</h1>;
+  return { Title };
+});
+
+test('renders hero title and description', () => {
   render(<MentorshipResourcesPage />);
 
-  expect(screen.getByText('Hero')).toBeInTheDocument();
-  expect(screen.getAllByText('Card').length).toBe(3);
+  expect(screen.getByText(pageData.heroTitle)).toBeInTheDocument();
+  expect(
+    screen.getByText(
+      /Whether you’re a mentee looking to navigate your journey/i,
+    ),
+  ).toBeInTheDocument();
+});
+
+test('renders resource cards', () => {
+  render(<MentorshipResourcesPage />);
+
+  pageData.resources.forEach((res) => {
+    expect(screen.getByText(res.title)).toBeInTheDocument();
+    expect(screen.getByText(res.description)).toBeInTheDocument();
+  });
+});
+
+test('renders footer', () => {
+  render(<MentorshipResourcesPage />);
   expect(screen.getByText('Footer')).toBeInTheDocument();
 });
