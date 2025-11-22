@@ -103,10 +103,14 @@ export type AboutUsPageData = {
 };
 
 export type MentorshipProgrammeData = {
-  page: {
-    title: string;
-    description: string;
-  };
+  //add this
+  id: string;
+  heroSection: { title: string };
+  section: { description: string };
+  //page: {
+  //title: string;
+  //description: string;
+  //};
   mentorSection: MentorOrMenteeSectionData;
   menteeSection: MentorOrMenteeSectionData;
   feedbackSection: FeedbackSectionData;

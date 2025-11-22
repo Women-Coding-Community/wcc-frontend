@@ -21,7 +21,6 @@ interface FeedbackSectionProps {
   title: string;
   feedbacks: FeedbackCardProps[];
 }
-
 const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
   return (
     <>
