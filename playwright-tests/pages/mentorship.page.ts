@@ -11,6 +11,11 @@ export class MentorshipPage extends BasePage {
   readonly firstTestimonialCardAuthor: Locator;
   readonly showMoreButton: Locator;
 
+  readonly thirdTestimonialCard: Locator;
+  readonly thirdTestimonialCardText: Locator;
+  readonly thirdCardShowMoreButton: Locator;
+  readonly thirdCardShowLessButton: Locator;
+
   constructor(page: Page) {
     super(page);
 
@@ -33,5 +38,16 @@ export class MentorshipPage extends BasePage {
       name: '+ Show more',
       exact: true,
     });
+
+    this.thirdTestimonialCard = this.testimonialCards.nth(2);
+    this.thirdTestimonialCardText = this.thirdTestimonialCard.locator(
+      'p.MuiTypography-body2',
+    );
+    this.thirdCardShowMoreButton = this.thirdTestimonialCard.locator(
+      'button:has-text("Show more")',
+    );
+    this.thirdCardShowLessButton = this.thirdTestimonialCard.locator(
+      'button:has-text("Show less")',
+    );
   }
 }

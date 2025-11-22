@@ -130,4 +130,4 @@ Tests to check mentorship page behaviour.
   - Additional testimonial cards are displayed.
   - The space with the testimonial cards is expanded to accommodate the newly loaded content.
 
-**Status:** Pending :x:
+**Status:** Done :white_check_mark:
