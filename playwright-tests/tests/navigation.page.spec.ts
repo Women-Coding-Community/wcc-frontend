@@ -1,4 +1,8 @@
-import { navTests, aboutUsMenuItems } from '@utils/datafactory/nav.tests';
+import {
+  navTests,
+  aboutUsMenuItems,
+  footerSocialLinks,
+} from '@utils/datafactory/nav.tests';
 import { test } from '@utils/fixtures';
 import { expect } from '@playwright/test';
 
@@ -54,5 +58,26 @@ test('NAV-012: Click and navigate through About Us dropdown items', async ({
     await basePage.clickElement(basePage.menuitem(name));
     await basePage.verifyURL(expectedURL);
     await basePage.verifyPageContainsText(expectedText);
+  }
+});
+
+test.describe('Footer Validation', () => {
+  test.beforeEach(async ({ basePage }) => {
+    await basePage.navigateToPath('/');
+  });
+
+  test('NAV-013 Validate footer logo and static text', async ({ basePage }) => {
+    await expect(basePage.footerLogo).toBeVisible();
+    await expect(basePage.footerNonProfitText).toBeVisible();
+    await expect(basePage.footerCopyrightText).toBeVisible();
+    await expect(basePage.footerFollowUsTitle).toBeVisible();
+    await expect(basePage.footerFollowUsDescription).toBeVisible();
+    await expect(basePage.footerTechnicalIssuesText).toBeVisible();
+  });
+
+  for (const { id, name, url, opensInNewTab = false } of footerSocialLinks) {
+    test(`${id}: Validate footer ${name} link`, async ({ basePage }) => {
+      await basePage.verifySocialLinkNavigation(name, url, opensInNewTab);
+    });
   }
 });

@@ -60,3 +60,37 @@ export const aboutUsMenuItems = items.map(([name, url, text]) => ({
   expectedURL: url,
   expectedText: text,
 }));
+
+export const footerSocialLinks = [
+  {
+    id: 'NAV-014',
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/company/womencodingcommunity',
+  },
+  {
+    id: 'NAV-015',
+    name: 'GitHub',
+    url: 'https://github.com/WomenCodingCommunity',
+  },
+  {
+    id: 'NAV-016',
+    name: 'Instagram',
+    url: 'https://www.instagram.com/women_coding_community/',
+  },
+  {
+    id: 'NAV-017',
+    name: 'Slack',
+    url: 'https://womencodingcommunity.slack.com/signup#/domain-signup',
+  },
+  {
+    id: 'NAV-018',
+    name: 'Email',
+    url: 'mailto:london@womencodingcommunity.com',
+  },
+  {
+    id: 'NAV-019',
+    name: 'Send us a report',
+    url: 'https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FWomen-Coding-Community%2FWomenCodingCommunity.github.io%2Fissues%2Fnew%3Ftemplate%3Dbug_report.md%26title%3Dbug%2520title',
+    opensInNewTab: true,
+  },
+];
