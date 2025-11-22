@@ -1,0 +1,2 @@
+SyntaxError: Invalid regular expression: /NAV-020\/gi: \ at end of pattern
+

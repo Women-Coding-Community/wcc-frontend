@@ -309,11 +309,11 @@ On clicking each option:
 
 - Footer Logo should be visible and on clicking the Logo, user should be redirected to Home Page <br/>
   Below text should be present:
-    - Women Coding Community is a not-for-profit organisation.
-    - © 2024 Women Coding Community
-    - Follow Us
-    - Join us on social media and stay tuned.
-    - Experiencing Technical Issues?
+  - Women Coding Community is a not-for-profit organisation.
+  - © 2024 Women Coding Community
+  - Follow Us
+  - Join us on social media and stay tuned.
+  - Experiencing Technical Issues?
 
 **Status:** Done :white_check_mark:
 
@@ -347,30 +347,6 @@ On clicking each option:
 
 ## NAV-015
 
-**Title:** Check Footer Twitter Icon and Link
-
-**Description:** Testing X social media link functionality in the footer
-
-**Steps to Reproduce:**
-
-1. Launch the application in the browser.
-2. Scroll down to the Footer
-3. Click on the X icon
-
-**Expected Result:**
-
-- X icon should be visible in the footer
-- On clicking the X link, user should be redirected to the destination URL "https://x.com/WCC_Community"
-- Link should open in a new tab/window
-
-**Status:** Done :white_check_mark:
-
-**Assigned to:** Pranita
-
----
-
-## NAV-016
-
 **Title:** Check Footer GitHub Icon and Link
 
 **Description:** Testing GitHub social media link functionality in the footer
@@ -393,7 +369,7 @@ On clicking each option:
 
 ---
 
-## NAV-017
+## NAV-016
 
 **Title:** Check Footer Instagram Icon and Link
 
@@ -417,7 +393,7 @@ On clicking each option:
 
 ---
 
-## NAV-018
+## NAV-017
 
 **Title:** Check Footer Slack icon and Link
 
@@ -441,11 +417,11 @@ On clicking each option:
 
 ---
 
-## NAV-019
+## NAV-018
 
 **Title:** Check Footer Email Link
 
-**Description:** Testing Email icon and link 
+**Description:** Testing Email icon and link
 
 **Steps to Reproduce:**
 
@@ -465,7 +441,7 @@ On clicking each option:
 
 ---
 
-## NAV-020
+## NAV-019
 
 **Title:** Check Footer "Send a report" Link
 
@@ -486,4 +462,3 @@ On clicking each option:
 **Status:** Done :white_check_mark:
 
 **Assigned to:** Pranita
-
