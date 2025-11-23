@@ -131,3 +131,38 @@ Tests to check mentorship page behaviour.
   - The space with the testimonial cards is expanded to accommodate the newly loaded content.
 
 **Status:** Pending :x:
+
+---
+
+## MENT-006
+
+**Title:** Navigate to the Mentors page
+
+**Description:** Testing the Mentors page show necessary information.
+
+**Steps to Reproduce:**
+
+1. Open a supported browser.
+2. Navigate to the Mentors page: http://localhost:3001/mentorship/mentors.
+3. Verify informations on the first card
+4. Verify informations on the second card (Empty Mentor)
+
+**Expected Result:**
+
+- For the first card:
+  - check the image is visible
+  - check multiple programming languages are seen
+  - check the Presentation tab: has all social media icons (linkedin, web, github, medium); has a filled in occupation; has a filled in location; has a long bio;
+  - check the Skills & Support tab show text for: experience-years, spoken-languages, section-types, section-availability, hours-availability, section-focus, section-additional
+  - check the Reviews tab show two reviews
+  - check the Resources tab shows "This mentor has not provided any resources yet."
+
+- For the second card:
+  - check the image is visible
+  - check no programming languages are seen
+  - check the Presentation tab: has no social media icons; has no occupation; has no location; has a short bio;
+  - check the Skills & Support tab show no text for all the fields
+  - check the Reviews tab shows no reviews
+  - check the Resources tab shows "This mentor has not provided any resources yet."
+
+**Status:** Pending :x:
