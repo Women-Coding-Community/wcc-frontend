@@ -1,6 +1,9 @@
 import { Typography, Button, Box, Grid, useMediaQuery } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React, { useState } from 'react';
+import pageData from 'lib/responses/mentorship.json';
+import { Footer } from '@components';
+import footerData from 'lib/responses/footer.json';
 
 import {
   ColoredBox,
@@ -23,8 +26,54 @@ interface FeedbackSectionProps {
 }
 
 const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
+  const heroTitle = pageData.heroSection.title;
+  const heroDescription = pageData.section.description;
   return (
     <>
+      <Box
+        sx={{
+          backgroundColor: theme.palette.primary.light,
+          width: '100%',
+          textAlign: 'center',
+          py: { xs: 6, md: 8 },
+          px: { xs: 2, md: 0 },
+        }}
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            fontWeight: 700,
+            fontSize: { xs: '32px', sm: '48px', md: '60px' },
+            lineHeight: 1.2,
+            color: theme.palette.primary.dark,
+          }}
+        >
+          {heroTitle}
+        </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          width: '100%',
+          textAlign: 'center',
+          py: { xs: 4, md: 6 },
+          px: { xs: 2, md: 0 },
+        }}
+      >
+        <Typography
+          variant="body1"
+          sx={{
+            fontSize: { xs: '16px', sm: '18px', md: '20px' },
+            lineHeight: 1.8,
+            maxWidth: '750px',
+            margin: '0 auto',
+            color: theme.palette.common.black,
+          }}
+        >
+          {heroDescription}
+        </Typography>
+      </Box>
+
       <Grid
         container
         style={{
@@ -62,6 +111,7 @@ const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
         title={mentorship.feedbackSection.title}
         feedbacks={mentorship.feedbackSection.feedbacks}
       />
+      <Footer {...footerData} />
     </>
   );
 };
