@@ -10,6 +10,11 @@ export class HomePage extends BasePage {
   readonly volunteerSectionTitle: Locator;
   readonly volunteerSectionDescription: Locator;
   readonly learnMoreVolunteerBtn: Locator;
+  readonly findMentorButton: Locator;
+
+  readonly heroTitle: Locator;
+  readonly heroSubtitle: Locator;
+  readonly joinSlackButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -30,7 +35,21 @@ export class HomePage extends BasePage {
       name: 'Do you want to volunteer with us?',
       exact: true,
     });
-    this.volunteerSectionDescription = page.locator('p.MuiTypography-root.MuiTypography-body1.css-11xjirw-MuiTypography-root');
-    this.learnMoreVolunteerBtn = page.getByRole('link', { name: 'Learn more about volunteering' });
+    this.volunteerSectionDescription = page.locator(
+      'p.MuiTypography-root.MuiTypography-body1.css-11xjirw-MuiTypography-root',
+    );
+    this.learnMoreVolunteerBtn = page.getByRole('link', {
+      name: 'Learn more about volunteering',
+    });
+
+    this.findMentorButton = page.getByRole('button', { name: 'Find a mentor' });
+
+    this.heroTitle = page
+      .getByTestId('hero-container')
+      .getByRole('heading', { name: 'Women Coding Community' });
+    this.heroSubtitle = page.getByRole('heading', {
+      name: 'Empowering Women in Their Tech Careers',
+    });
+    this.joinSlackButton = page.getByRole('link', { name: 'Join our Slack' });
   }
 }
