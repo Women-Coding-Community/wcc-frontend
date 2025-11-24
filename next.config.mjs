@@ -24,6 +24,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'a.slack-edge.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
