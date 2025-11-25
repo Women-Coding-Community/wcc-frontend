@@ -70,12 +70,17 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
   title,
   feedbacks,
 }) => {
-  const [feedbacksDisplayed, setFeedbacksDisplayed] = useState<number>(3);
+  const initialDisplay = 3;
+  const [feedbacksDisplayed, setFeedbacksDisplayed] = useState<number>(initialDisplay);
   const showMoreFeedbacks = () => {
     setFeedbacksDisplayed((prevCount) =>
       Math.min(prevCount + 3, feedbacks.length),
     );
   };
+  const showLessFeedbacks = () => {
+    setFeedbacksDisplayed(3);
+  };
+
   return (
     <ColoredBox color={'#FFDEA6'}>
       <Box sx={{ display: 'grid', justifyItems: 'center', gap: '3rem' }}>
@@ -98,7 +103,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
             gridTemplateColumns: { sm: 'repeat(3, 1fr)', md: '' },
             gap: 2,
             gridTemplateRows: {
-              sm: feedbacksDisplayed > 3 ? '1fr 1fr' : '',
+              sm: feedbacksDisplayed > initialDisplay ? '1fr 1fr' : '',
               md: '',
             },
           }}
@@ -120,18 +125,20 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           )}
         </Box>
 
-        <Button
-          onClick={showMoreFeedbacks}
-          disabled={feedbacksDisplayed >= feedbacks.length}
-          variant="outlined"
-          sx={{
-            borderRadius: '20px',
-            border: '1px solid #71787E',
-            color: '#1A4B66',
-          }}
-        >
-          + Show more
-        </Button>
+        {feedbacks.length > initialDisplay && (
+
+          <Button
+            onClick={feedbacksDisplayed >= feedbacks.length ? showLessFeedbacks : showMoreFeedbacks}
+            variant="outlined"
+            sx={{
+              borderRadius: '20px',
+              border: '1px solid #71787E',
+              color: '#1A4B66',
+            }}
+          >
+            {feedbacksDisplayed >= feedbacks.length ? '- Show less' : '+ Show more'}
+          </Button>
+        )}
       </Box>
     </ColoredBox>
   );
