@@ -20,10 +20,16 @@
 
 This is the FE application (NextJS) for Women Coding Community website.
 
-## Requirements
+## How to contribute?
+
+See our [Contributing](./CONTRIBUTING.md) page.
+
+## Requirements for running on your machine
 
 - Node (20+)
 - [Pnpm](https://pnpm.io/) (v9+)
+
+If you don't have node, go to [their downloads page](https://nodejs.org/en/download).
 
 If you don't have pnpm you can install it with npm running
 
@@ -31,39 +37,29 @@ If you don't have pnpm you can install it with npm running
 npm install -g pnpm@9
 ```
 
-## Installation
-
-Install project dependencies
+Then, install project dependencies
 
 ```bash
   pnpm install
 ```
 
-## Development
-
-Before you can start development you need to create a .env.local in your root folder.
-In this file please paste the following:
+Next, create an `.env.local` file in your root folder. In this file please paste the following:
 
 ```
-API_BASE_URL=https://wcc-backend.fly.dev/api/cms/v1
-API_KEY={your_api_key}
+API_BASE_URL=https://wcc-backend.fly.local/api/cms/v1
+API_KEY={your_local_api_key}
 ```
 
-This will allow your local to connect to the backend, if you don't yet have an API_KEY please send a message via our dedicated Slack channel. This will never be committed to the github repository
+This will allow your local to connect to the backend, if you don't yet have an API_KEY please send a message via our dedicated Slack channel. This will never be committed to the github repository.
 
-You can run the application using
+Now you can run the application using
 
 ```bash
   pnpm dev
 ```
 
-## Contribution
-
-You can run these commands pre-commit, but the application uses husky which will run
-checks before you can commit.
+You can run also these commands pre-commit for your peace of mind. The application uses husky, which will run these same checks before you can commit.
 
 ```bash
   pnpm lint:fix && pnpm format && pnpm type-check
 ```
-
-TODO: add contribution rules in contribution.md
