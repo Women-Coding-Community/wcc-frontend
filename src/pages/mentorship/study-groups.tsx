@@ -1,22 +1,23 @@
 // path: /mentorship/study-groups
 import { Typography } from '@mui/material';
-import { GetServerSideProps } from 'next';
-import React from 'react';
-
-import { fetchData } from 'lib/api';
-
-import { StudyGroupsPageData } from '../../utils/types';
-
-export interface StudyGroupsPageProps {
-  data: StudyGroupsPageData;
-  error: string | null;
-}
+import { StudyGroupsHero } from '../../components/StudyGroupHero';
+import { Footer } from '@components';
+import footerData from '../../lib/responses/footer.json';
 
 const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
   return (
     <div>
-      <Typography variant="h1">Data Query</Typography>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <StudyGroupsHero
+        title="Technical Study Groups"
+        imageSrc="/hero-img.jpg"
+      />
+      <Typography
+        variant="h4"
+        sx={{ padding: '20px 16px', textAlign: 'center' }}
+      >
+        Welcome to the MentorShipStudyGroupsPage
+      </Typography>
+      <Footer {...footerData} />
     </div>
   );
 };
