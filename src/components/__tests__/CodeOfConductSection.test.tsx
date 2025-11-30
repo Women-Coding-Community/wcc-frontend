@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { CodeOfConductSection } from 'components/CodeOfConduct';
+import { CodeOfConductSection } from '@components';
 
 describe('CodeOfConductSection', () => {
   const codeOfConductSection = {

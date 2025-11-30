@@ -15,7 +15,7 @@ import theme from 'theme';
 import SlackIcon from '../../public/icons/slack-icon.svg';
 
 const iconNetworkMapper = {
-  linkedIn: <LinkedInIcon fontSize="large" />,
+  linkedin: <LinkedInIcon fontSize="large" />,
   github: <GitHubIcon fontSize="large" />,
   instagram: <InstagramIcon fontSize="large" />,
   twitter: <TwitterIcon fontSize="large" />,
@@ -33,8 +33,9 @@ export const Footer = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const renderSocialNetworkIcon = (network: Network) => {
     return (
-      <a href={network.link}>
+      <a href={network.link} key={network.type}>
         <Icon
+          baseClassName="material-symbols-outlined"
           sx={{
             color: 'primary.dark',
             marginRight: '7px',
@@ -141,7 +142,7 @@ export const Footer = ({
       <style>
         {`
           .slack-icon {
-            color: #000;           
+            color: #000;
           }
         `}
       </style>

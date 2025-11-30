@@ -5,10 +5,9 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-import { Footer } from '@components';
+import { Footer, MentorProfileCard } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, Mentor } from '@utils/types';
-import { MentorProfileCard } from 'components/MentorProfileCard';
 import { fetchData } from 'lib/api';
 import theme from 'theme';
 

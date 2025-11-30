@@ -60,15 +60,26 @@ export const EventCard = ({
               marginBottom: isMobile ? '25px' : '',
             }}
           >
-            <Image
-              src={images[0].path}
-              alt={images[0].alt}
-              layout={isMobile ? 'responsive' : 'fixed'}
-              width={134}
-              height={134}
-              objectFit="cover"
-              priority
-            />
+            {isMobile ? (
+              <Box sx={{ position: 'relative', width: '100%', height: 134 }}>
+                <Image
+                  src={images[0].path}
+                  alt={images[0].alt}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  priority
+                />
+              </Box>
+            ) : (
+              <Image
+                src={images[0].path}
+                alt={images[0].alt}
+                width={134}
+                height={134}
+                style={{ objectFit: 'cover' }}
+                priority
+              />
+            )}
           </Box>
 
           <Box>

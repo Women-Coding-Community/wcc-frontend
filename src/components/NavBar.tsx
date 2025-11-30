@@ -6,7 +6,6 @@ import {
   Button,
   Drawer,
   Grid,
-  Icon,
   List,
   ListItemButton,
   ListItemText,
@@ -107,7 +106,7 @@ export const NavBar = () => {
             }}
             onClick={(event) => handleMenuOpen(item.title, event)}
           >
-            {item.title} <Icon>arrow_drop_down</Icon>
+            {item.title} <ExpandMore />
           </Button>
         );
       }
@@ -288,12 +287,14 @@ export const NavBar = () => {
                 </Button>
               </Grid>
               {Object.keys(menuItems).map((key) =>
-                menuItems[key].subNav
-                  ? renderDropdownMenu(
+                menuItems[key].subNav ? (
+                  <React.Fragment key={key}>
+                    {renderDropdownMenu(
                       key as keyof typeof anchorElements,
                       menuItems[key].subNav as SubNavItem[],
-                    )
-                  : null,
+                    )}
+                  </React.Fragment>
+                ) : null,
               )}
             </>
           )}

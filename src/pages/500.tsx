@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Error from 'components/Error';
+import { ErrorPageComponent } from '@components';
 
 const Error500 = () => {
-  return <Error title="500 - Server-side error occurred" />;
+  return <ErrorPageComponent title="500 - Server-side error occurred" />;
 };
 
 export default Error500;
