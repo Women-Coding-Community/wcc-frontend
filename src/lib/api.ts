@@ -4,11 +4,14 @@ const apiBaseUrl = process.env.API_BASE_URL;
 const API_KEY = process.env.API_KEY;
 
 import aboutUsPage from './responses/aboutUs.json';
+import aboutUsTeam from './responses/aboutUsTeam.json';
 import footerData from './responses/footer.json';
 import landingPageData from './responses/landingPage.json';
 import mentors from './responses/mentors.json';
 import mentorShipPage from './responses/mentorship.json';
 import mentorShipCodeofConduct from './responses/mentorshipCodeOfConduct.json';
+import mentorshipFaqPageData from './responses/mentorshipFaqPage.json';
+import mentorshipStudyGroupsPage from './responses/mentorshipStudyGroupsPage.json';
 import ourProgrammesPage from './responses/programmes.json';
 
 // for new pages: import the json file
@@ -22,6 +25,9 @@ const pageData = {
   'about-us/celebrate-her': aboutUsPage,
   'mentorship/mentors': mentors,
   'mentorship/code-of-conduct': mentorShipCodeofConduct,
+  team: aboutUsTeam,
+  'mentorship-faq-page': mentorshipFaqPageData,
+  'mentorship-study-groups-page': mentorshipStudyGroupsPage,
 };
 
 export const fetchData = async (path: string) => {
