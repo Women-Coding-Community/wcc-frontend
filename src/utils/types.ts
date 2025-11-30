@@ -353,3 +353,34 @@ export interface StudyGroupsPageData {
   contact: ContactSection;
   studyGroupSection: StudyGroupSection;
 }
+
+export type AdHocTimeLineEvent = {
+  title: string;
+  description: string;
+};
+
+export type AdHocTimeLineResponse = {
+  id: string;
+  heroSection: {
+    title: string;
+  };
+  events: {
+    items: AdHocTimeLineEvent[];
+  };
+};
+
+export type LongTermTimeLineEvent = {
+  duration?: string;
+  title: string;
+  description: string;
+};
+
+export type LongTermTimeLineResponse = {
+  id: string;
+  heroSection: {
+    title: string;
+  };
+  events: {
+    items: LongTermTimeLineEvent[];
+  };
+};

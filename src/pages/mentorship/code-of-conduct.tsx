@@ -3,8 +3,8 @@
 import { Box, Typography } from '@mui/material';
 import { GetServerSideProps } from 'next';
 
+import { CodeOfConductSection } from '@components';
 import { MentorshipCodeOfConductData } from '@utils/types';
-import { CodeOfConductSection } from 'components/CodeOfConduct';
 import { fetchData } from 'lib/api';
 
 interface AboutUsCodeOfConductPageProps {

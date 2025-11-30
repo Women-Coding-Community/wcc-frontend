@@ -1,13 +1,11 @@
-// path: /mentorship/faqs
-
 import { Typography, Box, Container, Link } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React from 'react';
 
+import { FaqSection } from '@components';
 import { fetchData } from 'lib/api';
 import theme from 'theme';
 
-import { FaqSection } from '../../components/FaqSection';
 import { MentorshipPageData } from '../../utils/types';
 
 interface FaqsPageProps {

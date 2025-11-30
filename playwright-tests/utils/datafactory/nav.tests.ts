@@ -82,11 +82,11 @@ export const footerSocialLinks = [
     name: 'Slack',
     url: 'https://womencodingcommunity.slack.com/signup#/domain-signup',
   },
-  {
-    id: 'NAV-018',
-    name: 'Email',
-    url: 'mailto:london@womencodingcommunity.com',
-  },
+  // {
+  //   id: 'NAV-018',
+  //   name: 'Email',
+  //   url: 'mailto:london@womencodingcommunity.com',
+  // },
   {
     id: 'NAV-019',
     name: 'Send us a report',
