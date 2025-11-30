@@ -1,8 +1,13 @@
 import { Box, Typography, Button } from '@mui/material';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-const Error = ({ title }) => {
+type ErrorProps = {
+  title?: string;
+};
+
+export const ErrorPageComponent: React.FC<ErrorProps> = ({ title }) => {
   return (
     <Box
       sx={{
@@ -17,8 +22,15 @@ const Error = ({ title }) => {
           {title}
         </Typography>
 
-        <img src="/icons/error-illustration.png" alt="Error Robot" />
-        <p>Something went wrong on our end. Please try again later.</p>
+        <Image
+          src="/icons/error-illustration.png"
+          alt="Error Robot"
+          width="100"
+          height="100"
+        />
+        <Typography variant="body1">
+          Something went wrong on our end. Please try again later.
+        </Typography>
         <Link href="/">
           <Button
             component="a"
@@ -33,5 +45,3 @@ const Error = ({ title }) => {
     </Box>
   );
 };
-
-export default Error;
