@@ -60,3 +60,18 @@ export const aboutUsMenuItems = items.map(([name, url, text]) => ({
   expectedURL: url,
   expectedText: text,
 }));
+const mitems = [
+  ['Overview', '/', ],
+  ['Mentors', '/mentorship/mentors'],
+  ['Study Groups','/mentorship/study-groups'],
+  ['Resources','/mentorship/resources'],
+  ['Code of Conduct','/mentorship/code-of-conduct'],
+  ['FAQs','/mentorship/faqs'],
+  ['Long-Term Timeline','/mentorship/long-term-timeline'],
+  ['Ad-Hoc Timeline','/mentorship/ad-hoc-timeline'],
+ ];
+
+export const mentorshipMenuItems = mitems.map(([name, url,]) => ({
+  name,
+  expectedURL: url,
+  }));
