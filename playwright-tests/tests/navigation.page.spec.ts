@@ -40,7 +40,7 @@ navTests.forEach(
   },
 );
 
-test('NAV-005: Validate Find a mentor Button', async ({
+test('@NAV-005: Validate Find a mentor Button', async ({
   basePage,
   homePage,
 }) => {
@@ -76,7 +76,7 @@ test.describe('Footer Validation', () => {
   });
 
   for (const { id, name, url, opensInNewTab = false } of footerSocialLinks) {
-    test(`${id}: Validate footer ${name} link`, async ({ basePage }) => {
+    test(`@${id}: Validate footer ${name} link`, async ({ basePage }) => {
       await basePage.verifySocialLinkNavigation(name, url, opensInNewTab);
     });
   }

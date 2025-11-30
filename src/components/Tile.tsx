@@ -31,6 +31,7 @@ export const Tile = (props: TileProps) => {
         }}
       >
         <Icon
+          baseClassName="material-symbols-outlined"
           sx={{ fontSize: '40px!important', color: 'primary.main' }} //fontsize is not applying
         >
           {props.icon}
