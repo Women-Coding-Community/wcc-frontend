@@ -95,10 +95,10 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           {/* question: image needs to be an actual url */}
           <Image
             src={'/profile-illustration.avif'}
-            alt={mentor.images[0].alt}
+            alt={mentor.images[0]?.alt || 'Mentor Profile Picture Description'}
             width={120}
             height={120}
-            objectFit="cover"
+            style={{ objectFit: 'cover' }}
           />
         </Box>
         <Typography variant="h6">{mentor.fullName}</Typography>
@@ -109,7 +109,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           Programming languages:
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.primary', mb: 3 }}>
-          {mentor.skills.languages.join(', ')}
+          {mentor.skills?.languages?.join(', ') || 'N/A'}
         </Typography>
         {/* question: this needs to be link to something? */}
         <LinkButton href={'/'} reversed small>
@@ -168,6 +168,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
             {mentor.network.map((network: Network) => (
               <a href={network.link} key={network.type}>
                 <Icon
+                  baseClassName="material-symbols-outlined"
                   sx={{
                     color: 'primary.main',
                     width: '34px',
@@ -206,19 +207,19 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Language{mentor.spokenLanguages.length > 1 ? 's' : ''}:{' '}
             <Typography component="span">
-              {mentor.spokenLanguages.join(', ')}
+              {mentor.spokenLanguages?.join(', ') || 'N/A'}
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Mentorship types:{' '}
             <Typography component="span">
-              {mentor.menteeSection.mentorshipType.join(', ')}
+              {mentor.menteeSection?.mentorshipType?.join(', ') || 'N/A'}
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Availability: {/* question: these are capitalised */}{' '}
             <Typography component="span">
-              {mentor.menteeSection.availability.months.join(', ')}
+              {mentor.menteeSection.availability?.months?.join(', ') || 'N/A'}
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
@@ -230,7 +231,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Focus:{' '}
             <Typography component="span">
-              {mentor.menteeSection.focus.join(', ')}
+              {mentor.menteeSection?.focus?.join(', ') || 'N/A'}
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
@@ -253,7 +254,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
             Reviews
           </Typography>
-          {mentor.feedbackSection.feedbacks.map(
+          {mentor.feedbackSection?.feedbacks?.map(
             (feedback: any, index: number) => (
               <Box key={index} sx={{ mb: 2 }}>
                 <Typography variant="body2" sx={{ fontWeight: 600 }}>
