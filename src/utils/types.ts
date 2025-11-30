@@ -184,6 +184,23 @@ export type TeamMembersData = {
   evangelists: PersonalData[];
 };
 
+export type CodeOfConductSectionType = {
+  title: string;
+  items: string[];
+};
+
+export interface MentorshipCodeOfConductData {
+  id: string;
+  heroSection: {
+    title: string;
+  };
+  menteeCodeSection: CodeOfConductSectionType;
+  mentorCodeSection: CodeOfConductSectionType;
+  wccCodeSection: {
+    link: Link;
+  };
+}
+
 export interface EventData {
   title: string;
   link: Link;
@@ -272,3 +289,67 @@ export type Mentor = {
     link?: Link;
   }[];
 };
+
+export interface FaqHeroSection {
+  title: string;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface FAQContentSection {
+  title: string;
+  items: FAQItem[];
+}
+
+export interface MentorshipPageData {
+  id: string;
+  heroSection: FaqHeroSection;
+  commonFaqSection: FAQContentSection;
+  mentorsFaqSection: FAQContentSection;
+  menteesFaqSection: FAQContentSection;
+}
+
+export interface FaqSectionProps {
+  title: string;
+  items: FAQItem[];
+}
+
+export interface StudyGroupItem {
+  title: string;
+  description: string;
+  coordinators: string;
+  participants: number;
+  link: Link;
+}
+
+export interface ContactLink {
+  type: string;
+  link: string;
+}
+
+export interface StudyGroupSection {
+  items: StudyGroupItem[];
+}
+
+export interface OverviewSection {
+  description: string;
+}
+
+export interface ContactSection {
+  title: string;
+  links: ContactLink[];
+}
+
+export interface StudyGroupsPageData {
+  id: string;
+  heroSection: {
+    title: string;
+    images: Image[];
+  };
+  section: OverviewSection;
+  contact: ContactSection;
+  studyGroupSection: StudyGroupSection;
+}

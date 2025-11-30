@@ -64,6 +64,7 @@
       }
     }
   ],
+  "ignorePatterns": ["playwright-tests/"],
   "settings": {
     "react": {
       "version": "detect"

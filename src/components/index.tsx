@@ -19,3 +19,5 @@ export { OpportunitiesProgrammes } from './OpportunitiesProgrammes';
 export { Tile } from './Tile';
 export { Title } from './Title';
 export { VolunteerSection } from './VolunteerSection';
+export { CodeOfConductSection } from './CodeOfConduct';
+export { TimelineCard } from './TimelineCard';
