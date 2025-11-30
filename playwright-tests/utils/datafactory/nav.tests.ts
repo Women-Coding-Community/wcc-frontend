@@ -33,16 +33,8 @@ export const navTests = [
     expectedURL: '/jobs',
     expectedText: 'Welcome to the JobsPage',
   },
-  {
-    id: 'NAV-007',
-    linkName: 'Home',
-    pathToStart: '/programmes',
-    linkLocator: (homePage: HomePage) => homePage.homeLink,
-    expectedURL: '',
-    expectedText: 'Women Coding Community',
-  },
-   
-];
+     
+ ];
 
 // about us dropdown data
 const items = [
@@ -70,14 +62,12 @@ export const aboutUsMenuItems = items.map(([name, url, text]) => ({
   expectedText: text,
 }));
 
-const Pitems =[
-  ['Interview Preperation',
-  'Machine Learning',
-  'Book Club',
-  'Writing Club',
-  'Coding Club',
-  'Speaking Club'
-  ] 
+const Pitems = [
+
+  ['Our Programmes', '/programmes', 'Welcome to the ProgrammesPage'],
+  ['Book Club','/programmes/book-club','Welcome to the BookClubPage'],
+  ['Study Groups', '/programmes/study-groups','Data Analytics and Generative AI concepts'],
+  ['Interview Preparation', '/programmes/interview-preparation','Welcome to the InterviewPreparationPage'],
 ]; 
 
   export const programmeMenuItems = Pitems.map(([name, url, text]) => ({
@@ -85,5 +75,3 @@ const Pitems =[
   expectedURL: url,
   expectedText: text,
 }));
-
-

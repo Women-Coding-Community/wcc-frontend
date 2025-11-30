@@ -11,7 +11,7 @@ export class BasePage {
   readonly jobsLink: Locator;
   readonly aboutUsDropdown: Locator;
   readonly menuitem: (itemTitle: string) => Locator;
-
+    
   constructor(page: Page) {
     this.page = page;
     this.logo = page.getByRole('img', { name: 'Logo' });
@@ -24,14 +24,14 @@ export class BasePage {
     this.aboutUsDropdown = page.getByRole('button', { name: 'About Us' });
     this.menuitem = (itemTitle: string) =>
       page.getByRole('menuitem', { name: itemTitle });
+          
   }
 
   async navigateToPath(path: string) {
     await test.step(`Navigate to path: ${path}`, async () => {
       await this.page.goto(path);
-      await this.page.waitForLoadState('networkidle');
-    });
-  }
+       });  await this.page.waitForLoadState('networkidle');
+    }
 
   async clickElement(elementLocator: Locator) {
     await test.step(`Click the "${elementLocator}" link`, async () => {
@@ -52,4 +52,4 @@ export class BasePage {
       ).toBeVisible();
     });
   }
-}
+} 
