@@ -8,19 +8,18 @@ test.describe('Mentorship Feedback Section', () => {
     basePage,
   }) => {
     await basePage.navigateToPath('/mentorship');
-
     await expect(mentorshipPage.testimonialsTitle).toBeVisible();
 
     await expect(mentorshipPage.testimonialCards).toHaveCount(3);
 
-    await expect(mentorshipPage.firstTestimonialCardIcon).toBeVisible();
+    const firstCard = mentorshipPage.getTestimonialCard(0);
 
-    await expect(mentorshipPage.firstTestimonialCardText).toBeVisible();
-    await expect(mentorshipPage.firstTestimonialCardText).not.toBeEmpty();
+    await expect(firstCard.icon).toBeVisible();
 
-    await expect(mentorshipPage.firstTestimonialCardAuthor).toHaveText(
-      /^.+,\s*Mentor\s+\d{4}$/,
-    );
+    await expect(firstCard.text).toBeVisible();
+    await expect(firstCard.text).not.toBeEmpty();
+
+    await expect(firstCard.author).toHaveText(/^.+,\s*Mentor\s+\d{4}$/);
 
     await expect(mentorshipPage.showMoreButton).toBeVisible();
   });
@@ -29,30 +28,29 @@ test.describe('Mentorship Feedback Section', () => {
     mentorshipPage,
     basePage,
   }) => {
-    await basePage.navigateToPath('/mentorship');
+    await test.step('Navigate to mentorship page and verify initial state', async () => {
+      await basePage.navigateToPath('/mentorship');
+      await mentorshipPage.verifyFeedbackSectionInitialState();
 
-    await expect(mentorshipPage.testimonialsTitle).toBeVisible();
+      await expect(mentorshipPage.getTestimonialCard(3).card).not.toBeVisible();
+    });
 
-    await expect(mentorshipPage.testimonialCards).toHaveCount(3);
+    await test.step('Click Show More button to display additional cards', async () => {
+      await basePage.clickElement(mentorshipPage.showMoreButton);
 
-    await expect(mentorshipPage.showMoreButton).toBeVisible();
+      await expect(mentorshipPage.getTestimonialCard(3).card).toBeVisible();
+    });
 
-    await expect(mentorshipPage.showMoreButton).toBeEnabled();
+    await test.step('Verify text expansion on Write-a-lot card', async () => {
+      const writeALotCard = mentorshipPage.getCardByAuthor(
+        'Write-a-lot, Mentor 2024',
+      );
 
-    await basePage.clickElement(mentorshipPage.showMoreButton);
-
-    await expect(mentorshipPage.testimonialCards).toHaveCount(4);
-
-    await expect(mentorshipPage.thirdTestimonialCardText).toContainText('...');
-
-    await basePage.clickElement(mentorshipPage.thirdCardShowMoreButton);
-
-    await expect(mentorshipPage.thirdTestimonialCardText).not.toContainText(
-      '...',
-    );
-
-    await basePage.clickElement(mentorshipPage.thirdCardShowLessButton);
-
-    await expect(mentorshipPage.thirdTestimonialCardText).toContainText('...');
+      await writeALotCard.toContainText('...');
+      await writeALotCard.expandText();
+      await writeALotCard.notToContainText('...');
+      await writeALotCard.collapseText();
+      await writeALotCard.toContainText('...');
+    });
   });
 });
