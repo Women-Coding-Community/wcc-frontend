@@ -3,9 +3,9 @@ import { Box } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React from 'react';
 
-import { StudyGroupsInfoBlock } from 'components/StudyGroupsInfoBlock';
 import { fetchData } from 'lib/api';
 
+import { InfoWithContact } from '../../components/InfoWithContact';
 import { StudyGroupsPageData } from '../../utils/types';
 
 export interface StudyGroupsPageProps {
@@ -27,9 +27,11 @@ const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
         pt: 4,
       }}
     >
-      <StudyGroupsInfoBlock
+      <InfoWithContact
         introText={cleanedIntroText}
         contactLinks={contactLinks}
+        title="How it works"
+        calltoAction="Join us in our Study Group Slack Channel"
       />
     </Box>
   );

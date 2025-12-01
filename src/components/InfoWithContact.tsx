@@ -7,14 +7,18 @@ import { ContactLink } from '../utils/types';
 
 import { ContactBox } from './ContactBox';
 
-interface StudyGroupInfoBlockProps {
+interface InfoWithContactProps {
   introText: string;
   contactLinks: ContactLink[];
+  title?: string;
+  calltoAction?: string;
 }
 
-export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
+export const InfoWithContact: React.FC<InfoWithContactProps> = ({
   introText,
   contactLinks,
+  title = 'How it works',
+  calltoAction = 'Join us in our Study Group Slack Channel',
 }) => {
   const slackLink =
     contactLinks.find((link) => link.type === 'slack')?.link || '#';
@@ -46,7 +50,7 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
               fontSize: '2.25rem',
             }}
           >
-            How it works
+            {title}
           </Typography>
           <Typography
             variant="h5"
@@ -95,7 +99,7 @@ export const StudyGroupsInfoBlock: React.FC<StudyGroupInfoBlockProps> = ({
                 height={24}
               />
               <Typography variant="h5" component="span">
-                Join us in our Study Group Slack Channel
+                {calltoAction}
               </Typography>
             </Link>
           </ContactBox>

@@ -23,4 +23,4 @@ export { Title } from './Title';
 export { VolunteerSection } from './VolunteerSection';
 export { CodeOfConductSection } from './CodeOfConduct';
 export { TimelineCard } from './TimelineCard';
-export { StudyGroupsInfoBlock } from './StudyGroupsInfoBlock';
+export { InfoWithContact } from './InfoWithContact';

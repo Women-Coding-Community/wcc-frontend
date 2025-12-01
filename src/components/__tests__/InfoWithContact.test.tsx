@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { StudyGroupsInfoBlock } from '@components';
+import { InfoWithContact } from '@components';
 import '@testing-library/jest-dom';
 
 jest.mock('next/image', () => ({
@@ -18,18 +18,33 @@ jest.mock('../ContactBox', () => ({
   ),
 }));
 
-describe('StudyGroupsInfoBlock', () => {
+describe('InfoWithContact', () => {
   const mockIntroText = 'test intro text.';
 
   it('renders the main title and intro text correctly', () => {
-    render(
-      <StudyGroupsInfoBlock introText={mockIntroText} contactLinks={[]} />,
-    );
+    render(<InfoWithContact introText={mockIntroText} contactLinks={[]} />);
     expect(
       screen.getByRole('heading', { level: 2, name: /how it works/i }),
     ).toBeInTheDocument();
     expect(screen.getByText(mockIntroText)).toBeInTheDocument();
   });
+
+  it('renders custom title and calltoAction when provided', () => {
+    render(
+      <InfoWithContact
+        introText={mockIntroText}
+        contactLinks={[]}
+        title="Custom Event Title"
+        calltoAction="Click Here"
+      />,
+    );
+
+    expect(
+      screen.getByRole('heading', { level: 2, name: /Custom Event Title/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Click Here/i)).toBeInTheDocument();
+  });
+
   it('renders the slack link correctly when provided', () => {
     const mockLinks = [
       { type: 'email', link: 'mailto:noise@test.com' },
@@ -38,10 +53,7 @@ describe('StudyGroupsInfoBlock', () => {
     ];
 
     render(
-      <StudyGroupsInfoBlock
-        introText={mockIntroText}
-        contactLinks={mockLinks}
-      />,
+      <InfoWithContact introText={mockIntroText} contactLinks={mockLinks} />,
     );
 
     const linkElement = screen.getByRole('link', {
@@ -57,10 +69,7 @@ describe('StudyGroupsInfoBlock', () => {
     const mockLinks = [{ type: 'email', link: 'mailto:test@test.com' }];
 
     render(
-      <StudyGroupsInfoBlock
-        introText={mockIntroText}
-        contactLinks={mockLinks}
-      />,
+      <InfoWithContact introText={mockIntroText} contactLinks={mockLinks} />,
     );
 
     const linkElement = screen.getByRole('link', {
@@ -70,9 +79,7 @@ describe('StudyGroupsInfoBlock', () => {
   });
 
   it('renders the Slack icon with correct alt text', () => {
-    render(
-      <StudyGroupsInfoBlock introText={mockIntroText} contactLinks={[]} />,
-    );
+    render(<InfoWithContact introText={mockIntroText} contactLinks={[]} />);
 
     const image = screen.getByAltText('Slack Icon');
     expect(image).toBeInTheDocument();
