@@ -36,7 +36,7 @@ export const navTests = [
 ];
 
 // about us dropdown data
-const items = [
+const aboutUsItems = [
   ['Overview', '/about-us', 'Welcome to the AboutUsPage'],
   ['Team', '/about-us/team', 'Welcome to the TeamPage'],
   [
@@ -55,23 +55,23 @@ const items = [
   ['Celebrate Her', '/about-us/celebrate-her', '#celebrate_her'],
 ];
 
-export const aboutUsMenuItems = items.map(([name, url, text]) => ({
+export const aboutUsMenuItems = aboutUsItems.map(([name, url, text]) => ({
   name,
   expectedURL: url,
   expectedText: text,
 }));
-const mitems = [
-  ['Overview', '/', ],
+const mentorshipItems = [
+  ['Overview', '/'],
   ['Mentors', '/mentorship/mentors'],
-  ['Study Groups','/mentorship/study-groups'],
-  ['Resources','/mentorship/resources'],
-  ['Code of Conduct','/mentorship/code-of-conduct'],
-  ['FAQs','/mentorship/faqs'],
-  ['Long-Term Timeline','/mentorship/long-term-timeline'],
-  ['Ad-Hoc Timeline','/mentorship/ad-hoc-timeline'],
- ];
+  ['Study Groups', '/mentorship/study-groups'],
+  ['Resources', '/mentorship/resources'],
+  ['Code of Conduct', '/mentorship/code-of-conduct'],
+  ['FAQs', '/mentorship/faqs'],
+  ['Long-Term Timeline', '/mentorship/long-term-timeline'],
+  ['Ad-Hoc Timeline', '/mentorship/ad-hoc-timeline'],
+];
 
-export const mentorshipMenuItems = mitems.map(([name, url,]) => ({
+export const mentorshipMenuItems = mentorshipItems.map(([name, url]) => ({
   name,
   expectedURL: url,
-  }));
+}));

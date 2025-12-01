@@ -1,4 +1,8 @@
-import { navTests, aboutUsMenuItems,mentorshipMenuItems } from '@utils/datafactory/nav.tests';
+import {
+  navTests,
+  aboutUsMenuItems,
+  mentorshipMenuItems,
+} from '@utils/datafactory/nav.tests';
 import { test } from '@utils/fixtures';
 import { expect } from '@playwright/test';
 
@@ -57,7 +61,7 @@ test('NAV-012: Click and navigate through About Us dropdown items', async ({
   }
 });
 
-test('NAV-008: Click and navigate through Mentorship dropdown items', async ({
+test('NAV-007: Click and navigate through Mentorship dropdown items', async ({
   basePage,
 }) => {
   for (const { name, expectedURL } of mentorshipMenuItems) {
@@ -65,5 +69,5 @@ test('NAV-008: Click and navigate through Mentorship dropdown items', async ({
     await basePage.clickElement(basePage.mentorshipDropdown);
     await basePage.clickElement(basePage.menuitem(name));
     await basePage.verifyURL(expectedURL);
-     }
+  }
 });
