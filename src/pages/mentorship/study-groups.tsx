@@ -15,8 +15,8 @@ export interface StudyGroupsPageProps {
 const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
   return (
     <div>
-      <Typography variant="h1">Data Query</Typography>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <Typography variant="h4">Study Groups</Typography>
+      {data ? <p> Data Loaded </p> : <p> No Data </p>}
     </div>
   );
 };
