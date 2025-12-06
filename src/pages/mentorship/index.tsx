@@ -78,7 +78,10 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
   };
   return (
     <ColoredBox color={'#FFDEA6'}>
-      <Box sx={{ display: 'grid', justifyItems: 'center', gap: '3rem' }}>
+      <Box
+        data-testid="feedback-area"
+        sx={{ display: 'grid', justifyItems: 'center', gap: '3rem' }}
+      >
         <Typography
           variant="h3"
           sx={{
@@ -121,6 +124,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
         </Box>
 
         <Button
+          data-testid="feedback-show-more"
           onClick={showMoreFeedbacks}
           disabled={feedbacksDisplayed >= feedbacks.length}
           variant="outlined"
