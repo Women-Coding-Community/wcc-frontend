@@ -64,7 +64,7 @@ test('NAV-007: Click and navigate through Mentorship dropdown items', async ({
 test('NAV-008: Click and Validate Programmes dropdown items', async ({
   basePage,
 }) => {
-  for (const { name,expectedURL, expectedText } of programmeMenuItems) {
+  for (const { name, expectedURL, expectedText } of programmeMenuItems) {
     await basePage.navigateToPath('/');
     await basePage.clickElement(basePage.programmesDropdown);
     await basePage.clickElement(basePage.menuitem(name));

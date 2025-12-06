@@ -76,14 +76,21 @@ export const mentorshipMenuItems = mentorshipItems.map(([name, url]) => ({
   expectedURL: url,
 }));
 const programmeItems = [
-
   ['Our Programmes', '/programmes', 'Welcome to the ProgrammesPage'],
-  ['Book Club','/programmes/book-club','Welcome to the BookClubPage'],
-  ['Study Groups', '/programmes/study-groups','Data Analytics and Generative AI concepts'],
-  ['Interview Preparation', '/programmes/interview-preparation','Welcome to the InterviewPreparationPage'],
-]; 
+  ['Book Club', '/programmes/book-club', 'Welcome to the BookClubPage'],
+  [
+    'Study Groups',
+    '/programmes/study-groups',
+    'Data Analytics and Generative AI concepts',
+  ],
+  [
+    'Interview Preparation',
+    '/programmes/interview-preparation',
+    'Welcome to the InterviewPreparationPage',
+  ],
+];
 
-  export const programmeMenuItems = programmeItems.map(([name, url, text]) => ({
+export const programmeMenuItems = programmeItems.map(([name, url, text]) => ({
   name,
   expectedURL: url,
   expectedText: text,
