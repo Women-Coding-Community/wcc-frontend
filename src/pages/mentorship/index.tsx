@@ -106,13 +106,17 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           {feedbacks && feedbacks.length > 0 ? (
             feedbacks
               .slice(0, feedbacksDisplayed)
-              .map((feedback) => (
+              .map((feedback: any) => (
                 <FeedbackCard
                   key={feedback.name}
                   name={feedback.name}
                   feedback={feedback.feedback}
-                  mentee={feedback.mentee}
-                  year={feedback.year}
+                  mentee={feedback.memberType === 'Mentee'}
+                  year={
+                    typeof feedback.year === 'string'
+                      ? parseInt(feedback.year, 10)
+                      : feedback.year
+                  }
                 />
               ))
           ) : (
