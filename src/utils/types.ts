@@ -122,16 +122,16 @@ export type MentorOrMenteeSectionData = {
   topics: string[];
 };
 
+export type FeedbackItem = {
+  name: string;
+  feedback: string;
+  memberType: 'Mentee' | 'Mentor';
+  year: string | number;
+};
+
 export type FeedbackSectionData = {
   title: string;
-  feedbacks: [
-    {
-      name: string;
-      feedback: string;
-      mentee: boolean;
-      year: number;
-    },
-  ];
+  feedbacks: FeedbackItem[];
 };
 
 export type TeamApiResponse = {

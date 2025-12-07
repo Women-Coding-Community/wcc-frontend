@@ -2,13 +2,8 @@ import { Typography, Button, Box, Grid, useMediaQuery } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React, { useState } from 'react';
 
-import {
-  ColoredBox,
-  FeedbackCard,
-  MentorBecomeCard,
-  FeedbackCardProps,
-} from '@components';
-import { MentorshipProgrammeData } from '@utils/types';
+import { ColoredBox, FeedbackCard, MentorBecomeCard } from '@components';
+import { MentorshipProgrammeData, FeedbackItem } from '@utils/types';
 import { fetchData } from 'lib/api';
 import theme from 'theme';
 
@@ -19,7 +14,7 @@ interface MentorshipPageProps {
 
 interface FeedbackSectionProps {
   title: string;
-  feedbacks: FeedbackCardProps[];
+  feedbacks: FeedbackItem[];
 }
 
 const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
@@ -106,7 +101,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           {feedbacks && feedbacks.length > 0 ? (
             feedbacks
               .slice(0, feedbacksDisplayed)
-              .map((feedback: any) => (
+              .map((feedback: FeedbackItem) => (
                 <FeedbackCard
                   key={feedback.name}
                   name={feedback.name}
