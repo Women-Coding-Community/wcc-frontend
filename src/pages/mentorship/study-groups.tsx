@@ -1,10 +1,11 @@
 // path: /mentorship/study-groups
-import { Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React from 'react';
 
 import { fetchData } from 'lib/api';
 
+import { InfoWithContact } from '../../components/InfoWithContact';
 import { StudyGroupsPageData } from '../../utils/types';
 
 export interface StudyGroupsPageProps {
@@ -13,11 +14,26 @@ export interface StudyGroupsPageProps {
 }
 
 const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
+  const {
+    section: { description: introText },
+    contact: { links: contactLinks },
+  } = data;
+  const cleanedIntroText = introText.replace(/\n /g, '\n\n');
   return (
-    <div>
-      <Typography variant="h4">Study Groups</Typography>
-      {data ? <p> Data Loaded </p> : <p> No Data </p>}
-    </div>
+    <Box
+      sx={{
+        maxWidth: '1128px',
+        mx: 'auto',
+        pt: 4,
+      }}
+    >
+      <InfoWithContact
+        introText={cleanedIntroText}
+        contactLinks={contactLinks}
+        title="How it works"
+        calltoAction="Join us in our Study Group Slack Channel"
+      />
+    </Box>
   );
 };
 
