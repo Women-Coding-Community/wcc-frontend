@@ -1,6 +1,8 @@
 import {
   navTests,
   aboutUsMenuItems,
+  mentorshipMenuItems,
+  programmeMenuItems,
   footerSocialLinks,
 } from '@utils/datafactory/nav.tests';
 import { test } from '@utils/fixtures';
@@ -47,6 +49,28 @@ test('@NAV-005: Validate Find a mentor Button', async ({
   await basePage.navigateToPath('/');
   await basePage.clickElement(homePage.findMentorButton);
   await basePage.verifyURL('/mentorship/mentors');
+});
+test('NAV-007: Click and navigate through Mentorship dropdown items', async ({
+  basePage,
+}) => {
+  for (const { name, expectedURL } of mentorshipMenuItems) {
+    await basePage.navigateToPath('/');
+    await basePage.clickElement(basePage.mentorshipDropdown);
+    await basePage.clickElement(basePage.menuitem(name));
+    await basePage.verifyURL(expectedURL);
+  }
+});
+
+test('NAV-009: Click and Validate Programmes dropdown items', async ({
+  basePage,
+}) => {
+  for (const { name, expectedURL, expectedText } of programmeMenuItems) {
+    await basePage.navigateToPath('/');
+    await basePage.clickElement(basePage.programmesDropdown);
+    await basePage.clickElement(basePage.menuitem(name));
+    await basePage.verifyURL(expectedURL);
+    await basePage.verifyPageContainsText(expectedText);
+  }
 });
 
 test('NAV-012: Click and navigate through About Us dropdown items', async ({
