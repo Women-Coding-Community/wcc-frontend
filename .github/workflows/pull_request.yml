@@ -40,10 +40,28 @@ jobs:
       - name: Run Playwright tests
         run: pnpm test:e2e
 
+      - name: Build Docker Image for Visual Testing
+        run: |
+          docker build -t wcc-playwright .
+
+      - name: Run Visual Testing with Docker
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/playwright-tests/screenshots:/app/playwright-tests/screenshots \
+            wcc-playwright
+
       - name: Upload Playwright test reports
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: playwright-report/
+          retention-days: 30
+          
+      - name: Upload visual testing artifacts
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: visual-test-screenshots
+          path: playwright-tests/screenshots/
           retention-days: 30
