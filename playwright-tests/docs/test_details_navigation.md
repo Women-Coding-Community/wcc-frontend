@@ -150,7 +150,7 @@ On hover, the dropdown expands and displays the following options:
 - Long-Term Timeline
 - Ad-Hoc Timeline
 
-**Status:** Pending :x:
+**Status:** Done :x:
 
 **Assigned to:** Purnima
 
@@ -208,7 +208,7 @@ On hover, the dropdown expands and displays the following options:
 - Coding Club
 - Speaking Club
 
-**Status:** Pending :x:
+**Status:** Done :x:
 
 **Assigned to:** Purnima
 
