@@ -32,14 +32,6 @@ jobs:
       - name: Run unit tests
         run: pnpm test
 
-      - name: Install Playwright and Browsers
-        run: |
-          pnpm install playwright
-          pnpm playwright install chromium --with-deps
-
-      - name: Run Playwright tests
-        run: pnpm test:e2e
-
       - name: Build Docker Image for Visual Testing
         run: |
           docker build -t wcc-playwright .
