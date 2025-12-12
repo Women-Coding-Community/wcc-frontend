@@ -1,8 +1,8 @@
-// path: /mentorship/ad-hoc-timeline
+// path: /mentorship/long-term-timeline
 
-import { Typography } from '@mui/material';
 import { GetServerSideProps } from 'next';
 
+import { TimelineCard, Title } from '@components';
 import { LongTermTimeLineResponse, FooterResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
 
@@ -14,10 +14,16 @@ type CombinedResponse = {
 const MentorshipLongTermTimelinePage = ({ data }: CombinedResponse) => {
   return (
     <div>
-      <Typography variant="h4">
-        Welcome to the Long Term Timeline Page
-      </Typography>
-      {data ? <p> Data Loaded </p> : <p> No Data </p>}
+      <Title title={'Long-Term Mentorship Timeline'} />
+
+      {data?.events?.items?.map((item, index) => (
+        <TimelineCard
+          key={index}
+          title={item.title}
+          description={item.description}
+          date={item.duration}
+        />
+      ))}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import aboutUsPage from './responses/aboutUs.json';
 import aboutUsTeam from './responses/aboutUsTeam.json';
 import footerData from './responses/footer.json';
 import landingPageData from './responses/landingPage.json';
+import mentorShipLongTermTimeline from './responses/longTermTimeLine.json';
 import mentors from './responses/mentors.json';
 import mentorShipPage from './responses/mentorship.json';
 import mentorShipCodeofConduct from './responses/mentorshipCodeOfConduct.json';
@@ -21,6 +22,7 @@ import ourProgrammesPage from './responses/programmes.json';
 const pageData = {
   landingPage: landingPageData,
   'mentorship/overview': mentorShipPage,
+  'mentorship/long-term-timeline': mentorShipLongTermTimeline,
   'programmes/study-groups': ourProgrammesPage,
   'about-us/celebrate-her': aboutUsPage,
   'mentorship/mentors': mentors,
