@@ -6,6 +6,7 @@ import React from 'react';
 import { GroupCard } from '@components';
 import { fetchData } from 'lib/api';
 
+import { InfoWithContact } from '../../components/InfoWithContact';
 import { StudyGroupsPageData } from '../../utils/types';
 
 export interface StudyGroupsPageProps {

@@ -29,8 +29,8 @@ export const OpportunitiesProgrammes: React.FC<
             justifyContent: 'center',
           }}
         >
-          {items.map((programme: Programme) => (
-            <Grid item xs={12} sm={6} md={4} key={programme.name}>
+          {items.map((programme: Programme, id: number) => (
+            <Grid item xs={12} sm={6} md={4} key={`${programme.name}-${id}`}>
               <Tile
                 name={programme.name}
                 link={programme.link.uri}
