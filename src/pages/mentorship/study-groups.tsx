@@ -1,8 +1,9 @@
 // path: /mentorship/study-groups
-import { Typography } from '@mui/material';
+import { Box, Grid, useTheme } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React from 'react';
 
+import { GroupCard } from '@components';
 import { fetchData } from 'lib/api';
 
 import { StudyGroupsPageData } from '../../utils/types';
@@ -13,11 +14,26 @@ export interface StudyGroupsPageProps {
 }
 
 const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
+  const muiTheme = useTheme();
+  const cardColors = muiTheme.palette.custom.studyGroupCardColors;
+
   return (
-    <div>
-      <Typography variant="h1">Data Query</Typography>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
+    <Box sx={{ padding: '2rem' }}>
+      <Grid container spacing={3}>
+        {data.studyGroupSection.items.map((item, index) => (
+          <Grid item xs={12} sm={6} md={4} key={item.title}>
+            <GroupCard
+              bgColor={cardColors[index % cardColors.length]}
+              title={item.title}
+              description={item.description}
+              participants={item.participants}
+              mentor={item.coordinators}
+              uri={item.link.uri}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 
