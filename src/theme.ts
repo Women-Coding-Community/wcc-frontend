@@ -36,7 +36,8 @@ declare module '@mui/material/styles' {
         alignItems: string;
       };
       groupCard: {
-        width: string | { xs: string; sm: string };
+        width: string;
+        maxWidth: string;
         height: string;
         borderRadius: number;
         typography: {
@@ -266,7 +267,8 @@ theme.custom = {
     alignItems: 'center',
   },
   groupCard: {
-    width: { xs: '100%', sm: '360px' },
+    width: '100%',
+    maxWidth: '360px',
     height: '340px',
     borderRadius: 3,
     typography: {

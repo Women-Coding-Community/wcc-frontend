@@ -12,18 +12,20 @@ interface StudyGroupsPageProps {
 
 const StudyGroupsPage: FC<StudyGroupsPageProps> = ({ groups }) => {
   return (
-    <Box sx={{ padding: '2rem' }}>
-      <Grid container spacing={3}>
+    <Box sx={{ padding: { xs: '1rem', sm: '2rem' } }}>
+      <Grid container spacing={3} justifyContent="center">
         {groups.studyGroupSection.groups.map((group, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
-            <GroupCard
-              bgColor={group.bgColor}
-              title={group.title}
-              description={group.description}
-              participants={group.participants}
-              mentor={group.mentor}
-              uri={group.uri}
-            />
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <GroupCard
+                bgColor={group.bgColor}
+                title={group.title}
+                description={group.description}
+                participants={group.participants}
+                mentor={group.mentor}
+                uri={group.uri}
+              />
+            </Box>
           </Grid>
         ))}
       </Grid>

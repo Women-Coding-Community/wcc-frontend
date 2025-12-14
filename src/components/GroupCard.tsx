@@ -34,6 +34,7 @@ export const GroupCard: React.FC<GroupCardProps> = ({
         backgroundColor: bgColor,
         borderRadius: theme.custom.groupCard.borderRadius,
         width: theme.custom.groupCard.width,
+        maxWidth: theme.custom.groupCard.maxWidth,
         height: theme.custom.groupCard.height,
         display: 'flex',
         flexDirection: 'column',

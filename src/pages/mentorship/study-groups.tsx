@@ -18,18 +18,20 @@ const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
   const cardColors = muiTheme.palette.custom.studyGroupCardColors;
 
   return (
-    <Box sx={{ padding: '2rem' }}>
-      <Grid container spacing={3}>
+    <Box sx={{ padding: { xs: '1rem', sm: '2rem' } }}>
+      <Grid container spacing={3} justifyContent="center">
         {data.studyGroupSection.items.map((item, index) => (
           <Grid item xs={12} sm={6} md={4} key={item.title}>
-            <GroupCard
-              bgColor={cardColors[index % cardColors.length]}
-              title={item.title}
-              description={item.description}
-              participants={item.participants}
-              mentor={item.coordinators}
-              uri={item.link.uri}
-            />
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <GroupCard
+                bgColor={cardColors[index % cardColors.length]}
+                title={item.title}
+                description={item.description}
+                participants={item.participants}
+                mentor={item.coordinators}
+                uri={item.link.uri}
+              />
+            </Box>
           </Grid>
         ))}
       </Grid>
