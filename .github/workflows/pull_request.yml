@@ -39,6 +39,7 @@ jobs:
       - name: Run Playwright tests
         run: |
           docker run --rm \
+            -v ${{ github.workspace }}/playwright-report:/app/playwright-report \
             -v ${{ github.workspace }}/playwright-tests/screenshots:/app/playwright-tests/screenshots \
             wcc-playwright sh -c "pnpm test:e2e"
 
