@@ -11,15 +11,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build -t wcc-playwright .
+      - name: Build Docker Image
+        run: |
+          docker build -t wcc-playwright .
 
       - name: Update Playwright snapshots
         run: |
-          docker run --rm \
-            -v ${{ github.workspace }}/playwright-report:/app/playwright-report \
-            -v ${{ github.workspace }}/playwright-tests/screenshots:/app/playwright-tests/screenshots \
-            wcc-playwright sh -c "pnpm test:e2e --update-snapshots"
+          chmod +x playwright-tests/tools/run-tests-local.sh
+          playwright-tests/tools/run-tests-local.sh update
 
       - name: Commit updated snapshots
         run: |
