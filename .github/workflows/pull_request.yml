@@ -32,11 +32,11 @@ jobs:
       - name: Run unit tests
         run: pnpm test
 
-      - name: Build Docker Image for Visual Testing
+      - name: Build Docker Image
         run: |
           docker build -t wcc-playwright .
 
-      - name: Run Visual Testing with Docker
+      - name: Run Playwright tests
         run: |
           docker run --rm \
             -v ${{ github.workspace }}/playwright-tests/screenshots:/app/playwright-tests/screenshots \
