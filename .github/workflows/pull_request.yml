@@ -40,7 +40,7 @@ jobs:
         run: |
           docker run --rm \
             -v ${{ github.workspace }}/playwright-tests/screenshots:/app/playwright-tests/screenshots \
-            wcc-playwright
+            wcc-playwright sh -c "pnpm test:e2e"
 
       - name: Upload Playwright test reports
         uses: actions/upload-artifact@v4

@@ -11,5 +11,3 @@ ENV CI=true
 RUN pnpm install
 
 RUN npx playwright install
-
-CMD ["pnpm", "test:e2e"]
