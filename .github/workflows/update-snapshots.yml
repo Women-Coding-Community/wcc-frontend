@@ -2,11 +2,6 @@ name: Update Playwright Snapshots
 
 on:
   workflow_dispatch:
-    inputs:
-      updateSnapshots:
-        description: "Update Playwright snapshots"
-        required: false
-        type: boolean
 
 jobs:
   update_snapshots:
