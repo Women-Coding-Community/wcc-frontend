@@ -60,6 +60,40 @@ export const aboutUsMenuItems = items.map(([name, url, text]) => ({
   expectedURL: url,
   expectedText: text,
 }));
+const mentorshipItems = [
+  ['Overview', '/'],
+  ['Mentors', '/mentorship/mentors'],
+  ['Study Groups', '/mentorship/study-groups'],
+  ['Resources', '/mentorship/resources'],
+  ['Code of Conduct', '/mentorship/code-of-conduct'],
+  ['FAQs', '/mentorship/faqs'],
+  ['Long-Term Timeline', '/mentorship/long-term-timeline'],
+  ['Ad-Hoc Timeline', '/mentorship/ad-hoc-timeline'],
+];
+
+export const mentorshipMenuItems = mentorshipItems.map(([name, url]) => ({
+  name,
+  expectedURL: url,
+}));
+const programmeItems = [
+  ['Our Programmes', '/programmes', 'Welcome to the ProgrammesPage'],
+  ['Book Club', '/programmes/book-club', 'Welcome to the BookClubPage'],
+  [
+    'Study Groups',
+    '/programmes/study-groups',
+    'Data Analytics and Generative AI concepts',
+  ],
+  [
+    'Interview Preparation',
+    '/programmes/interview-preparation',
+    'Welcome to the InterviewPreparationPage',
+  ],
+];
+export const programmeMenuItems = programmeItems.map(([name, url, text]) => ({
+  name,
+  expectedURL: url,
+  expectedText: text,
+}));
 
 export const footerSocialLinks = [
   {
