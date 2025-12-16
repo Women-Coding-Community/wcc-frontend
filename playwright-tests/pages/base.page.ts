@@ -88,7 +88,7 @@ export class BasePage {
 
   async verifySocialLinkNavigation(
     socialPlatform: string,
-    expectedURL: string,
+    expectedURL: string  | RegExp,
     opensInNewTab: boolean,
   ) {
     const locator = this.footerSocialLinks[socialPlatform];
