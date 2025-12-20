@@ -37,7 +37,9 @@ jobs:
           docker build -t wcc-playwright .
 
       - name: Execute Playwright tests in Docker
-        run: playwright-tests/tools/run-tests-local.sh 
+        run: |
+          chmod +x playwright-tests/tools/run-tests-local.sh
+          playwright-tests/tools/run-tests-local.sh 
 
       - name: Upload Playwright test reports
         uses: actions/upload-artifact@v4

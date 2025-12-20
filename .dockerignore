@@ -1,0 +1,13 @@
+node_modules/
+*.log
+
+.env
+*.pem
+*.key
+*.crt
+
+dist/
+build/
+
+*.tmp
+*.swp
