@@ -20,6 +20,28 @@ test.describe('Validate Home Page', () => {
     await expect(newPage).toHaveTitle(/Slack/i);
   });
 
+  test('HP-002: Opportunities and Programmes section', async ({ homePage, basePage, page}) => {
+    await expect(homePage.mainHeading).toBeVisible();
+    await expect(homePage.mainText).toBeVisible();
+    await homePage.clickElement(homePage.mentorshipLink);
+    await basePage.verifyURL('/mentorship');
+    await page.goto('/');
+    await homePage.clickElement(homePage.eventsLink);
+    await basePage.verifyURL('/events');
+    await page.goto('/');
+    await homePage.clickElement(homePage.bookClubLink);
+    await basePage.verifyURL('/programmes/book-club');
+    await page.goto('/');
+    await homePage.clickElement(homePage.CvClinicLink);
+    await basePage.verifyURL('/programmes/cv-clinic/');
+    await page.goto('/');
+    await homePage.clickElement(homePage.mockInterviewsLink);
+    await homePage.verifyURL('/programmes/interviews/');
+    await page.goto('/');
+    await homePage.clickElement(homePage.leetCodeLink);
+    await homePage.verifyURL('/programmes/leetcode/');
+       
+  });
   test('HP-004: Become Mentor section', async ({ homePage, basePage }) => {
     await expect(homePage.becomeMentorSectionTitle).toBeVisible();
     await expect(homePage.becomeMentorSectionDescription).toBeVisible();
@@ -31,7 +53,7 @@ test.describe('Validate Home Page', () => {
       'Welcome to the MentorRegistrationPage',
     );
   });
-
+ 
   test('HP-005: Volunteer section', async ({ homePage, basePage }) => {
     await basePage.navigateToPath('/');
 
@@ -45,4 +67,5 @@ test.describe('Validate Home Page', () => {
     await basePage.verifyURL('/about-us/volunteer');
     await basePage.verifyPageContainsText('Welcome to the VolunteerPage');
   });
-});
+ 
+  });
