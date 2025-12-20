@@ -2,11 +2,11 @@
 
 UPDATE_SNAPSHOTS=false
 
-if [ "$1" == "update" ]; then
+if [[ "$1" == "update" ]]; then
   UPDATE_SNAPSHOTS=true
 fi
 
-if [ "$UPDATE_SNAPSHOTS" == true ]; then
+if [[ "$UPDATE_SNAPSHOTS" == true ]]; then
   echo "Running Playwright tests with snapshot update..."
   docker run --rm \
     -v $(pwd)/playwright-tests/screenshots:/app/playwright-tests/screenshots \

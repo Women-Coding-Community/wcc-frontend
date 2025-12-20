@@ -4,9 +4,8 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 
-RUN npm install -g pnpm
 ENV CI=true
 
-RUN pnpm install
-
-RUN npx playwright install chromium
+RUN npm install -g pnpm \
+    pnpm install \
+    npx playwright install chromium
