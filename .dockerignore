@@ -1,5 +1,7 @@
 node_modules/
 *.log
+*.tmp
+*.swp
 
 .env
 *.pem
@@ -9,5 +11,5 @@ node_modules/
 dist/
 build/
 
-*.tmp
-*.swp
+Dockerfile
+.dockerignore
