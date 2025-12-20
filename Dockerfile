@@ -4,6 +4,6 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 
-RUN npm install --force
+RUN npm install -g pnpm
 
 RUN npx playwright install chromium

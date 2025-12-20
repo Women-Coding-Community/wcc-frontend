@@ -38,7 +38,6 @@ jobs:
 
       - name: Execute Playwright tests in Docker
         run: |
-          chmod +x playwright-tests/tools/run-tests-local.sh
           playwright-tests/tools/run-tests-local.sh 
 
       - name: Upload Playwright test reports
