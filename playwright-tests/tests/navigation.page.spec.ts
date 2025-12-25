@@ -55,8 +55,7 @@ test('@NAV-005: Validate Find a mentor Button', async ({
     await basePage.navigateToPath('/');
     await expect(basePage.logo).toBeVisible();
     await basePage.clickElement(basePage.logo);
-    await expect(homePage.homeLink).toBeVisible();
-       
+    await expect(homePage.homeLink).toBeVisible();     
   });
 test('NAV-007: Click and navigate through Mentorship dropdown items', async ({
   basePage,
