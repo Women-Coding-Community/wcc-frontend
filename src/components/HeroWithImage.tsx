@@ -1,12 +1,12 @@
-import React from 'react';
 import { Box, Typography, Grid } from '@mui/material';
+import React from 'react';
 
-interface StudyGroupsHeroProps {
+interface HeroWithImageProps {
   title: string;
   imageSrc: string;
 }
 
-export const StudyGroupsHero: React.FC<StudyGroupsHeroProps> = ({
+export const HeroWithImage: React.FC<HeroWithImageProps> = ({
   title,
   imageSrc,
 }) => {
@@ -100,7 +100,7 @@ export const StudyGroupsHero: React.FC<StudyGroupsHeroProps> = ({
           <Box
             component="img"
             src={imageSrc}
-            alt="Study Groups"
+            alt={title}
             sx={{
               width: '100%',
               height: { xs: 350, md: 'auto' },
