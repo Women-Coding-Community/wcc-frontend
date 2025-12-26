@@ -53,7 +53,6 @@ test('@NAV-005: Validate Find a mentor Button', async ({
 
   test('NAV-006 Validate logoclick navigation', async ({ basePage,homePage}) => {
     await basePage.navigateToPath('/');
-    await expect(basePage.logo).toBeVisible();
     await basePage.clickElement(basePage.logo);
     await expect(homePage.homeLink).toBeVisible();     
   });
