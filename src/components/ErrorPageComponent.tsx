@@ -31,16 +31,15 @@ export const ErrorPageComponent: React.FC<ErrorProps> = ({ title }) => {
         <Typography variant="body1">
           Something went wrong on our end. Please try again later.
         </Typography>
-        <Link href="/">
-          <Button
-            component="a"
-            variant="contained"
-            color="primary"
-            sx={{ borderRadius: '100px' }}
-          >
-            Back to home
-          </Button>
-        </Link>
+        <Button
+          component={Link}
+          href="/"
+          variant="contained"
+          color="primary"
+          sx={{ borderRadius: '100px' }}
+        >
+          Back to home
+        </Button>
       </main>
     </Box>
   );

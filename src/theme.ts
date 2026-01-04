@@ -1,8 +1,15 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable unused-imports/no-unused-vars */
-// use client
 
 import { createTheme } from '@mui/material/styles';
+
+const COLORS = {
+  lightBlue: '#C7E7FF',
+  lightOrange: '#FFDEA6',
+  lightPink: '#FFDBD0',
+  softGray: '#F4F0EF',
+  linkBlue: '#1A4B66',
+} as const;
 
 declare module '@mui/material/styles' {
   interface Theme {
@@ -28,6 +35,29 @@ declare module '@mui/material/styles' {
         flexDirection: string;
         alignItems: string;
       };
+      groupCard: {
+        width: string;
+        maxWidth: string;
+        height: string;
+        borderRadius: number;
+        typography: {
+          title: {
+            fontSize: string;
+            fontWeight: number;
+            lineHeight: string;
+          };
+          description: {
+            fontSize: string;
+            fontWeight: number;
+            lineHeight: string;
+          };
+          metadata: {
+            fontSize: string;
+            fontWeight: number;
+            lineHeight: string;
+          };
+        };
+      };
     };
   }
 
@@ -50,11 +80,19 @@ declare module '@mui/material/styles' {
   interface Palette {
     custom: {
       softGray: string;
+      lightBlue: string;
+      lightOrange: string;
+      studyGroupCardColors: string[];
+      linkBlue: string;
     };
   }
   interface PaletteOptions {
     custom?: {
       softGray?: string;
+      lightBlue?: string;
+      lightOrange?: string;
+      studyGroupCardColors?: string[];
+      linkBlue?: string;
     };
   }
 }
@@ -71,7 +109,7 @@ const theme = createTheme({
   },
   customBannerHeights: {
     mobile: '100vw',
-    tablet: '80vw', // change
+    tablet: '80vw',
     desktop: '617.14px',
   },
 
@@ -177,10 +215,19 @@ const theme = createTheme({
     },
     secondary: {
       main: '#dc004e',
-      light: '#FFDBD0',
+      light: COLORS.lightPink,
     },
     custom: {
-      softGray: '#F4F0EF',
+      softGray: COLORS.softGray,
+      lightBlue: COLORS.lightBlue,
+      lightOrange: COLORS.lightOrange,
+      studyGroupCardColors: [
+        COLORS.lightBlue,
+        COLORS.lightOrange,
+        COLORS.lightPink,
+        COLORS.softGray,
+      ],
+      linkBlue: COLORS.linkBlue,
     },
     text: {
       primary: '#1b1919',
@@ -218,6 +265,29 @@ theme.custom = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  groupCard: {
+    width: '100%',
+    maxWidth: '360px',
+    height: '340px',
+    borderRadius: 3,
+    typography: {
+      title: {
+        fontSize: '22px',
+        fontWeight: 500,
+        lineHeight: '28px',
+      },
+      description: {
+        fontSize: '16px',
+        fontWeight: 400,
+        lineHeight: '24px',
+      },
+      metadata: {
+        fontSize: '14px',
+        fontWeight: 400,
+        lineHeight: '20px',
+      },
+    },
   },
 };
 
