@@ -11,6 +11,7 @@ import {
 } from '@components';
 import { FooterResponse, StudyGroupsPageData } from '@utils/types';
 import { fetchData } from 'lib/api';
+import { useIsMobile } from '@utils/theme-utils';
 
 interface StudyGroupsPageProps {
   data: StudyGroupsPageData;
@@ -27,10 +28,11 @@ const MentorShipStudyGroupsPage = ({ data, footer }: StudyGroupsPageProps) => {
 
   const muiTheme = useTheme();
   const cardColors = muiTheme.palette.custom.studyGroupCardColors;
+  const isMobile = useIsMobile();
 
   return (
     <Box>
-      <BreadCrumbsDynamic />
+      {isMobile ? null : <BreadCrumbsDynamic />}
       <HeroWithImage
         title={data.heroSection.title}
         imageSrc={'/hero-img.jpg'} // @TODO replace with actual path?

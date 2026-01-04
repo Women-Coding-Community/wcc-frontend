@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next';
 import React from 'react';
 
 import { BreadCrumbsDynamic, FaqSection } from '@components';
+import { useIsMobile } from '@utils/theme-utils';
 import { fetchData } from 'lib/api';
 
 import { MentorshipPageData } from '../../utils/types';
@@ -20,10 +21,11 @@ const MentorshipFaqsPage = ({ data }: FaqsPageProps) => {
   } = data;
 
   const faqSections = [commonFaqSection, mentorsFaqSection, menteesFaqSection];
+  const isMobile = useIsMobile();
 
   return (
     <>
-      <BreadCrumbsDynamic />
+      {isMobile ? <BreadCrumbsDynamic /> : null}
       <Box
         sx={{
           backgroundImage: 'linear-gradient(to right, #9FCEEC, #C7E7FF)',

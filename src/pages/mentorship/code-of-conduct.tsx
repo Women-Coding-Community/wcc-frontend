@@ -4,6 +4,7 @@ import { Box, Typography } from '@mui/material';
 import { GetServerSideProps } from 'next';
 
 import { BreadCrumbsDynamic, CodeOfConductSection } from '@components';
+import { useIsMobile } from '@utils/theme-utils';
 import { MentorshipCodeOfConductData } from '@utils/types';
 import { fetchData } from 'lib/api';
 
@@ -14,9 +15,10 @@ interface AboutUsCodeOfConductPageProps {
 const MentorshipCodeOfConductPage = ({
   mentorshipCodeOfConduct,
 }: AboutUsCodeOfConductPageProps) => {
+  const isMobile = useIsMobile();
   return (
     <>
-      <BreadCrumbsDynamic />
+      {isMobile ? null : <BreadCrumbsDynamic />}
       <Box
         sx={{
           display: 'flex',

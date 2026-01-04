@@ -14,6 +14,7 @@ import { fetchData } from 'lib/api';
 import footerData from 'lib/responses/footer.json';
 import pageData from 'lib/responses/mentorship.json';
 import theme from 'theme';
+import { useIsMobile } from '@utils/theme-utils';
 
 interface MentorshipPageProps {
   mentorship: MentorshipProgrammeData;
@@ -27,9 +28,10 @@ interface FeedbackSectionProps {
 const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
   const heroTitle = pageData.heroSection.title;
   const heroDescription = pageData.section.description;
+  const isMobile = useIsMobile();
   return (
     <>
-      <BreadCrumbsDynamic />
+      {isMobile ? null : <BreadCrumbsDynamic />}
       <Box
         sx={{
           backgroundColor: theme.palette.primary.light,
