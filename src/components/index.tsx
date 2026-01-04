@@ -31,3 +31,7 @@ export {
   TextArea,
   TextField,
 } from './forms';
+export { ResourcesCard } from './ResourcesCard';
+export { HeroWithImage } from './HeroWithImage';
+export { InfoWithContact } from './InfoWithContact';
+export { BreadCrumbsDynamic } from './BreadCrumbsDynamic';

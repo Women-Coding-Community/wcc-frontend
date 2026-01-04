@@ -1,0 +1,28 @@
+{
+  "heroTitle": "Mentorship Resources",
+  "heroDescription": "Whether you’re a mentee looking to navigate your journey, a mentor aiming to provide the best guidance, or a seasoned mentor seeking quick tips, we have the tools you need. Explore our guides for insightful mentorship advice and strategies.",
+  "resources": [
+    {
+      "image": "/mentee_guideMedia.jpg",
+      "title": "Mentee’s Guide",
+      "description": "",
+      "buttonText": "View Guide",
+      "link": "#"
+    },
+    {
+      "image": "/mentor_pocketbookMedia.jpg",
+      "title": "Mentor’s Pocketbook",
+      "description": "",
+      "buttonText": "View Pocketbook",
+      "link": "#"
+    },
+    {
+      "image": "/mentor_guideeMedia.jpg",
+      "title": "Mentor’s Guide",
+      "description": "",
+      "buttonText": "View Guide",
+      "link": "#"
+    }
+  ],
+  "footer": "footerData.json content"
+}

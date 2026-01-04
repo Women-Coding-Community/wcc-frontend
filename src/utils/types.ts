@@ -103,10 +103,14 @@ export type AboutUsPageData = {
 };
 
 export type MentorshipProgrammeData = {
-  page: {
-    title: string;
-    description: string;
-  };
+  //add this
+  id: string;
+  heroSection: { title: string };
+  section: { description: string };
+  //page: {
+  //title: string;
+  //description: string;
+  //};
   mentorSection: MentorOrMenteeSectionData;
   menteeSection: MentorOrMenteeSectionData;
   feedbackSection: FeedbackSectionData;
@@ -122,16 +126,16 @@ export type MentorOrMenteeSectionData = {
   topics: string[];
 };
 
+export type FeedbackItem = {
+  name: string;
+  feedback: string;
+  memberType: 'Mentee' | 'Mentor';
+  year: string | number;
+};
+
 export type FeedbackSectionData = {
   title: string;
-  feedbacks: [
-    {
-      name: string;
-      feedback: string;
-      mentee: boolean;
-      year: number;
-    },
-  ];
+  feedbacks: FeedbackItem[];
 };
 
 export type TeamApiResponse = {
