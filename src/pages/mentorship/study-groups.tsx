@@ -1,10 +1,12 @@
 // path: /mentorship/study-groups
-import { Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { GetServerSideProps } from 'next';
 
 import { HeroWithImage, Footer } from '@components';
 
 import { fetchData } from '../../lib/api';
+import { InfoWithContact } from '../../components/InfoWithContact';
+import { StudyGroupsPageData } from '../../utils/types';
 
 interface StudyGroupsPageProps {
   data: {
@@ -15,18 +17,27 @@ interface StudyGroupsPageProps {
   footer: any;
 }
 
-const MentorShipStudyGroupsPage = ({ footer }: StudyGroupsPageProps) => {
+const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
+  const {
+    section: { description: introText },
+    contact: { links: contactLinks },
+  } = data;
+  const cleanedIntroText = introText.replace(/\n /g, '\n\n');
   return (
-    <div>
-      <HeroWithImage title="Technical Study Groups" imageSrc="/hero-img.jpg" />
-      <Typography
-        variant="h4"
-        sx={{ padding: '20px 16px', textAlign: 'center' }}
-      >
-        Welcome to the MentorShipStudyGroupsPage
-      </Typography>
-      <Footer {...footer} />
-    </div>
+    <Box
+      sx={{
+        maxWidth: '1128px',
+        mx: 'auto',
+        pt: 4,
+      }}
+    >
+      <InfoWithContact
+        introText={cleanedIntroText}
+        contactLinks={contactLinks}
+        title="How it works"
+        calltoAction="Join us in our Study Group Slack Channel"
+      />
+    </Box>
   );
 };
 
