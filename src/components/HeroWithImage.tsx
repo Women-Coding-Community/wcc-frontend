@@ -27,6 +27,7 @@ export const HeroWithImage: React.FC<HeroWithImageProps> = ({
         spacing={{ xs: 0, md: 0 }}
         alignItems="center"
         direction={{ xs: 'column-reverse', md: 'row' }}
+        sx={{ maxWidth: '1128px', mx: 'auto' }}
       >
         <Grid item xs={12} md={6}>
           <Box

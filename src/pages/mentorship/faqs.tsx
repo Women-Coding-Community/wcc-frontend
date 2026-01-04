@@ -2,7 +2,7 @@ import { Typography, Box, Container, Link } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React from 'react';
 
-import { FaqSection } from '@components';
+import { BreadCrumbsDynamic, FaqSection } from '@components';
 import { fetchData } from 'lib/api';
 import theme from 'theme';
 
@@ -24,43 +24,7 @@ const MentorshipFaqsPage = ({ data }: FaqsPageProps) => {
 
   return (
     <>
-      <Container maxWidth="md">
-        <Box
-          sx={{
-            mb: '15px',
-            textAlign: 'left',
-            marginLeft: { xs: 0, md: theme.spacing(-25) },
-          }}
-        >
-          <Box
-            sx={{
-              fontSize: '14px',
-              lineHeight: 1.4286,
-              fontWeight: 400,
-              letterSpacing: '0.25px',
-              color: theme.palette.text.primary,
-
-              '& a': {
-                color: theme.palette.primary.main,
-                textDecoration: 'none',
-                marginRight: '8px',
-              },
-              '& span': {
-                color: theme.palette.text.primary,
-                marginRight: '8px',
-              },
-            }}
-          >
-            <Link href="/">Home</Link>
-            <Typography component="span">/</Typography>
-            <Link href="/mentorship">Mentorship</Link>
-            <Typography component="span">/</Typography>
-            <Typography component="span" color="inherit">
-              FAQ
-            </Typography>
-          </Box>
-        </Box>
-      </Container>
+      <BreadCrumbsDynamic />
       <Box
         sx={{
           backgroundImage: 'linear-gradient(to right, #9FCEEC, #C7E7FF)',
