@@ -54,7 +54,7 @@ const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
             'Want to apply for a leadership position',
             'Need support in advancing your career',
           ]}
-          buttonUrl="/mentors"
+          buttonUrl="/mentorship/mentors"
           buttonText={'Find a mentor'}
         ></MentorBecomeCard>
       </Grid>
