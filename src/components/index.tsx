@@ -1,7 +1,9 @@
 export { ColoredBox } from './ColoredBox';
 export { ContactBox } from './ContactBox';
+export { ErrorPageComponent } from './ErrorPageComponent';
 export { EventCard } from './EventCard';
 export { EventContainer } from './EventContainer';
+export { FaqSection } from './FaqSection';
 export { FeedbackCard } from './FeedbackCard';
 export type { FeedbackCardProps } from './FeedbackCard';
 export { Footer } from './Footer';
@@ -19,5 +21,8 @@ export { OpportunitiesProgrammes } from './OpportunitiesProgrammes';
 export { Tile } from './Tile';
 export { Title } from './Title';
 export { VolunteerSection } from './VolunteerSection';
+export { CodeOfConductSection } from './CodeOfConduct';
 export { TimelineCard } from './TimelineCard';
 export { ResourcesCard } from './ResourcesCard';
+export { HeroWithImage } from './HeroWithImage';
+export { InfoWithContact } from './InfoWithContact';

@@ -126,16 +126,16 @@ export type MentorOrMenteeSectionData = {
   topics: string[];
 };
 
+export type FeedbackItem = {
+  name: string;
+  feedback: string;
+  memberType: 'Mentee' | 'Mentor';
+  year: string | number;
+};
+
 export type FeedbackSectionData = {
   title: string;
-  feedbacks: [
-    {
-      name: string;
-      feedback: string;
-      mentee: boolean;
-      year: number;
-    },
-  ];
+  feedbacks: FeedbackItem[];
 };
 
 export type TeamApiResponse = {
@@ -187,6 +187,23 @@ export type TeamMembersData = {
   leads: PersonalData[];
   evangelists: PersonalData[];
 };
+
+export type CodeOfConductSectionType = {
+  title: string;
+  items: string[];
+};
+
+export interface MentorshipCodeOfConductData {
+  id: string;
+  heroSection: {
+    title: string;
+  };
+  menteeCodeSection: CodeOfConductSectionType;
+  mentorCodeSection: CodeOfConductSectionType;
+  wccCodeSection: {
+    link: Link;
+  };
+}
 
 export interface EventData {
   title: string;
@@ -340,3 +357,34 @@ export interface StudyGroupsPageData {
   contact: ContactSection;
   studyGroupSection: StudyGroupSection;
 }
+
+export type AdHocTimeLineEvent = {
+  title: string;
+  description: string;
+};
+
+export type AdHocTimeLineResponse = {
+  id: string;
+  heroSection: {
+    title: string;
+  };
+  events: {
+    items: AdHocTimeLineEvent[];
+  };
+};
+
+export type LongTermTimeLineEvent = {
+  duration?: string;
+  title: string;
+  description: string;
+};
+
+export type LongTermTimeLineResponse = {
+  id: string;
+  heroSection: {
+    title: string;
+  };
+  events: {
+    items: LongTermTimeLineEvent[];
+  };
+};

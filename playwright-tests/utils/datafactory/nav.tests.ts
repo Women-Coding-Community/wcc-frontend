@@ -60,3 +60,71 @@ export const aboutUsMenuItems = items.map(([name, url, text]) => ({
   expectedURL: url,
   expectedText: text,
 }));
+const mentorshipItems = [
+  ['Overview', '/'],
+  ['Mentors', '/mentorship/mentors'],
+  ['Study Groups', '/mentorship/study-groups'],
+  ['Resources', '/mentorship/resources'],
+  ['Code of Conduct', '/mentorship/code-of-conduct'],
+  ['FAQs', '/mentorship/faqs'],
+  ['Long-Term Timeline', '/mentorship/long-term-timeline'],
+  ['Ad-Hoc Timeline', '/mentorship/ad-hoc-timeline'],
+];
+
+export const mentorshipMenuItems = mentorshipItems.map(([name, url]) => ({
+  name,
+  expectedURL: url,
+}));
+const programmeItems = [
+  ['Our Programmes', '/programmes', 'Welcome to the ProgrammesPage'],
+  ['Book Club', '/programmes/book-club', 'Welcome to the BookClubPage'],
+  [
+    'Study Groups',
+    '/programmes/study-groups',
+    'Data Analytics and Generative AI concepts',
+  ],
+  [
+    'Interview Preparation',
+    '/programmes/interview-preparation',
+    'Welcome to the InterviewPreparationPage',
+  ],
+];
+export const programmeMenuItems = programmeItems.map(([name, url, text]) => ({
+  name,
+  expectedURL: url,
+  expectedText: text,
+}));
+
+export const footerSocialLinks = [
+  {
+    id: 'NAV-014',
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/company/womencodingcommunity',
+  },
+  {
+    id: 'NAV-015',
+    name: 'GitHub',
+    url: 'https://github.com/WomenCodingCommunity',
+  },
+  {
+    id: 'NAV-016',
+    name: 'Instagram',
+    url: /instagram\.com.*women_coding_community/,
+  },
+  {
+    id: 'NAV-017',
+    name: 'Slack',
+    url: 'https://womencodingcommunity.slack.com/signup#/domain-signup',
+  },
+  // {
+  //   id: 'NAV-018',
+  //   name: 'Email',
+  //   url: 'mailto:london@womencodingcommunity.com',
+  // },
+  {
+    id: 'NAV-019',
+    name: 'Send us a report',
+    url: 'https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FWomen-Coding-Community%2FWomenCodingCommunity.github.io%2Fissues%2Fnew%3Ftemplate%3Dbug_report.md%26title%3Dbug%2520title',
+    opensInNewTab: true,
+  },
+];

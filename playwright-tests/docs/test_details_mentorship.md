@@ -107,7 +107,7 @@ Tests to check mentorship page behaviour.
   - Mentor name and year (e.g., Lucy, Mentor 2024)
 - Each testimonial card should be properly aligned, styled, and without text cutoff.
 
-**Status:** Pending :x:
+**Status:** Done :white_check_mark:
 
 ---
 
@@ -130,4 +130,4 @@ Tests to check mentorship page behaviour.
   - Additional testimonial cards are displayed.
   - The space with the testimonial cards is expanded to accommodate the newly loaded content.
 
-**Status:** Pending :x:
+**Status:** Done :white_check_mark:

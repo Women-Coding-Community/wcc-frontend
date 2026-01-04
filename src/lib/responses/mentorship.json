@@ -41,7 +41,7 @@
       {
         "name": "Lucy",
         "feedback": "It is great to be able to share my experience as a newbie in Tech with someone that has more years and experience in the industry. It has definitely made me feel more comfortable with been a completely beginner again and confident that, if a put the hours in, one day it will be pay off.",
-        "memberType": "Mentor",
+        "memberType": "Mentee",
         "year": "2024"
       },
       {
@@ -53,13 +53,19 @@
       {
         "name": "Jane",
         "feedback": "My mentor has done an excellent job accommodating me and guiding me this year. This was my first experience as a mentee and it has taken time getting my footing. I entered this program because I felt isolated since I seemed to not have any clarity of my career and had a sense of general \"directionless\". Mentor has made me feel validated in my feeling and has helped me understand that my anxiety stems from not having a good understanding of the industry I hope to be a part of. Through our sessions and an exercise she gave me, I was gained a better perceptive on how exactly to direct my focus.",
-        "memberType": "Mentor",
+        "memberType": "Mentee",
         "year": "2024"
       },
       {
         "name": "Anonymous",
         "feedback": "It is an extremely helpful program and the mentor is quite open with matching my needs. She also actively encourages me with when and how to make job applications. She has helped with reviewing my CV and Linkedin profile. We have started work on my own personal project and collaboratively code on it, with the mentor asking questions to reinforce learning.",
         "memberType": "Mentee",
+        "year": "2024"
+      },
+      {
+        "name": "Write-a-lot",
+        "feedback": "It has been such a rewarding experience being a mentor in this program. I really enjoy seeing my mentees grow and becoming more confident in their skills. Every session is different and I learn something new too, which keeps me motivated and helps me stay up to date with new technologies. The mentees bring fresh ideas and different perspectives that sometimes make me think about problems in ways I haven't considered before. I have improved my communication skills a lot through mentoring, and it feels amazing when I see a mentee getting a new job or finishing a difficult project. The program gives good support to mentors with resources and guidance. I would definitely encourage other experienced professionals to try mentoring, it is very fulfilling!",
+        "memberType": "Mentor",
         "year": "2024"
       }
     ]
