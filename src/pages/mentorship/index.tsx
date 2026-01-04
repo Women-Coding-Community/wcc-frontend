@@ -9,12 +9,12 @@ import {
   FeedbackCard,
   MentorBecomeCard,
 } from '@components';
+import { useIsMobile } from '@utils/theme-utils';
 import { MentorshipProgrammeData, FeedbackItem } from '@utils/types';
 import { fetchData } from 'lib/api';
 import footerData from 'lib/responses/footer.json';
 import pageData from 'lib/responses/mentorship.json';
 import theme from 'theme';
-import { useIsMobile } from '@utils/theme-utils';
 
 interface MentorshipPageProps {
   mentorship: MentorshipProgrammeData;
