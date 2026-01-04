@@ -87,7 +87,11 @@ export const NavBar = () => {
         return (
           <Button
             key={`${item.path}-${index}`}
-            sx={{ color: 'primary.dark', padding: '0 1.5rem', fontSize: '1rem' }}
+            sx={{
+              color: 'primary.dark',
+              padding: '0 1.5rem',
+              fontSize: '1rem',
+            }}
             onClick={() => router.push(item.path || '')}
           >
             {item.title}

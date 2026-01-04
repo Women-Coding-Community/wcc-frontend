@@ -1,10 +1,9 @@
-import { Typography, Box, Container, Link } from '@mui/material';
+import { Typography, Box, Container } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React from 'react';
 
 import { BreadCrumbsDynamic, FaqSection } from '@components';
 import { fetchData } from 'lib/api';
-import theme from 'theme';
 
 import { MentorshipPageData } from '../../utils/types';
 
