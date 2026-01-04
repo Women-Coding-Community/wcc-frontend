@@ -5,13 +5,8 @@ import pageData from 'lib/responses/mentorship.json';
 import { Footer } from '@components';
 import footerData from 'lib/responses/footer.json';
 
-import {
-  ColoredBox,
-  FeedbackCard,
-  MentorBecomeCard,
-  FeedbackCardProps,
-} from '@components';
-import { MentorshipProgrammeData } from '@utils/types';
+import { ColoredBox, FeedbackCard, MentorBecomeCard } from '@components';
+import { MentorshipProgrammeData, FeedbackItem } from '@utils/types';
 import { fetchData } from 'lib/api';
 import theme from 'theme';
 
@@ -22,7 +17,7 @@ interface MentorshipPageProps {
 
 interface FeedbackSectionProps {
   title: string;
-  feedbacks: FeedbackCardProps[];
+  feedbacks: FeedbackItem[];
 }
 
 const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
@@ -164,13 +159,17 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           {feedbacks && feedbacks.length > 0 ? (
             feedbacks
               .slice(0, feedbacksDisplayed)
-              .map((feedback) => (
+              .map((feedback: FeedbackItem) => (
                 <FeedbackCard
                   key={feedback.name}
                   name={feedback.name}
                   feedback={feedback.feedback}
-                  mentee={feedback.mentee}
-                  year={feedback.year}
+                  mentee={feedback.memberType === 'Mentee'}
+                  year={
+                    typeof feedback.year === 'string'
+                      ? parseInt(feedback.year, 10)
+                      : feedback.year
+                  }
                 />
               ))
           ) : (
