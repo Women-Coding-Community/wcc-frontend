@@ -1,4 +1,10 @@
-import { navTests, aboutUsMenuItems } from '@utils/datafactory/nav.tests';
+import {
+  navTests,
+  aboutUsMenuItems,
+  mentorshipMenuItems,
+  programmeMenuItems,
+  footerSocialLinks,
+} from '@utils/datafactory/nav.tests';
 import { test } from '@utils/fixtures';
 import { expect } from '@playwright/test';
 
@@ -36,13 +42,35 @@ navTests.forEach(
   },
 );
 
-test('NAV-005: Validate Find a mentor Button', async ({
+test('@NAV-005: Validate Find a mentor Button', async ({
   basePage,
   homePage,
 }) => {
   await basePage.navigateToPath('/');
   await basePage.clickElement(homePage.findMentorButton);
   await basePage.verifyURL('/mentorship/mentors');
+});
+test('NAV-007: Click and navigate through Mentorship dropdown items', async ({
+  basePage,
+}) => {
+  for (const { name, expectedURL } of mentorshipMenuItems) {
+    await basePage.navigateToPath('/');
+    await basePage.clickElement(basePage.mentorshipDropdown);
+    await basePage.clickElement(basePage.menuitem(name));
+    await basePage.verifyURL(expectedURL);
+  }
+});
+
+test('NAV-009: Click and Validate Programmes dropdown items', async ({
+  basePage,
+}) => {
+  for (const { name, expectedURL, expectedText } of programmeMenuItems) {
+    await basePage.navigateToPath('/');
+    await basePage.clickElement(basePage.programmesDropdown);
+    await basePage.clickElement(basePage.menuitem(name));
+    await basePage.verifyURL(expectedURL);
+    await basePage.verifyPageContainsText(expectedText);
+  }
 });
 
 test('NAV-012: Click and navigate through About Us dropdown items', async ({
@@ -54,5 +82,26 @@ test('NAV-012: Click and navigate through About Us dropdown items', async ({
     await basePage.clickElement(basePage.menuitem(name));
     await basePage.verifyURL(expectedURL);
     await basePage.verifyPageContainsText(expectedText);
+  }
+});
+
+test.describe('Footer Validation', () => {
+  test.beforeEach(async ({ basePage }) => {
+    await basePage.navigateToPath('/');
+  });
+
+  test('NAV-013 Validate footer logo and static text', async ({ basePage }) => {
+    await expect(basePage.footerLogo).toBeVisible();
+    await expect(basePage.footerNonProfitText).toBeVisible();
+    await expect(basePage.footerCopyrightText).toBeVisible();
+    await expect(basePage.footerFollowUsTitle).toBeVisible();
+    await expect(basePage.footerFollowUsDescription).toBeVisible();
+    await expect(basePage.footerTechnicalIssuesText).toBeVisible();
+  });
+
+  for (const { id, name, url, opensInNewTab = false } of footerSocialLinks) {
+    test(`@${id}: Validate footer ${name} link`, async ({ basePage }) => {
+      await basePage.verifySocialLinkNavigation(name, url, opensInNewTab);
+    });
   }
 });
