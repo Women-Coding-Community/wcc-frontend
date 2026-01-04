@@ -287,12 +287,14 @@ export const NavBar = () => {
                 </Button>
               </Grid>
               {Object.keys(menuItems).map((key) =>
-                menuItems[key].subNav
-                  ? renderDropdownMenu(
+                menuItems[key].subNav ? (
+                  <React.Fragment key={key}>
+                    {renderDropdownMenu(
                       key as keyof typeof anchorElements,
                       menuItems[key].subNav as SubNavItem[],
-                    )
-                  : null,
+                    )}
+                  </React.Fragment>
+                ) : null,
               )}
             </>
           )}
