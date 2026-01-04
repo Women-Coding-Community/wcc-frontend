@@ -1,17 +1,22 @@
 // path: /mentorship/study-groups
 import { Box, Grid, useTheme } from '@mui/material';
 import { GetServerSideProps } from 'next';
-import React from 'react';
 
 import { GroupCard } from '@components';
 import { fetchData } from 'lib/api';
+import { HeroWithImage, Footer } from '@components';
 
+import { fetchData } from '../../lib/api';
 import { InfoWithContact } from '../../components/InfoWithContact';
 import { StudyGroupsPageData } from '../../utils/types';
 
-export interface StudyGroupsPageProps {
-  data: StudyGroupsPageData;
-  error: string | null;
+interface StudyGroupsPageProps {
+  data: {
+    id: number;
+    name: string;
+    description: string;
+  };
+  footer: any;
 }
 
 const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
