@@ -1,14 +1,20 @@
 import { Typography, Button, Box, Grid, useMediaQuery } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React, { useState } from 'react';
-import pageData from 'lib/responses/mentorship.json';
-import { Footer } from '@components';
-import footerData from 'lib/responses/footer.json';
 
-import { ColoredBox, FeedbackCard, MentorBecomeCard } from '@components';
+import {
+  BreadCrumbsDynamic,
+  Footer,
+  ColoredBox,
+  FeedbackCard,
+  MentorBecomeCard,
+} from '@components';
 import { MentorshipProgrammeData, FeedbackItem } from '@utils/types';
 import { fetchData } from 'lib/api';
+import footerData from 'lib/responses/footer.json';
+import pageData from 'lib/responses/mentorship.json';
 import theme from 'theme';
+import { useIsMobile } from '@utils/theme-utils';
 
 interface MentorshipPageProps {
   mentorship: MentorshipProgrammeData;
@@ -22,8 +28,10 @@ interface FeedbackSectionProps {
 const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
   const heroTitle = pageData.heroSection.title;
   const heroDescription = pageData.section.description;
+  const isMobile = useIsMobile();
   return (
     <>
+      {isMobile ? null : <BreadCrumbsDynamic />}
       <Box
         sx={{
           backgroundColor: theme.palette.primary.light,
@@ -115,7 +123,8 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
   feedbacks,
 }) => {
   const initialDisplay = 3;
-  const [feedbacksDisplayed, setFeedbacksDisplayed] = useState<number>(initialDisplay);
+  const [feedbacksDisplayed, setFeedbacksDisplayed] =
+    useState<number>(initialDisplay);
   const showMoreFeedbacks = () => {
     setFeedbacksDisplayed((prevCount) =>
       Math.min(prevCount + 3, feedbacks.length),
@@ -177,9 +186,12 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
         </Box>
 
         {feedbacks.length > initialDisplay && (
-
           <Button
-            onClick={feedbacksDisplayed >= feedbacks.length ? showLessFeedbacks : showMoreFeedbacks}
+            onClick={
+              feedbacksDisplayed >= feedbacks.length
+                ? showLessFeedbacks
+                : showMoreFeedbacks
+            }
             variant="outlined"
             sx={{
               borderRadius: '20px',
@@ -187,7 +199,9 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
               color: '#1A4B66',
             }}
           >
-            {feedbacksDisplayed >= feedbacks.length ? '- Show less' : '+ Show more'}
+            {feedbacksDisplayed >= feedbacks.length
+              ? '- Show less'
+              : '+ Show more'}
           </Button>
         )}
       </Box>
