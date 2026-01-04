@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import { FC } from 'react';
 
@@ -12,18 +12,23 @@ interface StudyGroupsPageProps {
 
 const StudyGroupsPage: FC<StudyGroupsPageProps> = ({ groups }) => {
   return (
-    <Box>
-      {groups.studyGroupSection.groups.map((group, i) => (
-        <GroupCard
-          key={i}
-          bgColor={group.bgColor}
-          title={group.title}
-          description={group.description}
-          participants={group.participants}
-          mentor={group.mentor}
-          uri={group.uri}
-        />
-      ))}
+    <Box sx={{ padding: { xs: '1rem', sm: '2rem' } }}>
+      <Grid container spacing={3} justifyContent="center">
+        {groups.studyGroupSection.groups.map((group, i) => (
+          <Grid item xs={12} sm={6} md={4} key={i}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <GroupCard
+                bgColor={group.bgColor}
+                title={group.title}
+                description={group.description}
+                participants={group.participants}
+                mentor={group.mentor}
+                uri={group.uri}
+              />
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
     </Box>
   );
 };

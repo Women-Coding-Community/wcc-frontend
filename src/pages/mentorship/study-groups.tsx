@@ -1,7 +1,9 @@
 // path: /mentorship/study-groups
-import { Box } from '@mui/material';
+import { Box, Grid, useTheme } from '@mui/material';
 import { GetServerSideProps } from 'next';
 
+import { GroupCard } from '@components';
+import { fetchData } from 'lib/api';
 import { HeroWithImage, Footer } from '@components';
 
 import { fetchData } from '../../lib/api';
@@ -18,25 +20,27 @@ interface StudyGroupsPageProps {
 }
 
 const MentorShipStudyGroupsPage = ({ data }: StudyGroupsPageProps) => {
-  const {
-    section: { description: introText },
-    contact: { links: contactLinks },
-  } = data;
-  const cleanedIntroText = introText.replace(/\n /g, '\n\n');
+  const muiTheme = useTheme();
+  const cardColors = muiTheme.palette.custom.studyGroupCardColors;
+
   return (
-    <Box
-      sx={{
-        maxWidth: '1128px',
-        mx: 'auto',
-        pt: 4,
-      }}
-    >
-      <InfoWithContact
-        introText={cleanedIntroText}
-        contactLinks={contactLinks}
-        title="How it works"
-        calltoAction="Join us in our Study Group Slack Channel"
-      />
+    <Box sx={{ padding: { xs: '1rem', sm: '2rem' } }}>
+      <Grid container spacing={3} justifyContent="center">
+        {data.studyGroupSection.items.map((item, index) => (
+          <Grid item xs={12} sm={6} md={4} key={item.title}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <GroupCard
+                bgColor={cardColors[index % cardColors.length]}
+                title={item.title}
+                description={item.description}
+                participants={item.participants}
+                mentor={item.coordinators}
+                uri={item.link.uri}
+              />
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
     </Box>
   );
 };
