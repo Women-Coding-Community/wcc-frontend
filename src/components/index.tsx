@@ -23,5 +23,6 @@ export { Title } from './Title';
 export { VolunteerSection } from './VolunteerSection';
 export { CodeOfConductSection } from './CodeOfConduct';
 export { TimelineCard } from './TimelineCard';
+export { ResourcesCard } from './ResourcesCard';
 export { HeroWithImage } from './HeroWithImage';
 export { InfoWithContact } from './InfoWithContact';

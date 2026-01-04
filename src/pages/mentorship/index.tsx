@@ -19,7 +19,6 @@ interface FeedbackSectionProps {
   title: string;
   feedbacks: FeedbackItem[];
 }
-
 const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
   const heroTitle = pageData.heroSection.title;
   const heroDescription = pageData.section.description;
