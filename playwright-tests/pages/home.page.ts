@@ -1,6 +1,40 @@
-import { Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 
 import { BasePage } from '@pages/base.page';
+
+export class EventCard extends BasePage {
+  readonly card: Locator;
+
+  constructor(page: Page, card: Locator) {
+    super(page);
+    this.card = card;
+  }
+
+  async verifyCardStructure(): Promise<void> {
+    await expect(this.card).toBeVisible();
+
+    const eventType = this.card.getByTestId('event-card-type');
+    await expect(eventType).toHaveText(/^[A-Z_]+$/);
+
+    const eventDate = this.card.getByTestId('event-card-date');
+    await expect(eventDate).toHaveText(/\w+.*\d{4}.*-.*\d{1,2}:\d{2}/);
+
+    const eventTitle = this.card.getByTestId('event-card-title');
+    await expect(eventTitle).not.toBeEmpty();
+
+    const eventSpeaker = this.card.getByTestId('event-card-speaker');
+    await expect(eventSpeaker).toHaveText(/^Speaker:\s+.+$/);
+
+    const eventDescription = this.card.getByTestId('event-card-description');
+    await expect(eventDescription).not.toBeEmpty();
+
+    const eventImage = this.card.getByTestId('event-card-image');
+    await expect(eventImage).toBeVisible();
+
+    const eventCTA = this.card.getByTestId('event-card-cta');
+    await expect(eventCTA).not.toBeEmpty();
+  }
+}
 
 export class HomePage extends BasePage {
   readonly becomeMentorSectionTitle: Locator;
@@ -23,6 +57,8 @@ export class HomePage extends BasePage {
   readonly mockInterviewsLink: Locator;
   readonly leetCodeLink: Locator;
   readonly joinSlackButton: Locator;
+
+  readonly eventsSection: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -76,5 +112,46 @@ export class HomePage extends BasePage {
     this.leetCodeLink = page.getByRole('link', { name: 'Leetcode' });
 
     this.joinSlackButton = page.getByRole('link', { name: 'Join our Slack' });
+
+    this.eventsSection = page.getByTestId('events-section');
+  }
+
+  /**
+   * Gets an EventCard instance by index
+   * @param index - Zero-based index of the event card
+   */
+  getEventCard(index: number): EventCard {
+    const cards = this.eventsSection.getByTestId('event-card');
+    return new EventCard(this.page, cards.nth(index));
+  }
+
+  /**
+   * Gets an EventCard by matching title text
+   * @param titleText - The event title to search for
+   */
+  getEventCardByTitle(titleText: string): EventCard {
+    const card = this.eventsSection
+      .getByTestId('event-card')
+      .filter({
+        has: this.page
+          .getByTestId('event-card-title')
+          .filter({ hasText: titleText }),
+      })
+      .first();
+    return new EventCard(this.page, card);
+  }
+
+  async verifyEventsSectionVisible(): Promise<void> {
+    const sectionTitle = this.eventsSection.getByTestId('events-section-title');
+    const viewAllLink = this.eventsSection.getByTestId('events-view-all-link');
+
+    await expect(this.eventsSection).toBeVisible();
+    await expect(sectionTitle).toBeVisible();
+    await expect(viewAllLink).toBeVisible();
+  }
+
+  async clickViewAllEventsLink(): Promise<void> {
+    const viewAllLink = this.eventsSection.getByTestId('events-view-all-link');
+    await viewAllLink.click();
   }
 }
