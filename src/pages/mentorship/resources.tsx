@@ -3,9 +3,9 @@ import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 
 import { Title, ResourcesCard, Footer, BreadCrumbsDynamic } from '@components';
+import { useIsMobile } from '@utils/theme-utils';
 import footerData from 'lib/responses/footer.json';
 import pageData from 'lib/responses/mentorshipResources.json';
-import { useIsMobile } from '@utils/theme-utils';
 
 const MentorshipResourcesPage: React.FC = () => {
   const isMobile = useIsMobile();
