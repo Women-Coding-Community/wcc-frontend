@@ -9,9 +9,9 @@ import {
   Footer,
   BreadCrumbsDynamic,
 } from '@components';
+import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, StudyGroupsPageData } from '@utils/types';
 import { fetchData } from 'lib/api';
-import { useIsMobile } from '@utils/theme-utils';
 
 interface StudyGroupsPageProps {
   data: StudyGroupsPageData;
