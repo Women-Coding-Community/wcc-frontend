@@ -27,7 +27,7 @@ const pageData = {
   'mentorship/code-of-conduct': mentorShipCodeofConduct,
   team: aboutUsTeam,
   'mentorship-faq-page': mentorshipFaqPageData,
-  'mentorship-study-groups-page': mentorshipStudyGroupsPage,
+  'mentorship/study-groups': mentorshipStudyGroupsPage,
 };
 
 export const fetchData = async (path: string) => {
