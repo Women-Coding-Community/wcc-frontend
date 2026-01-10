@@ -13,3 +13,5 @@ COPY src ./src
 COPY public ./public
 COPY playwright-tests ./playwright-tests
 COPY next.config.mjs tsconfig.json jest.config.ts jest.setup.js ./
+
+USER pwuser
