@@ -9,9 +9,10 @@ import {
 } from '@mui/lab';
 import { Typography, Box } from '@mui/material';
 import { GetServerSideProps } from 'next';
-import theme from 'theme';
-import { AdHocTimeLineResponse, FooterResponse} from '@utils/types';
+
+import { AdHocTimeLineResponse, FooterResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
+import theme from 'theme';
 
 type CombinedResponse = {
   data: AdHocTimeLineResponse;
@@ -37,22 +38,21 @@ const MentorshipAdHocTimelinePage = ({ data }: CombinedResponse) => {
           justifyContent: 'center',
           textAlign: 'center',
           height: '160px',
-           width: '100vw',
+          width: '100vw',
           mb: 6,
         }}
       >
-
-      <Typography
-        variant="h2"
-    sx={{
-      fontWeight: 'bold',
-      color: '#001e2e',
-      fontSize: { xs: '1.5rem', md: '2.5rem' },
-    }}
-  >
-        {data?.heroSection?.title || 'Ad-Hoc Mentorship Timeline'}
+        <Typography
+          variant="h2"
+          sx={{
+            fontWeight: 'bold',
+            color: '#001e2e',
+            fontSize: { xs: '1.5rem', md: '2.5rem' },
+          }}
+        >
+          {data?.heroSection?.title || 'Ad-Hoc Mentorship Timeline'}
         </Typography>
-          </Box>
+      </Box>
 
       {!data?.events?.items?.length ? (
         <Typography>No Data</Typography>
@@ -61,11 +61,11 @@ const MentorshipAdHocTimelinePage = ({ data }: CombinedResponse) => {
           position="right"
           sx={{
             width: '100%',
-            maxWidth: 700, 
-            mx: 'auto', 
+            maxWidth: 700,
+            mx: 'auto',
             '& .MuiTimelineItem-root:before': {
               flex: 0,
-              padding: 0, 
+              padding: 0,
             },
           }}
         >
@@ -74,21 +74,25 @@ const MentorshipAdHocTimelinePage = ({ data }: CombinedResponse) => {
               <TimelineSeparator>
                 <TimelineDot color="primary" />
                 {index < data.events.items.length - 1 && (
-                  <TimelineConnector sx={{ bgcolor: 'primary.main', width: 2 }} />
+                  <TimelineConnector
+                    sx={{ bgcolor: 'primary.main', width: 2 }}
+                  />
                 )}
               </TimelineSeparator>
 
               <TimelineContent sx={{ mt: 0, mb: 4 }}>
                 <Box
                   sx={{
-                  p: { xs: 1, md: 2 },
+                    p: { xs: 1, md: 2 },
                     border: '3px solid',
                     borderRadius: '7px',
                     borderColor: 'grey.100',
                     color: theme.palette.text.primary,
                   }}
                 >
-                  <Typography sx={{ fontSize: { xs: '1rem', md: '1.25rem' }, mb: 1 }}>
+                  <Typography
+                    sx={{ fontSize: { xs: '1rem', md: '1.25rem' }, mb: 1 }}
+                  >
                     {item.title || 'Timeline Item'}
                   </Typography>
                   <Typography variant="body2">
