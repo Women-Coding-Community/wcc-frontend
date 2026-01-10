@@ -17,7 +17,9 @@ export class EventCard extends BasePage {
     await expect(eventType).toHaveText(/^[A-Z_]+$/);
 
     const eventDate = this.card.getByTestId('event-card-date');
-    await expect(eventDate).toHaveText(/\w+.*\d{4}.*-.*\d{1,2}:\d{2}/);
+    await expect(eventDate).toHaveText(
+      /\w+[^\d]*\d{4}[^-]*-[^\d]*\d{1,2}:\d{2}/,
+    );
 
     const eventTitle = this.card.getByTestId('event-card-title');
     await expect(eventTitle).not.toBeEmpty();
