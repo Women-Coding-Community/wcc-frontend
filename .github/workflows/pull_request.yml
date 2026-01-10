@@ -32,13 +32,8 @@ jobs:
       - name: Run unit tests
         run: pnpm test
 
-      - name: Build Docker Image
-        run: |
-          docker build -t wcc-playwright .
-
       - name: Execute Playwright tests in Docker
-        run: |
-          playwright-tests/tools/run-tests-local.sh 
+        run: pnpm test:e2e:docker
 
       - name: Upload Playwright test reports
         uses: actions/upload-artifact@v4

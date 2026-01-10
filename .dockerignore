@@ -13,3 +13,6 @@ build/
 
 Dockerfile
 .dockerignore
+.playwright
+.next
+.git
