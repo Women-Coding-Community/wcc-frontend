@@ -9,6 +9,7 @@ import {
 } from '@mui/lab';
 import { Typography, Box } from '@mui/material';
 import { GetServerSideProps } from 'next';
+
 import { Footer } from '@components';
 import { AdHocTimeLineResponse, FooterResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
