@@ -6,7 +6,6 @@ import {
   Button,
   Drawer,
   Grid,
-  Icon,
   List,
   ListItemButton,
   ListItemText,
@@ -88,7 +87,11 @@ export const NavBar = () => {
         return (
           <Button
             key={`${item.path}-${index}`}
-            sx={{ color: 'primary.dark', padding: '0 1.5rem' }}
+            sx={{
+              color: 'primary.dark',
+              padding: '0 1.5rem',
+              fontSize: '1rem',
+            }}
             onClick={() => router.push(item.path || '')}
           >
             {item.title}
@@ -107,7 +110,7 @@ export const NavBar = () => {
             }}
             onClick={(event) => handleMenuOpen(item.title, event)}
           >
-            {item.title} <Icon>arrow_drop_down</Icon>
+            {item.title} <ExpandMore />
           </Button>
         );
       }
@@ -265,6 +268,7 @@ export const NavBar = () => {
             justifyContent: 'space-between',
             width: '100%',
             height: isMobile ? '80%' : '100%',
+            maxWidth: '1128px',
           }}
         >
           <Image
@@ -288,12 +292,14 @@ export const NavBar = () => {
                 </Button>
               </Grid>
               {Object.keys(menuItems).map((key) =>
-                menuItems[key].subNav
-                  ? renderDropdownMenu(
+                menuItems[key].subNav ? (
+                  <React.Fragment key={key}>
+                    {renderDropdownMenu(
                       key as keyof typeof anchorElements,
                       menuItems[key].subNav as SubNavItem[],
-                    )
-                  : null,
+                    )}
+                  </React.Fragment>
+                ) : null,
               )}
             </>
           )}

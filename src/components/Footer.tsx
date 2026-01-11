@@ -2,7 +2,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import { Box, Typography, Link, Icon, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
@@ -15,10 +14,9 @@ import theme from 'theme';
 import SlackIcon from '../../public/icons/slack-icon.svg';
 
 const iconNetworkMapper = {
-  linkedIn: <LinkedInIcon fontSize="large" />,
+  linkedin: <LinkedInIcon fontSize="large" />,
   github: <GitHubIcon fontSize="large" />,
   instagram: <InstagramIcon fontSize="large" />,
-  twitter: <TwitterIcon fontSize="large" />,
   email: <EmailIcon fontSize="large" />,
   slack: <SlackIcon width={32} height={32} fill={'FFF'} />,
 };
@@ -33,8 +31,9 @@ export const Footer = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const renderSocialNetworkIcon = (network: Network) => {
     return (
-      <a href={network.link}>
+      <a href={network.link} key={network.type}>
         <Icon
+          baseClassName="material-symbols-outlined"
           sx={{
             color: 'primary.dark',
             marginRight: '7px',
@@ -141,7 +140,7 @@ export const Footer = ({
       <style>
         {`
           .slack-icon {
-            color: #000;           
+            color: #000;
           }
         `}
       </style>

@@ -12,3 +12,14 @@ export function addLineBreakAfterPeriod(text: string): string {
   // Replace the first occurrence with '.<br />'
   return text.replace(regex, '.<br />');
 }
+
+/**
+ * Capitalizes the first letter of each word in a string, replacing hyphens with spaces.
+ * Example: "study-groups" -> "Study Groups"
+ */
+export const capitalizeWords = (currentPath: string): string => {
+  return currentPath
+    .split('-') // Split by hyphen
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
+    .join(' '); // Join with space
+};

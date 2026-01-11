@@ -24,6 +24,7 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({
 
   return (
     <Box
+      data-testid="feedback-card"
       sx={{
         display: 'grid',
         gap: '1rem',
@@ -36,11 +37,12 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({
     >
       <QuoteIcon />
 
-      <Typography variant="body2">
+      <Typography data-testid="feedback-card-text" variant="body2">
         {displayedFeedback}{' '}
         {isLong && (
           <Button
             size="small"
+            data-testid="feedback-card-show-more-less"
             onClick={() => setShowMore((prev) => !prev)}
             sx={{
               justifySelf: 'end',
@@ -56,6 +58,7 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({
 
       <Typography
         variant="subtitle2"
+        data-testid="feedback-card-author"
         sx={{ fontWeight: '500', lineHeight: '20px', letterSpacing: '0.1px' }}
       >
         {boldText}

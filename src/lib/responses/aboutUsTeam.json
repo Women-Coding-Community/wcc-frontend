@@ -11,7 +11,7 @@
     "links": [
       {
         "type": "email",
-        "link": "london@womencodingcommunity.com"
+        "link": "mailto:london@womencodingcommunity.com"
       },
       {
         "type": "slack",
