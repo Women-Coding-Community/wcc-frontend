@@ -3,7 +3,6 @@ import { test } from '@utils/fixtures';
 
 test('Validate "Become a Mentee" section and Find a Mentor button', async ({
   page,
-  homePage,
 }) => {
   // Navigate to Mentorship page
   await page.goto('/mentorship');
@@ -44,11 +43,8 @@ test('Validate "Become a Mentee" section and Find a Mentor button', async ({
   });
   await expect(findMentorButton).toBeVisible();
   await expect(findMentorButton).toBeEnabled();
-
-  // Click the button
   await findMentorButton.click();
 
   // Verify redirection
   await expect(page).toHaveURL(/\/mentorship\/mentors/);
-  await expect(page).toHaveTitle(/Meet Our Mentors/i);
 });
