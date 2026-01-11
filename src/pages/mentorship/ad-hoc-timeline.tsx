@@ -9,7 +9,7 @@ import {
 } from '@mui/lab';
 import { Typography, Box } from '@mui/material';
 import { GetServerSideProps } from 'next';
-
+import { Footer } from '@components';
 import { AdHocTimeLineResponse, FooterResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
 import theme from 'theme';
@@ -19,15 +19,14 @@ type CombinedResponse = {
   footer: FooterResponse;
 };
 
-const MentorshipAdHocTimelinePage = ({ data }: CombinedResponse) => {
+const MentorshipAdHocTimelinePage = ({ data, footer }: CombinedResponse) => {
   return (
     <Box
       sx={{
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        p: 4,
+        width: '100%',
       }}
     >
       <Box
@@ -105,6 +104,7 @@ const MentorshipAdHocTimelinePage = ({ data }: CombinedResponse) => {
           ))}
         </Timeline>
       )}
+      {footer && <Footer {...footer} />}
     </Box>
   );
 };
