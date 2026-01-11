@@ -1,36 +1,54 @@
 import { expect } from '@playwright/test';
 import { test } from '@utils/fixtures';
 
-test.describe('Become a mentee Page', () => {
-    test('MENT-004: Verify title and cards are correctly displayed', async ({
-              mentorshipPage,
-              basePage,
-            }) => {
-              await basePage.navigateToPath('/mentorship');
-    });})
+test('Validate "Become a Mentee" section and Find a Mentor button', async ({
+  page,
+  homePage,
+}) => {
+  // Navigate to Mentorship page
+  await page.goto('/mentorship');
 
+  // Scroll to "Become a Mentee" section
+  const sectionTitle = page.getByRole('heading', {
+    level: 4,
+    name: /Become a Mentee/i,
+  });
+  await sectionTitle.scrollIntoViewIfNeeded();
 
+  // Validate title
+  await expect(sectionTitle).toBeVisible();
 
-    // test.describe('Mentorship Feedback Section', () => {
-    //     test('MENT-004: Verify title and cards are correctly displayed', async ({
-    //       mentorshipPage,
-    //       basePage,
-    //     }) => {
-    //       await basePage.navigateToPath('/mentorship');
-      
-    //       await expect(mentorshipPage.testimonialsTitle).toBeVisible();
-      
-    //       await expect(mentorshipPage.testimonialCards).toHaveCount(3);
-      
-    //       await expect(mentorshipPage.firstTestimonialCardIcon).toBeVisible();
-      
-    //       await expect(mentorshipPage.firstTestimonialCardText).toBeVisible();
-    //       await expect(mentorshipPage.firstTestimonialCardText).not.toBeEmpty();
-      
-    //       await expect(mentorshipPage.firstTestimonialCardAuthor).toHaveText(
-    //         /^.+,\s*Mentor\s+\d{4}$/,
-    //       );
-      
-    //       await expect(mentorshipPage.showMoreButton).toBeVisible();
-    //     });
-    //   });
+  // Validate description text
+  const description = page.getByRole('heading', {
+    level: 5,
+    name: /You should become a mentee if you:/i,
+  });
+  await expect(description).toBeVisible();
+
+  // List items
+  const items = [
+    'Want to start a career in software engineering',
+    'Want to find a better job',
+    'Want to be promoted at work',
+    'Want to apply for a leadership position',
+    'Need support in advancing your career',
+  ];
+
+  for (const item of items) {
+    await expect(page.getByText(item)).toBeVisible();
+  }
+
+  // Validate "Find a mentor" button
+  const findMentorButton = page.getByRole('button', {
+    name: 'Find a mentor',
+  });
+  await expect(findMentorButton).toBeVisible();
+  await expect(findMentorButton).toBeEnabled();
+
+  // Click the button
+  await findMentorButton.click();
+
+  // Verify redirection
+  await expect(page).toHaveURL(/\/mentorship\/mentors/);
+  await expect(page).toHaveTitle(/Meet Our Mentors/i);
+});
