@@ -18,14 +18,14 @@ export class EventCard extends BasePage {
 
     const eventDate = this.card.getByTestId('event-card-date');
     await expect(eventDate).toHaveText(
-      /\w+[^\d]*\d{4}[^-]*-[^\d]*\d{1,2}:\d{2}/,
+      /[A-Za-z]{3}.{0,20}\d{4}.{0,10}\d{1,2}:\d{2}/,
     );
 
     const eventTitle = this.card.getByTestId('event-card-title');
     await expect(eventTitle).not.toBeEmpty();
 
     const eventSpeaker = this.card.getByTestId('event-card-speaker');
-    await expect(eventSpeaker).toHaveText(/^Speaker:\s+.+$/);
+    await expect(eventSpeaker).toHaveText(/^Speaker:\s{1,5}.{1,100}$/);
 
     const eventDescription = this.card.getByTestId('event-card-description');
     await expect(eventDescription).not.toBeEmpty();
