@@ -59,8 +59,8 @@ const handleNext = async () => {
 
   return (
     <FormProvider {...formMethods}>
-      <Box sx={{ minHeight: '100vh', bgcolor: 'custom.softGray', pb: 8, pt: '5.625rem' }}>
-        <Container maxWidth="sm" sx={{ m: 0, ml: { xs: 2, md: '157px' } }}>
+      <Box sx={{ minHeight: '100vh', bgcolor: 'custom.softGray', pb: 8, pt: '5.625rem', display: 'flex', justifyContent: 'center'}}>
+        <Container maxWidth="sm">
           <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
             <Typography variant="subtitle1" align="center" sx={{ mb: 4, color: 'text.secondary' }}>
               Step {activeStep} of {totalSteps}

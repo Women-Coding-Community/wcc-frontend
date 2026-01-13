@@ -6,6 +6,29 @@ import {
   Table, TableBody, TableCell, TableHead, TableRow 
 } from '@mui/material';
 
+const sectionBoxStyle = {
+  mt: 1, 
+  p: 2, 
+  bgcolor: '#F5F5F5',
+  borderRadius: '4px'
+};
+
+const boldLabelStyle = {
+  fontWeight: 700, 
+  color: '#1B1919', 
+  mb: 0.5,
+  fontSize: '16px',
+  fontFamily: 'Roboto'
+};
+
+const serifTitleStyle = {
+  fontFamily: 'Domine, serif', 
+  fontWeight: 700, 
+  fontSize: '24px', 
+  mb: 2, 
+  color: '#1B1919'
+};
+
 const Step1BasicInfo = () => {
   const { register, watch, formState: { errors } } = useFormContext();  
   const isLongTerm = watch("isLongTermMentor");
@@ -15,7 +38,7 @@ const Step1BasicInfo = () => {
 
   return (
     <Box>
-      <Typography variant="h5" sx={{ fontFamily: 'Roboto', fontWeight: 700, fontSize: '22px', mb: 2 }}>
+      <Typography variant="h5" sx={serifTitleStyle}>
         WCC: Registration Form for Mentors
       </Typography>
       <Typography variant="body1" sx={{ mb: 2, lineHeight: '24px' }}>
@@ -28,20 +51,20 @@ const Step1BasicInfo = () => {
       
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={{ mb: 1 }}>What is your full name? *</Typography>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>What is your full name? *</Typography>
           <TextField fullWidth placeholder="Jane Doe" {...register("firstName")} error={!!errors.firstName} helperText={errors.firstName?.message as string} />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={{ mb: 1 }}>What is your email address? *</Typography>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>What is your email address? *</Typography>
           <TextField fullWidth type="email" placeholder="jane@example.com" {...register("email")} error={!!errors.email} helperText={errors.email?.message as string} />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={{ mb: 1 }}>Slack Name *</Typography>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>Slack Name *</Typography>
           <TextField fullWidth placeholder="@jane" {...register("slackName")} error={!!errors.slackName} />
           <FormHelperText sx={{ mt: 1 }}>Please note your application will be rejected if you are not in our Slack community.</FormHelperText>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={{ mb: 1 }}>Location *</Typography>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>Location *</Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField select fullWidth label="Country" defaultValue="" {...register("country")} error={!!errors.country}>
@@ -57,11 +80,11 @@ const Step1BasicInfo = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={{ mb: 1 }}>What is your current job title? *</Typography>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>What is your current job title? *</Typography>
           <TextField fullWidth {...register("jobTitle")} error={!!errors.jobTitle} />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={{ mb: 1 }}>Company name *</Typography>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>Company name *</Typography>
           <TextField fullWidth {...register("company")} error={!!errors.company} />
         </Grid>
 
@@ -74,7 +97,7 @@ const Step1BasicInfo = () => {
             <FormControlLabel control={<Checkbox {...register("isLongTermMentor")} />} label="Long-Term Format" />
             
             {isLongTerm && (
-              <Box sx={{ ml: 4, mb: 3, p: 2, bgcolor: '#f9f9f9', borderRadius: 1 }}>
+              <Box sx={sectionBoxStyle}>
                 <Typography variant="caption" sx={{ display: 'block', mb: 1, fontWeight: 600 }}>
                   Maximum number of mentees you are available to support. *
                 </Typography>
@@ -89,37 +112,34 @@ const Step1BasicInfo = () => {
             <FormControlLabel control={<Checkbox {...register("isAdHocMentor")} />} label="Ad-Hoc Format" />
             
             {isAdHoc && (
-              <Box sx={{ ml: 4, mt: 1, p: 2, bgcolor: '#f9f9f9', borderRadius: 1 }}>
-                <Typography variant="caption" sx={{ fontWeight: 600, display: 'block', mb: 2 }}>
-                  For each month below, please indicate the maximum number of mentees you are available to support. *
-                </Typography>
-                
-                <Table size="small">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Month</TableCell>
-                      {[1, 2, 3, 4, '5+'].map(num => (
-                        <TableCell key={num} align="center">{num}</TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {months.map((month) => (
-                      <TableRow key={month}>
-                        <TableCell component="th" scope="row" sx={{ fontWeight: 500 }}>
-                          {month}
-                        </TableCell>
-                        <TableCell colSpan={5} padding="none">
-                          <RadioGroup row sx={{ justifyContent: 'space-around', width: '100%' }} {...register(`adHocAvailability.${month}`)}>
-                            {[1, 2, 3, 4, 5].map((val) => (
-                              <Radio key={val} value={val} size="small" />
-                            ))}
-                          </RadioGroup>
-                        </TableCell>
+              <Box sx={sectionBoxStyle}>
+                  <Typography variant="caption" sx={{ fontWeight: 700, display: 'block', mb: 2, color: '#1B1919' }}>
+                    For each month below, please indicate the maximum number of mentees you are available to support. <span style={{ color: '#D32F2F' }}>*</span>
+                  </Typography>
+                  <Table size="small" sx={{ '& td, & th': { borderBottom: 'none' } }}>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell sx={{ pl: 0, width: '20%' }}></TableCell> 
+                        {[1, 2, 3, 4, '5+'].map(num => (
+                          <TableCell key={num} align="center" sx={{ fontWeight: 600, color: '#1B1919', pb: 2 }}>{num}</TableCell>
+                        ))}
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHead>
+                    <TableBody>
+                      {months.map((month) => (
+                        <TableRow key={month}>
+                          <TableCell component="th" scope="row" sx={{ pl: 0, fontWeight: 400, fontSize: '16px' }}>{month}</TableCell>
+                          <TableCell colSpan={5} padding="none">
+                            <RadioGroup row sx={{ justifyContent: 'space-around', width: '100%' }} {...register(`adHocAvailability.${month}`)}>
+                              {[1, 2, 3, 4, 5].map((val) => (
+                                <Radio key={val} value={String(val)} size="small" sx={{ color: '#BDBDBD', '&.Mui-checked': { color: '#000000' } }} />
+                              ))}
+                            </RadioGroup>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
               </Box>
             )}
           </FormGroup>
@@ -128,20 +148,20 @@ const Step1BasicInfo = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={{ mb: 1 }}>Calendly schedule link *</Typography>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>Calendly schedule link *</Typography>
           <TextField fullWidth placeholder="https://calendly.com/yourname" {...register("calendlyLink")} error={!!errors.calendlyLink} />
         </Grid>
 
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={{ mb: 1 }}>What kind of Mentee are you looking for? *</Typography>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>What kind of Mentee are you looking for? *</Typography>
           <TextField fullWidth multiline rows={3} {...register("menteeExpectations")} error={!!errors.menteeExpectations} />
         </Grid>
 
         <Grid item xs={12}>
           <FormControl error={!!errors.openToNonWomen}>
-            <FormLabel sx={{ color: 'text.primary', fontWeight: 600, fontSize: '0.875rem', mb: 1 }}>
+            <Typography variant="subtitle2" sx={boldLabelStyle}>
               Are you open to mentoring individuals who do not identify as women? *
-            </FormLabel>
+            </Typography>
             <RadioGroup row>
               <FormControlLabel value="yes" control={<Radio {...register("openToNonWomen")} />} label="Yes" />
               <FormControlLabel value="no" control={<Radio {...register("openToNonWomen")} />} label="No" />
