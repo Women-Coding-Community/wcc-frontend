@@ -20,8 +20,8 @@ const API_KEY = process.env.API_KEY;
 
 const client = axios.create({
   baseURL: apiBaseUrl,
-  headers: { "X-API-KEY": API_KEY },
-  timeout: 5000, // 8s hard cap so Vercel doesn't hit 10s
+  headers: { 'X-API-KEY': API_KEY },
+  timeout: 5000,
 });
 
 const pageData = {
