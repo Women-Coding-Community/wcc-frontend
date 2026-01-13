@@ -1,8 +1,5 @@
 import axios from 'axios';
 
-const apiBaseUrl = process.env.API_BASE_URL;
-const API_KEY = process.env.API_KEY;
-
 import aboutUsPage from './responses/aboutUs.json';
 import aboutUsTeam from './responses/aboutUsTeam.json';
 import footerData from './responses/footer.json';
@@ -18,6 +15,15 @@ import ourProgrammesPage from './responses/programmes.json';
 // (which you copied from https://github.com/Women-Coding-Community/wcc-backend/tree/main/src/main/resources)
 // and add it to pageData with the path in the pages path (e.g. mentorship/index.ts = mentorship/overview)
 
+const apiBaseUrl = process.env.API_BASE_URL;
+const API_KEY = process.env.API_KEY;
+
+const client = axios.create({
+  baseURL: apiBaseUrl,
+  headers: { "X-API-KEY": API_KEY },
+  timeout: 5000, // 8s hard cap so Vercel doesn't hit 10s
+});
+
 const pageData = {
   landingPage: landingPageData,
   'mentorship/overview': mentorShipPage,
@@ -32,7 +38,7 @@ const pageData = {
 
 export const fetchData = async (path: string) => {
   try {
-    const response = await axios.get(`${apiBaseUrl}/${path}`, {
+    const response = await client.get(`${apiBaseUrl}/${path}`, {
       headers: {
         'X-API-KEY': API_KEY,
       },
@@ -60,7 +66,7 @@ export const fetchData = async (path: string) => {
 
 export const fetchFooter = async () => {
   try {
-    const response = await axios.get(`${apiBaseUrl}/footer`, {
+    const response = await client.get(`${apiBaseUrl}/footer`, {
       headers: {
         'X-API-KEY': API_KEY,
       },
