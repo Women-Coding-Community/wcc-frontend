@@ -3,7 +3,8 @@
 import { Box, Typography } from '@mui/material';
 import { GetServerSideProps } from 'next';
 
-import { CodeOfConductSection } from '@components';
+import { BreadCrumbsDynamic, CodeOfConductSection } from '@components';
+import { useIsMobile } from '@utils/theme-utils';
 import { MentorshipCodeOfConductData } from '@utils/types';
 import { fetchData } from 'lib/api';
 
@@ -14,46 +15,49 @@ interface AboutUsCodeOfConductPageProps {
 const MentorshipCodeOfConductPage = ({
   mentorshipCodeOfConduct,
 }: AboutUsCodeOfConductPageProps) => {
+  const isMobile = useIsMobile();
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '40px',
-        paddingBottom: '4rem',
-      }}
-    >
+    <>
+      {isMobile ? null : <BreadCrumbsDynamic />}
       <Box
         sx={{
-          background: 'linear-gradient(to right, #e0f7fa, #bbdefb)',
-          padding: '20px',
-          textAlign: 'center',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '160px',
+          flexDirection: 'column',
+          gap: '40px',
+          paddingBottom: '4rem',
         }}
       >
-        <Typography
-          variant="h2"
+        <Box
           sx={{
-            fontWeight: 'bold',
-            color: '#001e2e',
+            background: 'linear-gradient(to right, #e0f7fa, #bbdefb)',
+            textAlign: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '160px',
           }}
         >
-          Mentorship Code of Conduct
-        </Typography>
-      </Box>
-      <CodeOfConductSection
-        title={mentorshipCodeOfConduct.menteeCodeSection.title}
-        items={mentorshipCodeOfConduct.menteeCodeSection.items}
-      />
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: 'bold',
+              color: '#001e2e',
+            }}
+          >
+            Mentorship Code of Conduct
+          </Typography>
+        </Box>
+        <CodeOfConductSection
+          title={mentorshipCodeOfConduct.menteeCodeSection.title}
+          items={mentorshipCodeOfConduct.menteeCodeSection.items}
+        />
 
-      <CodeOfConductSection
-        title={mentorshipCodeOfConduct.mentorCodeSection.title}
-        items={mentorshipCodeOfConduct.mentorCodeSection.items}
-      />
-    </Box>
+        <CodeOfConductSection
+          title={mentorshipCodeOfConduct.mentorCodeSection.title}
+          items={mentorshipCodeOfConduct.mentorCodeSection.items}
+        />
+      </Box>
+    </>
   );
 };
 

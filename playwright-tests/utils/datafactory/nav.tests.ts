@@ -109,7 +109,7 @@ export const footerSocialLinks = [
   {
     id: 'NAV-016',
     name: 'Instagram',
-    url: 'https://www.instagram.com/women_coding_community/',
+    url: /instagram\.com.*women_coding_community/,
   },
   {
     id: 'NAV-017',
