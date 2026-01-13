@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 export const basicInfoSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
   email: z.string().email({ message: 'Invalid email address' }),
   slackName: z.string().min(1, 'Slack name is required'),
   country: z.string().min(1, 'Country is required'),
@@ -10,11 +9,18 @@ export const basicInfoSchema = z.object({
   jobTitle: z.string().min(1, 'Job title is required'),
   company: z.string().min(1, 'Company is required'),
 
-  mentorType: z.string().min(1, 'Please select a mentorship type'),
+  isLongTermMentor: z.boolean().optional(),
+  isAdHocMentor: z.boolean().optional(),
+
   maxMentees: z.string().optional(),
+  adHocAvailability: z.record(z.string(), z.string()).optional(),
+
   calendlyLink: z.string().url({ message: "Please enter a valid Calendly URL" }),
   menteeExpectations: z.string().min(1, "Please describe the mentee you are looking for"),
   openToNonWomen: z.string().min(1, "Please select an option"),
+}).refine((data) => data.isLongTermMentor || data.isAdHocMentor, {
+  message: "Please select at least one mentorship type",
+  path: ["isLongTermMentor"],
 });
 
 export type BasicInfoData = z.infer<typeof basicInfoSchema>;
