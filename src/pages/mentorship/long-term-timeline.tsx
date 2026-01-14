@@ -8,7 +8,8 @@ import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import { GetServerSideProps } from 'next';
 
-import { TimelineCard, Title, Footer } from '@components';
+import { TimelineCard, Title, Footer, BreadCrumbsDynamic } from '@components';
+import { useIsMobile } from '@utils/theme-utils';
 import { LongTermTimeLineResponse, FooterResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
 
@@ -18,8 +19,10 @@ type CombinedResponse = {
 };
 
 const MentorshipLongTermTimelinePage = ({ data, footer }: CombinedResponse) => {
+  const isMobile = useIsMobile();
   return (
     <div>
+      {isMobile ? null : <BreadCrumbsDynamic />}
       <Title title={'Long-Term Mentorship Timeline'} />
 
       <Timeline
