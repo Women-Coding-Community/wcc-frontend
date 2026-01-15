@@ -33,7 +33,13 @@ jobs:
         run: pnpm test
 
       - name: Execute Playwright tests in Docker
-        run: pnpm test:e2e:docker
+        env:
+          API_BASE_URL: https://wcc-backend.fly.dev/api/cms/v1
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "API_BASE_URL=$API_BASE_URL" >> .env.local
+          echo "API_KEY=$API_KEY" >> .env.local
+          pnpm test:e2e:docker
 
       - name: Upload Playwright test reports
         uses: actions/upload-artifact@v4

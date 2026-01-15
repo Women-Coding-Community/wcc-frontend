@@ -3,6 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   snapshotDir: 'playwright-tests/screenshots',
   testDir: 'playwright-tests/tests',
+  snapshotPathTemplate: 'playwright-tests/screenshots/{arg}{ext}',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

@@ -58,6 +58,6 @@ test.describe('Mentorship Feedback Section', () => {
 });
 
 test('Verify FAQ Page Outline', async ({ page }) => {
-  await page.goto('/mentorship/faqs')
-  await expect(page).toHaveScreenshot('/screenshots/faq.page.png', { fullPage: true })
-})
+  await page.goto('/mentorship/faqs');
+  await expect(page).toHaveScreenshot('faq-page.png', { fullPage: true });
+});

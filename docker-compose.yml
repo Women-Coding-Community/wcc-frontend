@@ -2,7 +2,12 @@ services:
   playwright:
     build: .
     working_dir: /app
+    env_file:
+      - .env.local
+    environment:
+      - CI=true
     volumes:
       - .:/app
       - ./playwright-tests/screenshots:/app/playwright-tests/screenshots
       - ./playwright-report:/app/playwright-report
+      - ./test-results:/app/test-results
