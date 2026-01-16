@@ -1,36 +1,14 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { 
   Grid, TextField, MenuItem, Typography, Box, FormHelperText,
   FormGroup, FormControlLabel, Checkbox, Radio, RadioGroup, FormControl, FormLabel,
   Table, TableBody, TableCell, TableHead, TableRow 
 } from '@mui/material';
 
-const sectionBoxStyle = {
-  mt: 1, 
-  p: 2, 
-  bgcolor: '#F5F5F5',
-  borderRadius: '4px'
-};
-
-const boldLabelStyle = {
-  fontWeight: 700, 
-  color: '#1B1919', 
-  mb: 0.5,
-  fontSize: '16px',
-  fontFamily: 'Roboto'
-};
-
-const serifTitleStyle = {
-  fontFamily: 'Domine, serif', 
-  fontWeight: 700, 
-  fontSize: '24px', 
-  mb: 2, 
-  color: '#1B1919'
-};
-
 const Step1BasicInfo = () => {
-  const { register, watch, formState: { errors } } = useFormContext();  
+  const { register, watch, control, formState: { errors } } = useFormContext();
+
   const isLongTerm = watch("isLongTermMentor");
   const isAdHoc = watch("isAdHocMentor");
 
@@ -38,7 +16,7 @@ const Step1BasicInfo = () => {
 
   return (
     <Box>
-      <Typography variant="h5" sx={serifTitleStyle}>
+      <Typography variant="h5" sx={{ fontFamily: 'Domine, serif', fontWeight: 700, mb: 2, color: 'text.primary'}}>
         WCC: Registration Form for Mentors
       </Typography>
       <Typography variant="body1" sx={{ mb: 2, lineHeight: '24px' }}>
@@ -50,21 +28,21 @@ const Step1BasicInfo = () => {
       </Typography>
       
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={boldLabelStyle}>What is your full name? *</Typography>
+        <Grid item xs={12} md={6}>
+          <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>What is your full name? *</Typography>
           <TextField fullWidth placeholder="Jane Doe" {...register("firstName")} error={!!errors.firstName} helperText={errors.firstName?.message as string} />
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={boldLabelStyle}>What is your email address? *</Typography>
+        <Grid item xs={12} md={6}>
+          <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>What is your email address? *</Typography>
           <TextField fullWidth type="email" placeholder="jane@example.com" {...register("email")} error={!!errors.email} helperText={errors.email?.message as string} />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={boldLabelStyle}>Slack Name *</Typography>
+          <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>Slack Name *</Typography>
           <TextField fullWidth placeholder="@jane" {...register("slackName")} error={!!errors.slackName} />
           <FormHelperText sx={{ mt: 1 }}>Please note your application will be rejected if you are not in our Slack community.</FormHelperText>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={boldLabelStyle}>Location *</Typography>
+          <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>Location *</Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField select fullWidth label="Country" defaultValue="" {...register("country")} error={!!errors.country}>
@@ -79,25 +57,25 @@ const Step1BasicInfo = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={boldLabelStyle}>What is your current job title? *</Typography>
+        <Grid item xs={12} md={6}>
+          <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>What is your current job title? *</Typography>
           <TextField fullWidth {...register("jobTitle")} error={!!errors.jobTitle} />
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={boldLabelStyle}>Company name *</Typography>
-          <TextField fullWidth {...register("company")} error={!!errors.company} />
+        <Grid item xs={12} md={6}>
+          <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>Company name *</Typography>
+          <TextField fullWidth {...register("company")} error={!!errors.company} helperText={errors.company?.message as string} />
         </Grid>
 
         <Grid item xs={12}>
           <Typography variant="subtitle2" sx={{ mb: 1, color: errors.isLongTermMentor ? 'error.main' : 'text.primary' }}>
             Which kind of mentor you want to be? *
           </Typography>
-          
+
           <FormGroup>
             <FormControlLabel control={<Checkbox {...register("isLongTermMentor")} />} label="Long-Term Format" />
             
             {isLongTerm && (
-              <Box sx={sectionBoxStyle}>
+              <Box sx={{ mt: 1, p: 2, bgcolor: 'custom.softGray', borderRadius: 1 }}>
                 <Typography variant="caption" sx={{ display: 'block', mb: 1, fontWeight: 600 }}>
                   Maximum number of mentees you are available to support. *
                 </Typography>
@@ -112,16 +90,18 @@ const Step1BasicInfo = () => {
             <FormControlLabel control={<Checkbox {...register("isAdHocMentor")} />} label="Ad-Hoc Format" />
             
             {isAdHoc && (
-              <Box sx={sectionBoxStyle}>
-                  <Typography variant="caption" sx={{ fontWeight: 700, display: 'block', mb: 2, color: '#1B1919' }}>
-                    For each month below, please indicate the maximum number of mentees you are available to support. <span style={{ color: '#D32F2F' }}>*</span>
-                  </Typography>
+              <Box sx={{ mt: 1, p: 2, bgcolor: 'custom.softGray', borderRadius: 1 }}>
+                <Typography variant="caption" sx={{ fontWeight: 700, display: 'block', mb: 2, color: 'text.primary' }}>
+                  For each month below, please indicate the maximum number of mentees you are available to support. <Box component="span" sx={{ color: 'error.main' }}>*</Box>
+                </Typography>
+
+                <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                   <Table size="small" sx={{ '& td, & th': { borderBottom: 'none' } }}>
                     <TableHead>
                       <TableRow>
                         <TableCell sx={{ pl: 0, width: '20%' }}></TableCell> 
                         {[1, 2, 3, 4, '5+'].map(num => (
-                          <TableCell key={num} align="center" sx={{ fontWeight: 600, color: '#1B1919', pb: 2 }}>{num}</TableCell>
+                          <TableCell key={num} align="center" sx={{ fontWeight: 600, color: 'text.primary', pb: 2 }}>{num}</TableCell>
                         ))}
                       </TableRow>
                     </TableHead>
@@ -132,7 +112,7 @@ const Step1BasicInfo = () => {
                           <TableCell colSpan={5} padding="none">
                             <RadioGroup row sx={{ justifyContent: 'space-around', width: '100%' }} {...register(`adHocAvailability.${month}`)}>
                               {[1, 2, 3, 4, 5].map((val) => (
-                                <Radio key={val} value={String(val)} size="small" sx={{ color: '#BDBDBD', '&.Mui-checked': { color: '#000000' } }} />
+                                <Radio key={val} value={String(val)} size="small" sx={{ color: 'action.disabled', '&.Mui-checked': { color: 'text.primary' } }} />
                               ))}
                             </RadioGroup>
                           </TableCell>
@@ -140,6 +120,42 @@ const Step1BasicInfo = () => {
                       ))}
                     </TableBody>
                   </Table>
+                </Box>
+
+                <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+                  {months.map((month) => (
+                    <Box key={month} sx={{ mb: 3 }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}>
+                        {month}
+                      </Typography>
+                      <RadioGroup 
+                        row 
+                        sx={{ 
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          gap: 0.5
+                        }} 
+                        {...register(`adHocAvailability.${month}`)}
+                      >
+                        {[1, 2, 3, 4, 5].map((val) => (
+                          <FormControlLabel 
+                            key={val}
+                            value={String(val)} 
+                            control={<Radio size="small" sx={{ color: 'action.disabled', '&.Mui-checked': { color: 'text.primary' } }} />}
+                            label={val === 5 ? '5+' : String(val)}
+                            sx={{ 
+                              flex: 1,
+                              mx: 0,
+                              '& .MuiFormControlLabel-label': {
+                                fontSize: '14px'
+                              }
+                            }}
+                          />
+                        ))}
+                      </RadioGroup>
+                    </Box>
+                  ))}
+                </Box>
               </Box>
             )}
           </FormGroup>
@@ -148,26 +164,42 @@ const Step1BasicInfo = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={boldLabelStyle}>Calendly schedule link *</Typography>
+          <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>Calendly schedule link *</Typography>
           <TextField fullWidth placeholder="https://calendly.com/yourname" {...register("calendlyLink")} error={!!errors.calendlyLink} />
         </Grid>
 
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={boldLabelStyle}>What kind of Mentee are you looking for? *</Typography>
+          <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>What kind of Mentee are you looking for? *</Typography>
           <TextField fullWidth multiline rows={3} {...register("menteeExpectations")} error={!!errors.menteeExpectations} />
         </Grid>
 
         <Grid item xs={12}>
-          <FormControl error={!!errors.openToNonWomen}>
-            <Typography variant="subtitle2" sx={boldLabelStyle}>
-              Are you open to mentoring individuals who do not identify as women? *
-            </Typography>
-            <RadioGroup row>
-              <FormControlLabel value="yes" control={<Radio {...register("openToNonWomen")} />} label="Yes" />
-              <FormControlLabel value="no" control={<Radio {...register("openToNonWomen")} />} label="No" />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
+        <FormControl error={!!errors.openToNonWomen}>
+          <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>
+            Are you open to mentoring individuals who do not identify as women? *
+          </Typography>
+
+          <Controller
+            name="openToNonWomen"
+            control={control}
+            render={({ field }) => (
+              <RadioGroup
+                row
+                value={field.value === true ? 'true' : field.value === false ? 'false' : ''}
+                onChange={(e) => field.onChange(e.target.value === 'true')}
+              >
+                <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                <FormControlLabel value="false" control={<Radio />} label="No" />
+              </RadioGroup>
+            )}
+          />
+
+          <FormHelperText>
+            {errors.openToNonWomen?.message as string}
+          </FormHelperText>
+        </FormControl>
+      </Grid>
+
       </Grid>
     </Box>
   );

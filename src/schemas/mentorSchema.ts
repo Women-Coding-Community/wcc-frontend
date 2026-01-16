@@ -17,7 +17,8 @@ export const basicInfoSchema = z.object({
 
   calendlyLink: z.string().url({ message: "Please enter a valid Calendly URL" }),
   menteeExpectations: z.string().min(1, "Please describe the mentee you are looking for"),
-  openToNonWomen: z.string().min(1, "Please select an option"),
+  openToNonWomen: z.string().transform((val) => val === 'true'),
+
 }).refine((data) => data.isLongTermMentor || data.isAdHocMentor, {
   message: "Please select at least one mentorship type",
   path: ["isLongTermMentor"],
