@@ -66,7 +66,7 @@ Tests to check home page behaviour.
   - **Leetcode** → The user is redirected to the Leetcode page with url "programmes/leetcode" and "Welcome to the LeetcodePage" text should be present
 - Each redirected page should load successfully with its respective content, correct page title, and expected URL.
 
-**Status:** Pending :x:
+**Status:** Done :
 
 ---
 
