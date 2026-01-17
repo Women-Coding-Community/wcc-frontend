@@ -37,13 +37,13 @@ test.describe('Validate Home Page', () => {
     await basePage.verifyURL('/programmes/book-club');
     await page.goto('/');
     await homePage.clickElement(homePage.CvClinicLink);
-    await basePage.verifyURL('/programmes/cv-clinic/');
+    await basePage.verifyURL('/programmes/cv-clinic');
     await page.goto('/');
     await homePage.clickElement(homePage.mockInterviewsLink);
-    await homePage.verifyURL('/programmes/interviews/');
+    await homePage.verifyURL('/programmes/interviews');
     await page.goto('/');
     await homePage.clickElement(homePage.leetCodeLink);
-    await homePage.verifyURL('/programmes/leetcode/');
+    await homePage.verifyURL('/programmes/leetcode');
   });
   test('HP-004: Become Mentor section', async ({ homePage, basePage }) => {
     await expect(homePage.becomeMentorSectionTitle).toBeVisible();

@@ -58,7 +58,7 @@ test('NAV-006 Validate logo click navigation', async ({
   await basePage.navigateToPath('/');
   await basePage.clickElement(basePage.logo);
   await expect(homePage.homeLink).toBeVisible();
-  });
+});
 test('NAV-007: Click and navigate through Mentorship dropdown items', async ({
   basePage,
 }) => {
