@@ -1,4 +1,4 @@
-name: "Prod Deploy: Frontend - Website"
+name: "Prod Deploy to Vercel: Website Frontend"
 
 on:
   workflow_dispatch:
