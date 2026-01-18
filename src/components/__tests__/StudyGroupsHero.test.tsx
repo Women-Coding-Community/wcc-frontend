@@ -4,7 +4,7 @@ import React from 'react';
 import { HeroWithImage } from '@components';
 
 describe('HeroWithImage', () => {
-  const title = 'Technical Study Groups';
+  const title = 'Study Groups';
   const imageSrc = '/hero-img.jpg';
 
   it('renders the title correctly', () => {

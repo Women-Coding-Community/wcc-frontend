@@ -19,7 +19,9 @@ test.describe('Mentorship Feedback Section', () => {
     await expect(firstCard.text).toBeVisible();
     await expect(firstCard.text).not.toBeEmpty();
 
-    await expect(firstCard.author).toHaveText(/^.+,\s*Mentor\s+\d{4}$/);
+    await expect(firstCard.author).toHaveText(
+      /^.+,\s*(Mentee|Mentor)\s+\d{4}$/,
+    );
 
     await expect(mentorshipPage.showMoreButton).toBeVisible();
   });
@@ -53,4 +55,9 @@ test.describe('Mentorship Feedback Section', () => {
       await writeALotCard.toContainText('...');
     });
   });
+});
+
+test('Verify FAQ Page Outline', { tag: '@visual' }, async ({ page }) => {
+  await page.goto('/mentorship/faqs');
+  await expect(page).toHaveScreenshot('faq-page.png', { fullPage: true });
 });

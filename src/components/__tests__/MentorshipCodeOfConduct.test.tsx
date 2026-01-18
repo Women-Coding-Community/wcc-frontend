@@ -3,6 +3,9 @@ import { render, screen } from '@testing-library/react';
 import { MentorshipCodeOfConductData } from '@utils/types';
 import MentorshipCodeOfConductPage from 'pages/mentorship/code-of-conduct';
 
+// Mock Next.js router
+jest.mock('next/router', () => require('next-router-mock'));
+
 describe('MentorshipCodeOfConduct', () => {
   const mentorshipCodeOfConduct: MentorshipCodeOfConductData = {
     heroSection: { title: 'Mentorship Code Of Conduct' },
