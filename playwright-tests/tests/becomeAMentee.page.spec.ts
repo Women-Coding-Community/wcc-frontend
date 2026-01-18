@@ -12,7 +12,6 @@ test('Validate "Become a Mentee" section and Find a Mentor button', async ({
     level: 4,
     name: /Become a Mentee/i,
   });
-  await sectionTitle.scrollIntoViewIfNeeded();
 
   // Validate title
   await expect(sectionTitle).toBeVisible();
