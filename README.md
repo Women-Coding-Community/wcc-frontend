@@ -91,3 +91,18 @@ To update visual regression snapshots (when UI changes are intentional):
 ```
 
 This updates the reference screenshots used in visual tests.
+
+### CI/CD and deploy (Vercel)
+
+A GitHub Actions workflow is provided at `.github/workflows/deploy-website-frontend-dev.yml` to deploy
+the frontend to Vercel Dev environment on pushes to `main`. Configure the following repository
+secrets:
+
+- VERCEL_TOKEN
+- VERCEL_ORG_ID
+- VERCEL_PROJECT_ID
+- NEXT_PUBLIC_API_BASE
+- NEXT_PUBLIC_API_KEY (optional)
+- NEXT_PUBLIC_APP_URL (optional)
+
+Alternatively, you can connect the repository directly in Vercel dashboard and set env vars there.
