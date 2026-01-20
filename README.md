@@ -98,11 +98,11 @@ A GitHub Actions workflow is provided at `.github/workflows/deploy-website-front
 the frontend to Vercel Dev environment on pushes to `main`. Configure the following repository
 secrets:
 
-- VERCEL_TOKEN
-- VERCEL_ORG_ID
-- VERCEL_PROJECT_ID
-- NEXT_PUBLIC_API_BASE
-- NEXT_PUBLIC_API_KEY (optional)
-- NEXT_PUBLIC_APP_URL (optional)
+- VERCEL_TOKEN_DEV
+- VERCEL_ORG_ID_DEV
+- VERCEL_PROJECT_ID_DEV
+- NEXT_PUBLIC_API_BASE_DEV
+- NEXT_PUBLIC_API_KEY_DEV (optional)
+- NEXT_PUBLIC_APP_URL_DEV (optional)
 
 Alternatively, you can connect the repository directly in Vercel dashboard and set env vars there.
