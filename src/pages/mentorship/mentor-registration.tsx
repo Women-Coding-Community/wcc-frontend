@@ -3,6 +3,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Container, Paper, Typography, Button, Stack, useMediaQuery, useTheme } from '@mui/material';
 import Step1BasicInfo from '../../components/mentorship/Step1BasicInfo';
+import Step2Skills from '../../components/mentorship/Step2Skills';
 import { mentorRegistrationSchema, MentorRegistrationData } from '../../schemas/mentorSchema';
 
 const MentorRegistrationPage = () => {
@@ -21,22 +22,71 @@ const MentorRegistrationPage = () => {
     let isStepValid = false;
 
     if (activeStep === 1) {
-      isStepValid = await formMethods.trigger([
+      const standardValidation = await formMethods.trigger([
         'firstName',
         'email',
         'slackName',
         'country',
+        'city',
         'jobTitle',
         'company',
         'isLongTermMentor',
         'isAdHocMentor',
-        'maxMentees',
-        'adHocAvailability',
         'calendlyLink',
         'menteeExpectations',
         'openToNonWomen',
       ]);
-    } else {
+
+      const isLongTerm = formMethods.getValues('isLongTermMentor');
+      const isAdHoc = formMethods.getValues('isAdHocMentor');
+
+      formMethods.clearErrors(['isLongTermMentor', 'maxMentees', 'adHocAvailability']);
+
+      let manualChecksValid = true;
+
+      if (!isLongTerm && !isAdHoc) {
+        formMethods.setError('isLongTermMentor', { 
+          type: 'manual', 
+          message: 'Please select at least one mentorship format.' 
+        });
+        manualChecksValid = false;
+      } 
+      
+      if (isLongTerm) {
+        const maxMentees = formMethods.getValues('maxMentees');
+        if (!maxMentees) {
+          formMethods.setError('maxMentees', { 
+            type: 'manual', 
+            message: 'Please select the number of mentees' 
+          });
+          manualChecksValid = false;
+        }
+      }
+
+      if (isAdHoc) {
+        const adHoc = formMethods.getValues('adHocAvailability');
+        if (!adHoc || Object.keys(adHoc).length === 0) {
+          formMethods.setError('adHocAvailability', { 
+            type: 'manual', 
+            message: 'Please select availability for at least one month' 
+          });
+          manualChecksValid = false;
+        }
+      }
+
+      isStepValid = standardValidation && manualChecksValid;
+    } 
+    else if (activeStep === 2) {
+      isStepValid = await formMethods.trigger([
+        'languages', 
+        'yearsOfExperience', 
+        'bio', 
+        'mentoringTopics', 
+        'photoSource', 
+        'customPhotoUrl'
+      ] as const);
+    }
+    else {
       isStepValid = true;
     }
 
@@ -137,7 +187,8 @@ const MentorRegistrationPage = () => {
 
             <Box>
               {activeStep === 1 && <Step1BasicInfo />}
-              {activeStep > 1 && (
+              {activeStep === 2 && <Step2Skills />}
+              {activeStep > 2 && (
                 <Box sx={{ minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Typography align="center" sx={{ color: 'text.secondary' }}>
                     Screen <strong>{activeStep}</strong> Content (Coming Soon)
