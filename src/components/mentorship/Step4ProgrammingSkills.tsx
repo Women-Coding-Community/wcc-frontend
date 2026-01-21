@@ -5,37 +5,7 @@ import {
 } from '@mui/material';
 import { inputStyle, boldLabelStyle, sectionHeaderStyle } from './mentorshipStyles';
 import StepSection from './StepSection';
-
-const PREFERENCE_LEVELS = [
-  'Low',
-  'Medium',
-  'High',
-  'Not Applicable'
-];
-
-const CAREER_GOALS = [
-  { name: 'careerSwitch', label: 'Switch career to IT' },
-  { name: 'beginnerToMid', label: 'Grow from beginner to mid-level' },
-  { name: 'midToSenior', label: 'Grow from mid-level to senior-level' },
-  { name: 'seniorPlus', label: 'Grow beyond senior level' },
-  { name: 'icToManager', label: 'Switch from IC to management position' },
-  { name: 'specialisationSwitch', label: 'Change specialisation within IT' },
-];
-
-const PROGRAMMING_LANGUAGES = [
-  { name: 'c', label: 'C' },
-  { name: 'cSharp', label: 'C#' },
-  { name: 'go', label: 'Go' },
-  { name: 'java', label: 'Java' },
-  { name: 'javascript', label: 'JavaScript' },
-  { name: 'kotlin', label: 'Kotlin' },
-  { name: 'python', label: 'Python' },
-  { name: 'rust', label: 'Rust' },
-  { name: 'scala', label: 'Scala' },
-  { name: 'sql', label: 'SQL' },
-  { name: 'swift', label: 'Swift' },
-  { name: 'typescript', label: 'TypeScript' },
-];
+import { CAREER_GOALS, PROGRAMMING_LANGUAGES, PREFERENCE_LEVELS } from '../../utils/mentorshipConstants';
 
 const Step4ProgrammingSkills = () => {
   const { control } = useFormContext();

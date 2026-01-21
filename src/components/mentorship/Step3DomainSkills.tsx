@@ -5,61 +5,7 @@ import {
 } from '@mui/material';
 import { inputStyle, boldLabelStyle, sectionHeaderStyle } from './mentorshipStyles';
 import StepSection from './StepSection';
-
-const SKILL_LEVELS = [
-  'Expert',
-  'Proficient',
-  'Experienced',
-  'Familiar',
-  'Not Applicable'
-];
-
-const DOMAIN_GROUPS = [
-  {
-    title: "AI, Data & ML",
-    fields: [
-      { name: 'dataEngineering', label: 'Data Engineering' },
-      { name: 'dataScience', label: 'Data Science' },
-      { name: 'genAI', label: 'Generative AI and LLMs' },
-      { name: 'machineLearning', label: 'Machine Learning and AI' },
-      { name: 'mlOps', label: 'MLOps and AI Deployment' },
-    ]
-  },
-  {
-    title: "Infrastructure & Operations",
-    fields: [
-      { name: 'cloudComputing', label: 'Cloud Computing' },
-      { name: 'devOps', label: 'DevOps' },
-      { name: 'networkEngineering', label: 'Network Engineering' },
-      { name: 'platformEngineering', label: 'Platform Engineering' },
-      { name: 'security', label: 'Security and Cybersecurity' },
-      { name: 'sre', label: 'Site Reliability Engineering' },
-    ]
-  },
-  {
-    title: "Product, Leadership & Delivery",
-    fields: [
-      { name: 'agile', label: 'Agile and Scrum Practices' },
-      { name: 'businessAnalysis', label: 'Business Analysis' },
-      { name: 'engineeringMgmt', label: 'Engineering Management' },
-      { name: 'productMgmt', label: 'Product Management' },
-      { name: 'projectMgmt', label: 'Project Management' },
-      { name: 'technicalLeadership', label: 'Technical Leadership' },
-    ]
-  },
-  {
-    title: "Software Development",
-    fields: [
-      { name: 'backend', label: 'Backend Development' },
-      { name: 'frontend', label: 'Frontend Development' },
-      { name: 'fullstack', label: 'Fullstack Development' },
-      { name: 'mobileAndroid', label: 'Mobile Development - Android' },
-      { name: 'mobileIos', label: 'Mobile Development - iOS' },
-      { name: 'qaAutomation', label: 'QA and Test Automation' },
-      { name: 'systemDesign', label: 'System Design and Software Architecture' },
-    ]
-  },
-];
+import { DOMAIN_GROUPS, SKILL_LEVELS } from '../../utils/mentorshipConstants';
 
 const Step3DomainSkills = () => {
   const { control } = useFormContext();
