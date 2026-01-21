@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Container, Paper, Typography, Button, Stack, useMediaQuery, useTheme } from '@mui/material';
 import Step1BasicInfo from '../../components/mentorship/Step1BasicInfo';
 import Step2Skills from '../../components/mentorship/Step2Skills';
+import Step3DomainSkills from 'components/mentorship/Step3DomainSkills';
 import { mentorRegistrationSchema, MentorRegistrationData } from '../../schemas/mentorSchema';
 
 const MentorRegistrationPage = () => {
@@ -85,6 +86,9 @@ const MentorRegistrationPage = () => {
         'photoSource', 
         'customPhotoUrl'
       ] as const);
+    }
+    else if (activeStep === 3) {
+      isStepValid = true; 
     }
     else {
       isStepValid = true;
@@ -188,7 +192,8 @@ const MentorRegistrationPage = () => {
             <Box>
               {activeStep === 1 && <Step1BasicInfo />}
               {activeStep === 2 && <Step2Skills />}
-              {activeStep > 2 && (
+              {activeStep === 3 && <Step3DomainSkills />}
+              {activeStep > 3 && (
                 <Box sx={{ minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Typography align="center" sx={{ color: 'text.secondary' }}>
                     Screen <strong>{activeStep}</strong> Content (Coming Soon)
