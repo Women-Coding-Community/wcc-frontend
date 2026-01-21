@@ -3,44 +3,8 @@ import { useFormContext, Controller } from 'react-hook-form';
 import { 
   MenuItem, Typography, Box, TextField, Divider 
 } from '@mui/material';
+import { inputStyle, boldLabelStyle, sectionHeaderStyle } from './mentorshipStyles';
 import StepSection from './StepSection';
-
-const inputStyle = {
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: 'custom.softGray',
-    borderRadius: '4px',
-    '& fieldset': { border: 'none' }, 
-    '&:hover fieldset': { border: 'none' },
-    '&.Mui-focused fieldset': { 
-      border: '1px solid',
-      borderColor: 'text.primary' 
-    }, 
-  },
-  '& .MuiInputBase-input': { 
-    padding: '16px 14px',
-    fontSize: '16px',
-    color: 'text.primary'
-  },
-  mb: 2
-};
-
-const boldLabelStyle = {
-  fontWeight: 600, 
-  color: 'text.primary', 
-  mb: 1, 
-  display: 'block', 
-  fontSize: '15px', 
-  fontFamily: 'Roboto'
-};
-
-const sectionHeaderStyle = {
-  fontWeight: 700, 
-  color: 'text.primary', 
-  fontSize: '18px', 
-  mt: 4, 
-  mb: 2,
-  fontFamily: 'Roboto' 
-};
 
 const PREFERENCE_LEVELS = [
   'Low',

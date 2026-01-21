@@ -3,44 +3,8 @@ import { useFormContext, Controller } from 'react-hook-form';
 import { 
   MenuItem, Typography, Box, TextField 
 } from '@mui/material';
+import { inputStyle, boldLabelStyle, sectionHeaderStyle } from './mentorshipStyles';
 import StepSection from './StepSection';
-
-const inputStyle = {
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: 'custom.softGray', 
-    borderRadius: '4px',
-    '& fieldset': { border: 'none' }, 
-    '&:hover fieldset': { border: 'none' },
-    '&.Mui-focused fieldset': { 
-      border: '1px solid',
-      borderColor: 'text.primary'
-    }, 
-  },
-  '& .MuiInputBase-input': { 
-    padding: '16px 14px',
-    fontSize: '16px',
-    color: 'text.primary'
-  },
-  mb: 2
-};
-
-const boldLabelStyle = {
-  fontWeight: 600, 
-  color: 'text.primary',
-  mb: 1, 
-  display: 'block', 
-  fontSize: '15px', 
-  fontFamily: 'Roboto'
-};
-
-const categoryHeaderStyle = {
-  fontWeight: 700, 
-  color: 'text.primary',
-  fontSize: '18px', 
-  mt: 4, 
-  mb: 2,
-  fontFamily: 'Roboto' 
-};
 
 const SKILL_LEVELS = [
   'Expert',
@@ -108,7 +72,7 @@ const Step3DomainSkills = () => {
       <Box sx={{ maxWidth: '100%' }}> 
         {DOMAIN_GROUPS.map((group) => (
           <Box key={group.title}>
-            <Typography variant="h6" sx={categoryHeaderStyle}>
+            <Typography variant="h6" sx={sectionHeaderStyle}>
               {group.title}
             </Typography>
 
