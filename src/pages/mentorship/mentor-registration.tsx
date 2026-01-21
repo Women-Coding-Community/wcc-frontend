@@ -5,7 +5,11 @@ import { Box, Container, Paper, Typography, Button, Stack, useMediaQuery, useThe
 import Step1BasicInfo from '../../components/mentorship/Step1BasicInfo';
 import Step2Skills from '../../components/mentorship/Step2Skills';
 import Step3DomainSkills from 'components/mentorship/Step3DomainSkills';
+import Step4ProgrammingSkills from 'components/mentorship/Step4ProgrammingSkills';
+
 import { mentorRegistrationSchema, MentorRegistrationData } from '../../schemas/mentorSchema';
+import Step5Review from 'components/mentorship/Step5Review';
+
 
 const MentorRegistrationPage = () => {
   const theme = useTheme();
@@ -17,7 +21,7 @@ const MentorRegistrationPage = () => {
   });
 
   const [activeStep, setActiveStep] = useState(1);
-  const totalSteps = 6;
+  const totalSteps = 5;
 
   const handleNext = async () => {
     let isStepValid = false;
@@ -90,11 +94,21 @@ const MentorRegistrationPage = () => {
     else if (activeStep === 3) {
       isStepValid = true; 
     }
-    else {
+    else if (activeStep === 4) {
       isStepValid = true;
     }
 
+    else if (activeStep === 5) {
+      isStepValid = await formMethods.trigger([
+        'linkedin', 'github', 'instagram', 'medium', 'website', 'otherSocial',
+        'identity', 'pronouns', 'socialHighlight', 'termsAgreed'
+      ]);
+    }
+
     if (isStepValid) {
+      if (activeStep === totalSteps) {        
+        return; 
+      }
       setActiveStep(prev => prev + 1);
       window.scrollTo(0, 0);
     }
@@ -105,7 +119,7 @@ const MentorRegistrationPage = () => {
   };
 
   const onSubmit = (data: MentorRegistrationData) => {
-    console.log('Form Data:', data);
+    console.log('Form Data Submitted:', data);
   };
 
   return (
@@ -193,13 +207,8 @@ const MentorRegistrationPage = () => {
               {activeStep === 1 && <Step1BasicInfo />}
               {activeStep === 2 && <Step2Skills />}
               {activeStep === 3 && <Step3DomainSkills />}
-              {activeStep > 3 && (
-                <Box sx={{ minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Typography align="center" sx={{ color: 'text.secondary' }}>
-                    Screen <strong>{activeStep}</strong> Content (Coming Soon)
-                  </Typography>
-                </Box>
-              )}
+              {activeStep === 4 && <Step4ProgrammingSkills />}
+              {activeStep === 5 && <Step5Review />}
             </Box>
 
             <Stack 
