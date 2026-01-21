@@ -1,14 +1,13 @@
 import React from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
 import { 
-  MenuItem, Typography, Box, TextField, Divider 
+  Typography, Box, Divider 
 } from '@mui/material';
-import { inputStyle, boldLabelStyle, sectionHeaderStyle } from './mentorshipStyles';
+import { boldLabelStyle, sectionHeaderStyle } from './mentorshipStyles';
 import StepSection from './StepSection';
 import { CAREER_GOALS, PROGRAMMING_LANGUAGES, PREFERENCE_LEVELS } from '../../utils/mentorshipConstants';
+import { MentorshipSelect } from './MentorshipSelect';
 
 const Step4ProgrammingSkills = () => {
-  const { control } = useFormContext();
 
   return (
     <StepSection
@@ -22,31 +21,9 @@ const Step4ProgrammingSkills = () => {
             <Typography variant="subtitle2" sx={boldLabelStyle}>
               {goal.label}
             </Typography>
-            <Controller
-              name={goal.name}
-              control={control}
-              defaultValue="Not Applicable"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  select
-                  fullWidth
-                  sx={inputStyle}
-                  SelectProps={{
-                    displayEmpty: true,
-                    renderValue: (selected: any) => {
-                      if (!selected) return "Not Applicable";
-                      return selected;
-                    }
-                  }}
-                >
-                  {PREFERENCE_LEVELS.map((level) => (
-                    <MenuItem key={level} value={level}>
-                      {level}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
+            <MentorshipSelect 
+              name={goal.name} 
+              options={PREFERENCE_LEVELS} 
             />
           </Box>
         ))}
@@ -68,31 +45,9 @@ const Step4ProgrammingSkills = () => {
               <Typography variant="subtitle2" sx={boldLabelStyle}>
                 {lang.label}
               </Typography>
-              <Controller
-                name={lang.name}
-                control={control}
-                defaultValue="Not Applicable"
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    select
-                    fullWidth
-                    sx={inputStyle}
-                    SelectProps={{
-                      displayEmpty: true,
-                      renderValue: (selected: any) => {
-                        if (!selected) return "Not Applicable";
-                        return selected;
-                      }
-                    }}
-                  >
-                    {PREFERENCE_LEVELS.map((level) => (
-                      <MenuItem key={level} value={level}>
-                        {level}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                )}
+              <MentorshipSelect 
+                name={lang.name} 
+                options={PREFERENCE_LEVELS} 
               />
             </Box>
           ))}

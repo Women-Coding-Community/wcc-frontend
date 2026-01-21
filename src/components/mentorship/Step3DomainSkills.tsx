@@ -1,14 +1,13 @@
 import React from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
 import { 
-  MenuItem, Typography, Box, TextField 
+  Typography, Box 
 } from '@mui/material';
-import { inputStyle, boldLabelStyle, sectionHeaderStyle } from './mentorshipStyles';
+import { boldLabelStyle, sectionHeaderStyle } from './mentorshipStyles';
 import StepSection from './StepSection';
 import { DOMAIN_GROUPS, SKILL_LEVELS } from '../../utils/mentorshipConstants';
+import { MentorshipSelect } from './MentorshipSelect';
 
 const Step3DomainSkills = () => {
-  const { control } = useFormContext();
 
   return (
     <StepSection
@@ -26,33 +25,10 @@ const Step3DomainSkills = () => {
               <Box key={skill.name}>
                 <Typography variant="subtitle2" sx={boldLabelStyle}>
                   {skill.label}
-                </Typography>
-                
-                <Controller
-                  name={skill.name}
-                  control={control}
-                  defaultValue="Not Applicable"
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      select
-                      fullWidth
-                      sx={inputStyle}
-                      SelectProps={{
-                        displayEmpty: true,
-                        renderValue: (selected: any) => {
-                          if (!selected) return "Not Applicable";
-                          return selected;
-                        }
-                      }}
-                    >
-                      {SKILL_LEVELS.map((level) => (
-                        <MenuItem key={level} value={level}>
-                          {level}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  )}
+                </Typography>                
+                <MentorshipSelect 
+                  name={skill.name} 
+                  options={SKILL_LEVELS} 
                 />
               </Box>
             ))}
