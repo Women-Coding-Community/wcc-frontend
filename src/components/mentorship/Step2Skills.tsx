@@ -60,7 +60,7 @@ const Step2Skills = () => {
               >
                 {LANGUAGES.map((lang) => (
                   <MenuItem key={lang} value={lang}>
-                    <Checkbox checked={field.value.indexOf(lang) > -1} />
+                    <Checkbox checked={field.value.includes(lang)} />
                     <ListItemText primary={lang} />
                   </MenuItem>
                 ))}

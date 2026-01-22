@@ -10,6 +10,65 @@ import Step4ProgrammingSkills from 'components/mentorship/Step4ProgrammingSkills
 import { mentorRegistrationSchema, MentorRegistrationData } from '../../schemas/mentorSchema';
 import Step5Review from 'components/mentorship/Step5Review';
 
+const validateStep1 = async (formMethods: any) => {
+  const standardFields = [
+    'firstName', 'email', 'slackName', 'country', 'city',
+    'jobTitle', 'company', 'isLongTermMentor', 'isAdHocMentor',
+    'calendlyLink', 'menteeExpectations', 'openToNonWomen',
+  ] as const;
+  
+  const standardValidation = await formMethods.trigger(standardFields);
+  const isLongTerm = formMethods.getValues('isLongTermMentor');
+  const isAdHoc = formMethods.getValues('isAdHocMentor');
+  
+  formMethods.clearErrors(['isLongTermMentor', 'maxMentees', 'adHocAvailability']);
+  
+  let manualChecksValid = true;
+  
+  if (!isLongTerm && !isAdHoc) {
+    formMethods.setError('isLongTermMentor', { 
+      type: 'manual', 
+      message: 'Please select at least one mentorship format.' 
+    });
+    manualChecksValid = false;
+  }
+  
+  if (isLongTerm && !formMethods.getValues('maxMentees')) {
+    formMethods.setError('maxMentees', { 
+      type: 'manual', 
+      message: 'Please select the number of mentees' 
+    });
+    manualChecksValid = false;
+  }
+  
+  if (isAdHoc) {
+    const adHoc = formMethods.getValues('adHocAvailability');
+    if (!adHoc || Object.keys(adHoc).length === 0) {
+      formMethods.setError('adHocAvailability', { 
+        type: 'manual', 
+        message: 'Please select availability for at least one month' 
+      });
+      manualChecksValid = false;
+    }
+  }
+  
+  return standardValidation && manualChecksValid;
+};
+
+const validateStep2 = async (formMethods: any) => {
+  return await formMethods.trigger([
+    'languages', 'yearsOfExperience', 'bio', 
+    'mentoringTopics', 'photoSource', 'customPhotoUrl'
+  ] as const);
+};
+
+const validateStep5 = async (formMethods: any) => {
+  return await formMethods.trigger([
+    'linkedin', 'github', 'instagram', 'medium', 
+    'website', 'otherSocial', 'identity', 'pronouns', 
+    'socialHighlight', 'termsAgreed'
+  ]);
+};
 
 const MentorRegistrationPage = () => {
   const theme = useTheme();
@@ -26,89 +85,25 @@ const MentorRegistrationPage = () => {
   const handleNext = async () => {
     let isStepValid = false;
 
-    if (activeStep === 1) {
-      const standardValidation = await formMethods.trigger([
-        'firstName',
-        'email',
-        'slackName',
-        'country',
-        'city',
-        'jobTitle',
-        'company',
-        'isLongTermMentor',
-        'isAdHocMentor',
-        'calendlyLink',
-        'menteeExpectations',
-        'openToNonWomen',
-      ]);
-
-      const isLongTerm = formMethods.getValues('isLongTermMentor');
-      const isAdHoc = formMethods.getValues('isAdHocMentor');
-
-      formMethods.clearErrors(['isLongTermMentor', 'maxMentees', 'adHocAvailability']);
-
-      let manualChecksValid = true;
-
-      if (!isLongTerm && !isAdHoc) {
-        formMethods.setError('isLongTermMentor', { 
-          type: 'manual', 
-          message: 'Please select at least one mentorship format.' 
-        });
-        manualChecksValid = false;
-      } 
-      
-      if (isLongTerm) {
-        const maxMentees = formMethods.getValues('maxMentees');
-        if (!maxMentees) {
-          formMethods.setError('maxMentees', { 
-            type: 'manual', 
-            message: 'Please select the number of mentees' 
-          });
-          manualChecksValid = false;
-        }
-      }
-
-      if (isAdHoc) {
-        const adHoc = formMethods.getValues('adHocAvailability');
-        if (!adHoc || Object.keys(adHoc).length === 0) {
-          formMethods.setError('adHocAvailability', { 
-            type: 'manual', 
-            message: 'Please select availability for at least one month' 
-          });
-          manualChecksValid = false;
-        }
-      }
-
-      isStepValid = standardValidation && manualChecksValid;
-    } 
-    else if (activeStep === 2) {
-      isStepValid = await formMethods.trigger([
-        'languages', 
-        'yearsOfExperience', 
-        'bio', 
-        'mentoringTopics', 
-        'photoSource', 
-        'customPhotoUrl'
-      ] as const);
-    }
-    else if (activeStep === 3) {
-      isStepValid = true; 
-    }
-    else if (activeStep === 4) {
-      isStepValid = true;
+    switch (activeStep) {
+      case 1:
+        isStepValid = await validateStep1(formMethods);
+        break;
+      case 2:
+        isStepValid = await validateStep2(formMethods);
+        break;
+      case 3:
+      case 4:
+        isStepValid = true;
+        break;
+      case 5:
+        isStepValid = await validateStep5(formMethods);
+        break;
+      default:
+        isStepValid = false;
     }
 
-    else if (activeStep === 5) {
-      isStepValid = await formMethods.trigger([
-        'linkedin', 'github', 'instagram', 'medium', 'website', 'otherSocial',
-        'identity', 'pronouns', 'socialHighlight', 'termsAgreed'
-      ]);
-    }
-
-    if (isStepValid) {
-      if (activeStep === totalSteps) {        
-        return; 
-      }
+    if (isStepValid && activeStep < totalSteps) {
       setActiveStep(prev => prev + 1);
       window.scrollTo(0, 0);
     }
