@@ -181,7 +181,7 @@ const Step5Review = () => {
           
           <Box component="ul" sx={{ pl: 2, mb: 2, typography: 'body2', color: 'text.primary' }}>
             <li style={{ marginBottom: '8px' }}>
-              Have read and agree to the <Link href="https://www.womencodingcommunity.com/code-of-conduct" target="_blank" rel="noopener noreferrer" underline="always" sx={{ color: 'custom.linkBlue' }}>code of conduct</Link>{' '} and the {' '}<Link href="https://www.womencodingcommunity.com/mentorship-code-of-conduct" target="_blank" rel="noopener noreferrer" underline="always" sx={{ color: 'custom.linkBlue' }}>mentorship code of conduct</Link>.
+              Have read and agree to the <Link href="/code-of-conduct" target="_blank" rel="noopener noreferrer" underline="always" sx={{ color: 'custom.linkBlue' }}>code of conduct</Link>{' '} and the {' '}<Link href="/mentorship/code-of-conduct" target="_blank" rel="noopener noreferrer" underline="always" sx={{ color: 'custom.linkBlue' }}>mentorship code of conduct</Link>.
             </li>
             <li style={{ marginBottom: '8px' }}>
               Grant Women Coding Community permission to store my contact information, use it to reach out to me, and publish mine mentor profile on the community's website.

@@ -6,6 +6,7 @@ import {
   Table, TableBody, TableCell, TableHead, TableRow 
 } from '@mui/material';
 import StepSection from './StepSection';
+import { COUNTRIES } from '../../utils/mentorshipConstants';
 
 const Step1BasicInfo = () => {
   const { register, watch, control, formState: { errors } } = useFormContext();
@@ -43,11 +44,23 @@ const Step1BasicInfo = () => {
           <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>Location *</Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField select fullWidth label="Country" defaultValue="" {...register("country")} error={!!errors.country} helperText={errors.country?.message as string}>
-                <MenuItem value="United Kingdom">United Kingdom</MenuItem>
-                <MenuItem value="United States">United States</MenuItem>
-                <MenuItem value="Canada">Canada</MenuItem>
-                <MenuItem value="Other">Other</MenuItem>
+              <TextField 
+                select 
+                fullWidth 
+                label="Country" 
+                defaultValue="" 
+                {...register("country")} 
+                error={!!errors.country} 
+                helperText={errors.country?.message as string}
+              >
+                <MenuItem value="">
+                  <em>Select a country</em>
+                </MenuItem>
+                {COUNTRIES.map((country) => (
+                  <MenuItem key={country.code} value={country.name}>
+                    {country.name}
+                  </MenuItem>
+                ))}
               </TextField>
             </Grid>
             <Grid item xs={12} sm={6}>

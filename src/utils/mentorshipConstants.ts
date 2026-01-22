@@ -1,7 +1,5 @@
 // src/utils/mentorshipConstants.ts
 
-// --- SHARED DROPDOWN OPTIONS ---
-
 export const SKILL_LEVELS = [
   'Expert',
   'Proficient',
@@ -16,8 +14,6 @@ export const PREFERENCE_LEVELS = [
   'High',
   'Not Applicable'
 ];
-
-// --- STEP 3 DATA (Domain Skills) ---
 
 export const DOMAIN_GROUPS = [
   {
@@ -66,8 +62,6 @@ export const DOMAIN_GROUPS = [
   },
 ];
 
-// --- STEP 4 DATA (Programming Skills) ---
-
 export const CAREER_GOALS = [
   { name: 'careerSwitch', label: 'Switch career to IT' },
   { name: 'beginnerToMid', label: 'Grow from beginner to mid-level' },
@@ -90,4 +84,38 @@ export const PROGRAMMING_LANGUAGES = [
   { name: 'sql', label: 'SQL' },
   { name: 'swift', label: 'Swift' },
   { name: 'typescript', label: 'TypeScript' },
+];
+
+export const COUNTRIES = [
+  { code: 'GB', name: 'United Kingdom' },
+  { code: 'US', name: 'United States' },
+  { code: 'CA', name: 'Canada' },
+  { code: 'AU', name: 'Australia' },
+  { code: 'DE', name: 'Germany' },
+  { code: 'FR', name: 'France' },
+  { code: 'ES', name: 'Spain' },
+  { code: 'IT', name: 'Italy' },
+  { code: 'NL', name: 'Netherlands' },
+  { code: 'SE', name: 'Sweden' },
+  { code: 'NO', name: 'Norway' },
+  { code: 'DK', name: 'Denmark' },
+  { code: 'FI', name: 'Finland' },
+  { code: 'IE', name: 'Ireland' },
+  { code: 'PL', name: 'Poland' },
+  { code: 'PT', name: 'Portugal' },
+  { code: 'GR', name: 'Greece' },
+  { code: 'CH', name: 'Switzerland' },
+  { code: 'AT', name: 'Austria' },
+  { code: 'BE', name: 'Belgium' },
+  { code: 'CZ', name: 'Czech Republic' },
+  { code: 'IN', name: 'India' },
+  { code: 'SG', name: 'Singapore' },
+  { code: 'JP', name: 'Japan' },
+  { code: 'CN', name: 'China' },
+  { code: 'BR', name: 'Brazil' },
+  { code: 'MX', name: 'Mexico' },
+  { code: 'AR', name: 'Argentina' },
+  { code: 'ZA', name: 'South Africa' },
+  { code: 'NZ', name: 'New Zealand' },
+  { code: 'OTHER', name: 'Other' },
 ];
