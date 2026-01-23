@@ -15,76 +15,90 @@ export const PREFERENCE_LEVELS = [
   'Not Applicable'
 ];
 
-export const DOMAIN_GROUPS = [
+interface DomainField {
+  name: string;
+  label: string;
+}
+
+interface DomainGroup {
+  title: string;
+  fields: DomainField[];
+}
+
+const createFields = (fields: Array<[string, string]>): DomainField[] => {
+  return fields.map(([name, label]) => ({ name, label }));
+};
+
+export const DOMAIN_GROUPS: DomainGroup[] = [
   {
     title: "AI, Data & ML",
-    fields: [
-      { name: 'dataEngineering', label: 'Data Engineering' },
-      { name: 'dataScience', label: 'Data Science' },
-      { name: 'genAI', label: 'Generative AI and LLMs' },
-      { name: 'machineLearning', label: 'Machine Learning and AI' },
-      { name: 'mlOps', label: 'MLOps and AI Deployment' },
-    ]
+    fields: createFields([
+      ['dataEngineering', 'Data Engineering'],
+      ['dataScience', 'Data Science'],
+      ['genAI', 'Generative AI and LLMs'],
+      ['machineLearning', 'Machine Learning and AI'],
+      ['mlOps', 'MLOps and AI Deployment'],
+    ])
   },
   {
     title: "Infrastructure & Operations",
-    fields: [
-      { name: 'cloudComputing', label: 'Cloud Computing' },
-      { name: 'devOps', label: 'DevOps' },
-      { name: 'networkEngineering', label: 'Network Engineering' },
-      { name: 'platformEngineering', label: 'Platform Engineering' },
-      { name: 'security', label: 'Security and Cybersecurity' },
-      { name: 'sre', label: 'Site Reliability Engineering' },
-    ]
+    fields: createFields([
+      ['cloudComputing', 'Cloud Computing'],
+      ['devOps', 'DevOps'],
+      ['networkEngineering', 'Network Engineering'],
+      ['platformEngineering', 'Platform Engineering'],
+      ['security', 'Security and Cybersecurity'],
+      ['sre', 'Site Reliability Engineering'],
+    ])
   },
   {
     title: "Product, Leadership & Delivery",
-    fields: [
-      { name: 'agile', label: 'Agile and Scrum Practices' },
-      { name: 'businessAnalysis', label: 'Business Analysis' },
-      { name: 'engineeringMgmt', label: 'Engineering Management' },
-      { name: 'productMgmt', label: 'Product Management' },
-      { name: 'projectMgmt', label: 'Project Management' },
-      { name: 'technicalLeadership', label: 'Technical Leadership' },
-    ]
+    fields: createFields([
+      ['agile', 'Agile and Scrum Practices'],
+      ['businessAnalysis', 'Business Analysis'],
+      ['engineeringMgmt', 'Engineering Management'],
+      ['productMgmt', 'Product Management'],
+      ['projectMgmt', 'Project Management'],
+      ['technicalLeadership', 'Technical Leadership'],
+    ])
   },
   {
     title: "Software Development",
-    fields: [
-      { name: 'backend', label: 'Backend Development' },
-      { name: 'frontend', label: 'Frontend Development' },
-      { name: 'fullstack', label: 'Fullstack Development' },
-      { name: 'mobileAndroid', label: 'Mobile Development - Android' },
-      { name: 'mobileIos', label: 'Mobile Development - iOS' },
-      { name: 'qaAutomation', label: 'QA and Test Automation' },
-      { name: 'systemDesign', label: 'System Design and Software Architecture' },
-    ]
+    fields: createFields([
+      ['backend', 'Backend Development'],
+      ['frontend', 'Frontend Development'],
+      ['fullstack', 'Fullstack Development'],
+      ['mobileAndroid', 'Mobile Development - Android'],
+      ['mobileIos', 'Mobile Development - iOS'],
+      ['qaAutomation', 'QA and Test Automation'],
+      ['systemDesign', 'System Design and Software Architecture'],
+    ])
   },
 ];
 
-export const CAREER_GOALS = [
-  { name: 'careerSwitch', label: 'Switch career to IT' },
-  { name: 'beginnerToMid', label: 'Grow from beginner to mid-level' },
-  { name: 'midToSenior', label: 'Grow from mid-level to senior-level' },
-  { name: 'seniorPlus', label: 'Grow beyond senior level' },
-  { name: 'icToManager', label: 'Switch from IC to management position' },
-  { name: 'specialisationSwitch', label: 'Change specialisation within IT' },
-];
+export const CAREER_GOALS = createFields([
+  ['careerSwitch', 'Switch career to IT'],
+  ['beginnerToMid', 'Grow from beginner to mid-level'],
+  ['midToSenior', 'Grow from mid-level to senior-level'],
+  ['seniorPlus', 'Grow beyond senior level'],
+  ['icToManager', 'Switch from IC to management position'],
+  ['specialisationSwitch', 'Change specialisation within IT'],
+]);
 
-export const PROGRAMMING_LANGUAGES = [
-  { name: 'c', label: 'C' },
-  { name: 'cSharp', label: 'C#' },
-  { name: 'go', label: 'Go' },
-  { name: 'java', label: 'Java' },
-  { name: 'javascript', label: 'JavaScript' },
-  { name: 'kotlin', label: 'Kotlin' },
-  { name: 'python', label: 'Python' },
-  { name: 'rust', label: 'Rust' },
-  { name: 'scala', label: 'Scala' },
-  { name: 'sql', label: 'SQL' },
-  { name: 'swift', label: 'Swift' },
-  { name: 'typescript', label: 'TypeScript' },
-];
+export const PROGRAMMING_LANGUAGES = createFields([
+  ['c', 'C'],
+  ['cSharp', 'C#'],
+  ['go', 'Go'],
+  ['java', 'Java'],
+  ['javascript', 'JavaScript'],
+  ['kotlin', 'Kotlin'],
+  ['python', 'Python'],
+  ['rust', 'Rust'],
+  ['scala', 'Scala'],
+  ['sql', 'SQL'],
+  ['swift', 'Swift'],
+  ['typescript', 'TypeScript'],
+]);
 
 export const COUNTRIES = [
   { code: 'GB', name: 'United Kingdom' },
