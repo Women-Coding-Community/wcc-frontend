@@ -1,5 +1,4 @@
 // src/utils/mentorshipConstants.ts
-
 export const SKILL_LEVELS = [
   'Expert',
   'Proficient',
@@ -38,51 +37,46 @@ const createCountries = (data: Array<[string, string]>): Country[] => {
   return data.map(([code, name]) => ({ code, name }));
 };
 
+const createGroup = (title: string, fieldData: Array<[string, string]>): DomainGroup => {
+  return {
+    title,
+    fields: createFields(fieldData)
+  };
+};
+
 export const DOMAIN_GROUPS: DomainGroup[] = [
-  {
-    title: "AI, Data & ML",
-    fields: createFields([
-      ['dataEngineering', 'Data Engineering'],
-      ['dataScience', 'Data Science'],
-      ['genAI', 'Generative AI and LLMs'],
-      ['machineLearning', 'Machine Learning and AI'],
-      ['mlOps', 'MLOps and AI Deployment'],
-    ])
-  },
-  {
-    title: "Infrastructure & Operations",
-    fields: createFields([
-      ['cloudComputing', 'Cloud Computing'],
-      ['devOps', 'DevOps'],
-      ['networkEngineering', 'Network Engineering'],
-      ['platformEngineering', 'Platform Engineering'],
-      ['security', 'Security and Cybersecurity'],
-      ['sre', 'Site Reliability Engineering'],
-    ])
-  },
-  {
-    title: "Product, Leadership & Delivery",
-    fields: createFields([
-      ['agile', 'Agile and Scrum Practices'],
-      ['businessAnalysis', 'Business Analysis'],
-      ['engineeringMgmt', 'Engineering Management'],
-      ['productMgmt', 'Product Management'],
-      ['projectMgmt', 'Project Management'],
-      ['technicalLeadership', 'Technical Leadership'],
-    ])
-  },
-  {
-    title: "Software Development",
-    fields: createFields([
-      ['backend', 'Backend Development'],
-      ['frontend', 'Frontend Development'],
-      ['fullstack', 'Fullstack Development'],
-      ['mobileAndroid', 'Mobile Development - Android'],
-      ['mobileIos', 'Mobile Development - iOS'],
-      ['qaAutomation', 'QA and Test Automation'],
-      ['systemDesign', 'System Design and Software Architecture'],
-    ])
-  },
+  createGroup("AI, Data & ML", [
+    ['dataEngineering', 'Data Engineering'],
+    ['dataScience', 'Data Science'],
+    ['genAI', 'Generative AI and LLMs'],
+    ['machineLearning', 'Machine Learning and AI'],
+    ['mlOps', 'MLOps and AI Deployment'],
+  ]),
+  createGroup("Infrastructure & Operations", [
+    ['cloudComputing', 'Cloud Computing'],
+    ['devOps', 'DevOps'],
+    ['networkEngineering', 'Network Engineering'],
+    ['platformEngineering', 'Platform Engineering'],
+    ['security', 'Security and Cybersecurity'],
+    ['sre', 'Site Reliability Engineering'],
+  ]),
+  createGroup("Product, Leadership & Delivery", [
+    ['agile', 'Agile and Scrum Practices'],
+    ['businessAnalysis', 'Business Analysis'],
+    ['engineeringMgmt', 'Engineering Management'],
+    ['productMgmt', 'Product Management'],
+    ['projectMgmt', 'Project Management'],
+    ['technicalLeadership', 'Technical Leadership'],
+  ]),
+  createGroup("Software Development", [
+    ['backend', 'Backend Development'],
+    ['frontend', 'Frontend Development'],
+    ['fullstack', 'Fullstack Development'],
+    ['mobileAndroid', 'Mobile Development - Android'],
+    ['mobileIos', 'Mobile Development - iOS'],
+    ['qaAutomation', 'QA and Test Automation'],
+    ['systemDesign', 'System Design and Software Architecture'],
+  ]),
 ];
 
 export const CAREER_GOALS = createFields([
