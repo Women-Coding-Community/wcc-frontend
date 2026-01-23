@@ -11,36 +11,37 @@ import { mentorRegistrationSchema, MentorRegistrationData } from '../../schemas/
 import Step5Review from 'components/mentorship/Step5Review';
 
 const validateStep1 = async (formMethods: any) => {
-  const standardFields = [
+  const isStandardValid = await formMethods.trigger([
     'firstName', 'email', 'slackName', 'country', 'city',
-    'jobTitle', 'company', 'isLongTermMentor', 'isAdHocMentor',
-    'calendlyLink', 'menteeExpectations', 'openToNonWomen',
-  ] as const;
-  
-  const standardValidation = await formMethods.trigger(standardFields);
+    'jobTitle', 'company', 'calendlyLink', 'menteeExpectations', 'openToNonWomen',
+  ]);
+
   const isLongTerm = formMethods.getValues('isLongTermMentor');
   const isAdHoc = formMethods.getValues('isAdHocMentor');
-  
+
   formMethods.clearErrors(['isLongTermMentor', 'maxMentees', 'adHocAvailability']);
   
-  let manualChecksValid = true;
-  
+  let isTypeValid = true;
+
   if (!isLongTerm && !isAdHoc) {
     formMethods.setError('isLongTermMentor', { 
       type: 'manual', 
       message: 'Please select at least one mentorship format.' 
     });
-    manualChecksValid = false;
+    isTypeValid = false;
   }
-  
-  if (isLongTerm && !formMethods.getValues('maxMentees')) {
-    formMethods.setError('maxMentees', { 
-      type: 'manual', 
-      message: 'Please select the number of mentees' 
-    });
-    manualChecksValid = false;
+
+  if (isLongTerm) {
+    const maxMentees = formMethods.getValues('maxMentees');
+    if (!maxMentees) {
+      formMethods.setError('maxMentees', { 
+        type: 'manual', 
+        message: 'Please select the number of mentees' 
+      });
+      isTypeValid = false;
+    }
   }
-  
+
   if (isAdHoc) {
     const adHoc = formMethods.getValues('adHocAvailability');
     if (!adHoc || Object.keys(adHoc).length === 0) {
@@ -48,11 +49,11 @@ const validateStep1 = async (formMethods: any) => {
         type: 'manual', 
         message: 'Please select availability for at least one month' 
       });
-      manualChecksValid = false;
+      isTypeValid = false;
     }
   }
-  
-  return standardValidation && manualChecksValid;
+
+  return isStandardValid && isTypeValid;
 };
 
 const validateStep2 = async (formMethods: any) => {
@@ -100,7 +101,7 @@ const MentorRegistrationPage = () => {
         isStepValid = await validateStep5(formMethods);
         break;
       default:
-        isStepValid = false;
+        break;
     }
 
     if (isStepValid && activeStep < totalSteps) {
