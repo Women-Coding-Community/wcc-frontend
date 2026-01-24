@@ -91,7 +91,15 @@ const MenteeRegistrationPage = () => {
       </Box>
       <MenteeFormLayout
         title="Mentee Registration"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+        description={`Thank you for your interest in our Mentoring Programme (Long-Term mentoring). 
+We appreciate your enthusiasm and look forward to connecting with the mentor of your choice.
+
+‼️Important Information, Please read before submitting your application‼️
+We want to emphasise that applying for a long-term mentorship carries a responsibility to maintain timely communication and respectful engagement with your chosen mentor and the mentorship coordinating team throughout the entire programme. 
+
+By submitting your application, you are committing to abide strictly by the community's Mentee code of conduct. Repeated violation will result in a ban for future applications.
+
+Thank you for your cooperation and we look forward to processing your application!`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box sx={{ mb: 4 }}>
