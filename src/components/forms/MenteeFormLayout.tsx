@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 
 interface MenteeFormLayoutProps {
   title: string;
-  description?: string;
+  description?: ReactNode;
   children: ReactNode;
 }
 
@@ -83,11 +83,7 @@ const MenteeFormLayout: React.FC<MenteeFormLayoutProps> = ({
                 Indicates a required field
               </Typography>
             </Box>
-            {description && (
-              <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
-                {description}
-              </Typography>
-            )}
+            {description && <Box sx={{ mt: 2 }}>{description}</Box>}
           </Box>
           {children}
         </Paper>

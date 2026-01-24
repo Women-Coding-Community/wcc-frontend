@@ -38,17 +38,25 @@ const MenteeRegistrationPage = () => {
   });
 
   const onSubmit = async (data: MenteeFormData) => {
+    const networkLinks = data.network || [];
+    if (data.linkedInProfile) {
+      networkLinks.push({
+        type: 'LINKEDIN' as const,
+        link: data.linkedInProfile,
+      });
+    }
+
     const payload = {
       mentee: {
         fullName: data.fullName,
         position: data.position,
         email: data.email,
         slackDisplayName: data.slackDisplayName,
-        country: data.country,
+        country: data.country || { countryCode: '', countryName: '' },
         city: data.city,
         companyName: data.companyName || '',
         images: [],
-        network: data.network || [],
+        network: networkLinks,
         profileStatus: 'ACTIVE',
         skills: data.skills,
         spokenLanguages: data.spokenLanguages,
@@ -62,31 +70,6 @@ const MenteeRegistrationPage = () => {
     console.log('Form payload:', payload);
     await new Promise((resolve) => setTimeout(resolve, 2000));
   };
-
-  const countries = [
-    {
-      value: { countryCode: 'US', countryName: 'United States' },
-      label: 'United States',
-    },
-    { value: { countryCode: 'CA', countryName: 'Canada' }, label: 'Canada' },
-    {
-      value: { countryCode: 'GB', countryName: 'United Kingdom' },
-      label: 'United Kingdom',
-    },
-    {
-      value: { countryCode: 'AU', countryName: 'Australia' },
-      label: 'Australia',
-    },
-    { value: { countryCode: 'DE', countryName: 'Germany' }, label: 'Germany' },
-    { value: { countryCode: 'FR', countryName: 'France' }, label: 'France' },
-    { value: { countryCode: 'IT', countryName: 'Italy' }, label: 'Italy' },
-    { value: { countryCode: 'ES', countryName: 'Spain' }, label: 'Spain' },
-    {
-      value: { countryCode: 'NL', countryName: 'Netherlands' },
-      label: 'Netherlands',
-    },
-    { value: { countryCode: 'BE', countryName: 'Belgium' }, label: 'Belgium' },
-  ];
 
   const spokenLanguages = [
     { value: 'English', label: 'English' },
@@ -230,18 +213,8 @@ const MenteeRegistrationPage = () => {
               <TextField
                 name="fullName"
                 control={control}
-                label="Full Name"
+                label="What is your full name?"
                 placeholder="Enter your full name"
-                required
-              />
-            </Box>
-
-            <Box sx={{ mb: 2 }}>
-              <TextField
-                name="position"
-                control={control}
-                label="Position"
-                placeholder="e.g. Frontend Developer, Software Engineer"
                 required
               />
             </Box>
@@ -250,7 +223,7 @@ const MenteeRegistrationPage = () => {
               <TextField
                 name="email"
                 control={control}
-                label="Email"
+                label="What is your email address?"
                 type="email"
                 placeholder="Enter your email address"
                 required
@@ -261,10 +234,49 @@ const MenteeRegistrationPage = () => {
               <TextField
                 name="slackDisplayName"
                 control={control}
-                label="Slack Display Name"
+                label="Slack Name"
                 placeholder="@yourname"
                 required
-                helperText="Must start with @"
+              />
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                sx={{ mt: 0.5, display: 'block' }}
+              >
+                Please note your application will be rejected if you are not in
+                our Slack community.{' '}
+                <NextLink
+                  href="https://womencodingcommunity.slack.com/signup#/domain-signup"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: 'inherit',
+                    textDecoration: 'underline',
+                  }}
+                >
+                  Click here to join us on Slack
+                </NextLink>
+                .
+              </Typography>
+            </Box>
+
+            <Box sx={{ mb: 2 }}>
+              <TextField
+                name="city"
+                control={control}
+                label="Where are you based? (Country and/or city)"
+                placeholder="Enter your country and/or city"
+                required
+              />
+            </Box>
+
+            <Box sx={{ mb: 2 }}>
+              <TextField
+                name="position"
+                control={control}
+                label="What is your current job title / education status?"
+                placeholder="e.g. Frontend Developer, Software Engineer, Student"
+                required
               />
             </Box>
 
@@ -272,81 +284,18 @@ const MenteeRegistrationPage = () => {
               <TextField
                 name="companyName"
                 control={control}
-                label="Company Name"
-                placeholder="Enter your company name (optional)"
-              />
-            </Box>
-          </Box>
-
-          <Box sx={{ mb: 4 }}>
-            <Typography
-              variant="h6"
-              component="h2"
-              gutterBottom
-              sx={{ fontWeight: 600, mb: 3 }}
-            >
-              Location
-            </Typography>
-
-            <Box sx={{ mb: 2 }}>
-              <Controller
-                name="country"
-                control={control}
-                render={({ field, fieldState: { error } }) => (
-                  <FormControl fullWidth error={!!error}>
-                    <InputLabel>Country</InputLabel>
-                    <MuiSelect
-                      {...field}
-                      label="Country"
-                      value={
-                        field.value?.countryCode
-                          ? JSON.stringify(field.value)
-                          : ''
-                      }
-                      onChange={(e) => {
-                        const selectedCountry = countries.find(
-                          (c) => JSON.stringify(c.value) === e.target.value,
-                        );
-                        field.onChange(selectedCountry?.value || null);
-                      }}
-                      sx={{
-                        backgroundColor: 'rgba(223, 227, 231, 1)',
-                        '& .MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'rgba(223, 227, 231, 1)',
-                        },
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'rgba(223, 227, 231, 1)',
-                        },
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'rgba(223, 227, 231, 1)',
-                        },
-                      }}
-                    >
-                      <MenuItem value="">
-                        <em>Select Country</em>
-                      </MenuItem>
-                      {countries.map((country) => (
-                        <MenuItem
-                          key={country.value.countryCode}
-                          value={JSON.stringify(country.value)}
-                        >
-                          {country.label}
-                        </MenuItem>
-                      ))}
-                    </MuiSelect>
-                    {error && <FormHelperText>{error.message}</FormHelperText>}
-                  </FormControl>
-                )}
+                label="Company / University name"
+                placeholder="Enter your company or university name"
               />
             </Box>
 
             <Box sx={{ mb: 2 }}>
               <TextField
-                name="city"
+                name="linkedInProfile"
                 control={control}
-                label="City"
-                placeholder="Enter your city"
-                required
+                label="Your LinkedIn Profile"
+                placeholder="https://www.linkedin.com/in/yourprofile"
+                type="url"
               />
             </Box>
           </Box>
