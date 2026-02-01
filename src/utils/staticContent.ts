@@ -48,20 +48,28 @@ export const headerSetup = {
     title: 'Programmes',
     subNav: [
       {
-        title: 'Our Programmes',
-        path: '/programmes',
+        title: 'Interview Preparation',
+        path: '/programmes/interview-prep',
+      },
+      {
+        title: 'Machine Learning',
+        path: '/programmes/machine-learning',
       },
       {
         title: 'Book Club',
         path: '/programmes/book-club',
       },
       {
-        title: 'Study Groups',
-        path: '/programmes/study-groups',
+        title: 'Write Club',
+        path: '/programmes/write-club',
       },
       {
-        title: 'CV Clinic',
-        path: '/programmes/cv-clinic',
+        title: 'Coding Club',
+        path: '/programmes/coding-club',
+      },
+      {
+        title: 'Speaking Club',
+        path: '/programmes/speaking-club',
       },
     ],
   },
