@@ -60,8 +60,8 @@ export const headerSetup = {
         path: '/programmes/study-groups',
       },
       {
-        title: 'Interview Preparation',
-        path: '/programmes/interview-preparation',
+        title: 'CV Clinic',
+        path: '/programmes/cv-clinic',
       },
     ],
   },
@@ -71,11 +71,7 @@ export const headerSetup = {
   },
   Blog: {
     title: 'Blog',
-    path: '/blog',
-  },
-  Jobs: {
-    title: 'Jobs',
-    path: '/jobs',
+    path: 'https://www.womencodingcommunity.com/blog',
   },
   'About Us': {
     title: 'About Us',
@@ -91,10 +87,6 @@ export const headerSetup = {
       {
         title: 'Code of Conduct',
         path: '/about-us/code-of-conduct',
-      },
-      {
-        title: 'Donate',
-        path: '/about-us/donate',
       },
       {
         title: 'Volunteer',
