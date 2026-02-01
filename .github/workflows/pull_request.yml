@@ -32,18 +32,11 @@ jobs:
       - name: Run unit tests
         run: pnpm test
 
-      - name: Install Playwright and Browsers
+      - name: Execute Playwright tests in Docker
+        env:
+          API_BASE_URL: https://wcc-backend.fly.dev/api
+          API_KEY: ${{ secrets.API_KEY }}
         run: |
-          pnpm install playwright
-          pnpm playwright install chromium --with-deps
-
-      - name: Run Playwright tests
-        run: pnpm test:e2e
-
-      - name: Upload Playwright test reports
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+          echo "API_BASE_URL=$API_BASE_URL" >> .env.local
+          echo "API_KEY=$API_KEY" >> .env.local
+          pnpm test:e2e:docker

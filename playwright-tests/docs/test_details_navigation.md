@@ -122,7 +122,7 @@ Tests to check links and page navigations.
 - The user is redirected to the Home page regardless of their current page.
 - The Home page content loads correctly without errors.
 
-**Status:** Pending :x:
+**Status:** Done ::
 
 ---
 

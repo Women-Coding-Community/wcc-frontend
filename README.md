@@ -75,3 +75,19 @@ Use this one to run playwright (e2e) tests:
 ```bash
   pnpm test:e2e
 ```
+
+For running e2e tests in a Docker container (recommended for consistency across environments):
+
+```bash
+  pnpm run test:e2e:docker
+```
+
+This uses Docker Compose to run Playwright tests in an isolated container.
+
+To update visual regression snapshots (when UI changes are intentional):
+
+```bash
+  pnpm run test:e2e:docker:update
+```
+
+This updates the reference screenshots used in visual tests.

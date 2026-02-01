@@ -14,6 +14,14 @@ export class HomePage extends BasePage {
 
   readonly heroTitle: Locator;
   readonly heroSubtitle: Locator;
+  readonly mainHeading: Locator;
+  readonly mainText: Locator;
+  readonly mentorshipLink: Locator;
+  readonly eventsLink: Locator;
+  readonly bookClubLink: Locator;
+  readonly CvClinicLink: Locator;
+  readonly mockInterviewsLink: Locator;
+  readonly leetCodeLink: Locator;
   readonly joinSlackButton: Locator;
 
   constructor(page: Page) {
@@ -50,6 +58,23 @@ export class HomePage extends BasePage {
     this.heroSubtitle = page.getByRole('heading', {
       name: 'Empowering Women in Their Tech Careers',
     });
+    this.mainHeading = page.getByRole('heading', {
+      name: 'Opportunities and Programmes',
+    });
+    this.mainText = page.getByRole('heading', {
+      name: 'Join our community and unlock',
+    });
+    this.mentorshipLink = page.getByRole('link', { name: 'Mentorship' });
+    this.eventsLink = page.getByRole('link', {
+      name: 'Online and in-person Events',
+    });
+    this.bookClubLink = page.getByRole('link', { name: 'Book Club' });
+    this.CvClinicLink = page.getByRole('link', { name: 'CV clinic' });
+    this.mockInterviewsLink = page.getByRole('link', {
+      name: 'Mock interviews',
+    });
+    this.leetCodeLink = page.getByRole('link', { name: 'Leetcode' });
+
     this.joinSlackButton = page.getByRole('link', { name: 'Join our Slack' });
   }
 }
