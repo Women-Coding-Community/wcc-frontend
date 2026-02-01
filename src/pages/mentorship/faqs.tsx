@@ -65,7 +65,7 @@ export default MentorshipFaqsPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const combinedResponse = await fetchData('mentorship-faq-page');
+    const combinedResponse = await fetchData('mentorship/faq');
     const data: MentorshipPageData = combinedResponse.data;
 
     return {
