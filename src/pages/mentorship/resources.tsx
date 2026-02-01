@@ -1,11 +1,19 @@
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Grid, Typography } from '@mui/material';
+import { GetServerSideProps } from 'next';
 import React from 'react';
 
 import { Title, ResourcesCard, Footer, BreadCrumbsDynamic } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
+import { FooterResponse, MentorshipResourcesResponse } from '@utils/types';
+import { fetchData } from 'lib/api';
 import footerData from 'lib/responses/footer.json';
 import pageData from 'lib/responses/mentorshipResources.json';
+
+type CombinedResponse = {
+  data: MentorshipResourcesResponse;
+  footer: FooterResponse;
+};
 
 const MentorshipResourcesPage: React.FC = () => {
   const isMobile = useIsMobile();
@@ -68,6 +76,28 @@ const MentorshipResourcesPage: React.FC = () => {
       </Box>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const combinedResponse: CombinedResponse = await fetchData(
+      'mentorship/resources',
+    );
+
+    return {
+      props: {
+        data: combinedResponse.data,
+        footer: combinedResponse.footer,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        data: null,
+        error: error instanceof Error ? error.message : 'An error occurred',
+      },
+    };
+  }
 };
 
 export default MentorshipResourcesPage;
