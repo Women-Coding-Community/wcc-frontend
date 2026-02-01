@@ -388,3 +388,43 @@ export type LongTermTimeLineResponse = {
     items: LongTermTimeLineEvent[];
   };
 };
+
+// Types for Mentorship Resources response
+
+export type ResourceItem = {
+  title: string;
+  link: Link;
+  image: Image;
+};
+
+export type ResourcesSection = {
+  title: string;
+  description: string;
+  items: ResourceItem[];
+};
+
+export type BackgroundShade = {
+  name: string;
+  value: number;
+};
+
+export type BackgroundColour = {
+  color: string;
+  shade?: BackgroundShade;
+};
+
+export type CustomStyle = {
+  backgroundColour?: BackgroundColour;
+};
+
+export type MentorshipResourcesResponse = {
+  id: string;
+  heroSection: {
+    title: string;
+  };
+  section: {
+    description: string;
+  };
+  resourcesSection: ResourcesSection;
+  customStyle?: CustomStyle;
+};
