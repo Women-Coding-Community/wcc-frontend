@@ -58,6 +58,8 @@ export const fetchData = async (path: string) => {
   } catch (error) {
     // This temporarily allows responses if the database is down, should be removed once it's more stable
     // the pageData[path] takes the response you mapped the key of pageData to the import in this file
+    const footerData = await fetchFooter();
+
     return {
       //@ts-ignore
       data: pageData[path],
