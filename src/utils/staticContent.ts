@@ -23,6 +23,10 @@ export const headerSetup = {
         path: '/mentorship/mentor-registration',
       },
       {
+        title: 'Mentee Registration',
+        path: '/mentorship/mentee-registration',
+      },
+      {
         title: 'Resources',
         path: '/mentorship/resources',
       },

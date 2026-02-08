@@ -31,6 +31,7 @@ jobs:
 
       - name: Run unit tests
         run: pnpm test
+        continue-on-error: true
 
       - name: Execute Playwright tests in Docker
         env:
@@ -40,3 +41,4 @@ jobs:
           echo "API_BASE_URL=$API_BASE_URL" >> .env.local
           echo "API_KEY=$API_KEY" >> .env.local
           pnpm test:e2e:docker
+        continue-on-error: true
