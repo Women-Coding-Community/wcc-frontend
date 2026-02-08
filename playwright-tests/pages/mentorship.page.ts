@@ -42,6 +42,9 @@ export class MentorshipPage extends BasePage {
   readonly feedbackArea: Locator;
   readonly testimonialCards: Locator;
   readonly showMoreButton: Locator;
+  readonly sectionTitle: Locator;
+  readonly description: Locator;
+  readonly menteeListItems: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -54,6 +57,15 @@ export class MentorshipPage extends BasePage {
     this.feedbackArea = page.getByTestId('feedback-area');
     this.testimonialCards = this.feedbackArea.getByTestId('feedback-card');
     this.showMoreButton = this.feedbackArea.getByTestId('feedback-show-more');
+    this.sectionTitle = page.getByRole('heading', {
+      level: 4,
+      name: /Become a Mentee/i,
+    });
+    this.description = page.getByRole('heading', {
+      level: 5,
+      name: /You should become a mentee if you:/i,
+    });
+    this.menteeListItems = page.locator('ol[data-testid="mentee-card"] > li');
   }
 
   getTestimonialCard(index: number): TestimonialCard {
