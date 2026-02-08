@@ -1,5 +1,7 @@
 import { expect } from '@playwright/test';
 import { test } from '@utils/fixtures';
+import { HomePage } from '@pages/home.page';
+import { MentorshipPage } from '@pages/mentorship.page';
 
 test('Validate "Become a Mentee" section and Find a Mentor button', async ({
   page,
@@ -7,20 +9,12 @@ test('Validate "Become a Mentee" section and Find a Mentor button', async ({
   // Navigate to Mentorship page
   await page.goto('/mentorship');
 
-  // Scroll to "Become a Mentee" section
-  const sectionTitle = page.getByRole('heading', {
-    level: 4,
-    name: /Become a Mentee/i,
-  });
+  // "Become a Mentee" section
+  const { sectionTitle, description, menteeListItems } = new MentorshipPage(
+    page,
+  );
 
-  // Validate title
   await expect(sectionTitle).toBeVisible();
-
-  // Validate description text
-  const description = page.getByRole('heading', {
-    level: 5,
-    name: /You should become a mentee if you:/i,
-  });
   await expect(description).toBeVisible();
 
   // List items
@@ -32,16 +26,10 @@ test('Validate "Become a Mentee" section and Find a Mentor button', async ({
     'Need support in advancing your career',
   ];
 
-  for (const item of items) {
-    await expect(page.getByText(item)).toBeVisible();
-  }
+  await expect(menteeListItems).toHaveText(items);
 
   // Validate "Find a mentor" button
-  const findMentorButton = page.getByRole('button', {
-    name: 'Find a mentor',
-  });
-  await expect(findMentorButton).toBeVisible();
-  await expect(findMentorButton).toBeEnabled();
+  const { findMentorButton } = new HomePage(page);
   await findMentorButton.click();
 
   // Verify redirection
