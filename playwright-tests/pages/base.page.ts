@@ -39,7 +39,9 @@ export class BasePage {
     this.footerNonProfitText = page.getByText(
       'Women Coding Community is a not-for-profit organisation.',
     );
-    this.footerCopyrightText = page.getByText('© 2024 Women Coding Community');
+    this.footerCopyrightText = page.getByText(
+      new RegExp(`© \\d{4} Women Coding Community`),
+    );
     this.footerFollowUsTitle = page.getByText('Follow Us', { exact: true });
     this.footerFollowUsDescription = page.getByText(
       'Join us on social media and stay tuned.',
