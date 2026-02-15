@@ -1,0 +1,40 @@
+name: "Dev Deploy to Vercel: Website Frontend"
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        run: npm install -g pnpm@9
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_API_BASE: ${{ secrets.NEXT_PUBLIC_API_BASE_DEV }}
+          NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY_DEV }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL_DEV }}
+
+      - name: Deploy to Vercel (Dev)
+        uses: amondnet/vercel-action@16e87c0a08142b0d0d33b76aeaf20823c381b9b9 #v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN_DEV }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID_DEV }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_DEV }}
+          working-directory: ./
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_DEV }}
