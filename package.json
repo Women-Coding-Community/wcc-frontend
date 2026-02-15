@@ -19,6 +19,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@hookform/resolvers": "^5.2.2",
     "@mui/icons-material": "^5.15.18",
     "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.15.18",
@@ -30,7 +31,9 @@
     "next": "14.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "ts-jest": "^29.1.2"
+    "react-hook-form": "^7.66.0",
+    "ts-jest": "^29.1.2",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
