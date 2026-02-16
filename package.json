@@ -13,8 +13,9 @@
     "type-check": "tsc --noEmit",
     "test": "jest",
     "test:e2e": "playwright test --grep-invert @visual",
-    "test:e2e:docker": "docker compose run --rm playwright pnpm playwright test",
-    "test:e2e:docker:update": "docker compose run --rm playwright pnpm playwright test --update-snapshots"
+    "test:e2e:run": "npx @playwright/test test",
+    "test:e2e:docker": "docker compose run --rm --build playwright pnpm run test:e2e:run",
+    "test:e2e:docker:update": "docker compose run --rm playwright pnpm run test:e2e:run --update-snapshots"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

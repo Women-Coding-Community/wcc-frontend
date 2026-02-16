@@ -1,12 +1,34 @@
 services:
-  playwright:
-    build: .
-    working_dir: /app
+  nextjs:
+    build:
+      context: .
+      target: nextjs
     env_file:
       - .env.local
     environment:
       - CI=true
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  playwright:
+    build:
+      context: .
+      target: playwright
+    user: '${DOCKER_UID}:${DOCKER_GID}'
+    env_file:
+      - .env.local
+    environment:
+      - CI=true
+      - BASE_URL=http://nextjs:3000
+    depends_on:
+      nextjs:
+        condition: service_healthy
     volumes:
-      - .:/app
       - ./playwright-tests/screenshots:/app/playwright-tests/screenshots
       - ./playwright-report:/app/playwright-report
+      - ./test-results:/app/test-results

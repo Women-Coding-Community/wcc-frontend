@@ -40,6 +40,7 @@ const pageData = {
 
 export const fetchData = async (path: string) => {
   try {
+    console.log(`Attempting to fetchData for ${apiBaseUrl}/${path} with ${API_KEY}`);
     const response = await client.get(`${apiBaseUrl}/${path}`, {
       headers: {
         'X-API-KEY': API_KEY,
@@ -58,6 +59,8 @@ export const fetchData = async (path: string) => {
   } catch (error) {
     // This temporarily allows responses if the database is down, should be removed once it's more stable
     // the pageData[path] takes the response you mapped the key of pageData to the import in this file
+    // eslint-disable-next-line no-console
+    console.error(`Failed to fetchData for ${path} with ${API_KEY}. Error: ${error}`);
     const footerData = await fetchFooter();
 
     return {
@@ -70,6 +73,7 @@ export const fetchData = async (path: string) => {
 
 export const fetchFooter = async () => {
   try {
+    console.log(`Attempting to fetchFooter`);
     const response = await client.get(`${apiBaseUrl}/footer`, {
       headers: {
         'X-API-KEY': API_KEY,
@@ -82,7 +86,7 @@ export const fetchFooter = async () => {
     return response.data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Failed to fetch data, generating fallback footer');
+    console.error(`Failed to fetchFooter, generating fallback footer. Error: ${error}`);
     return footerData;
   }
 };
