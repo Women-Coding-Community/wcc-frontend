@@ -35,7 +35,7 @@ jobs:
 
       - name: Execute Playwright tests in Docker
         env:
-          API_BASE_URL: https://wcc-backend.fly.dev/api
+          API_BASE_URL: https://wcc-backend-dev.fly.dev/api
           API_KEY: ${{ secrets.API_KEY }}
         run: |
           echo "API_BASE_URL=$API_BASE_URL" >> .env.local
