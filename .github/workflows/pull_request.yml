@@ -39,6 +39,7 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
         run: |
           # Saving .env.local so that docker compose can access it
+          # (If you're using a fork, you'll not have secrets.API_KEY and things may fail)
           echo "API_BASE_URL=$API_BASE_URL" >> .env.local
           echo "API_KEY=$API_KEY" >> .env.local
           # Passing UID/GID variables to allow our container user to be the same as the host

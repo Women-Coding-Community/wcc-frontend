@@ -35,9 +35,11 @@ export default defineConfig({
   ],
 
   /* On CI we use docker so no need to start the web-server, but locally we want it */
-  webServer: process.env.CI ? undefined : {
-    command: 'pnpm dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: true,
-  },
+  webServer: process.env.CI
+    ? undefined
+    : {
+        command: 'pnpm dev',
+        url: 'http://localhost:3000',
+        reuseExistingServer: true,
+      },
 });

@@ -34,13 +34,15 @@ const pageData = {
   'mentorship/mentors': mentors,
   'mentorship/code-of-conduct': mentorShipCodeofConduct,
   team: aboutUsTeam,
-  'mentorship-faq-page': mentorshipFaqPageData,
+  'mentorship/faq': mentorshipFaqPageData,
   'mentorship/study-groups': mentorshipStudyGroupsPage,
 };
 
 export const fetchData = async (path: string) => {
   try {
-    console.log(`Attempting to fetchData for ${apiBaseUrl}/${path} with ${API_KEY}`);
+    console.log(
+      `Attempting to fetchData for ${apiBaseUrl}/${path} with ${API_KEY}`,
+    );
     const response = await client.get(`${apiBaseUrl}/${path}`, {
       headers: {
         'X-API-KEY': API_KEY,
@@ -58,9 +60,14 @@ export const fetchData = async (path: string) => {
     };
   } catch (error) {
     // This temporarily allows responses if the database is down, should be removed once it's more stable
+    // Also, since we use forks, the API_KEY will often be blank as the wcc-frontend secret is not shared
+    // with forks. See "secrets are not passed to the runner when a workflow is triggered from a forked repository."
+    // in https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets#using-secrets-in-a-workflow.
     // the pageData[path] takes the response you mapped the key of pageData to the import in this file
     // eslint-disable-next-line no-console
-    console.error(`Failed to fetchData for ${path} with ${API_KEY}. Error: ${error}`);
+    console.error(
+      `Failed to fetchData for ${path} with ${API_KEY}. Error: ${error}`,
+    );
     const footerData = await fetchFooter();
 
     return {
@@ -86,7 +93,9 @@ export const fetchFooter = async () => {
     return response.data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(`Failed to fetchFooter, generating fallback footer. Error: ${error}`);
+    console.error(
+      `Failed to fetchFooter, generating fallback footer. Error: ${error}`,
+    );
     return footerData;
   }
 };
