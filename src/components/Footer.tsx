@@ -53,7 +53,13 @@ export const Footer = ({
     );
   };
 
-  const modifyFooterDescription: string = addLineBreakAfterPeriod(description);
+  const descriptionWithCurrentYear = description.replace(
+    /© \d{4}/,
+    `© ${new Date().getFullYear()}`,
+  );
+  const modifyFooterDescription: string = addLineBreakAfterPeriod(
+    descriptionWithCurrentYear,
+  );
   return (
     <>
       <GradientBorderDivider
