@@ -282,14 +282,6 @@ export const NavBar = () => {
             <>
               <Grid container justifyContent="end">
                 {renderNavItems(Object.values(menuItems))}
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  sx={{ borderRadius: '100px' }}
-                  onClick={() => router.push('/mentorship/mentors')}
-                >
-                  Find a mentor
-                </Button>
               </Grid>
               {Object.keys(menuItems).map((key) =>
                 menuItems[key].subNav ? (
@@ -361,20 +353,6 @@ export const NavBar = () => {
               >
                 {renderMobileNavItems(Object.values(menuItems))}
               </Box>
-
-              <Button
-                variant="outlined"
-                size="small"
-                color="inherit"
-                sx={{
-                  borderRadius: '100px',
-                  width: '40%',
-                  padding: '0.5rem 1rem',
-                  margin: ' 0.8rem 1.5rem',
-                }}
-              >
-                Find a mentor
-              </Button>
             </Grid>
           </>
         )}

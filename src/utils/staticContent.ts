@@ -52,20 +52,28 @@ export const headerSetup = {
     title: 'Programmes',
     subNav: [
       {
-        title: 'Our Programmes',
-        path: '/programmes',
+        title: 'Interview Preparation',
+        path: '/programmes/interview-prep',
+      },
+      {
+        title: 'Machine Learning',
+        path: '/programmes/machine-learning',
       },
       {
         title: 'Book Club',
         path: '/programmes/book-club',
       },
       {
-        title: 'Study Groups',
-        path: '/programmes/study-groups',
+        title: 'Write Club',
+        path: '/programmes/write-club',
       },
       {
-        title: 'Interview Preparation',
-        path: '/programmes/interview-preparation',
+        title: 'Coding Club',
+        path: '/programmes/coding-club',
+      },
+      {
+        title: 'Speaking Club',
+        path: '/programmes/speaking-club',
       },
     ],
   },
@@ -75,11 +83,7 @@ export const headerSetup = {
   },
   Blog: {
     title: 'Blog',
-    path: '/blog',
-  },
-  Jobs: {
-    title: 'Jobs',
-    path: '/jobs',
+    path: 'https://www.womencodingcommunity.com/blog',
   },
   'About Us': {
     title: 'About Us',
@@ -95,10 +99,6 @@ export const headerSetup = {
       {
         title: 'Code of Conduct',
         path: '/about-us/code-of-conduct',
-      },
-      {
-        title: 'Donate',
-        path: '/about-us/donate',
       },
       {
         title: 'Volunteer',
