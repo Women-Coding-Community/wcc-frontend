@@ -1,6 +1,7 @@
 import { Box, Card, CardContent, Typography } from '@mui/material';
 
 import { useIsMobile } from '@utils/theme-utils';
+import theme from 'theme';
 
 interface TimelineCardProps {
   title: string;
@@ -14,11 +15,10 @@ export const TimelineCard = (props: TimelineCardProps) => {
   return (
     <Box
       sx={{
-        width: '100%',
-        maxWidth: isMobile ? '300px' : '1440px',
+        width: isMobile ? '100%' : '80%',
+        maxWidth: isMobile ? '100%' : '1440px',
         margin: '0 auto',
         padding: {
-          xs: '16px',
           sm: '24px',
           md: '32px',
         },
@@ -31,11 +31,11 @@ export const TimelineCard = (props: TimelineCardProps) => {
           borderRadius: 1,
           borderColor: '#C1C7CE',
           width: '100%',
-          maxWidth: isMobile ? '300px' : '1050px',
+          maxWidth: isMobile ? '400px' : '1050px',
           minHeight: isMobile ? '226px' : '275px',
           opacity: 1,
           padding: {
-            xs: '24px',
+            xs: '1rem',
             sm: '32px',
             md: '38px 62px',
           },
@@ -51,6 +51,7 @@ export const TimelineCard = (props: TimelineCardProps) => {
             variant={isMobile ? 'subtitle1' : 'h5'}
             gutterBottom
             fontWeight="bold"
+            color={theme.palette.primary.main}
           >
             {props.date}
           </Typography>

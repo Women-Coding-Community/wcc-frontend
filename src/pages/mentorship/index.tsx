@@ -8,7 +8,7 @@ import {
   ColoredBox,
   FeedbackCard,
   MentorBecomeCard,
-  Title
+  Title,
 } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
 import { MentorshipProgrammeData, FeedbackItem } from '@utils/types';
@@ -33,27 +33,7 @@ const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
   return (
     <>
       {isMobile ? null : <BreadCrumbsDynamic />}
-      <Box
-        sx={{
-          backgroundColor: theme.palette.primary.light,
-          width: '100%',
-          textAlign: 'center',
-          py: { xs: 6, md: 8 },
-          px: { xs: 2, md: 0 },
-        }}
-      >
-        <Typography
-          variant="h2"
-          sx={{
-            fontWeight: 700,
-            fontSize: { xs: '32px', sm: '48px', md: '60px' },
-            lineHeight: 1.2,
-            color: theme.palette.primary.dark,
-          }}
-        >
-          <Title title={heroTitle} />
-        </Typography>
-      </Box>
+      <Title title={heroTitle} />
 
       <Box
         sx={{
