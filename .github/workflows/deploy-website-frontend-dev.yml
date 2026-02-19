@@ -1,8 +1,8 @@
-name: "Dev Deploy to Vercel: Website Frontend"
+name: 'Dev Deploy to Vercel: Website Frontend'
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:

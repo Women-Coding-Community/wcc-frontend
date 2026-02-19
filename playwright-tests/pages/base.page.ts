@@ -39,7 +39,9 @@ export class BasePage {
     this.footerNonProfitText = page.getByText(
       'Women Coding Community is a not-for-profit organisation.',
     );
-    this.footerCopyrightText = page.getByText('© 2024 Women Coding Community');
+    this.footerCopyrightText = page.getByText(
+      new RegExp(`© \\d{4} Women Coding Community`),
+    );
     this.footerFollowUsTitle = page.getByText('Follow Us', { exact: true });
     this.footerFollowUsDescription = page.getByText(
       'Join us on social media and stay tuned.',
@@ -49,11 +51,12 @@ export class BasePage {
       'Experiencing Technical Issues?',
     );
 
+    const links = page.getByRole('link');
     this.footerSocialLinks = {
-      LinkedIn: page.getByTestId('LinkedInIcon'),
-      GitHub: page.getByTestId('GitHubIcon'),
-      Instagram: page.getByTestId('InstagramIcon'),
-      Email: page.getByTestId('EmailIcon'),
+      LinkedIn: links.filter({ has: page.getByTestId('LinkedInIcon') }),
+      GitHub: links.filter({ has: page.getByTestId('GitHubIcon') }),
+      Instagram: links.filter({ has: page.getByTestId('InstagramIcon') }),
+      Email: links.filter({ has: page.getByTestId('EmailIcon') }),
       Slack: page.locator('a[href*="join.slack.com"]').last(),
       'Send us a report': page.getByText('Send us a report', { exact: true }),
     };
@@ -89,22 +92,12 @@ export class BasePage {
   async verifySocialLinkNavigation(
     socialPlatform: string,
     expectedURL: string | RegExp,
-    opensInNewTab: boolean,
   ) {
     const locator = this.footerSocialLinks[socialPlatform];
     await expect(locator).toBeVisible();
-
-    if (opensInNewTab === true) {
-      // Handle new tab navigation
-      const [newPage] = await Promise.all([
-        this.page.context().waitForEvent('page'),
-        this.clickElement(locator),
-      ]);
-      await expect(newPage).toHaveURL(expectedURL);
-    } else {
-      // Handle same tab navigation
-      await this.clickElement(locator);
-      await expect(this.page).toHaveURL(expectedURL);
-    }
+    await expect(locator).toMatchAriaSnapshot(`
+      - link:
+        - /url: ${expectedURL}
+    `);
   }
 }

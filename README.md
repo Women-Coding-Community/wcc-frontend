@@ -82,7 +82,13 @@ For running e2e tests in a Docker container (recommended for consistency across 
   pnpm run test:e2e:docker
 ```
 
-This uses Docker Compose to run Playwright tests in an isolated container.
+This uses Docker Compose to run Playwright tests in an isolated container, as the CI does. It also retries 3 times, as the CI does.
+
+To run an _individual_ test, one can also pass grep parameters with the test title such as:
+
+```bash
+  pnpm run test:e2e:docker -g "Validate footer"
+```
 
 To update visual regression snapshots (when UI changes are intentional):
 
