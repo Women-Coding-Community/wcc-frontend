@@ -108,9 +108,9 @@ test.describe('Footer Validation', () => {
     await expect(basePage.footerTechnicalIssuesText).toBeVisible();
   });
 
-  for (const { id, name, url, opensInNewTab = false } of footerSocialLinks) {
+  for (const { id, name, url } of footerSocialLinks) {
     test(`@${id}: Validate footer ${name} link`, async ({ basePage }) => {
-      await basePage.verifySocialLinkNavigation(name, url, opensInNewTab);
+      await basePage.verifySocialLinkNavigation(name, url);
     });
   }
 });
