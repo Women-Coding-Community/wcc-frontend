@@ -8,6 +8,7 @@ import {
   ColoredBox,
   FeedbackCard,
   MentorBecomeCard,
+  Title
 } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
 import { MentorshipProgrammeData, FeedbackItem } from '@utils/types';
@@ -50,7 +51,7 @@ const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
             color: theme.palette.primary.dark,
           }}
         >
-          {heroTitle}
+          <Title title={heroTitle} />
         </Typography>
       </Box>
 
