@@ -114,17 +114,17 @@ export const footerSocialLinks = [
   {
     id: 'NAV-017',
     name: 'Slack',
-    url: 'https://womencodingcommunity.slack.com/signup#/domain-signup',
+    url: 'https://join.slack.com/t/womencodingcommunity/shared_invite/zt-2hpjwpx7l-rgceYBIWp6pCiwc0hVsX8A',
   },
-  // {
-  //   id: 'NAV-018',
-  //   name: 'Email',
-  //   url: 'mailto:london@womencodingcommunity.com',
-  // },
+  {
+    id: 'NAV-018',
+    name: 'Email',
+    url: 'mailto:london@womencodingcommunity.com',
+  },
   {
     id: 'NAV-019',
     name: 'Send us a report',
-    url: 'https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FWomen-Coding-Community%2FWomenCodingCommunity.github.io%2Fissues%2Fnew%3Ftemplate%3Dbug_report.md%26title%3Dbug%2520title',
+    url: 'https://github.com/WomenCodingCommunity/WomenCodingCommunity.github.io/issues/new?template=bug_report.md&title=bug%20title',
     opensInNewTab: true,
   },
 ];
