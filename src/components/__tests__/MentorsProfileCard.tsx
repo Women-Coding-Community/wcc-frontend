@@ -6,8 +6,11 @@ import { Mentor } from '@utils/types';
 import { MentorProfileCard } from '../MentorProfileCard';
 
 const mockMentor: Mentor = {
+  id: 1,
   fullName: 'Test Mentor',
   position: 'Senior Software Engineer',
+  email: 'test@example.com',
+  slackDisplayName: '@testmentor',
   companyName: 'ABC Technology Company',
   city: 'London',
   country: {
@@ -16,7 +19,7 @@ const mockMentor: Mentor = {
   },
   images: [
     {
-      path: 'assets/images/mentors/test_mentor.jpg',
+      path: '/assets/images/mentors/test_mentor.jpg',
       alt: 'mentor profile image',
       type: 'desktop',
     },
@@ -25,25 +28,35 @@ const mockMentor: Mentor = {
     { type: 'linkedin', link: 'https://linkedin.com/in/test' },
     { type: 'github', link: 'https://github.com/test' },
   ],
-  profileStatus: 'active',
+  isWomenNonBinary: true,
+  profileStatus: 'ACTIVE',
   bio: 'Experienced engineer and mentor.',
   spokenLanguages: ['English', 'French'],
   skills: {
     yearsExperience: 10,
-    experienceRange: '10+ years',
-    areas: ['Backend', 'Cloud'],
-    languages: ['C++', 'Java', 'JavaScript', 'TypeScript', 'Python'],
+    areas: [
+      { technicalArea: 'Backend', proficiencyLevel: 'EXPERT' },
+      { technicalArea: 'Cloud', proficiencyLevel: 'ADVANCED' },
+    ],
+    languages: [
+      { language: 'C++', proficiencyLevel: 'EXPERT' },
+      { language: 'Java', proficiencyLevel: 'EXPERT' },
+      { language: 'Javascript', proficiencyLevel: 'ADVANCED' },
+      { language: 'Python', proficiencyLevel: 'ADVANCED' },
+    ],
+    mentorshipFocus: ['Switch career to IT', 'Grow from beginner to mid-level'],
   },
   menteeSection: {
-    mentorshipType: ['Career', 'Technical'],
-    availability: {
-      months: ['January', 'February'],
-      hours: 5,
-    },
-    idealMentee: 'Motivated learners',
-    focus: ['Cloud', 'Backend'],
-    additional: 'Flexible with time zones.',
+    idealMentee:
+      'Motivated learners seeking growth in cloud and backend technologies.',
+    additional: 'Flexible with time zones and communication preferences.',
+    adHoc: [
+      { month: 'JULY', hours: 4 },
+      { month: 'AUGUST', hours: 4 },
+    ],
   },
+  acceptMale: true,
+  acceptPromotion: false,
   feedbackSection: {
     feedbacks: [
       {
@@ -55,7 +68,6 @@ const mockMentor: Mentor = {
       },
     ],
   },
-  resources: [],
 };
 
 describe('MentorProfileCard', () => {
@@ -66,7 +78,7 @@ describe('MentorProfileCard', () => {
     expect(screen.getByText(/ABC Technology Company/)).toBeInTheDocument();
     expect(screen.getByText(/Programming languages:/)).toBeInTheDocument();
     expect(
-      screen.getByText(/C\+\+, Java, JavaScript, TypeScript, Python/),
+      screen.getByText(/C\+\+, Java, Javascript, Python/),
     ).toBeInTheDocument();
   });
 
@@ -93,7 +105,6 @@ describe('MentorProfileCard', () => {
     fireEvent.click(screen.getByText('Skills & Support Areas'));
     expect(screen.getByText(/Tech Experience in years:/)).toBeInTheDocument();
     expect(screen.getByText(/10/)).toBeInTheDocument();
-    expect(screen.getByText(/January/)).toBeInTheDocument();
     expect(screen.getByText(/French/)).toBeInTheDocument();
     expect(screen.getByText(/Flexible with time zones/)).toBeInTheDocument();
 
@@ -102,12 +113,6 @@ describe('MentorProfileCard', () => {
     expect(screen.getByText('Great mentor!')).toBeInTheDocument();
     // Check for star icons (5 stars)
     expect(screen.getAllByTestId('StarIcon').length).toBe(5);
-
-    // Switch to Resources tab
-    fireEvent.click(screen.getByText('Resources'));
-    expect(
-      screen.getByText(/This mentor has not provided any resources yet/),
-    ).toBeInTheDocument();
   });
 
   it('renders the Apply for this mentor button', () => {
