@@ -95,8 +95,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const response = await fetchData('mentorship/long-term-timeline');
     const props: CombinedResponse = {
-      data: response.data,
-      footer: response.footer,
+      data: response.data || null,
+      footer: response.footer || null,
     };
     return {
       props,

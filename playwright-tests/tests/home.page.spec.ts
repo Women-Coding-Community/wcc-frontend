@@ -53,7 +53,7 @@ test.describe('Validate Home Page', () => {
 
     await basePage.verifyURL('/mentorship/mentor-registration');
     await basePage.verifyPageContainsText(
-      'Welcome to the MentorRegistrationPage',
+      'WCC: Registration Form for Mentors',
     );
   });
 
