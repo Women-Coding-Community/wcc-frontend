@@ -82,7 +82,13 @@ For running e2e tests in a Docker container (recommended for consistency across 
   pnpm run test:e2e:docker
 ```
 
-This uses Docker Compose to run Playwright tests in an isolated container.
+This uses Docker Compose to run Playwright tests in an isolated container, as the CI does. It also retries 3 times, as the CI does.
+
+To run an _individual_ test, one can also pass grep parameters with the test title such as:
+
+```bash
+  pnpm run test:e2e:docker -g "Validate footer"
+```
 
 To update visual regression snapshots (when UI changes are intentional):
 
@@ -91,3 +97,18 @@ To update visual regression snapshots (when UI changes are intentional):
 ```
 
 This updates the reference screenshots used in visual tests.
+
+### CI/CD and deploy (Vercel)
+
+A GitHub Actions workflow is provided at `.github/workflows/deploy-website-frontend-dev.yml` to deploy
+the frontend to Vercel Dev environment on pushes to `main`. Configure the following repository
+secrets:
+
+- VERCEL_TOKEN_DEV
+- VERCEL_ORG_ID_DEV
+- VERCEL_PROJECT_ID_DEV
+- NEXT_PUBLIC_API_BASE_DEV
+- NEXT_PUBLIC_API_KEY_DEV (optional)
+- NEXT_PUBLIC_APP_URL_DEV (optional)
+
+Alternatively, you can connect the repository directly in Vercel dashboard and set env vars there.

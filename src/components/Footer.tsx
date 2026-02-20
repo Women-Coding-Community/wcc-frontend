@@ -31,7 +31,12 @@ export const Footer = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const renderSocialNetworkIcon = (network: Network) => {
     return (
-      <a href={network.link} key={network.type}>
+      <a
+        href={network.link}
+        key={network.type}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <Icon
           baseClassName="material-symbols-outlined"
           sx={{
@@ -48,7 +53,13 @@ export const Footer = ({
     );
   };
 
-  const modifyFooterDescription: string = addLineBreakAfterPeriod(description);
+  const descriptionWithCurrentYear = description.replace(
+    /© \d{4}/,
+    `© ${new Date().getFullYear()}`,
+  );
+  const modifyFooterDescription: string = addLineBreakAfterPeriod(
+    descriptionWithCurrentYear,
+  );
   return (
     <>
       <GradientBorderDivider

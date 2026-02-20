@@ -5,7 +5,12 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-import { Footer, MentorProfileCard } from '@components';
+import {
+  BreadCrumbsDynamic,
+  Footer,
+  MentorProfileCard,
+  Title,
+} from '@components';
 import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, Mentor } from '@utils/types';
 import { fetchData } from 'lib/api';
@@ -36,6 +41,8 @@ const MentorsPage = ({ data, footer, error }: MentorsPageProps) => {
 
   return (
     <>
+      {isMobile ? null : <BreadCrumbsDynamic />}
+      <Title title="Meet Our Mentors" />
       <Box sx={theme.custom.containerBox}>
         <Grid
           container

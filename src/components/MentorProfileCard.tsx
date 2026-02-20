@@ -94,7 +94,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
         >
           {/* question: image needs to be an actual url */}
           <Image
-            src={'/profile-illustration.avif'}
+            src={mentor.images[0]?.path || '/profile-illustration.avif'}
             alt={mentor.images[0]?.alt || 'Mentor Profile Picture Description'}
             width={120}
             height={120}
@@ -102,17 +102,23 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           />
         </Box>
         <Typography variant="h6">{mentor.fullName}</Typography>
-        <Typography
-          variant="body2"
-          sx={{ mt: 1, color: 'text.secondary', fontWeight: 600 }}
-        >
-          Programming languages:
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.primary', mb: 3 }}>
-          {mentor.skills?.languages?.join(', ') || 'N/A'}
-        </Typography>
+        {mentor.skills?.languages ? (
+          <>
+            <Typography
+              variant="body2"
+              sx={{ mt: 1, color: 'text.secondary', fontWeight: 600 }}
+            >
+              Programming languages:
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.primary', mb: 3 }}>
+              {mentor.skills?.languages
+                ?.map((lang: any) => lang.language)
+                .join(', ') || 'N/A'}
+            </Typography>
+          </>
+        ) : null}
         {/* question: this needs to be link to something? */}
-        <LinkButton href={'/'} reversed small>
+        <LinkButton href={`/mentor?id=${mentor.id}`} reversed small>
           Apply for this mentor{' '}
         </LinkButton>
       </Box>
@@ -145,8 +151,10 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           {/* question: do we want to display the tab if no info provided? */}
           <Tab label="Presentation" />
           <Tab label="Skills & Support Areas" />
-          <Tab label="Reviews" />
-          <Tab label="Resources" />
+          {mentor.feedbackSection?.feedbacks ? <Tab label="Reviews" /> : null}
+          {mentor.resources && mentor.resources.length > 0 ? (
+            <Tab label="Resources" />
+          ) : null}
         </Tabs>
         <TabPanel
           value={tab}
@@ -158,8 +166,8 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
             padding: 3,
           }}
         >
-          <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-            {mentor.position}, {mentor.companyName}
+          <Typography variant="subtitle2" sx={{ fontWeight: 600 }} pb={1}>
+            {mentor?.position}, {mentor?.companyName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
             Based in: {mentor.city}, {mentor.country.countryName}
@@ -182,7 +190,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
             ))}
           </Box>
           <Typography variant="body2" sx={{ mb: 1 }}>
-            {mentor.bio}
+            Bio: {mentor.bio}
           </Typography>
         </TabPanel>
         <TabPanel
@@ -210,30 +218,39 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
               {mentor.spokenLanguages?.join(', ') || 'N/A'}
             </Typography>
           </Typography>
-          <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
+          {/* <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Mentorship types:{' '}
             <Typography component="span">
               {mentor.menteeSection?.mentorshipType?.join(', ') || 'N/A'}
             </Typography>
-          </Typography>
+          </Typography> */}
+          {/*
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Availability: {/* question: these are capitalised */}{' '}
-            <Typography component="span">
-              {mentor.menteeSection.availability?.months?.join(', ') || 'N/A'}
+          {/* <Typography component="span">
+              {mentor.menteeSection.additional?.months?.join(', ') || 'N/A'}
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Hours per month:{' '}
             <Typography component="span">
-              {mentor.menteeSection.availability.hours} hours
+              {mentor.menteeSection.availability?.hours} hours
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Focus:{' '}
             <Typography component="span">
-              {mentor.menteeSection?.focus?.join(', ') || 'N/A'}
+              {mentor.menteeSection?.additional?.join(', ') || 'N/A'}
             </Typography>
-          </Typography>
+          </Typography> */}
+          {mentor.menteeSection?.idealMentee ? (
+            <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
+              Ideal Mentee:{' '}
+              <Typography component="span">
+                {mentor.menteeSection?.idealMentee}
+              </Typography>
+            </Typography>
+          ) : null}
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Additional:{' '}
             <Typography component="span">
