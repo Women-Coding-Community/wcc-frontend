@@ -65,8 +65,7 @@ const validateStep2 = async (formMethods: any) => {
 
 const validateStep5 = async (formMethods: any) => {
   return await formMethods.trigger([
-    'linkedin', 'github', 'instagram', 'medium', 
-    'website', 'otherSocial', 'identity', 'pronouns', 
+    'linkedin', 'identity', 'pronouns', 
     'socialHighlight', 'termsAgreed'
   ]);
 };

@@ -153,7 +153,7 @@ export const reviewSchema = z.object({
   instagram: z.string().url({ message: "Invalid URL" }).optional().or(z.literal('')),
   medium: z.string().url({ message: "Invalid URL" }).optional().or(z.literal('')),
   website: z.string().url({ message: "Invalid URL" }).optional().or(z.literal('')),
-  otherSocial: z.string().optional(),
+  otherSocial: z.string().url({ message: "Invalid URL" }).optional().or(z.literal('')),
   identity: z.string().min(1, "Please select an option"),
   pronouns: z.string().min(1, "Pronouns are required"),
   socialHighlight: z.string().min(1, "Please select Yes or No"),
