@@ -72,7 +72,7 @@ Tests to check mentorship page behaviour.
 It is important to test, as it is a core feature of the platform, mentor discovery is primary use case. Cards have overflow issues with long names/many tags. High visual complexity: images, tags, buttons, spacing.
 
 **Test Cases:**
-Verify grid of mentor profile cards 
+Verify grid of mentor profile cards
 
 **Status:** Not implemented
 
