@@ -6,7 +6,7 @@ Tests to check links and page navigations.
 
 ## NAV-001: Primary Navigation Links
 
-**Description:** Testing primary navigation links functionality.
+**User Goal:** User wants to navigate to main sections of the website
 
 **Steps to Reproduce:**
 
@@ -28,16 +28,14 @@ Tests to check links and page navigations.
 
 ---
 
-## NAV-006
+## NAV-006: Logo Navigation
 
-**Title:** Click on the website logo in the header
-
-**Description:** Testing logo click navigation to ensure it returns user to home page.
+**User Goal:** User wants to return to home page from any page by clicking logo
 
 **Steps to Reproduce:**
 
 1. Launch the application in the browser.
-2. Click on the Find a Mentor link in the navigation bar.
+2. Navigate to any page in the application.
 3. Click on the website logo in the header (top-left corner).
 
 **Expected Result:**
@@ -49,11 +47,9 @@ Tests to check links and page navigations.
 
 ---
 
-## NAV-008
+## NAV-008: Mentorship Dropdown Navigation
 
-**Title:** Click each item in the Mentorship dropdown
-
-**Description:** Testing all navigation items within the Mentorship dropdown menu.
+**User Goal:** User wants to access different mentorship program pages through dropdown menu
 
 **Steps to Reproduce:**
 
@@ -79,11 +75,9 @@ On clicking each option:
 
 ---
 
-## NAV-010
+## NAV-010: Programmes Dropdown Navigation
 
-**Title:** Click each item in the Programmes dropdown
-
-**Description:** Testing all navigation items within the Programmes dropdown menu.
+**User Goal:** User wants to access different programme pages through dropdown menu
 
 **Steps to Reproduce:**
 
@@ -107,11 +101,9 @@ On clicking each option:
 
 ---
 
-## NAV-012
+## NAV-012: About Us Dropdown Navigation
 
-**Title:** Click each item in the About Us dropdown
-
-**Description:** Testing all navigation items within the About Us dropdown menu.
+**User Goal:** User wants to access company information pages through dropdown menu
 
 **Steps to Reproduce:**
 
@@ -151,13 +143,9 @@ On clicking each option:
 
 ---
 
-
-
 ---
 
-## NAV-018
-
-**Title:** Contact via Email
+## NAV-018: Email Contact
 
 **User Goal:** User wants to email WCC
 
@@ -173,9 +161,7 @@ On clicking each option:
 
 ---
 
-## NAV-019
-
-**Title:** Report Technical Issues
+## NAV-019: Report Technical Issues
 
 **User Goal:** User encounters a bug and wants to report it
 
