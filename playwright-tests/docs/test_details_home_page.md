@@ -96,7 +96,7 @@ Tests to check home page behaviour.
 - Clicking the CTA Button should redirect the user to the respective external event details page (e.g., GitHub, Meetup).
 - The View all events link at the top right should redirect to a dedicated Events page containing all events.
 
-**Status:** Pending :x:
+**Status:** Done :white_check_mark:
 
 ---
 

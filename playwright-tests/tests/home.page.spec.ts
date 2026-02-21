@@ -45,6 +45,39 @@ test.describe('Validate Home Page', () => {
     await homePage.clickElement(homePage.leetCodeLink);
     await homePage.verifyURL('/programmes/leetcode');
   });
+
+  test('HP-003: Verify Events Card information and CTA link', async ({
+    page,
+    homePage,
+  }) => {
+    await test.step('Verify events section is visible', async () => {
+      await homePage.eventsSection.verifySectionVisible();
+    });
+
+    await test.step('Verify event card displays all required information', async () => {
+      const eventCard = homePage.eventsSection.getEventCard(0);
+      await eventCard.verifyCardStructure();
+    });
+
+    await test.step('Verify CTA button opens external link', async () => {
+      const eventCard = homePage.eventsSection.getEventCard(0);
+      const newPage = await eventCard.clickCtaAndWaitForNewPage();
+
+      const url = newPage.url();
+      const isValidDomain =
+        url.includes('github.com') || url.includes('meetup.com');
+      expect(isValidDomain).toBeTruthy();
+
+      await newPage.close();
+      await page.bringToFront();
+    });
+
+    await test.step('Verify "View all events" link navigates to events page', async () => {
+      await homePage.eventsSection.clickViewAllEventsLink();
+      await homePage.verifyURL('/events');
+    });
+  });
+
   test('HP-004: Become Mentor section', async ({ homePage, basePage }) => {
     await expect(homePage.becomeMentorSectionTitle).toBeVisible();
     await expect(homePage.becomeMentorSectionDescription).toBeVisible();
