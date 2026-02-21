@@ -4,117 +4,38 @@ Tests to check links and page navigations.
 
 ---
 
-## NAV-001
+## NAV-001: Primary Navigation Links
 
-**Title:** Click Home Link
-
-**Description:** Testing the Home navigation link functionality.
+**User Goal:** User wants to navigate to main sections of the website
 
 **Steps to Reproduce:**
 
-1. Launch the application in the browser.
-2. Click on the Home link in the navigation bar.
+1. Launch the application in the browser
+2. Click on each link in the navigation bar one by one:
+   - Home link
+   - Events link
+   - Blog link
+   - Jobs link
 
 **Expected Result:**
 
-- The user is redirected to the Home page.
-- The user is redirected to the Home page with the base url.
-- Header "Women Coding Community" should be displayed.
+- **Home** → User redirected to Home page with base URL, "Women Coding Community" header displayed
+- **Events** → User redirected to "/events" page, "Welcome to the EventsPage" text present
+- **Blog** → User redirected to "/blog" page, "Welcome to the Blog Page" text present
+- **Jobs** → User redirected to "/jobs" page, "Welcome to the JobsPage" text present
 
-**Status:** Done :white_check_mark:
+**Status:** Done :white_check_mark: (NAV-001 to NAV-004)
 
 ---
 
-## NAV-002
+## NAV-006: Logo Navigation
 
-**Title:** Click Events Link
-
-**Description:** Testing the Events navigation link functionality.
+**User Goal:** User wants to return to home page from any page by clicking logo
 
 **Steps to Reproduce:**
 
 1. Launch the application in the browser.
-2. Click on the Events link in the navigation bar.
-
-**Expected Result:**
-
-- The user is redirected to the Events page with url "/events"
-- "Welcome to the EventsPage" text should be present
-
-**Status:** Done :white_check_mark:
-
----
-
-## NAV-003
-
-**Title:** Click Blog Link
-
-**Description:** Testing the Blog navigation link functionality.
-
-**Steps to Reproduce:**
-
-1. Launch the application in the browser.
-2. Click on the Blog link in the navigation bar.
-
-**Expected Result:**
-
-- The user is redirected to the Blog page with url "/blog"
-- "Welcome to the Blog Page" text should be present
-
-**Status:** Done :white_check_mark:
-
----
-
-## NAV-004
-
-**Title:** Click Jobs Link
-
-**Description:** Testing the Jobs navigation link functionality.
-
-**Steps to Reproduce:**
-
-1. Launch the application in the browser.
-2. Click on the Jobs link in the navigation bar.
-
-**Expected Result:**
-
-- The user is redirected to the Jobs page with url "/jobs"
-- "Welcome to the JobsPage" text should be present
-
-**Status:** Done :white_check_mark:
-
----
-
-## NAV-005
-
-**Title:** Click Find a mentor button
-
-**Description:** Testing the Find a Mentor button functionality.
-
-**Steps to Reproduce:**
-
-1. Launch the application in the browser.
-2. Click on the Find a Mentor link in the navigation bar.
-
-**Expected Result:**
-
-- The user is redirected to the Jobs page with url "/mentors"
-- "Meet Our Mentors!" text should be present
-
-**Status:** Pending :x:
-
----
-
-## NAV-006
-
-**Title:** Click on the website logo in the header
-
-**Description:** Testing logo click navigation to ensure it returns user to home page.
-
-**Steps to Reproduce:**
-
-1. Launch the application in the browser.
-2. Click on the Find a Mentor link in the navigation bar.
+2. Navigate to any page in the application.
 3. Click on the website logo in the header (top-left corner).
 
 **Expected Result:**
@@ -126,41 +47,9 @@ Tests to check links and page navigations.
 
 ---
 
-## NAV-007
+## NAV-008: Mentorship Dropdown Navigation
 
-**Title:** Hover over "Mentorship" dropdown
-
-**Description:** Testing the Mentorship dropdown menu display.
-
-**Steps to Reproduce:**
-
-1. Launch the application in the browser.
-2. Hover over the "Mentorship" dropdown in the header navigation.
-3. Observe that the dropdown menu expands showing available options.
-
-**Expected Result:**
-On hover, the dropdown expands and displays the following options:
-
-- Overview
-- Mentors
-- Study Groups
-- Resources
-- Code Of Conduct
-- FAQ
-- Long-Term Timeline
-- Ad-Hoc Timeline
-
-**Status:** Done :x:
-
-**Assigned to:** Purnima
-
----
-
-## NAV-008
-
-**Title:** Click each item in the Mentorship dropdown
-
-**Description:** Testing all navigation items within the Mentorship dropdown menu.
+**User Goal:** User wants to access different mentorship program pages through dropdown menu
 
 **Steps to Reproduce:**
 
@@ -186,39 +75,9 @@ On clicking each option:
 
 ---
 
-## NAV-009
+## NAV-010: Programmes Dropdown Navigation
 
-**Title:** Hover over "Programmes" dropdown
-
-**Description:** Testing the Programmes dropdown menu display.
-
-**Steps to Reproduce:**
-
-1. Launch the application in the browser.
-2. Hover over the "Programmes" dropdown in the header navigation.
-3. Observe that the dropdown menu expands showing available options.
-
-**Expected Result:**
-On hover, the dropdown expands and displays the following options:
-
-- Interview Preparation
-- Machine Learning
-- Book Club
-- Writing Club
-- Coding Club
-- Speaking Club
-
-**Status:** Done :x:
-
-**Assigned to:** Purnima
-
----
-
-## NAV-010
-
-**Title:** Click each item in the Programmes dropdown
-
-**Description:** Testing all navigation items within the Programmes dropdown menu.
+**User Goal:** User wants to access different programme pages through dropdown menu
 
 **Steps to Reproduce:**
 
@@ -242,38 +101,9 @@ On clicking each option:
 
 ---
 
-## NAV-011
+## NAV-012: About Us Dropdown Navigation
 
-**Title:** Hover over "About Us" dropdown
-
-**Description:** Testing the About Us dropdown menu display.
-
-**Steps to Reproduce:**
-
-1. Launch the application in the browser.
-2. Hover over the "About Us" dropdown in the header navigation.
-3. Observe that the dropdown menu expands showing available options.
-
-**Expected Result:**
-On hover, the dropdown expands and displays the following options:
-
-- Overview
-- Team
-- Code Of Conduct
-- Partners
-- Volunteer
-
-**Status:** Pending :x:
-
-**Assigned to:** Purnima
-
----
-
-## NAV-012
-
-**Title:** Click each item in the About Us dropdown
-
-**Description:** Testing all navigation items within the About Us dropdown menu.
+**User Goal:** User wants to access company information pages through dropdown menu
 
 **Steps to Reproduce:**
 
@@ -294,50 +124,18 @@ On clicking each option:
 
 ---
 
-## NAV-013
-
-**Title:** Validate footer logo and static text
-
-**Description:** Testing footer logo and static text
-
-**Steps to Reproduce:**
-
-1. Launch the application in the browser.
-2. Scroll down to the Footer
-
-**Expected Result:**
-
-- Footer Logo should be visible and on clicking the Logo, user should be redirected to Home Page <br/>
-  Below text should be present:
-  - Women Coding Community is a not-for-profit organisation.
-  - © 2024 Women Coding Community
-  - Follow Us
-  - Join us on social media and stay tuned.
-  - Experiencing Technical Issues?
-
-**Status:** Done :white_check_mark:
-
-**Assigned to:** Pranita
-
----
-
 ## NAV-014
 
-**Title:** Check Footer LinkedIn Icon and Link
+**Title:** Navigate to External Social Media
 
-**Description:** Testing LinkedIn social media link functionality in the footer
+**User Goal:** User wants to follow WCC on social media
 
 **Steps to Reproduce:**
 
-1. Launch the application in the browser.
-2. Scroll down to the Footer
-3. Click on the LinkedIn icon
-
-**Expected Result:**
-
-- LinkedIn icon should be visible in the footer
-- On clicking the LinkedIn link, user should be redirected to the destination URL "https://www.linkedin.com/company/womencodingcommunity"
-- Link should open in a new tab/window
+- Footer LinkedIn link → Opens LinkedIn in new tab (`https://www.linkedin.com/company/womencodingcommunity`)
+- Footer GitHub link → Opens GitHub in new tab (`https://github.com/WomenCodingCommunity`)
+- Footer Instagram link → Opens Instagram in new tab (`https://www.instagram.com/women_coding_community/#`)
+- Footer Slack link → Opens Slack signup in new tab (`https://womencodingcommunity.slack.com/signup#/domain-signup`)
 
 **Status:** Done :white_check_mark:
 
@@ -345,23 +143,17 @@ On clicking each option:
 
 ---
 
-## NAV-015
+---
 
-**Title:** Check Footer GitHub Icon and Link
+## NAV-018: Email Contact
 
-**Description:** Testing GitHub social media link functionality in the footer
+**User Goal:** User wants to email WCC
 
 **Steps to Reproduce:**
 
-1. Launch the application in the browser.
-2. Scroll down to the Footer
-3. Click on the GitHub icon
-
-**Expected Result:**
-
-- GitHub icon should be visible in the footer
-- On clicking the GitHub link, user should be redirected to the destination URL "https://github.com/WomenCodingCommunity"
-- Link should open in a new tab/window
+1. Scroll to footer
+2. Click email icon
+3. Verify mailto link opens default email client
 
 **Status:** Done :white_check_mark:
 
@@ -369,23 +161,15 @@ On clicking each option:
 
 ---
 
-## NAV-016
+## NAV-019: Report Technical Issues
 
-**Title:** Check Footer Instagram Icon and Link
-
-**Description:** Testing Instagram social media link functionality in the footer
+**User Goal:** User encounters a bug and wants to report it
 
 **Steps to Reproduce:**
 
-1. Launch the application in the browser.
-2. Scroll down to the Footer
-3. Click on the Instagram icon
-
-**Expected Result:**
-
-- Instagram icon should be visible in the footer
-- On clicking the Instagram link, user should be redirected to the destination URL "https://www.instagram.com/women_coding_community/#"
-- Link should open in a new tab/window
+1. Scroll to footer
+2. Click "Send us a report on Github" link
+3. Verify redirect to GitHub issues page
 
 **Status:** Done :white_check_mark:
 
@@ -393,72 +177,29 @@ On clicking each option:
 
 ---
 
-## NAV-017
+## NAV-020: Visual Test: Navigation - Desktop Menu
 
-**Title:** Check Footer Slack icon and Link
+This check is critical for site navigation, users can't navigate without this and it is likely to break with CSS changes.
 
-**Description:** Testing Slack community link functionality in the footer
+**Test Cases:**
 
-**Steps to Reproduce:**
+- VT-001-A: Navigation bar
+- VT-001-B: Mentorship dropdown expanded
+- VT-001-C: Programmes dropdown expanded
+- VT-001-D: About Us dropdown expanded
 
-1. Launch the application in the browser.
-2. Scroll down to the Footer
-3. Click on the Slack icon
-
-**Expected Result:**
-
-- Slack icon should be visible in the footer
-- On clicking the Slack link, user should be redirected to the destination URL "https://womencodingcommunity.slack.com/signup#/domain-signup"
-- Link should open in a new tab/window
-
-**Status:** Done :white_check_mark:
-
-**Assigned to:** Pranita
+**Status:** Not implemented
 
 ---
 
-## NAV-018
+### NAV-021: Visual Test: Navigation - Mobile Menu
 
-**Title:** Check Footer Email Link
+This check is critical, as it is completely different UX from desktop, separate implementation, critical for users on mobile.
 
-**Description:** Testing Email icon and link
+**Test Cases:**
 
-**Steps to Reproduce:**
+- VT-002-A: Mobile menu closed
+- VT-002-B: Mobile drawer opened
+- VT-002-C: Mobile submenu expanded
 
-1. Launch the application in the browser.
-2. Scroll down to the Footer
-3. Click on the Email icon
-
-**Expected Result:**
-
-- Email icon should be visible in the footer
-- On clicking the Email link, user's default email client should open with the destination URL "mailto:london@womencodingcommunity.com"
-- The link should use "mailto:" protocol
-
-**Status:** Done :white_check_mark:
-
-**Assigned to:** Pranita
-
----
-
-## NAV-019
-
-**Title:** Check Footer "Send a report" Link
-
-**Description:** Testing the technical issues report link functionality in the footer
-
-**Steps to Reproduce:**
-
-1. Launch the application in the browser.
-2. Scroll down to the Footer
-3. Click on the "Send us a report" link
-
-**Expected Result:**
-
-- "Send us a report" link should be visible in the footer
-- On clicking the link, user should be redirected to the destination URL "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FWomen-Coding-Community%2FWomenCodingCommunity.github.io%2Fissues%2Fnew%3Ftemplate%3Dbug_report.md%26title%3Dbug%2520title"
-- Link should open in a new tab/window
-
-**Status:** Done :white_check_mark:
-
-**Assigned to:** Pranita
+**Status:** Not implemented
