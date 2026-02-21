@@ -8,36 +8,40 @@ This is an overview of the playwright tests planned for this repository.
 
 ## Navigation Menu
 
-| ID       | Status |
-| -------- | ------ |
-| NAV-001  | ✅     |
-| NAV-006  | ✅     |
-| NAV-008  | ✅     |
-| NAV-010  | ✅     |
-| NAV-012  | ✅     |
-| NAV-014  | ✅     |
-| NAV-018  | ✅     |
-| NAV-019  | ✅     |
+| ID      | Status |
+| ------- | ------ |
+| NAV-001 | ✅     |
+| NAV-006 | ✅     |
+| NAV-008 | ✅     |
+| NAV-010 | ✅     |
+| NAV-012 | ✅     |
+| NAV-014 | ✅     |
+| NAV-018 | ✅     |
+| NAV-019 | ✅     |
+| NAV-020 | ⏳     |
+| NAV-021 | ⏳     |
 
 **See:** [test_details_navigation.md](./test_details_navigation.md) for full test descriptions
 
 ## Home Page
 
-| ID       | Status |
-| -------- | ------ |
-| HP-001   | ✅     |
-| HP-002   | ✅     |
-| HP-003   | ⏳     |
-| HP-005   | ✅     |
+| ID     | Status |
+| ------ | ------ |
+| HP-001 | ✅     |
+| HP-002 | ✅     |
+| HP-003 | ⏳     |
+| HP-005 | ✅     |
 
 **See:** [test_details_home_page.md](./test_details_home_page.md) for full test descriptions
 
 ## Mentorship Overview
 
-| ID        | Status |
-| --------- | ------ |
-| MENT-002  | ⏳     |
-| MENT-003  | ⏳     |
-| MENT-004  | ✅     |
+| ID       | Status |
+| -------- | ------ |
+| MENT-002 | ⏳     |
+| MENT-003 | ⏳     |
+| MENT-004 | ✅     |
+| MENT-005 | ⏳     |
+| MENT-006 | ⏳     |
 
 **See:** [test_details_mentorship.md](./test_details_mentorship.md) for full test descriptions

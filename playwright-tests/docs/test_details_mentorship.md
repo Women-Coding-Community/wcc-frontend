@@ -64,3 +64,28 @@ Tests to check mentorship page behaviour.
 5. Verify additional testimonials load
 
 **Status:** Done :white_check_mark: (combine MENT-004 and MENT-005)
+
+---
+
+### MENT-005: Visual Test: Mentors Page - Mentor Grid
+
+It is important to test, as it is a core feature of the platform, mentor discovery is primary use case. Cards have overflow issues with long names/many tags. High visual complexity: images, tags, buttons, spacing.
+
+**Test Cases:**
+Verify grid of mentor profile cards 
+
+**Status:** Not implemented
+
+---
+
+### MENT-006: Visual Test: FAQ Page
+
+**Visual Elements to Verify:**
+
+- Accordion headers display correctly
+- Expand/collapse icons visible and positioned
+- Expanded content doesn't overflow or wrap badly
+- Text handles long questions/answers
+- Spacing between items consistent
+
+**Status:** Not implemented

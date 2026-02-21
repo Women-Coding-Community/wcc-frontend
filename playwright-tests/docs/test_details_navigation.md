@@ -174,3 +174,32 @@ On clicking each option:
 **Status:** Done :white_check_mark:
 
 **Assigned to:** Pranita
+
+---
+
+## NAV-020: Visual Test: Navigation - Desktop Menu
+
+This check is critical for site navigation, users can't navigate without this and it is likely to break with CSS changes.
+
+**Test Cases:**
+
+- VT-001-A: Navigation bar
+- VT-001-B: Mentorship dropdown expanded
+- VT-001-C: Programmes dropdown expanded
+- VT-001-D: About Us dropdown expanded
+
+**Status:** Not implemented
+
+---
+
+### NAV-021: Visual Test: Navigation - Mobile Menu
+
+This check is critical, as it is completely different UX from desktop, separate implementation, critical for users on mobile.
+
+**Test Cases:**
+
+- VT-002-A: Mobile menu closed
+- VT-002-B: Mobile drawer opened
+- VT-002-C: Mobile submenu expanded
+
+**Status:** Not implemented
