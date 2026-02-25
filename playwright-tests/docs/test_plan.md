@@ -8,44 +8,40 @@ This is an overview of the playwright tests planned for this repository.
 
 ## Navigation Menu
 
-| Test Case ID                                    | Status                  | Assigned to                                  | Issue                                                                                                                                                                                                                                               | Pull Request |
-| ----------------------------------------------- | ----------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| [NAV-001](./test_details_navigation.md#nav-001) | Done :white_check_mark: |                                              |                                                                                                                                                                                                                                                     |              |
-| [NAV-002](./test_details_navigation.md#nav-002) | Done :white_check_mark: |                                              |                                                                                                                                                                                                                                                     |              |
-| [NAV-003](./test_details_navigation.md#nav-003) | Done :white_check_mark: |                                              |                                                                                                                                                                                                                                                     |              |
-| [NAV-004](./test_details_navigation.md#nav-004) | Done :white_check_mark: |                                              |                                                                                                                                                                                                                                                     |              |
-| [NAV-005](./test_details_navigation.md#nav-005) | Done :white_check_mark: |                                              | [NAV-005: Validate Find a mentor Button](https://github.com/Women-Coding-Community/wcc-frontend/issues/101)                                                                                                                                         |              |
-| [NAV-006](./test_details_navigation.md#nav-006) | Pending :x:             |                                              | [NAV-006: Validate Logo Click Navigation](https://github.com/Women-Coding-Community/wcc-frontend/issues/102)                                                                                                                                        |              |
-| [NAV-007](./test_details_navigation.md#nav-007) | Pending :x:             | [@Purnima](https://github.com/nimat1)        | [NAV-007: Validate Mentorship Dropdown Hover](https://github.com/Women-Coding-Community/wcc-frontend/issues/103)                                                                                                                                    |              |
-| [NAV-008](./test_details_navigation.md#nav-008) | Pending :x:             | [@Mioara](https://github.com/Mioara82)       | [NAV-008: Validate Mentorship Dropdown Items Navigation](https://github.com/Women-Coding-Community/wcc-frontend/issues/104)                                                                                                                         |              |
-| [NAV-009](./test_details_navigation.md#nav-009) | Pending :x:             | [@Purnima](https://github.com/nimat1)        | [NAV-009: Validate Programmes Dropdown Hover](https://github.com/Women-Coding-Community/wcc-frontend/issues/105)                                                                                                                                    |              |
-| [NAV-010](./test_details_navigation.md#nav-010) | Pending :x:             | [@Isabel](https://github.com/117Isabell)     | [NAV-010: Validate Programmes Dropdown Items Navigation](https://github.com/Women-Coding-Community/wcc-frontend/issues/106)                                                                                                                         |              |
-| [NAV-011](./test_details_navigation.md#nav-011) | Pending :x:             | [@Purnima](https://github.com/nimat1)        | [NAV-011: Validate About Us Dropdown Hover](https://github.com/Women-Coding-Community/wcc-frontend/issues/107)                                                                                                                                      |              |
-| [NAV-012](./test_details_navigation.md#nav-012) | Done :white_check_mark: |                                              |                                                                                                                                                                                                                                                     |              |
-| [NAV-013](./test_details_navigation.md#nav-013) | Done :white_check_mark: | [@Pranita](https://github.com/PranitaVPanse) | [NAV-013: Validate Footer logo and static elements](https://github.com/Women-Coding-Community/wcc-frontend/issues/151)                                                                                                                              |              |
-| [NAV-014](./test_details_navigation.md#nav-014) | Done :white_check_mark: | [@Pranita](https://github.com/PranitaVPanse) | [NAV-014: Validate Footer LinkedIn icon and link](https://github.com/Women-Coding-Community/wcc-frontend/issues/151)                                                                                                                                |              |
-| [NAV-015](./test_details_navigation.md#nav-014) | Done :white_check_mark: | [@Pranita](https://github.com/PranitaVPanse) | [NAV-015: Validate Footer GitHub icon and link](https://github.com/Women-Coding-Community/wcc-frontend/issues/151)                                                                                                                                  |              |
-| [NAV-016](./test_details_navigation.md#nav-014) | Done :white_check_mark: | [@Pranita](https://github.com/PranitaVPanse) | [NAV-016: Validate Footer Instagram icon and link](https://github.com/Women-Coding-Community/wcc-frontend/issues/151)                                                                                                                               |              |
-| [NAV-017](./test_details_navigation.md#nav-014) | Done :white_check_mark: | [@Pranita](https://github.com/PranitaVPanse) | [NAV-017: Validate Footer Slack icon and link](https://github.com/Women-Coding-Community/wcc-frontend/issues/151)                                                                                                                                   |              |
-| [NAV-018](./test_details_navigation.md#nav-014) | Done :white_check_mark: | [@Pranita](https://github.com/PranitaVPanse) | [NAV-018: Validate Footer Email icon and link](https://github.com/Women-Coding-Community/wcc-frontend/issues/151) [; Bug: Footer “Email” icon opens 404 instead of email client](https://github.com/Women-Coding-Community/wcc-frontend/issues/161) |              |
-| [NAV-019](./test_details_navigation.md#nav-014) | Done :white_check_mark: | [@Pranita](https://github.com/PranitaVPanse) | [NAV-019: Validate Footer Send us a Report icon and link](https://github.com/Women-Coding-Community/wcc-frontend/issues/151)                                                                                                                        |              |
+| Test Case                                                                               | Status |
+| --------------------------------------------------------------------------------------- | ------ |
+| [NAV-001: Primary Navigation Links](./test_details_navigation.md#nav-001)               | ✅     |
+| [NAV-006: Logo Navigation](./test_details_navigation.md#nav-006)                        | ✅     |
+| [NAV-008: Mentorship Dropdown Navigation](./test_details_navigation.md#nav-008)         | ✅     |
+| [NAV-010: Programmes Dropdown Navigation](./test_details_navigation.md#nav-010)         | ✅     |
+| [NAV-012: About Us Dropdown Navigation](./test_details_navigation.md#nav-012)           | ✅     |
+| [NAV-014: Navigate to External Social Media](./test_details_navigation.md#nav-014)      | ✅     |
+| [NAV-018: Email Contact](./test_details_navigation.md#nav-018)                          | ✅     |
+| [NAV-019: Report Technical Issues](./test_details_navigation.md#nav-019)                | ✅     |
+| [NAV-020: Visual Test: Navigation - Desktop Menu](./test_details_navigation.md#nav-020) | ⏳     |
+| [NAV-021: Visual Test: Navigation - Mobile Menu](./test_details_navigation.md#nav-021)  | ⏳     |
+
+**See:** [test_details_navigation.md](./test_details_navigation.md) for full test descriptions
 
 ## Home Page
 
-| Test Case ID                                 | Status                  | Assigned to                                  | Issue                                                                                                             | Pull Request |
-| -------------------------------------------- | ----------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------ |
-| [HP-001](./test_details_home_page.md#hp-001) | Done :white_check_mark: |                                              |                                                                                                                   |              |
-| [HP-002](./test_details_home_page.md#hp-002) | Pending :x:             |                                              | [HP-002: Opportunities and Programmes Section](https://github.com/Women-Coding-Community/wcc-frontend/issues/133) |              |
-| [HP-003](./test_details_home_page.md#hp-003) | Pending :x:             | [@Ptrcja](https://github.com/ptrcja)         | [HP-003: Latest Events Section](https://github.com/Women-Coding-Community/wcc-frontend/issues/134)                |              |
-| [HP-004](./test_details_home_page.md#hp-004) | Done :white_check_mark: |                                              | [HP-004: Become a Mentor Section](https://github.com/Women-Coding-Community/wcc-frontend/issues/135)              |              |
-| [HP-005](./test_details_home_page.md#hp-005) | Done :white_check_mark: | [@Pranita](https://github.com/PranitaVPanse) | [HP-005: Volunteer Section](https://github.com/Women-Coding-Community/wcc-frontend/issues/136)                    |              |
+| Test Case                                                              | Status |
+| ---------------------------------------------------------------------- | ------ |
+| [HP-001: Join the Community](./test_details_home_page.md#hp-001)       | ✅     |
+| [HP-002: Explore Programmes](./test_details_home_page.md#hp-002)       | ✅     |
+| [HP-003: View Events](./test_details_home_page.md#hp-003)              | ⏳     |
+| [HP-005: Learn About Volunteering](./test_details_home_page.md#hp-005) | ✅     |
+
+**See:** [test_details_home_page.md](./test_details_home_page.md) for full test descriptions
 
 ## Mentorship Overview
 
-| Test Case ID                                      | Status                  | Assigned to                                  | Issue                                                                                                                 | Pull Request |
-| ------------------------------------------------- | ----------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------ |
-| [MENT-001](./test_details_mentorship.md#ment-001) | Pending :x:             | [@Pranita](https://github.com/PranitaVPanse) | [MENT-001: Mentorship Overview Page Accessibility](https://github.com/Women-Coding-Community/wcc-frontend/issues/141) |              |
-| [MENT-002](./test_details_mentorship.md#ment-002) | Pending :x:             |                                              | [MENT-002: Become a mentor Section](https://github.com/Women-Coding-Community/wcc-frontend/issues/142)                |              |
-| [MENT-003](./test_details_mentorship.md#ment-003) | Pending :x:             |                                              | [MENT-003: Become a mentee Section](https://github.com/Women-Coding-Community/wcc-frontend/issues/143)                |              |
-| [MENT-004](./test_details_mentorship.md#ment-004) | Done :white_check_mark: | [@Ptrcja](https://github.com/ptrcja)         | [MENT-004: Feedback Section](https://github.com/Women-Coding-Community/wcc-frontend/issues/144)                       |              |
-| [MENT-005](./test_details_mentorship.md#ment-005) | Done :white_check_mark: | [@Ptrcja](https://github.com/ptrcja)         | [MENT-005: Show more, Show less buttons](https://github.com/Women-Coding-Community/wcc-frontend/issues/145)           |              |
+| Test Case                                                                                  | Status |
+| ------------------------------------------------------------------------------------------ | ------ |
+| [MENT-002: Register as Mentor](./test_details_mentorship.md#ment-002)                      | ⏳     |
+| [MENT-003: Find a Mentor](./test_details_mentorship.md#ment-003)                           | ⏳     |
+| [MENT-004: Browse Mentorship Feedback](./test_details_mentorship.md#ment-004)              | ✅     |
+| [MENT-005: Visual Test: Mentors Page - Mentor Grid](./test_details_mentorship.md#ment-005) | ⏳     |
+| [MENT-006: Visual Test: FAQ Page](./test_details_mentorship.md#ment-006)                   | ⏳     |
+
+**See:** [test_details_mentorship.md](./test_details_mentorship.md) for full test descriptions
