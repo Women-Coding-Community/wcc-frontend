@@ -120,7 +120,7 @@ export const GroupCard: React.FC<GroupCardProps> = ({
               >
                 Mentor:{' '}
                 <Link
-                  href={uri}
+                  href={`/mentorship/mentors?keyword=${encodeURIComponent(mentor || '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: linkColor }}
