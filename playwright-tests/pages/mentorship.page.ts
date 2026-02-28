@@ -63,12 +63,20 @@ export class MentorshipPage extends BasePage {
     this.testimonialCards = this.feedbackArea.getByTestId('feedback-card');
     this.showMoreButton = this.feedbackArea.getByTestId('feedback-show-more');
 
-    this.mentorsPageTitle = page.getByRole('heading', { name: 'Meet Our Mentors' });
+    this.mentorsPageTitle = page.getByRole('heading', {
+      name: 'Meet Our Mentors',
+    });
     this.mentorNames = page.locator('h6');
     this.mentorImages = page.getByAltText('Mentor Profile Picture Description');
-    this.programmingLanguagesLabel = page.getByText('Programming languages:').first();
-    this.presentationTab = page.getByRole('tab', { name: 'Presentation' }).first();
-    this.skillsAndSupportTab = page.getByRole('tab', { name: 'Skills & Support Areas' }).first();
+    this.programmingLanguagesLabel = page
+      .getByText('Programming languages:')
+      .first();
+    this.presentationTab = page
+      .getByRole('tab', { name: 'Presentation' })
+      .first();
+    this.skillsAndSupportTab = page
+      .getByRole('tab', { name: 'Skills & Support Areas' })
+      .first();
   }
 
   getTestimonialCard(index: number): TestimonialCard {

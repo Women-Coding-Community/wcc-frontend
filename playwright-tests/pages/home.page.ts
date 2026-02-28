@@ -73,6 +73,5 @@ export class HomePage extends BasePage {
     this.leetCodeLink = page.getByRole('link', { name: 'Leetcode' });
 
     this.joinSlackButton = page.getByRole('link', { name: 'Join our Slack' });
-
   }
 }

@@ -8,7 +8,9 @@ test.describe('Validate Mentorship Page', () => {
     await basePage.clickElement(homePage.joinAsMentorBtn);
 
     await basePage.verifyURL('/mentorship/mentor-registration');
-    await basePage.verifyPageContainsText('Welcome to the MentorRegistrationPage');
+    await basePage.verifyPageContainsText(
+      'Welcome to the MentorRegistrationPage',
+    );
   });
 
   test('MENT-003: Find a Mentor', async ({ mentorshipPage, basePage }) => {
@@ -54,7 +56,9 @@ test.describe('Validate Mentorship Page', () => {
     }) => {
       await test.step('Verify initial state shows 3 cards', async () => {
         await mentorshipPage.verifyFeedbackSectionInitialState();
-        await expect(mentorshipPage.getTestimonialCard(3).card).not.toBeVisible();
+        await expect(
+          mentorshipPage.getTestimonialCard(3).card,
+        ).not.toBeVisible();
       });
 
       await test.step('Click Show More to display additional cards', async () => {
@@ -63,9 +67,8 @@ test.describe('Validate Mentorship Page', () => {
       });
 
       await test.step('Verify text expansion on Write-a-lot card', async () => {
-        const cardWithLongText = mentorshipPage.getCardByAuthor(
-          'Jane, Mentor 2024',
-        );
+        const cardWithLongText =
+          mentorshipPage.getCardByAuthor('Jane, Mentor 2024');
         await cardWithLongText.toContainText('...');
         await cardWithLongText.expandText();
         await cardWithLongText.notToContainText('...');
@@ -75,10 +78,12 @@ test.describe('Validate Mentorship Page', () => {
     });
   });
 
-  test('MENT-006: Visual Test - FAQ Page', { tag: '@visual' }, async ({
-    page,
-  }) => {
-    await page.goto('/mentorship/faqs');
-    await expect(page).toHaveScreenshot('faq-page.png', { fullPage: true });
-  });
+  test(
+    'MENT-006: Visual Test - FAQ Page',
+    { tag: '@visual' },
+    async ({ page }) => {
+      await page.goto('/mentorship/faqs');
+      await expect(page).toHaveScreenshot('faq-page.png', { fullPage: true });
+    },
+  );
 });

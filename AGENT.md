@@ -17,6 +17,7 @@ The platform supports this by providing:
 - **Resources** — mentor resources, code of conduct, FAQs
 
 The primary user journeys are:
+
 1. A **mentee** finding and applying for a mentor
 2. An experienced professional **becoming a mentor**
 3. A community member **discovering events and programmes**
@@ -26,33 +27,36 @@ The primary user journeys are:
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 14.2.3 (SSR via `getServerSideProps`) |
-| Language | TypeScript 5.x (strict mode) |
-| UI | Material-UI (MUI) v5 |
-| Package Manager | **pnpm** (required — do not use npm or yarn) |
-| Node | 20+ |
-| Unit Tests | Jest 29 + Testing Library |
-| E2E Tests | Playwright Test v1.57 |
-| Linting | ESLint + Prettier |
-| Git Hooks | Husky (pre-commit: lint:fix → format → type-check) |
+| Layer           | Technology                                         |
+| --------------- | -------------------------------------------------- |
+| Framework       | Next.js 14.2.3 (SSR via `getServerSideProps`)      |
+| Language        | TypeScript 5.x (strict mode)                       |
+| UI              | Material-UI (MUI) v5                               |
+| Package Manager | **pnpm** (required — do not use npm or yarn)       |
+| Node            | 20+                                                |
+| Unit Tests      | Jest 29 + Testing Library                          |
+| E2E Tests       | Playwright Test v1.57                              |
+| Linting         | ESLint + Prettier                                  |
+| Git Hooks       | Husky (pre-commit: lint:fix → format → type-check) |
 
 ---
 
 ## Build and Development Commands
 
 **Start dev server:**
+
 ```bash
 pnpm dev                        # http://localhost:3000
 ```
 
 **Build:**
+
 ```bash
 pnpm build                      # Production build
 ```
 
 **Quality checks:**
+
 ```bash
 pnpm lint:fix                   # Auto-fix ESLint issues
 pnpm format                     # Prettier format all files
@@ -60,11 +64,13 @@ pnpm type-check                 # TypeScript check (no emit)
 ```
 
 **Unit tests (Jest):**
+
 ```bash
 pnpm test                       # Run all Jest unit tests
 ```
 
 **E2E tests (Playwright):**
+
 ```bash
 pnpm test:e2e                           # All E2E tests, excludes @visual
 pnpm test:e2e:docker                    # Run E2E in Docker
@@ -237,10 +243,14 @@ await expect(locator).toMatchAriaSnapshot(`- link:\n  - /url: https://...`);
 Tag visual tests with `@visual` so they are excluded from `pnpm test:e2e` and run separately:
 
 ```typescript
-test('MENT-006: Visual Test - FAQ Page', { tag: '@visual' }, async ({ page }) => {
-  await page.goto('/mentorship/faqs');
-  await expect(page).toHaveScreenshot('faq-page.png', { fullPage: true });
-});
+test(
+  'MENT-006: Visual Test - FAQ Page',
+  { tag: '@visual' },
+  async ({ page }) => {
+    await page.goto('/mentorship/faqs');
+    await expect(page).toHaveScreenshot('faq-page.png', { fullPage: true });
+  },
+);
 ```
 
 Always update snapshots via Docker: `pnpm test:e2e:docker:update`
@@ -317,27 +327,29 @@ export class EventsPage extends BasePage {
 
 ## Key Pages & Routes
 
-| Route | Page file | Notes |
-|---|---|---|
-| `/` | `pages/index.tsx` | Landing page |
-| `/mentorship` | `pages/mentorship/index.tsx` | FeedbackSection with show more/less |
-| `/mentorship/mentors` | `pages/mentorship/mentors.tsx` | Mentor cards with tabs |
-| `/mentorship/mentor-registration` | `pages/mentorship/mentor-registration.tsx` | Placeholder |
-| `/mentorship/faqs` | `pages/mentorship/faqs.tsx` | FAQ accordion |
-| `/about-us/volunteer` | `pages/about-us/volunteer.tsx` | |
-| `/events` | `pages/events/index.tsx` | |
-| `/programmes/book-club` | `pages/programmes/book-club.tsx` | |
+| Route                             | Page file                                  | Notes                               |
+| --------------------------------- | ------------------------------------------ | ----------------------------------- |
+| `/`                               | `pages/index.tsx`                          | Landing page                        |
+| `/mentorship`                     | `pages/mentorship/index.tsx`               | FeedbackSection with show more/less |
+| `/mentorship/mentors`             | `pages/mentorship/mentors.tsx`             | Mentor cards with tabs              |
+| `/mentorship/mentor-registration` | `pages/mentorship/mentor-registration.tsx` | Placeholder                         |
+| `/mentorship/faqs`                | `pages/mentorship/faqs.tsx`                | FAQ accordion                       |
+| `/about-us/volunteer`             | `pages/about-us/volunteer.tsx`             |                                     |
+| `/events`                         | `pages/events/index.tsx`                   |                                     |
+| `/programmes/book-club`           | `pages/programmes/book-club.tsx`           |                                     |
 
 ---
 
 ## Important Component Notes
 
 ### MentorProfileCard (`src/components/MentorProfileCard.tsx`)
+
 - Always shows: **Presentation** tab, **Skills & Support Areas** tab
 - Conditionally shows: **Reviews** tab (only if `mentor.feedbackSection?.feedbacks` exists), **Resources** tab (only if `mentor.resources?.length > 0`)
 - Do not assert Reviews/Resources tabs without confirming the test data includes them
 
 ### FeedbackCard — Testimonials (`/mentorship`)
+
 - `data-testid="feedback-area"` — section wrapper
 - `data-testid="feedback-card"` — individual cards
 - `data-testid="feedback-show-more"` — show more/less button
@@ -347,10 +359,12 @@ export class EventsPage extends BasePage {
 - Author format regex: `/^.+,\s*(Mentee|Mentor)\s+\d{4}$/`
 
 ### MentorBanner (`data-testid="mentor-banner"`)
+
 - Home page "Become a Mentor" section
 - "Join as a mentor" link → `/mentorship/mentor-registration`
 
 ### Navigation header
+
 - "Find a mentor" button (`getByRole('button', { name: 'Find a mentor' })`) — present on every page, navigates directly to `/mentorship/mentors`
 - "Mentorship" button opens a dropdown with sub-pages
 
@@ -360,19 +374,19 @@ export class EventsPage extends BasePage {
 
 Full details in `playwright-tests/docs/`. Summary:
 
-| ID | Title | Status |
-|---|---|---|
-| HP-001 | Join Slack button | ✅ Done |
-| HP-002 | Opportunities & Programmes section | ✅ Done |
-| HP-003 | Hero section | ⏳ Pending |
-| HP-005 | Volunteer section | ✅ Done |
-| MENT-002 | Register as Mentor | ✅ Done |
-| MENT-003 | Find a Mentor | ✅ Done |
-| MENT-004 | Browse Mentorship Feedback | ✅ Done |
-| MENT-005 | Visual: Mentor Grid | ⏳ Not implemented |
-| MENT-006 | Visual: FAQ Page | ✅ Done |
-| NAV-001–019 | Navigation tests | ✅ Done |
-| NAV-020/021 | Nav edge cases | ⏳ Pending |
+| ID          | Title                              | Status             |
+| ----------- | ---------------------------------- | ------------------ |
+| HP-001      | Join Slack button                  | ✅ Done            |
+| HP-002      | Opportunities & Programmes section | ✅ Done            |
+| HP-003      | Hero section                       | ⏳ Pending         |
+| HP-005      | Volunteer section                  | ✅ Done            |
+| MENT-002    | Register as Mentor                 | ✅ Done            |
+| MENT-003    | Find a Mentor                      | ✅ Done            |
+| MENT-004    | Browse Mentorship Feedback         | ✅ Done            |
+| MENT-005    | Visual: Mentor Grid                | ⏳ Not implemented |
+| MENT-006    | Visual: FAQ Page                   | ✅ Done            |
+| NAV-001–019 | Navigation tests                   | ✅ Done            |
+| NAV-020/021 | Nav edge cases                     | ⏳ Pending         |
 
 ---
 
@@ -398,6 +412,7 @@ API_KEY=dev-key
 - ✅ Keep messages concise, focused on the "why" not the "what"
 
 **Example:**
+
 ```
 feat: add MENT-003 find a mentor test case
 
