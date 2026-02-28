@@ -23,6 +23,7 @@ export class HomePage extends BasePage {
   readonly mockInterviewsLink: Locator;
   readonly leetCodeLink: Locator;
   readonly joinSlackButton: Locator;
+  readonly eventCtaButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -68,10 +69,15 @@ export class HomePage extends BasePage {
     this.bookClubLink = page.getByRole('link', { name: 'Book Club' });
     this.CvClinicLink = page.getByRole('link', { name: 'CV clinic' });
     this.mockInterviewsLink = page.getByRole('link', {
-      name: 'Mock interviews',
+      name: 'Mock interview',
     });
     this.leetCodeLink = page.getByRole('link', { name: 'Leetcode' });
 
     this.joinSlackButton = page.getByRole('link', { name: 'Join our Slack' });
+
+    // Events section locators
+    this.eventCtaButton = page
+      .getByRole('link', { name: 'Go to Meetup event' })
+      .first();
   }
 }
