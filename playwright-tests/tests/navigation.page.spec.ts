@@ -126,15 +126,11 @@ test.describe('Validate Navigation', () => {
       await page.goto('/');
     });
 
-    test(
-      'VT-001-A: Navigation bar',
-      { tag: '@visual' },
-      async ({ page }) => {
-        await expect(page.getByRole('banner')).toHaveScreenshot(
-          'nav-desktop.png',
-        );
-      },
-    );
+    test('VT-001-A: Navigation bar', { tag: '@visual' }, async ({ page }) => {
+      await expect(page.getByRole('banner')).toHaveScreenshot(
+        'nav-desktop.png',
+      );
+    });
 
     test(
       'VT-001-B: Mentorship dropdown expanded',
@@ -142,7 +138,9 @@ test.describe('Validate Navigation', () => {
       async ({ page }) => {
         await page.getByRole('button', { name: 'Mentorship' }).click();
         await page.getByRole('menu').waitFor({ state: 'visible' });
-        await expect(page).toHaveScreenshot('nav-desktop-mentorship-dropdown.png');
+        await expect(page).toHaveScreenshot(
+          'nav-desktop-mentorship-dropdown.png',
+        );
       },
     );
 
@@ -152,7 +150,9 @@ test.describe('Validate Navigation', () => {
       async ({ page }) => {
         await page.getByRole('button', { name: 'Programmes' }).click();
         await page.getByRole('menu').waitFor({ state: 'visible' });
-        await expect(page).toHaveScreenshot('nav-desktop-programmes-dropdown.png');
+        await expect(page).toHaveScreenshot(
+          'nav-desktop-programmes-dropdown.png',
+        );
       },
     );
 
@@ -189,7 +189,9 @@ test.describe('Validate Navigation', () => {
       { tag: '@visual' },
       async ({ page }) => {
         await page.getByRole('button', { name: 'menu' }).click();
-        await page.getByRole('button', { name: 'Home' }).waitFor({ state: 'visible' });
+        await page
+          .getByRole('button', { name: 'Home' })
+          .waitFor({ state: 'visible' });
         await expect(page).toHaveScreenshot('nav-mobile-drawer.png');
       },
     );
@@ -199,7 +201,9 @@ test.describe('Validate Navigation', () => {
       { tag: '@visual' },
       async ({ page }) => {
         await page.getByRole('button', { name: 'menu' }).click();
-        await page.getByRole('button', { name: 'Home' }).waitFor({ state: 'visible' });
+        await page
+          .getByRole('button', { name: 'Home' })
+          .waitFor({ state: 'visible' });
         await page.getByRole('button', { name: 'Mentorship' }).click();
         await page
           .getByRole('button', { name: 'Overview' })
