@@ -23,7 +23,6 @@ export class HomePage extends BasePage {
   readonly mockInterviewsLink: Locator;
   readonly leetCodeLink: Locator;
   readonly joinSlackButton: Locator;
-  readonly eventCtaButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -75,9 +74,5 @@ export class HomePage extends BasePage {
 
     this.joinSlackButton = page.getByRole('link', { name: 'Join our Slack' });
 
-    // Events section locators
-    this.eventCtaButton = page
-      .getByRole('link', { name: 'Go to Meetup event' })
-      .first();
   }
 }

@@ -48,4 +48,4 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-.claude/
+.playwright-cli/
