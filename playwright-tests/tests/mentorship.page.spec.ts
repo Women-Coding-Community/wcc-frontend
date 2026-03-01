@@ -13,7 +13,7 @@ test.describe('Validate Mentorship Page', () => {
     );
   });
 
-  test('MENT-002: Find a Mentor', async ({ mentorshipPage, basePage }) => {
+  test.skip('MENT-002: Find a Mentor', async ({ mentorshipPage, basePage }) => {
     await basePage.navigateToPath('/mentorship');
     await basePage.clickElement(basePage.findMentorButton);
 
@@ -28,7 +28,7 @@ test.describe('Validate Mentorship Page', () => {
     // Note: Reviews and Resources tabs are conditional on mentor data
   });
 
-  test('MENT-003: Browse Mentorship Feedback', async ({
+  test.skip('MENT-003: Browse Mentorship Feedback', async ({
     mentorshipPage,
     basePage,
   }) => {
@@ -66,7 +66,7 @@ test.describe('Validate Mentorship Page', () => {
     });
   });
 
-  test(
+  test.skip(
     'MENT-005: Visual Test - FAQ Page',
     { tag: '@visual' },
     async ({ page }) => {

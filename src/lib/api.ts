@@ -7,10 +7,9 @@ import landingPageData from './responses/landingPage.json';
 import mentorShipLongTermTimeline from './responses/longTermTimeLine.json';
 import mentors from './responses/mentors.json';
 import mentorShipPage from './responses/mentorship.json';
-import mentorShipCodeofConduct from './responses/mentorshipCodeOfConduct.json';
+import mentorShipCodeOfConduct from './responses/mentorshipCodeOfConduct.json';
 import mentorshipFaqPageData from './responses/mentorshipFaqPage.json';
-import mentorshipStudyGroupsPage from './responses/mentorshipStudyGroupsPage.json';
-import ourProgrammesPage from './responses/programmes.json';
+import studyGroupsPage from './responses/mentorshipStudyGroupsPage.json';
 
 // for new pages: import the json file
 // (which you copied from https://github.com/Women-Coding-Community/wcc-backend/tree/main/src/main/resources)
@@ -29,13 +28,13 @@ const pageData = {
   landingPage: landingPageData,
   'mentorship/overview': mentorShipPage,
   'mentorship/long-term-timeline': mentorShipLongTermTimeline,
-  'programmes/study-groups': ourProgrammesPage,
+  'programmes/study-groups': studyGroupsPage,
   'about-us/celebrate-her': aboutUsPage,
   'mentorship/mentors': mentors,
-  'mentorship/code-of-conduct': mentorShipCodeofConduct,
+  'mentorship/code-of-conduct': mentorShipCodeOfConduct,
   team: aboutUsTeam,
   'mentorship/faq': mentorshipFaqPageData,
-  'mentorship/study-groups': mentorshipStudyGroupsPage,
+  'mentorship/study-groups': studyGroupsPage,
 };
 
 export const fetchData = async (path: string) => {
