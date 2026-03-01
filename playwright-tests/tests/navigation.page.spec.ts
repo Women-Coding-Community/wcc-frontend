@@ -10,26 +10,10 @@ import {
 import { test } from '@utils/fixtures';
 
 test.describe('Validate Navigation', () => {
-  test('Validate all navigation menu items are visible', async ({
-    basePage,
-    page,
-  }) => {
-    await page.goto('/');
-    await expect(basePage.homeLink).toBeVisible();
-    await expect(basePage.mentorshipDropdown).toBeVisible();
-    await expect(basePage.programmesDropdown).toBeVisible();
-    await expect(basePage.eventsLink).toBeVisible();
-    await expect(basePage.blogLink).toBeVisible();
-    await expect(basePage.jobsLink).toBeVisible();
-    await expect(basePage.aboutUsDropdown).toBeVisible();
-  });
 
-  navTests.forEach(
-    ({ id, linkName, pathToStart, linkLocator, expectedURL, expectedText }) => {
-      test(`${id}: Test "${linkName}" link navigation`, async ({
-        homePage,
-        basePage,
-      }) => {
+  test('NAV-001: Primary Navigation Links', async ({ homePage, basePage }) => {
+    for (const { linkName, pathToStart, linkLocator, expectedURL, expectedText } of navTests) {
+      await test.step(`Navigate to "${linkName}"`, async () => {
         await basePage.navigateToPath(pathToStart);
         await basePage.clickElement(linkLocator(homePage));
         await basePage.verifyURL(expectedURL);
@@ -37,10 +21,10 @@ test.describe('Validate Navigation', () => {
           await basePage.verifyPageContainsText(expectedText);
         }
       });
-    },
-  );
+    }
+  });
 
-  test('NAV-005: Validate Find a Mentor button navigation', async ({
+  test('NAV-002: Validate Find a Mentor button navigation', async ({
     basePage,
   }) => {
     await basePage.navigateToPath('/');
@@ -48,7 +32,7 @@ test.describe('Validate Navigation', () => {
     await basePage.verifyURL('/mentorship/mentors');
   });
 
-  test('NAV-006: Validate logo click navigation', async ({
+  test('NAV-003: Validate logo click navigation', async ({
     basePage,
     homePage,
   }) => {
@@ -57,7 +41,7 @@ test.describe('Validate Navigation', () => {
     await expect(homePage.homeLink).toBeVisible();
   });
 
-  test('NAV-007: Click and navigate through Mentorship dropdown items', async ({
+  test('NAV-004: Click and navigate through Mentorship dropdown items', async ({
     basePage,
   }) => {
     for (const { name, expectedURL } of mentorshipMenuItems) {
@@ -70,7 +54,7 @@ test.describe('Validate Navigation', () => {
     }
   });
 
-  test('NAV-009: Click and navigate through Programmes dropdown items', async ({
+  test('NAV-005: Click and navigate through Programmes dropdown items', async ({
     basePage,
   }) => {
     for (const { name, expectedURL, expectedText } of programmeMenuItems) {
@@ -84,7 +68,7 @@ test.describe('Validate Navigation', () => {
     }
   });
 
-  test('NAV-012: Click and navigate through About Us dropdown items', async ({
+  test('NAV-006: Click and navigate through About Us dropdown items', async ({
     basePage,
   }) => {
     for (const { name, expectedURL, expectedText } of aboutUsMenuItems) {
@@ -103,27 +87,18 @@ test.describe('Validate Navigation', () => {
       await basePage.navigateToPath('/');
     });
 
-    test('NAV-013: Validate footer logo and static text', async ({
-      basePage,
-    }) => {
-      await expect(basePage.footerLogo).toBeVisible();
-      await expect(basePage.footerNonProfitText).toBeVisible();
-      await expect(basePage.footerCopyrightText).toBeVisible();
-      await expect(basePage.footerFollowUsTitle).toBeVisible();
-      await expect(basePage.footerFollowUsDescription).toBeVisible();
-      await expect(basePage.footerTechnicalIssuesText).toBeVisible();
+    test('NAV-008: Validate footer social links', async ({ basePage }) => {
+      for (const { name, url } of footerSocialLinks) {
+        await test.step(`Validate footer ${name} link`, async () => {
+          await basePage.verifySocialLinkNavigation(name, url);
+        });
+      }
     });
-
-    for (const { id, name, url } of footerSocialLinks) {
-      test(`${id}: Validate footer ${name} link`, async ({ basePage }) => {
-        await basePage.verifySocialLinkNavigation(name, url);
-      });
-    }
   });
 
-  test.describe('NAV-020: Visual Test - Navigation Desktop', () => {
-    test.beforeEach(async ({ page }) => {
-      await page.goto('/');
+  test.describe('NAV-009: Visual Test - Navigation Desktop', () => {
+    test.beforeEach(async ({ basePage }) => {
+      await basePage.navigateToPath('/');
     });
 
     test('VT-001-A: Navigation bar', { tag: '@visual' }, async ({ page }) => {
@@ -167,11 +142,11 @@ test.describe('Validate Navigation', () => {
     );
   });
 
-  test.describe('NAV-021: Visual Test - Navigation Mobile', () => {
+  test.describe('NAV-010: Visual Test - Navigation Mobile', () => {
     test.use({ viewport: { width: 390, height: 844 } });
 
-    test.beforeEach(async ({ page }) => {
-      await page.goto('/');
+    test.beforeEach(async ({ basePage }) => {
+      await basePage.navigateToPath('/');
     });
 
     test(

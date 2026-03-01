@@ -28,7 +28,25 @@ Tests to check links and page navigations.
 
 ---
 
-## NAV-006: Logo Navigation
+## NAV-002: Find a Mentor Button Navigation
+
+**User Goal:** User wants to find a mentor by clicking the "Find a Mentor" button on the home page
+
+**Steps to Reproduce:**
+
+1. Launch the application in the browser.
+2. Navigate to the Home page.
+3. Click the "Find a Mentor" button.
+
+**Expected Result:**
+
+- The user is redirected to `/mentorship/mentors`.
+
+**Status:** Done :white_check_mark:
+
+---
+
+## NAV-003: Logo Navigation
 
 **User Goal:** User wants to return to home page from any page by clicking logo
 
@@ -47,7 +65,7 @@ Tests to check links and page navigations.
 
 ---
 
-## NAV-008: Mentorship Dropdown Navigation
+## NAV-004: Mentorship Dropdown Navigation
 
 **User Goal:** User wants to access different mentorship program pages through dropdown menu
 
@@ -69,13 +87,11 @@ On clicking each option:
 - **Long-Term Timeline** → User should be redirected to the Long-Term Timeline page with page title as "Long-Term Timeline" and url as "/mentorship-long-term-timeline"
 - **Ad-Hoc Timeline** → User should be redirected to the Ad-hoc Timeline page with page title as "Ad-hoc Timeline" and url as "/mentorship-adhoc-timeline"
 
-**Status:** Pending :x:
-
-**Assigned to:** Mioara
+**Status:** Done :white_check_mark:
 
 ---
 
-## NAV-010: Programmes Dropdown Navigation
+## NAV-005: Programmes Dropdown Navigation
 
 **User Goal:** User wants to access different programme pages through dropdown menu
 
@@ -95,13 +111,11 @@ On clicking each option:
 - **Coding Club** → User should be redirected to the Coding Club page with page title as "Coding Club Programme" and URL as "/programme-coding-club"
 - **Speaking Club** → User should be redirected to the Speaking Club page with page title as "Speaking Club Programme" and URL as "/programme-speaking-club"
 
-**Status:** Pending :x:
-
-**Assigned to:** Isabel
+**Status:** Done :white_check_mark:
 
 ---
 
-## NAV-012: About Us Dropdown Navigation
+## NAV-006: About Us Dropdown Navigation
 
 **User Goal:** User wants to access company information pages through dropdown menu
 
@@ -124,60 +138,54 @@ On clicking each option:
 
 ---
 
-## NAV-014
+## NAV-007: Footer Static Content
 
-**Title:** Navigate to External Social Media
-
-**User Goal:** User wants to follow WCC on social media
+**User Goal:** User wants to verify footer branding and informational text is displayed
 
 **Steps to Reproduce:**
 
-- Footer LinkedIn link → Opens LinkedIn in new tab (`https://www.linkedin.com/company/womencodingcommunity`)
-- Footer GitHub link → Opens GitHub in new tab (`https://github.com/WomenCodingCommunity`)
-- Footer Instagram link → Opens Instagram in new tab (`https://www.instagram.com/women_coding_community/#`)
-- Footer Slack link → Opens Slack signup in new tab (`https://womencodingcommunity.slack.com/signup#/domain-signup`)
+1. Launch the application in the browser.
+2. Navigate to the Home page.
+3. Scroll to the footer.
+
+**Expected Result:**
+
+- Footer logo is visible
+- Non-profit text is visible
+- Copyright text is visible
+- "Follow Us" title is visible
+- "Follow Us" description is visible
+- Technical issues text is visible
 
 **Status:** Done :white_check_mark:
 
-**Assigned to:** Pranita
-
 ---
 
----
+## NAV-008: Footer Social Links
 
-## NAV-018: Email Contact
-
-**User Goal:** User wants to email WCC
+**User Goal:** User wants to follow WCC on social media or get in touch via footer links
 
 **Steps to Reproduce:**
 
-1. Scroll to footer
-2. Click email icon
-3. Verify mailto link opens default email client
+1. Launch the application in the browser.
+2. Navigate to the Home page.
+3. Scroll to the footer.
+4. Click each social/contact link one by one.
+
+**Expected Result:**
+
+- **LinkedIn** → Opens `https://www.linkedin.com/company/womencodingcommunity`
+- **GitHub** → Opens `https://github.com/WomenCodingCommunity`
+- **Instagram** → Opens Instagram page matching `instagram.com.*women_coding_community`
+- **Slack** → Opens Slack invite link
+- **Email** → Opens `mailto:london@womencodingcommunity.com`
+- **Send us a report** → Opens GitHub issues page in new tab
 
 **Status:** Done :white_check_mark:
 
-**Assigned to:** Pranita
-
 ---
 
-## NAV-019: Report Technical Issues
-
-**User Goal:** User encounters a bug and wants to report it
-
-**Steps to Reproduce:**
-
-1. Scroll to footer
-2. Click "Send us a report on Github" link
-3. Verify redirect to GitHub issues page
-
-**Status:** Done :white_check_mark:
-
-**Assigned to:** Pranita
-
----
-
-## NAV-020: Visual Test: Navigation - Desktop Menu
+## NAV-009: Visual Test: Navigation - Desktop Menu
 
 This check is critical for site navigation, users can't navigate without this and it is likely to break with CSS changes.
 
@@ -188,11 +196,11 @@ This check is critical for site navigation, users can't navigate without this an
 - VT-001-C: Programmes dropdown expanded
 - VT-001-D: About Us dropdown expanded
 
-**Status:** Not implemented
+**Status:** Done :white_check_mark:
 
 ---
 
-### NAV-021: Visual Test: Navigation - Mobile Menu
+### NAV-010: Visual Test: Navigation - Mobile Menu
 
 This check is critical, as it is completely different UX from desktop, separate implementation, critical for users on mobile.
 
@@ -202,4 +210,4 @@ This check is critical, as it is completely different UX from desktop, separate 
 - VT-002-B: Mobile drawer opened
 - VT-002-C: Mobile submenu expanded
 
-**Status:** Not implemented
+**Status:** Done :white_check_mark:

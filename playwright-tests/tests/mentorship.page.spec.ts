@@ -3,7 +3,7 @@ import { expect } from '@playwright/test';
 import { test } from '@utils/fixtures';
 
 test.describe('Validate Mentorship Page', () => {
-  test('MENT-002: Register as Mentor', async ({ homePage, basePage }) => {
+  test('MENT-001: Register as Mentor', async ({ homePage, basePage }) => {
     await basePage.navigateToPath('/');
     await basePage.clickElement(homePage.joinAsMentorBtn);
 
@@ -13,7 +13,7 @@ test.describe('Validate Mentorship Page', () => {
     );
   });
 
-  test('MENT-003: Find a Mentor', async ({ mentorshipPage, basePage }) => {
+  test('MENT-002: Find a Mentor', async ({ mentorshipPage, basePage }) => {
     await basePage.navigateToPath('/mentorship');
     await basePage.clickElement(basePage.findMentorButton);
 
@@ -28,14 +28,13 @@ test.describe('Validate Mentorship Page', () => {
     // Note: Reviews and Resources tabs are conditional on mentor data
   });
 
-  test.describe('Feedback Section', () => {
-    test.beforeEach(async ({ basePage }) => {
-      await basePage.navigateToPath('/mentorship');
-    });
+  test('MENT-003: Browse Mentorship Feedback', async ({
+    mentorshipPage,
+    basePage,
+  }) => {
+    await basePage.navigateToPath('/mentorship');
 
-    test('MENT-004: Verify title and cards are correctly displayed', async ({
-      mentorshipPage,
-    }) => {
+    await test.step('Verify testimonials section and initial card display', async () => {
       await expect(mentorshipPage.testimonialsTitle).toBeVisible();
       await expect(mentorshipPage.testimonialCards).toHaveCount(3);
 
@@ -50,36 +49,27 @@ test.describe('Validate Mentorship Page', () => {
       await expect(mentorshipPage.showMoreButton).toBeVisible();
     });
 
-    test('MENT-005: Show More button displays additional cards and text expansion works', async ({
-      mentorshipPage,
-      basePage,
-    }) => {
-      await test.step('Verify initial state shows 3 cards', async () => {
-        await mentorshipPage.verifyFeedbackSectionInitialState();
-        await expect(
-          mentorshipPage.getTestimonialCard(3).card,
-        ).not.toBeVisible();
-      });
+    await test.step('Show More button reveals additional cards', async () => {
+      await expect(
+        mentorshipPage.getTestimonialCard(3).card,
+      ).not.toBeVisible();
+      await basePage.clickElement(mentorshipPage.showMoreButton);
+      await expect(mentorshipPage.getTestimonialCard(3).card).toBeVisible();
+    });
 
-      await test.step('Click Show More to display additional cards', async () => {
-        await basePage.clickElement(mentorshipPage.showMoreButton);
-        await expect(mentorshipPage.getTestimonialCard(3).card).toBeVisible();
-      });
-
-      await test.step('Verify text expansion on Write-a-lot card', async () => {
-        const cardWithLongText =
-          mentorshipPage.getCardByAuthor('Jane, Mentor 2024');
-        await cardWithLongText.toContainText('...');
-        await cardWithLongText.expandText();
-        await cardWithLongText.notToContainText('...');
-        await cardWithLongText.collapseText();
-        await cardWithLongText.toContainText('...');
-      });
+    await test.step('Text expansion works on long cards', async () => {
+      const cardWithLongText =
+        mentorshipPage.getCardByAuthor('Jane, Mentor 2024');
+      await cardWithLongText.toContainText('...');
+      await cardWithLongText.expandText();
+      await cardWithLongText.notToContainText('...');
+      await cardWithLongText.collapseText();
+      await cardWithLongText.toContainText('...');
     });
   });
 
   test(
-    'MENT-006: Visual Test - FAQ Page',
+    'MENT-005: Visual Test - FAQ Page',
     { tag: '@visual' },
     async ({ page }) => {
       await page.goto('/mentorship/faqs');

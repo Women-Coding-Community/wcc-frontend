@@ -50,7 +50,7 @@ test.describe('Validate Home Page', () => {
     await basePage.verifyPageContainsText('404 - Not found'); // not implemented yet
   });
 
-  test('HP-005: Volunteer section', async ({ homePage, basePage }) => {
+  test('HP-004: Volunteer section', async ({ homePage, basePage }) => {
     await basePage.clickElement(homePage.learnMoreVolunteerBtn);
 
     await basePage.verifyURL('/about-us/volunteer');
