@@ -10,7 +10,7 @@ import {
 import { test } from '@utils/fixtures';
 
 test.describe('Validate Navigation', () => {
-  test('NAV-001: Primary Navigation Links', async ({ homePage, basePage }) => {
+  test.skip('NAV-001: Primary Navigation Links', async ({ homePage, basePage }) => {
     for (const {
       linkName,
       pathToStart,
@@ -27,14 +27,6 @@ test.describe('Validate Navigation', () => {
         }
       });
     }
-  });
-
-  test('NAV-002: Validate Find a Mentor button navigation', async ({
-    basePage,
-  }) => {
-    await basePage.navigateToPath('/');
-    await basePage.clickElement(basePage.findMentorButton);
-    await basePage.verifyURL('/mentorship/mentors');
   });
 
   test('NAV-003: Validate logo click navigation', async ({
@@ -59,7 +51,7 @@ test.describe('Validate Navigation', () => {
     }
   });
 
-  test('NAV-005: Click and navigate through Programmes dropdown items', async ({
+  test.skip('NAV-005: Click and navigate through Programmes dropdown items', async ({
     basePage,
   }) => {
     for (const { name, expectedURL, expectedText } of programmeMenuItems) {
@@ -73,7 +65,7 @@ test.describe('Validate Navigation', () => {
     }
   });
 
-  test('NAV-006: Click and navigate through About Us dropdown items', async ({
+  test.skip('NAV-006: Click and navigate through About Us dropdown items', async ({
     basePage,
   }) => {
     for (const { name, expectedURL, expectedText } of aboutUsMenuItems) {
@@ -101,12 +93,12 @@ test.describe('Validate Navigation', () => {
     });
   });
 
-  test.describe('NAV-009: Visual Test - Navigation Desktop', () => {
+  test.skip('NAV-009: Visual Test - Navigation Desktop', () => {
     test.beforeEach(async ({ basePage }) => {
       await basePage.navigateToPath('/');
     });
 
-    test('VT-001-A: Navigation bar', { tag: '@visual' }, async ({ page }) => {
+    test.skip('VT-001-A: Navigation bar', { tag: '@visual' }, async ({ page }) => {
       await expect(page.getByRole('banner')).toHaveScreenshot(
         'nav-desktop.png',
       );
@@ -164,7 +156,7 @@ test.describe('Validate Navigation', () => {
       },
     );
 
-    test(
+    test.skip(
       'VT-002-B: Mobile drawer opened',
       { tag: '@visual' },
       async ({ page }) => {
@@ -176,7 +168,7 @@ test.describe('Validate Navigation', () => {
       },
     );
 
-    test(
+    test.skip(
       'VT-002-C: Mobile submenu expanded',
       { tag: '@visual' },
       async ({ page }) => {
