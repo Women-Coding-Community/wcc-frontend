@@ -10,7 +10,10 @@ import {
 import { test } from '@utils/fixtures';
 
 test.describe('Validate Navigation', () => {
-  test.skip('NAV-001: Primary Navigation Links', async ({ homePage, basePage }) => {
+  test.skip('NAV-001: Primary Navigation Links', async ({
+    homePage,
+    basePage,
+  }) => {
     for (const {
       linkName,
       pathToStart,
@@ -98,11 +101,15 @@ test.describe('Validate Navigation', () => {
       await basePage.navigateToPath('/');
     });
 
-    test.skip('VT-001-A: Navigation bar', { tag: '@visual' }, async ({ page }) => {
-      await expect(page.getByRole('banner')).toHaveScreenshot(
-        'nav-desktop.png',
-      );
-    });
+    test.skip(
+      'VT-001-A: Navigation bar',
+      { tag: '@visual' },
+      async ({ page }) => {
+        await expect(page.getByRole('banner')).toHaveScreenshot(
+          'nav-desktop.png',
+        );
+      },
+    );
 
     test(
       'VT-001-B: Mentorship dropdown expanded',
