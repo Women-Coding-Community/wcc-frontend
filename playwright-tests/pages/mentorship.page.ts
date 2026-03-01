@@ -43,6 +43,14 @@ export class MentorshipPage extends BasePage {
   readonly testimonialCards: Locator;
   readonly showMoreButton: Locator;
 
+  // Mentors listing page locators
+  readonly mentorsPageTitle: Locator;
+  readonly mentorNames: Locator;
+  readonly mentorImages: Locator;
+  readonly programmingLanguagesLabel: Locator;
+  readonly presentationTab: Locator;
+  readonly skillsAndSupportTab: Locator;
+
   constructor(page: Page) {
     super(page);
 
@@ -54,6 +62,21 @@ export class MentorshipPage extends BasePage {
     this.feedbackArea = page.getByTestId('feedback-area');
     this.testimonialCards = this.feedbackArea.getByTestId('feedback-card');
     this.showMoreButton = this.feedbackArea.getByTestId('feedback-show-more');
+
+    this.mentorsPageTitle = page.getByRole('heading', {
+      name: 'Meet Our Mentors',
+    });
+    this.mentorNames = page.locator('h6');
+    this.mentorImages = page.getByAltText('Mentor Profile Picture Description');
+    this.programmingLanguagesLabel = page
+      .getByText('Programming languages:')
+      .first();
+    this.presentationTab = page
+      .getByRole('tab', { name: 'Presentation' })
+      .first();
+    this.skillsAndSupportTab = page
+      .getByRole('tab', { name: 'Skills & Support Areas' })
+      .first();
   }
 
   getTestimonialCard(index: number): TestimonialCard {

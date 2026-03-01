@@ -4,7 +4,7 @@ Tests to check mentorship page behaviour.
 
 ---
 
-## MENT-002
+## MENT-001
 
 **Title:** Register as Mentor
 
@@ -19,11 +19,11 @@ Tests to check mentorship page behaviour.
 
 **Future Implementation:** Form validation will be added when registration form is built
 
-**Status:** Pending :x:
+**Status:** Done Partially
 
 ---
 
-## MENT-003
+## MENT-002
 
 **Title:** Find a Mentor
 
@@ -45,11 +45,11 @@ Tests to check mentorship page behaviour.
    - Reviews tab
    - Resources tab
 
-**Status:** Pending :x:
+**Status:** Done :white_check_mark:
 
 ---
 
-## MENT-004
+## MENT-003
 
 **Title:** Browse Mentorship Feedback
 
@@ -67,18 +67,18 @@ Tests to check mentorship page behaviour.
 
 ---
 
-### MENT-005: Visual Test: Mentors Page - Mentor Grid
+### MENT-004: Visual Test: Mentors Page - Mentor Grid
 
 It is important to test, as it is a core feature of the platform, mentor discovery is primary use case. Cards have overflow issues with long names/many tags. High visual complexity: images, tags, buttons, spacing.
 
 **Test Cases:**
 Verify grid of mentor profile cards
 
-**Status:** Not implemented
+**Status:** Pending :x:
 
 ---
 
-### MENT-006: Visual Test: FAQ Page
+### MENT-005: Visual Test: FAQ Page
 
 **Visual Elements to Verify:**
 
@@ -88,4 +88,4 @@ Verify grid of mentor profile cards
 - Text handles long questions/answers
 - Spacing between items consistent
 
-**Status:** Not implemented
+**Status:** Done :white_check_mark:

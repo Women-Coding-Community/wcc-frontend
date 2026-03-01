@@ -11,15 +11,15 @@ This is an overview of the playwright tests planned for this repository.
 | Test Case                                                                               | Status |
 | --------------------------------------------------------------------------------------- | ------ |
 | [NAV-001: Primary Navigation Links](./test_details_navigation.md#nav-001)               | ✅     |
-| [NAV-006: Logo Navigation](./test_details_navigation.md#nav-006)                        | ✅     |
-| [NAV-008: Mentorship Dropdown Navigation](./test_details_navigation.md#nav-008)         | ✅     |
-| [NAV-010: Programmes Dropdown Navigation](./test_details_navigation.md#nav-010)         | ✅     |
-| [NAV-012: About Us Dropdown Navigation](./test_details_navigation.md#nav-012)           | ✅     |
-| [NAV-014: Navigate to External Social Media](./test_details_navigation.md#nav-014)      | ✅     |
-| [NAV-018: Email Contact](./test_details_navigation.md#nav-018)                          | ✅     |
-| [NAV-019: Report Technical Issues](./test_details_navigation.md#nav-019)                | ✅     |
-| [NAV-020: Visual Test: Navigation - Desktop Menu](./test_details_navigation.md#nav-020) | ⏳     |
-| [NAV-021: Visual Test: Navigation - Mobile Menu](./test_details_navigation.md#nav-021)  | ⏳     |
+| [NAV-002: Find a Mentor Button Navigation](./test_details_navigation.md#nav-002)        | ✅     |
+| [NAV-003: Logo Navigation](./test_details_navigation.md#nav-003)                        | ✅     |
+| [NAV-004: Mentorship Dropdown Navigation](./test_details_navigation.md#nav-004)         | ✅     |
+| [NAV-005: Programmes Dropdown Navigation](./test_details_navigation.md#nav-005)         | ✅     |
+| [NAV-006: About Us Dropdown Navigation](./test_details_navigation.md#nav-006)           | ✅     |
+| [NAV-007: Footer Static Content](./test_details_navigation.md#nav-007)                  | ✅     |
+| [NAV-008: Footer Social Links](./test_details_navigation.md#nav-008)                    | ✅     |
+| [NAV-009: Visual Test: Navigation - Desktop Menu](./test_details_navigation.md#nav-009) | ✅     |
+| [NAV-010: Visual Test: Navigation - Mobile Menu](./test_details_navigation.md#nav-010)  | ✅     |
 
 **See:** [test_details_navigation.md](./test_details_navigation.md) for full test descriptions
 
@@ -30,7 +30,7 @@ This is an overview of the playwright tests planned for this repository.
 | [HP-001: Join the Community](./test_details_home_page.md#hp-001)       | ✅     |
 | [HP-002: Explore Programmes](./test_details_home_page.md#hp-002)       | ✅     |
 | [HP-003: View Events](./test_details_home_page.md#hp-003)              | ⏳     |
-| [HP-005: Learn About Volunteering](./test_details_home_page.md#hp-005) | ✅     |
+| [HP-004: Learn About Volunteering](./test_details_home_page.md#hp-004) | ✅     |
 
 **See:** [test_details_home_page.md](./test_details_home_page.md) for full test descriptions
 
@@ -38,10 +38,10 @@ This is an overview of the playwright tests planned for this repository.
 
 | Test Case                                                                                  | Status |
 | ------------------------------------------------------------------------------------------ | ------ |
-| [MENT-002: Register as Mentor](./test_details_mentorship.md#ment-002)                      | ⏳     |
-| [MENT-003: Find a Mentor](./test_details_mentorship.md#ment-003)                           | ⏳     |
-| [MENT-004: Browse Mentorship Feedback](./test_details_mentorship.md#ment-004)              | ✅     |
-| [MENT-005: Visual Test: Mentors Page - Mentor Grid](./test_details_mentorship.md#ment-005) | ⏳     |
-| [MENT-006: Visual Test: FAQ Page](./test_details_mentorship.md#ment-006)                   | ⏳     |
+| [MENT-001: Register as Mentor](./test_details_mentorship.md#ment-001)                      | ✅     |
+| [MENT-002: Find a Mentor](./test_details_mentorship.md#ment-002)                           | ✅     |
+| [MENT-003: Browse Mentorship Feedback](./test_details_mentorship.md#ment-003)              | ✅     |
+| [MENT-004: Visual Test: Mentors Page - Mentor Grid](./test_details_mentorship.md#ment-004) | ⏳     |
+| [MENT-005: Visual Test: FAQ Page](./test_details_mentorship.md#ment-005)                   | ✅     |
 
 **See:** [test_details_mentorship.md](./test_details_mentorship.md) for full test descriptions

@@ -62,7 +62,7 @@ Tests to check home page behaviour.
 
 ---
 
-## HP-005
+## HP-004
 
 **Title:** Learn About Volunteering
 
