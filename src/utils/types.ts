@@ -245,37 +245,53 @@ export interface EventLink {
   uri: string;
 }
 
+export type SkillArea = {
+  technicalArea: string;
+  proficiencyLevel: string;
+};
+
+export type SkillLanguage = {
+  language: string;
+  proficiencyLevel: string;
+};
+
+export type AdHocAvailability = {
+  month: string;
+  hours: number;
+};
+
 export type Mentor = {
+  id: number;
   fullName: string;
   position: string;
-  companyName: string;
-  city: string;
+  email: string;
+  slackDisplayName?: string;
   country: {
     countryCode: string;
     countryName: string;
   };
+  city: string;
+  companyName: string;
   images: Image[];
   network: Network[];
+  isWomenNonBinary?: boolean;
   profileStatus: string;
   bio: string;
   spokenLanguages: string[];
   skills: {
     yearsExperience: number;
-    experienceRange: string;
-    areas: string[];
-    languages: string[];
+    areas: SkillArea[];
+    languages: SkillLanguage[];
+    mentorshipFocus: string[];
   };
   menteeSection: {
-    mentorshipType: string[];
-    availability: {
-      months: string[];
-      hours: number;
-    };
     idealMentee: string;
-    focus: string[];
     additional: string;
+    adHoc: AdHocAvailability[];
   };
-  feedbackSection: {
+  acceptMale: boolean;
+  acceptPromotion: boolean;
+  feedbackSection?: {
     feedbacks: {
       rating: string;
       date: string;
@@ -284,7 +300,7 @@ export type Mentor = {
       type: string;
     }[];
   };
-  resources: {
+  resources?: {
     id: string;
     name: string;
     description: string;
@@ -387,4 +403,44 @@ export type LongTermTimeLineResponse = {
   events: {
     items: LongTermTimeLineEvent[];
   };
+};
+
+// Types for Mentorship Resources response
+
+export type ResourceItem = {
+  title: string;
+  link: Link;
+  image: Image;
+};
+
+export type ResourcesSection = {
+  title: string;
+  description: string;
+  items: ResourceItem[];
+};
+
+export type BackgroundShade = {
+  name: string;
+  value: number;
+};
+
+export type BackgroundColour = {
+  color: string;
+  shade?: BackgroundShade;
+};
+
+export type CustomStyle = {
+  backgroundColour?: BackgroundColour;
+};
+
+export type MentorshipResourcesResponse = {
+  id: string;
+  heroSection: {
+    title: string;
+  };
+  section: {
+    description: string;
+  };
+  resourcesSection: ResourcesSection;
+  customStyle?: CustomStyle;
 };

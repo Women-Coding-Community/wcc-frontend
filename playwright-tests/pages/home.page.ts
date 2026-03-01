@@ -39,12 +39,9 @@ export class HomePage extends BasePage {
     this.joinAsMentorBtn = page.getByRole('link', { name: 'Join as a mentor' });
 
     // Volunteer section locators
-    this.volunteerSectionTitle = page.getByRole('heading', {
-      name: 'Do you want to volunteer with us?',
-      exact: true,
-    });
-    this.volunteerSectionDescription = page.locator(
-      'p.MuiTypography-root.MuiTypography-body1.css-11xjirw-MuiTypography-root',
+    this.volunteerSectionTitle = page.getByTestId('volunteer-title');
+    this.volunteerSectionDescription = page.getByTestId(
+      'volunteer-description',
     );
     this.learnMoreVolunteerBtn = page.getByRole('link', {
       name: 'Learn more about volunteering',
@@ -71,7 +68,7 @@ export class HomePage extends BasePage {
     this.bookClubLink = page.getByRole('link', { name: 'Book Club' });
     this.CvClinicLink = page.getByRole('link', { name: 'CV clinic' });
     this.mockInterviewsLink = page.getByRole('link', {
-      name: 'Mock interviews',
+      name: 'Mock interview',
     });
     this.leetCodeLink = page.getByRole('link', { name: 'Leetcode' });
 

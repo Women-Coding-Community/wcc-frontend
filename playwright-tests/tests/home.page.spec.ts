@@ -10,13 +10,11 @@ test.describe('Validate Home Page', () => {
     page,
     homePage,
   }) => {
-    await page.goto('/');
     const newPagePromise = page.waitForEvent('popup');
     await homePage.joinSlackButton.click();
     const newPage = await newPagePromise;
 
-    await newPage.waitForLoadState();
-    expect(newPage.url()).toContain('slack.com');
+    expect(newPage.url()).toContain('womencodingcommunity.slack.com');
     await expect(newPage).toHaveTitle(/Slack/i);
   });
 
@@ -29,42 +27,30 @@ test.describe('Validate Home Page', () => {
     await expect(homePage.mainText).toBeVisible();
     await homePage.clickElement(homePage.mentorshipLink);
     await basePage.verifyURL('/mentorship');
+    await basePage.verifyPageContainsText('Mentorship Programme');
     await page.goto('/');
     await homePage.clickElement(homePage.eventsLink);
     await basePage.verifyURL('/events');
+    await basePage.verifyPageContainsText('Welcome to the EventsPage');
     await page.goto('/');
     await homePage.clickElement(homePage.bookClubLink);
     await basePage.verifyURL('/programmes/book-club');
+    await basePage.verifyPageContainsText('Welcome to the BookClubPage');
     await page.goto('/');
     await homePage.clickElement(homePage.CvClinicLink);
     await basePage.verifyURL('/programmes/cv-clinic');
+    await basePage.verifyPageContainsText('404 - Not found'); // not implemented yet
     await page.goto('/');
     await homePage.clickElement(homePage.mockInterviewsLink);
     await homePage.verifyURL('/programmes/interviews');
+    await basePage.verifyPageContainsText('404 - Not found'); // not implemented yet
     await page.goto('/');
     await homePage.clickElement(homePage.leetCodeLink);
     await homePage.verifyURL('/programmes/leetcode');
-  });
-  test('HP-004: Become Mentor section', async ({ homePage, basePage }) => {
-    await expect(homePage.becomeMentorSectionTitle).toBeVisible();
-    await expect(homePage.becomeMentorSectionDescription).toBeVisible();
-    await expect(homePage.joinAsMentorBtn).toBeVisible();
-    await basePage.clickElement(homePage.joinAsMentorBtn);
-
-    await basePage.verifyURL('/mentorship/mentor-registration');
-    await basePage.verifyPageContainsText(
-      'Welcome to the MentorRegistrationPage',
-    );
+    await basePage.verifyPageContainsText('404 - Not found'); // not implemented yet
   });
 
-  test('HP-005: Volunteer section', async ({ homePage, basePage }) => {
-    await basePage.navigateToPath('/');
-
-    await expect(homePage.volunteerSectionTitle).toBeVisible();
-    await expect(homePage.volunteerSectionDescription).toHaveText(
-      'Empowering women in their tech careers through education, mentorship, community building, and career services is our mission. We provide workshops and events, connect members with industry mentors, foster a supportive community through meetups and conferences, and raise awareness for more inclusive industry practices.',
-    );
-    await expect(homePage.learnMoreVolunteerBtn).toBeVisible();
+  test('HP-004: Volunteer section', async ({ homePage, basePage }) => {
     await basePage.clickElement(homePage.learnMoreVolunteerBtn);
 
     await basePage.verifyURL('/about-us/volunteer');

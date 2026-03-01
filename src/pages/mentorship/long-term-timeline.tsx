@@ -1,24 +1,93 @@
-// path: /mentorship/ad-hoc-timeline
+// path: /mentorship/long-term-timeline
 
-import { Typography } from '@mui/material';
+import Timeline from '@mui/lab/Timeline';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import { Box } from '@mui/material';
 import { GetServerSideProps } from 'next';
 
+import { TimelineCard, Title, Footer, BreadCrumbsDynamic } from '@components';
+import { useIsMobile } from '@utils/theme-utils';
 import { LongTermTimeLineResponse, FooterResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
+import theme from 'theme';
 
 type CombinedResponse = {
   data: LongTermTimeLineResponse;
   footer: FooterResponse;
 };
 
-const MentorshipLongTermTimelinePage = ({ data }: CombinedResponse) => {
+const MentorshipLongTermTimelinePage = ({ data, footer }: CombinedResponse) => {
+  const isMobile = useIsMobile();
   return (
-    <div>
-      <Typography variant="h4">
-        Welcome to the Long Term Timeline Page
-      </Typography>
-      {data ? <p> Data Loaded </p> : <p> No Data </p>}
-    </div>
+    <>
+      {isMobile ? null : <BreadCrumbsDynamic />}
+      <Title title={'Long-Term Mentorship Timeline'} />
+      <Box sx={theme.custom.containerBox}>
+        <Timeline position="right">
+          {data?.events?.items?.map((item, index) => (
+            <TimelineItem
+              key={index}
+              sx={{
+                marginLeft: {
+                  xs: '-50px',
+                },
+              }}
+            >
+              <TimelineSeparator>
+                <TimelineDot
+                  color="primary"
+                  sx={{
+                    margin: 0,
+                    width: {
+                      xs: '15px',
+                      sm: '24px',
+                    },
+                    height: {
+                      xs: '15px',
+                      sm: '24px',
+                    },
+                  }}
+                />
+
+                {index + 1 !== data?.events?.items?.length && (
+                  <TimelineConnector
+                    sx={{
+                      bgcolor: 'rgb(140,145,150)',
+                      width: {
+                        xs: '1.5px',
+                        sm: '2px',
+                        md: '2.5px',
+                      },
+                    }}
+                  />
+                )}
+              </TimelineSeparator>
+              <TimelineContent
+                sx={{
+                  flex: '10',
+                  marginTop: isMobile ? '' : '-30px',
+                  marginLeft: {
+                    md: '-70px',
+                  },
+                }}
+              >
+                <TimelineCard
+                  title={item.title}
+                  description={item.description}
+                  date={item.duration}
+                />
+              </TimelineContent>
+            </TimelineItem>
+          ))}
+        </Timeline>
+
+        {footer && <Footer {...footer} />}
+      </Box>
+    </>
   );
 };
 
