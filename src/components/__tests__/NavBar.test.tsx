@@ -34,12 +34,7 @@ describe('NavBar', () => {
 
   it('should render logo and menu items', () => {
     renderWithRouter(<NavBar />);
-    const navItems = [
-      'Programmes',
-      'About Us',
-      'Events',
-      'Blog',
-    ];
+    const navItems = ['Programmes', 'About Us', 'Events', 'Blog'];
     navItems.forEach((item) => {
       expect(screen.getByText(item)).toBeInTheDocument();
     });
