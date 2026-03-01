@@ -9,7 +9,7 @@ export default async function handler(
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
   try {
-    const { keyword, mentorshipTypes, areas, language, focus } = req.query;
+    const { keyword, yearsExperience, areas, language, focus } = req.query;
     const baseUrl = process.env.API_BASE_URL;
     const apiKey = process.env.API_KEY;
 
@@ -21,10 +21,10 @@ export default async function handler(
     const params = new URLSearchParams();
     if (keyword)
       params.append('keyword', Array.isArray(keyword) ? keyword[0] : keyword);
-    if (mentorshipTypes)
+    if (yearsExperience)
       params.append(
-        'mentorshipType',
-        Array.isArray(mentorshipTypes) ? mentorshipTypes[0] : mentorshipTypes,
+        'yearsExperience',
+        Array.isArray(yearsExperience) ? yearsExperience[0] : yearsExperience,
       );
     if (areas) params.append('areas', Array.isArray(areas) ? areas[0] : areas);
     if (language)

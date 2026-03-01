@@ -1,4 +1,5 @@
 // path: /mentorship/mentors
+import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
 import {
@@ -14,7 +15,6 @@ import {
   InputAdornment,
   Collapse,
 } from '@mui/material';
-// import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -35,6 +35,12 @@ type FilterSection = {
 
 import theme from 'theme';
 
+const filterYearExperienceOptions = [
+  { label: 'Any', value: '0' },
+  { label: '3+ years', value: '3' },
+  { label: '5+ years', value: '5' },
+  { label: '10+ years', value: '10' },
+];
 const MentorsPage = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
@@ -44,7 +50,7 @@ const MentorsPage = () => {
   const [loading, setLoading] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [keyword, setKeyword] = useState<string>('');
-  const [selectedMentorshipTypes, setSelectedMentorshipTypes] =
+  const [selectedYearsExperience, setSelectedYearsExperience] =
     useState<string>('');
   const [selectedAreas, setSelectedAreas] = useState<string>('');
   const [selectedLanguage, setSelectedLanguage] = useState<string>('');
@@ -57,8 +63,11 @@ const MentorsPage = () => {
   useEffect(() => {
     if (!query) return;
     if (typeof query.keyword === 'string') setKeyword(query.keyword);
-    if (typeof query.mentorshipTypes === 'string')
-      setSelectedMentorshipTypes(query.mentorshipTypes);
+    if (typeof query.yearsExperience === 'string') {
+      setSelectedYearsExperience(query.yearsExperience);
+    } else {
+      setSelectedYearsExperience('');
+    }
     if (typeof query.areas === 'string') setSelectedAreas(query.areas);
     if (typeof query.language === 'string') setSelectedLanguage(query.language);
     if (typeof query.focus === 'string') setSelectedFocus(query.focus);
@@ -75,7 +84,7 @@ const MentorsPage = () => {
         const params = new URLSearchParams();
         const filterKeys = [
           'keyword',
-          'mentorshipTypes',
+          'yearsExperience',
           'areas',
           'language',
           'focus',
@@ -122,7 +131,7 @@ const MentorsPage = () => {
 
   const applyFilters = (opts?: {
     keyword?: string;
-    mentorshipTypes?: string;
+    yearsExperience?: string;
     areas?: string;
     language?: string;
     focus?: string;
@@ -142,6 +151,16 @@ const MentorsPage = () => {
     router.replace({ pathname: router.pathname, query: next }, undefined, {
       shallow: true,
     });
+  };
+
+  const handleClearFilters = () => {
+    setKeyword('');
+    setSelectedYearsExperience('');
+    setSelectedAreas('');
+    setSelectedLanguage('');
+    setSelectedFocus('');
+    // Remove all filter params from the URL
+    router.replace({ pathname: router.pathname }, undefined, { shallow: true });
   };
 
   return (
@@ -242,102 +261,107 @@ const MentorsPage = () => {
               }}
             >
               <Grid container spacing={2}>
-                <Grid item xs={12} md={3}>
-                  <FormControl fullWidth>
-                    <InputLabel id="filter-type-label">Type</InputLabel>
-                    <Select
-                      labelId="filter-type-label"
-                      value={selectedMentorshipTypes}
-                      label="Type"
-                      onChange={(e) => {
-                        const selectedType = e.target.value as string;
-                        setSelectedMentorshipTypes(selectedType);
-                        applyFilters({ mentorshipTypes: selectedType });
-                      }}
-                    >
-                      <MenuItem value="">None</MenuItem>
-                      {filterSection?.types?.map((type: string) => (
-                        <MenuItem key={type} value={type}>
-                          {type}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} md={3}>
-                  <FormControl fullWidth>
-                    <InputLabel id="filter-area-label">Expertise</InputLabel>
-                    <Select
-                      labelId="filter-area-label"
-                      value={selectedAreas}
-                      label="Expertise"
-                      onChange={(e) => {
-                        const v = e.target.value as string;
-                        setSelectedAreas(v);
-                        applyFilters({ areas: v });
-                      }}
-                    >
-                      <MenuItem value="">None</MenuItem>
-                      {filterSection?.skills?.areas?.map((area: string) => (
-                        <MenuItem key={area} value={area}>
-                          {area}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} md={3}>
-                  <FormControl fullWidth>
-                    <InputLabel id="filter-language-label">Language</InputLabel>
-                    <Select
-                      labelId="filter-language-label"
-                      value={selectedLanguage}
-                      label="Language"
-                      onChange={(e) => {
-                        const v = e.target.value as string;
-                        setSelectedLanguage(v);
-                        applyFilters({ language: v });
-                      }}
-                    >
-                      <MenuItem value="">None</MenuItem>
-                      {filterSection?.skills?.languages?.map(
-                        (language: string) => (
-                          <MenuItem key={language} value={language}>
-                            {language}
+                {/* First row: filter dropdowns */}
+                <Grid item xs={12}>
+                  <Box display="flex" flexWrap="wrap" gap={2}>
+                    <FormControl sx={{ minWidth: 120, flex: 1 }}>
+                      <InputLabel id="filter-experience-label">
+                        Experience
+                      </InputLabel>
+                      <Select
+                        labelId="filter-experience-label"
+                        value={selectedYearsExperience}
+                        label="Experience"
+                        onChange={(e) => {
+                          const selectedExperience = e.target.value as string;
+                          setSelectedYearsExperience(selectedExperience);
+                          applyFilters({ yearsExperience: selectedExperience });
+                        }}
+                      >
+                        {filterYearExperienceOptions.map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
                           </MenuItem>
-                        ),
-                      )}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} md={3}>
-                  <FormControl fullWidth>
-                    <InputLabel id="filter-focus-label">
-                      Mentee Focus
-                    </InputLabel>
-                    <Select
-                      labelId="filter-focus-label"
-                      value={selectedFocus}
-                      label="Mentee Focus"
-                      onChange={(e) => {
-                        const focus = e.target.value as string;
-                        setSelectedFocus(focus);
-                        applyFilters({ focus: focus });
-                      }}
-                    >
-                      <MenuItem value="">None</MenuItem>
-                      {filterSection?.skills?.mentorshipFocus?.map(
-                        (skill: string) => (
-                          <MenuItem key={skill} value={skill}>
-                            {skill}
+                        ))}
+                      </Select>
+                    </FormControl>
+                    <FormControl sx={{ minWidth: 120, flex: 1 }}>
+                      <InputLabel id="filter-area-label">Expertise</InputLabel>
+                      <Select
+                        labelId="filter-area-label"
+                        value={selectedAreas}
+                        label="Expertise"
+                        onChange={(e) => {
+                          const v = e.target.value as string;
+                          setSelectedAreas(v);
+                          applyFilters({ areas: v });
+                        }}
+                      >
+                        {filterSection?.skills?.areas?.map((area: string) => (
+                          <MenuItem key={area} value={area}>
+                            {area}
                           </MenuItem>
-                        ),
-                      )}
-                    </Select>
-                  </FormControl>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    <FormControl sx={{ minWidth: 120, flex: 1 }}>
+                      <InputLabel id="filter-language-label">
+                        Language
+                      </InputLabel>
+                      <Select
+                        labelId="filter-language-label"
+                        value={selectedLanguage}
+                        label="Language"
+                        onChange={(e) => {
+                          const v = e.target.value as string;
+                          setSelectedLanguage(v);
+                          applyFilters({ language: v });
+                        }}
+                      >
+                        {filterSection?.skills?.languages?.map(
+                          (language: string) => (
+                            <MenuItem key={language} value={language}>
+                              {language}
+                            </MenuItem>
+                          ),
+                        )}
+                      </Select>
+                    </FormControl>
+                    <FormControl sx={{ minWidth: 120, flex: 1 }}>
+                      <InputLabel id="filter-focus-label">
+                        Mentee Focus
+                      </InputLabel>
+                      <Select
+                        labelId="filter-focus-label"
+                        value={selectedFocus}
+                        label="Mentee Focus"
+                        onChange={(e) => {
+                          const focus = e.target.value as string;
+                          setSelectedFocus(focus);
+                          applyFilters({ focus: focus });
+                        }}
+                      >
+                        {filterSection?.skills?.mentorshipFocus?.map(
+                          (skill: string) => (
+                            <MenuItem key={skill} value={skill}>
+                              {skill}
+                            </MenuItem>
+                          ),
+                        )}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </Grid>
+                {/* Second row: Clear all filters button right-aligned */}
+                <Grid item xs={12}>
+                  <Box display="flex" justifyContent="flex-end">
+                    <Button
+                      startIcon={<DeleteIcon />}
+                      onClick={handleClearFilters}
+                    >
+                      Clear all filters
+                    </Button>
+                  </Box>
                 </Grid>
               </Grid>
             </Box>
