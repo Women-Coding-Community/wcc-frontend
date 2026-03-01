@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 
-const ProgrammePage = () => {
+const SpeakingClubPage = () => {
   return (
     <div>
       <Typography variant="h4">Welcome to the speaking-club</Typography>
@@ -8,4 +8,4 @@ const ProgrammePage = () => {
   );
 };
 
-export default ProgrammePage;
+export default SpeakingClubPage;
