@@ -68,7 +68,7 @@ export class HomePage extends BasePage {
     this.bookClubLink = page.getByRole('link', { name: 'Book Club' });
     this.CvClinicLink = page.getByRole('link', { name: 'CV clinic' });
     this.mockInterviewsLink = page.getByRole('link', {
-      name: 'Mock interviews',
+      name: 'Mock interview',
     });
     this.leetCodeLink = page.getByRole('link', { name: 'Leetcode' });
 

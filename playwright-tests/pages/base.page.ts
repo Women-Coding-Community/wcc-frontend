@@ -10,6 +10,7 @@ export class BasePage {
   readonly blogLink: Locator;
   readonly jobsLink: Locator;
   readonly aboutUsDropdown: Locator;
+  readonly findMentorButton: Locator;
   readonly menuitem: (itemTitle: string) => Locator;
 
   // Footer locators
@@ -31,6 +32,7 @@ export class BasePage {
     this.blogLink = page.getByRole('button', { name: 'Blog' });
     this.jobsLink = page.getByRole('button', { name: 'Jobs' });
     this.aboutUsDropdown = page.getByRole('button', { name: 'About Us' });
+    this.findMentorButton = page.getByRole('button', { name: 'Find a mentor' });
     this.menuitem = (itemTitle: string) =>
       page.getByRole('menuitem', { name: itemTitle });
 
