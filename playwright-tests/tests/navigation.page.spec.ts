@@ -10,9 +10,14 @@ import {
 import { test } from '@utils/fixtures';
 
 test.describe('Validate Navigation', () => {
-
   test('NAV-001: Primary Navigation Links', async ({ homePage, basePage }) => {
-    for (const { linkName, pathToStart, linkLocator, expectedURL, expectedText } of navTests) {
+    for (const {
+      linkName,
+      pathToStart,
+      linkLocator,
+      expectedURL,
+      expectedText,
+    } of navTests) {
       await test.step(`Navigate to "${linkName}"`, async () => {
         await basePage.navigateToPath(pathToStart);
         await basePage.clickElement(linkLocator(homePage));

@@ -50,9 +50,7 @@ test.describe('Validate Mentorship Page', () => {
     });
 
     await test.step('Show More button reveals additional cards', async () => {
-      await expect(
-        mentorshipPage.getTestimonialCard(3).card,
-      ).not.toBeVisible();
+      await expect(mentorshipPage.getTestimonialCard(3).card).not.toBeVisible();
       await basePage.clickElement(mentorshipPage.showMoreButton);
       await expect(mentorshipPage.getTestimonialCard(3).card).toBeVisible();
     });
