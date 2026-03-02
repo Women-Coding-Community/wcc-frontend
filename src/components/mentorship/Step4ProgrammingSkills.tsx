@@ -55,7 +55,7 @@ const Step4ProgrammingSkills = () => {
 
         <Box sx={{ mt: 6, mb: 2, textAlign: 'center' }}>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Page 4 of 6
+            Page 4 of 5
           </Typography>
         </Box>
 

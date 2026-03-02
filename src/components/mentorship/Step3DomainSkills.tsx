@@ -37,7 +37,7 @@ const Step3DomainSkills = () => {
 
         <Box sx={{ mt: 6, mb: 2, textAlign: 'center' }}>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Page 3 of 6
+            Page 3 of 5
           </Typography>
         </Box>
       </Box>

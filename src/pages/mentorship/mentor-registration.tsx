@@ -12,55 +12,42 @@ import Step5Review from 'components/mentorship/Step5Review';
 
 const validateStep1 = async (formMethods: any) => {
   const isStandardValid = await formMethods.trigger([
-    'firstName', 'email', 'slackName', 'country', 'city',
-    'jobTitle', 'company', 'calendlyLink', 'menteeExpectations', 'openToNonWomen',
+    'fullName', 'email', 'slackDisplayName', 'country', 'city',
+    'position', 'companyName', 'calendlyLink', 'menteeExpectations', 'openToNonWomen',
   ]);
 
   const isLongTerm = formMethods.getValues('isLongTermMentor');
   const isAdHoc = formMethods.getValues('isAdHocMentor');
 
   formMethods.clearErrors(['isLongTermMentor', 'maxMentees', 'adHocAvailability']);
-  
   let isTypeValid = true;
 
   if (!isLongTerm && !isAdHoc) {
-    formMethods.setError('isLongTermMentor', { 
-      type: 'manual', 
-      message: 'Please select at least one mentorship format.' 
-    });
+    formMethods.setError('isLongTermMentor', { type: 'manual', message: 'Please select at least one mentorship format.' });
     isTypeValid = false;
   }
-
   if (isLongTerm) {
     const maxMentees = formMethods.getValues('maxMentees');
     if (!maxMentees) {
-      formMethods.setError('maxMentees', { 
-        type: 'manual', 
-        message: 'Please select the number of mentees' 
-      });
+      formMethods.setError('maxMentees', { type: 'manual', message: 'Please select the number of mentees' });
       isTypeValid = false;
     }
   }
-
   if (isAdHoc) {
     const adHoc = formMethods.getValues('adHocAvailability');
     if (!adHoc || Object.keys(adHoc).length === 0) {
-      formMethods.setError('adHocAvailability', { 
-        type: 'manual', 
-        message: 'Please select availability for at least one month' 
-      });
+      formMethods.setError('adHocAvailability', { type: 'manual', message: 'Please select availability for at least one month' });
       isTypeValid = false;
     }
   }
-
   return isStandardValid && isTypeValid;
 };
 
 const validateStep2 = async (formMethods: any) => {
   return await formMethods.trigger([
-    'languages', 'yearsOfExperience', 'bio', 
-    'mentoringTopics', 'photoSource', 'customPhotoUrl'
-  ] as const);
+    'languages', 'yearsExperience', 'bio',
+    'mentorshipFocus', 'imageUrl'
+  ]);
 };
 
 const validateStep5 = async (formMethods: any) => {

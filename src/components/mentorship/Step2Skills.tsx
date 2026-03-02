@@ -29,7 +29,7 @@ const LANGUAGES = ['English', 'Spanish', 'Russian', 'Polish', 'Ukrainian', 'Fren
 const EXPERIENCE = ['0–2 years', '3–5 years', '6–10 years', '10+ years'];
 
 const Step2Skills = () => {
-  const { register, watch, control, formState: { errors } } = useFormContext();
+  const { register, control, formState: { errors } } = useFormContext();
 
   return (
     <StepSection
@@ -76,9 +76,9 @@ const Step2Skills = () => {
             select
             fullWidth
             defaultValue=""
-            {...register('yearsOfExperience')}
-            error={!!errors.yearsOfExperience}
-            helperText={errors.yearsOfExperience?.message as string}
+            {...register('yearsExperience')}
+            error={!!errors.yearsExperience}
+            helperText={errors.yearsExperience?.message as string}
             sx={inputStyle}
           >
             {EXPERIENCE.map((exp) => (
@@ -127,8 +127,8 @@ const Step2Skills = () => {
             fullWidth
             multiline
             rows={3}
-            {...register('mentoringTopics')}
-            error={!!errors.mentoringTopics}
+            {...register('mentorshipFocus')}
+            error={!!errors.mentorshipFocus}
             sx={inputStyle}
           />
           <Typography sx={helperTextStyle}>
@@ -144,9 +144,9 @@ const Step2Skills = () => {
           <TextField
             fullWidth
             placeholder="https://linkedin.com/in/yourname (or any public profile image URL)"
-            {...register('customPhotoUrl')}
-            error={!!errors.customPhotoUrl}
-            helperText={errors.customPhotoUrl?.message as string}
+            {...register('imageUrl')}
+            error={!!errors.imageUrl}
+            helperText={errors.imageUrl?.message as string}
             sx={{ ...inputStyle, mt: 1 }}
           />
           <Typography sx={helperTextStyle}>

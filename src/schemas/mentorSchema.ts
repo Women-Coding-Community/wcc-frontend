@@ -9,7 +9,10 @@ export const basicInfoObj = z.object({
   position: z.string().min(1, 'Please enter your job title'),
   companyName: z.string().min(1, 'Please enter your company name'),
 
-  mentorshipType: z.enum(['long_term', 'ad_hoc'], { message: 'Please select a mentorship type' }),
+  isLongTermMentor: z.boolean().optional(),
+  isAdHocMentor: z.boolean().optional(),
+  maxMentees: z.string().optional(),
+  adHocAvailability: z.record(z.string(), z.string()).optional(),
 
   calendlyLink: z.string()
     .url('Please enter a valid URL')
@@ -26,12 +29,29 @@ export const basicInfoObj = z.object({
 });
 
 const validateBasicInfo = (data: z.infer<typeof basicInfoObj>, ctx: z.RefinementCtx) => {
-  if (!data.mentorshipType) {
+  if (!data.isLongTermMentor && !data.isAdHocMentor) {
     ctx.addIssue({
       code: "custom",
-      message: "Please select a mentorship type",
-      path: ["mentorshipType"],
+      message: "Please select at least one mentorship format",
+      path: ["isLongTermMentor"],
     });
+  }
+  if (data.isLongTermMentor && (!data.maxMentees || data.maxMentees.length === 0)) {
+    ctx.addIssue({
+      code: "custom",
+      message: "Please select the number of mentees",
+      path: ["maxMentees"],
+    });
+  }
+  if (data.isAdHocMentor) {
+    const hasAvailability = data.adHocAvailability && Object.keys(data.adHocAvailability).length > 0;
+    if (!hasAvailability) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Please select availability for at least one month",
+        path: ["adHocAvailability"],
+      });
+    }
   }
 };
 

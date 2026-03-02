@@ -3,7 +3,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { 
   Grid, TextField, MenuItem, Typography, Box, FormHelperText,
   FormGroup, FormControlLabel, Checkbox, Radio, RadioGroup, FormControl, FormLabel,
-  Table, TableBody, TableCell, TableHead, TableRow 
+  Table, TableBody, TableCell, TableHead, TableRow
 } from '@mui/material';
 import StepSection from './StepSection';
 import { COUNTRIES } from '../../utils/mentorshipConstants';
@@ -27,7 +27,7 @@ const Step1BasicInfo = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>What is your full name? *</Typography>
-          <TextField fullWidth placeholder="Jane Doe" {...register("firstName")} error={!!errors.firstName} helperText={errors.firstName?.message as string} />
+          <TextField fullWidth placeholder="Jane Doe" {...register("fullName")} error={!!errors.fullName} helperText={errors.fullName?.message as string} />
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>What is your email address? *</Typography>
@@ -35,8 +35,8 @@ const Step1BasicInfo = () => {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>Slack Name *</Typography>
-          <TextField fullWidth placeholder="@jane" {...register("slackName")} error={!!errors.slackName} helperText={errors.slackName?.message as string} />
-          {!errors.slackName && (
+          <TextField fullWidth placeholder="@jane" {...register("slackDisplayName")} error={!!errors.slackDisplayName} helperText={errors.slackDisplayName?.message as string} />
+          {!errors.slackDisplayName && (
     <FormHelperText sx={{ mt: 1 }}>Please note your application will be rejected if you are not in our Slack community.</FormHelperText>
   )}
         </Grid>
@@ -70,13 +70,13 @@ const Step1BasicInfo = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>What is your current job title? *</Typography>
-          <TextField fullWidth {...register("jobTitle")} error={!!errors.jobTitle} helperText={errors.jobTitle?.message as string} />
+          <TextField fullWidth {...register("position")} error={!!errors.position} helperText={errors.position?.message as string} />
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography variant="subtitle2" sx={{ mb: 0.5, color: 'text.primary' }}>Company name *</Typography>
-          <TextField fullWidth {...register("company")} error={!!errors.company} helperText={errors.company?.message as string} />
+          <TextField fullWidth {...register("companyName")} error={!!errors.companyName} helperText={errors.companyName?.message as string} />
         </Grid>
-
+        
         <Grid item xs={12}>
           <Typography variant="subtitle2" sx={{ mb: 1, color: 'text.primary' }}>
             Which kind of mentor you want to be? *
@@ -95,18 +95,9 @@ const Step1BasicInfo = () => {
                   control={control}
                   defaultValue=""
                   render={({ field, fieldState: { error } }) => (
-                    <TextField
-                      {...field}
-                      select
-                      fullWidth
-                      size="small"
-                      error={!!error}
-                      helperText={error?.message}
-                    >
+                    <TextField {...field} select fullWidth size="small" error={!!error} helperText={error?.message}>
                       {[1, 2, 3, 4, 5, 6].map((num) => (
-                        <MenuItem key={num} value={String(num)}>
-                          {num === 6 ? '6+' : num}
-                        </MenuItem>
+                        <MenuItem key={num} value={String(num)}>{num === 6 ? '6+' : num}</MenuItem>
                       ))}
                     </TextField>
                   )}
@@ -126,7 +117,7 @@ const Step1BasicInfo = () => {
                   <Table size="small" sx={{ '& td, & th': { borderBottom: 'none' } }}>
                     <TableHead>
                       <TableRow>
-                        <TableCell sx={{ pl: 0, width: '20%' }}></TableCell> 
+                        <TableCell sx={{ pl: 0, width: '20%' }}></TableCell>
                         {[1, 2, 3, 4, '5+'].map(num => (
                           <TableCell key={num} align="center" sx={{ fontWeight: 600, color: 'text.primary', pb: 2 }}>{num}</TableCell>
                         ))}
@@ -146,54 +137,38 @@ const Step1BasicInfo = () => {
                         </TableRow>
                       ))}
                     </TableBody>
-                  </Table>                  
+                  </Table>
                 </Box>
 
                 <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
                   {months.map((month) => (
                     <Box key={month} sx={{ mb: 3 }}>
-                      <Typography variant="body2" sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}>
-                        {month}
-                      </Typography>
-                      <RadioGroup 
-                        row 
-                        sx={{ 
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          gap: 0.5
-                        }} 
-                        {...register(`adHocAvailability.${month}`)}
-                      >
+                      <Typography variant="body2" sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}>{month}</Typography>
+                      <RadioGroup row sx={{ display: 'flex', justifyContent: 'space-between', gap: 0.5 }} {...register(`adHocAvailability.${month}`)}>
                         {[1, 2, 3, 4, 5].map((val) => (
-                          <FormControlLabel 
-                            key={val}
-                            value={String(val)} 
+                          <FormControlLabel
+                            key={val} value={String(val)}
                             control={<Radio size="small" sx={{ color: 'action.disabled', '&.Mui-checked': { color: 'text.primary' } }} />}
                             label={val === 5 ? '5+' : String(val)}
-                            sx={{ 
-                              flex: 1,
-                              mx: 0,
-                              '& .MuiFormControlLabel-label': {
-                                fontSize: '14px'
-                              }
-                            }}
+                            sx={{ flex: 1, mx: 0, '& .MuiFormControlLabel-label': { fontSize: '14px' } }}
                           />
                         ))}
                       </RadioGroup>
                     </Box>
                   ))}
+                  {errors.adHocAvailability && (
+                    <FormHelperText error sx={{ mt: 2, textAlign: 'center', fontWeight: 'bold' }}>
+                      Please select availability for at least one month
+                    </FormHelperText>
+                  )}
                 </Box>
-              {errors.adHocAvailability && (
-                <FormHelperText error sx={{ mt: 2, textAlign: 'center', fontWeight: 'bold' }}>
-                  Please select availability for at least one month
-                </FormHelperText>
-              )}
               </Box>
-              
             )}
           </FormGroup>
-          
-          {errors.isLongTermMentor && (<FormHelperText error sx={{ mt: 1 }}>Please select at least one mentorship format.</FormHelperText>)}
+
+          {errors.isLongTermMentor && (
+            <FormHelperText error sx={{ mt: 1 }}>Please select at least one mentorship format.</FormHelperText>
+          )}
         </Grid>
 
         <Grid item xs={12}>
