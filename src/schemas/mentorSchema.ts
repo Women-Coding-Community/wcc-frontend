@@ -1,19 +1,15 @@
 import { z } from 'zod';
 
 export const basicInfoObj = z.object({
-  firstName: z.string().min(1, 'Please enter your full name'),
+  fullName: z.string().min(1, 'Please enter your full name'),
   email: z.string().email('Please enter a valid email address'),
-  slackName: z.string().min(1, 'Please enter your Slack name'),
+  slackDisplayName: z.string().min(1, 'Please enter your Slack name'),
   country: z.string().min(1, 'Please select your country'),
   city: z.string().min(1, 'Please enter your city'),
-  jobTitle: z.string().min(1, 'Please enter your job title'),
-  company: z.string().min(1, 'Please enter your company name'),
+  position: z.string().min(1, 'Please enter your job title'),
+  companyName: z.string().min(1, 'Please enter your company name'),
 
-  isLongTermMentor: z.boolean().optional(),
-  isAdHocMentor: z.boolean().optional(),
-
-  maxMentees: z.string().optional(),
-  adHocAvailability: z.record(z.string(), z.string()).optional(),
+  mentorshipType: z.enum(['long_term', 'ad_hoc'], { message: 'Please select a mentorship type' }),
 
   calendlyLink: z.string()
     .url('Please enter a valid URL')
@@ -30,64 +26,27 @@ export const basicInfoObj = z.object({
 });
 
 const validateBasicInfo = (data: z.infer<typeof basicInfoObj>, ctx: z.RefinementCtx) => {
-  if (!data.isLongTermMentor && !data.isAdHocMentor) {
+  if (!data.mentorshipType) {
     ctx.addIssue({
       code: "custom",
-      message: "Please select at least one mentorship type",
-      path: ["isLongTermMentor"],
+      message: "Please select a mentorship type",
+      path: ["mentorshipType"],
     });
   }
-
-  if (data.isLongTermMentor) {
-    if (!data.maxMentees || data.maxMentees.length === 0) {
-      ctx.addIssue({
-        code: "custom",
-        message: "Please select the number of mentees",
-        path: ["maxMentees"],
-      });
-    }
-  }
-
-  if (data.isAdHocMentor) {
-    const hasAvailability = data.adHocAvailability && Object.keys(data.adHocAvailability).length > 0;
-    if (!hasAvailability) {
-      ctx.addIssue({
-        code: "custom",
-        message: "Please select availability for at least one month",
-        path: ["adHocAvailability"],
-      });
-    }
-  }
 };
+
 export const basicInfoSchema = basicInfoObj.superRefine(validateBasicInfo);
 export type BasicInfoData = z.infer<typeof basicInfoSchema>;
 
 export const profileSchema = z.object({
   languages: z.array(z.string()).min(1, "Please select at least one language"),
-  yearsOfExperience: z.string().min(1, "Please select your years of experience"),
+  yearsExperience: z.string().min(1, "Please select your years of experience"),
   bio: z.string()
     .min(10, "Please provide at least 10 characters for your bio")
     .max(1000, "Bio must not exceed 1000 characters"),
-  mentoringTopics: z.string().optional(),
-  photoSource: z.enum(['linkedin', 'slack', 'other'], {
-  message: 'Please select a photo source',
-}),
-  customPhotoUrl: z.string()
-    .url('Please enter a valid URL')
-    .optional()
-    .or(z.literal('')),
-}).refine(
-  (data) => {
-    if (data.photoSource === 'other') {
-      return data.customPhotoUrl && data.customPhotoUrl.length > 0;
-    }
-    return true;
-  },
-  {
-    message: 'Please provide a photo URL',
-    path: ['customPhotoUrl'],
-  }
-);
+  mentorshipFocus: z.string().optional(),
+  imageUrl: z.string().url('Please enter a valid image URL').optional().or(z.literal(''))
+});
 
 export type ProfileData = z.infer<typeof profileSchema>;
 

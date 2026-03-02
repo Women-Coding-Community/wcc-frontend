@@ -1,8 +1,7 @@
 import React from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 import { 
-  Grid, TextField, MenuItem, Typography, Box, 
-  RadioGroup, FormControlLabel, Radio, 
+  Grid, TextField, MenuItem, Typography, Box,
   Select, Checkbox, ListItemText, OutlinedInput 
 } from '@mui/material';
 import StepSection from './StepSection';
@@ -31,7 +30,6 @@ const EXPERIENCE = ['0–2 years', '3–5 years', '6–10 years', '10+ years'];
 
 const Step2Skills = () => {
   const { register, watch, control, formState: { errors } } = useFormContext();
-  const photoSource = watch('photoSource'); 
 
   return (
     <StepSection
@@ -143,32 +141,17 @@ const Step2Skills = () => {
             Which photo should we use to show your profile as a mentor on our website? *
           </Typography>
           
-          <Controller
-            name="photoSource"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <RadioGroup {...field}>
-                <FormControlLabel value="linkedin" control={<Radio sx={{ '&.Mui-checked': { color: 'black' } }} />} label="Linked In" />
-                <FormControlLabel value="slack" control={<Radio sx={{ '&.Mui-checked': { color: 'black' } }} />} label="Slack" />
-                <FormControlLabel value="other" control={<Radio sx={{ '&.Mui-checked': { color: 'black' } }} />} label="Image link from a public profile" />
-              </RadioGroup>
-            )}
+          <TextField
+            fullWidth
+            placeholder="https://linkedin.com/in/yourname (or any public profile image URL)"
+            {...register('customPhotoUrl')}
+            error={!!errors.customPhotoUrl}
+            helperText={errors.customPhotoUrl?.message as string}
+            sx={{ ...inputStyle, mt: 1 }}
           />
-          {errors.photoSource && (
-             <Typography variant="caption" color="error">{errors.photoSource.message as string}</Typography>
-          )}
-
-          {photoSource === 'other' && (
-            <TextField
-              fullWidth
-              placeholder="Link"
-              {...register('customPhotoUrl')}
-              error={!!errors.customPhotoUrl}
-              helperText={errors.customPhotoUrl?.message as string}
-              sx={{ ...inputStyle, mt: 2 }}
-            />
-          )}
+          <Typography sx={helperTextStyle}>
+            Please share a link to your profile photo from LinkedIn or any public profile.
+          </Typography>
         </Grid>
       </Grid>
     </StepSection>
