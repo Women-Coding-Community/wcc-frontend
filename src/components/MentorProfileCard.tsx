@@ -118,7 +118,11 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           </>
         ) : null}
         {/* question: this needs to be link to something? */}
-        <LinkButton href={`/mentor?id=${mentor.id}`} reversed small>
+        <LinkButton
+          href={`/mentorship/mentee-registration?id=${mentor.id}`}
+          reversed
+          small
+        >
           Apply for this mentor{' '}
         </LinkButton>
       </Box>
