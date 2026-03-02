@@ -1,7 +1,7 @@
 export const headerSetup = {
   Home: {
     title: 'Home',
-    path: '/',
+    path: 'https://www.womencodingcommunity.com',
   },
   Mentorship: {
     title: 'Mentorship',
@@ -52,69 +52,65 @@ export const headerSetup = {
     title: 'Programmes',
     subNav: [
       {
-        title: 'Our Programmes',
-        path: '/programmes',
+        title: 'Interview Preparation',
+        path: 'https://www.womencodingcommunity.com/programme-interview-preparation',
+      },
+      {
+        title: 'Machine Learning',
+        path: 'https://www.womencodingcommunity.com/programme-machine-learning',
       },
       {
         title: 'Book Club',
-        path: '/programmes/book-club',
+        path: 'https://www.womencodingcommunity.com/programme-book-club',
+      },
+      {
+        title: 'Write Club',
+        path: 'https://www.womencodingcommunity.com/programme-writing-club',
+      },
+      {
+        title: 'Coding Club',
+        path: 'https://www.womencodingcommunity.com/programme-coding-club',
+      },
+      {
+        title: 'Speaking Club',
+        path: 'https://www.womencodingcommunity.com/programme-speaking-club',
       },
       {
         title: 'Study Groups',
-        path: '/programmes/study-groups',
-      },
-      {
-        title: 'Interview Preparation',
-        path: '/programmes/interview-preparation',
+        path: '/mentorship/study-groups',
       },
     ],
   },
   Events: {
     title: 'Events',
-    path: '/events',
+    path: 'https://www.womencodingcommunity.com/events',
   },
   Blog: {
     title: 'Blog',
-    path: '/blog',
-  },
-  Jobs: {
-    title: 'Jobs',
-    path: '/jobs',
+    path: 'https://www.womencodingcommunity.com/blog',
   },
   'About Us': {
     title: 'About Us',
     subNav: [
       {
         title: 'Overview',
-        path: '/about-us',
+        path: 'https://www.womencodingcommunity.com/about',
       },
       {
         title: 'Team',
-        path: '/about-us/team',
+        path: 'https://www.womencodingcommunity.com/team',
       },
       {
         title: 'Code of Conduct',
-        path: '/about-us/code-of-conduct',
-      },
-      {
-        title: 'Donate',
-        path: '/about-us/donate',
-      },
-      {
-        title: 'Volunteer',
-        path: '/about-us/volunteer',
+        path: 'https://www.womencodingcommunity.com/code-of-conduct',
       },
       {
         title: 'Partners',
-        path: '/about-us/partners',
+        path: 'https://www.womencodingcommunity.com/partners',
       },
       {
-        title: 'Become a Partner',
-        path: '/about-us/partners/become-a-partner',
-      },
-      {
-        title: 'Celebrate Her',
-        path: '/about-us/celebrate-her',
+        title: 'Volunteer',
+        path: 'https://www.womencodingcommunity.com/volunteer',
       },
     ],
   },
