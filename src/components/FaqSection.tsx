@@ -94,7 +94,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ title, items }) => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{item.answer}</Typography>
+              <Typography sx={{ whiteSpace: 'pre-line' }}>{item.answer}</Typography>
             </AccordionDetails>
           </Accordion>
         );
