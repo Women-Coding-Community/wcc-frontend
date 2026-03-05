@@ -1,27 +1,13 @@
 // src/utils/mentorshipConstants.ts
-export const SKILL_LEVELS = [
-  'Expert',
-  'Proficient',
-  'Experienced',
-  'Familiar',
-  'Not Applicable'
-];
 
-export const PREFERENCE_LEVELS = [
-  'Low',
-  'Medium',
-  'High',
-  'Not Applicable'
-];
-
-interface DomainField {
-  name: string;
+export interface LabelValue {
   label: string;
+  value: string;
 }
 
-interface DomainGroup {
+export interface AreaGroup {
   title: string;
-  fields: DomainField[];
+  areas: LabelValue[];
 }
 
 interface Country {
@@ -29,79 +15,107 @@ interface Country {
   name: string;
 }
 
-const createFields = (fields: Array<[string, string]>): DomainField[] => {
-  return fields.map(([name, label]) => ({ name, label }));
-};
-
-const createCountries = (data: Array<[string, string]>): Country[] => {
-  return data.map(([code, name]) => ({ code, name }));
-};
-
-const createGroup = (title: string, fieldData: Array<[string, string]>): DomainGroup => {
-  return {
-    title,
-    fields: createFields(fieldData)
-  };
-};
-
-export const DOMAIN_GROUPS: DomainGroup[] = [
-  createGroup("AI, Data & ML", [
-    ['dataEngineering', 'Data Engineering'],
-    ['dataScience', 'Data Science'],
-    ['genAI', 'Generative AI and LLMs'],
-    ['machineLearning', 'Machine Learning and AI'],
-    ['mlOps', 'MLOps and AI Deployment'],
-  ]),
-  createGroup("Infrastructure & Operations", [
-    ['cloudComputing', 'Cloud Computing'],
-    ['devOps', 'DevOps'],
-    ['networkEngineering', 'Network Engineering'],
-    ['platformEngineering', 'Platform Engineering'],
-    ['security', 'Security and Cybersecurity'],
-    ['sre', 'Site Reliability Engineering'],
-  ]),
-  createGroup("Product, Leadership & Delivery", [
-    ['agile', 'Agile and Scrum Practices'],
-    ['businessAnalysis', 'Business Analysis'],
-    ['engineeringMgmt', 'Engineering Management'],
-    ['productMgmt', 'Product Management'],
-    ['projectMgmt', 'Project Management'],
-    ['technicalLeadership', 'Technical Leadership'],
-  ]),
-  createGroup("Software Development", [
-    ['backend', 'Backend Development'],
-    ['frontend', 'Frontend Development'],
-    ['fullstack', 'Fullstack Development'],
-    ['mobileAndroid', 'Mobile Development - Android'],
-    ['mobileIos', 'Mobile Development - iOS'],
-    ['qaAutomation', 'QA and Test Automation'],
-    ['systemDesign', 'System Design and Software Architecture'],
-  ]),
+export const PROFICIENCY_LEVELS: LabelValue[] = [
+  { label: 'Beginner', value: 'BEGINNER' },
+  { label: 'Intermediate', value: 'INTERMEDIATE' },
+  { label: 'Advanced', value: 'ADVANCED' },
+  { label: 'Expert', value: 'EXPERT' },
 ];
 
-export const CAREER_GOALS = createFields([
-  ['careerSwitch', 'Switch career to IT'],
-  ['beginnerToMid', 'Grow from beginner to mid-level'],
-  ['midToSenior', 'Grow from mid-level to senior-level'],
-  ['seniorPlus', 'Grow beyond senior level'],
-  ['icToManager', 'Switch from IC to management position'],
-  ['specialisationSwitch', 'Change specialisation within IT'],
-]);
+export const MENTORSHIP_TYPES: LabelValue[] = [
+  { label: 'Long-Term', value: 'LONG_TERM' },
+  { label: 'Ad-Hoc', value: 'AD_HOC' },
+];
 
-export const PROGRAMMING_LANGUAGES = createFields([
-  ['c', 'C'],
-  ['cSharp', 'C#'],
-  ['go', 'Go'],
-  ['java', 'Java'],
-  ['javascript', 'JavaScript'],
-  ['kotlin', 'Kotlin'],
-  ['python', 'Python'],
-  ['rust', 'Rust'],
-  ['scala', 'Scala'],
-  ['sql', 'SQL'],
-  ['swift', 'Swift'],
-  ['typescript', 'TypeScript'],
-]);
+export const MENTORSHIP_FOCUS_AREAS: LabelValue[] = [
+  { label: 'Switch career to IT', value: 'SWITCH_CAREER_TO_IT' },
+  { label: 'Grow from beginner to mid-level', value: 'GROW_BEGINNER_TO_MID' },
+  { label: 'Grow from mid-level to senior-level', value: 'GROW_MID_TO_SENIOR' },
+  { label: 'Grow beyond senior level', value: 'GROW_BEYOND_SENIOR' },
+  {
+    label: 'Switch from IC to management position',
+    value: 'SWITCH_TO_MANAGEMENT',
+  },
+  { label: 'Change specialisation within IT', value: 'CHANGE_SPECIALISATION' },
+];
+
+export const TECHNICAL_AREA_GROUPS: AreaGroup[] = [
+  {
+    title: 'AI, Data & ML',
+    areas: [
+      { label: 'Data Engineering', value: 'DATA_ENGINEERING' },
+      { label: 'Data Science', value: 'DATA_SCIENCE' },
+      { label: 'Machine Learning', value: 'MACHINE_LEARNING' },
+    ],
+  },
+  {
+    title: 'Infrastructure & Operations',
+    areas: [
+      { label: 'Cloud Engineer', value: 'CLOUD_ENGINEER' },
+      { label: 'DevOps', value: 'DEVOPS' },
+    ],
+  },
+  {
+    title: 'Product, Leadership & Delivery',
+    areas: [
+      { label: 'Business Analysis', value: 'BUSINESS_ANALYSIS' },
+      { label: 'Engineering Management', value: 'ENG_MANAGEMENT' },
+      { label: 'Product Management', value: 'PROD_MANAGEMENT' },
+      { label: 'Project Management', value: 'PROJ_MANAGEMENT' },
+    ],
+  },
+  {
+    title: 'Software Development',
+    areas: [
+      { label: 'Backend', value: 'BACKEND' },
+      { label: 'Distributed Systems', value: 'DISTRIBUTED_SYSTEMS' },
+      { label: 'Frontend', value: 'FRONTEND' },
+      { label: 'Fullstack', value: 'FULLSTACK' },
+      { label: 'Mobile Android', value: 'MOBILE_ANDROID' },
+      { label: 'Mobile iOS', value: 'MOBILE_IOS' },
+      { label: 'Quality Assurance', value: 'QA' },
+      { label: 'Other', value: 'OTHER' },
+    ],
+  },
+];
+
+export const TECHNICAL_AREAS: LabelValue[] = TECHNICAL_AREA_GROUPS.flatMap(
+  (g) => g.areas,
+);
+
+export const CODE_LANGUAGES: LabelValue[] = [
+  { label: 'C', value: 'C_LANGUAGE' },
+  { label: 'C++', value: 'C_PLUS_PLUS' },
+  { label: 'C#', value: 'C_SHARP' },
+  { label: 'Go', value: 'GO' },
+  { label: 'Java', value: 'JAVA' },
+  { label: 'JavaScript', value: 'JAVASCRIPT' },
+  { label: 'Kotlin', value: 'KOTLIN' },
+  { label: 'PHP', value: 'PHP' },
+  { label: 'Python', value: 'PYTHON' },
+  { label: 'Ruby', value: 'RUBY' },
+  { label: 'Rust', value: 'RUST' },
+  { label: 'TypeScript', value: 'TYPESCRIPT' },
+  { label: 'Other', value: 'OTHER' },
+];
+
+export const SPOKEN_LANGUAGES: LabelValue[] = [
+  { label: 'English', value: 'English' },
+  { label: 'French', value: 'French' },
+  { label: 'German', value: 'German' },
+  { label: 'Spanish', value: 'Spanish' },
+  { label: 'Italian', value: 'Italian' },
+  { label: 'Dutch', value: 'Dutch' },
+  { label: 'Hindi', value: 'Hindi' },
+  { label: 'Polish', value: 'Polish' },
+  { label: 'Portuguese', value: 'Portuguese' },
+  { label: 'Russian', value: 'Russian' },
+  { label: 'Ukrainian', value: 'Ukrainian' },
+  { label: 'Other', value: 'Other' },
+];
+
+const createCountries = (data: Array<[string, string]>): Country[] =>
+  data.map(([code, name]) => ({ code, name }));
 
 export const COUNTRIES = createCountries([
   ['GB', 'United Kingdom'],
@@ -136,3 +150,13 @@ export const COUNTRIES = createCountries([
   ['NZ', 'New Zealand'],
   ['OTHER', 'Other'],
 ]);
+
+// Legacy — kept for backward compatibility with mentor form Step 3/4 until migrated
+export const SKILL_LEVELS = [
+  'Expert',
+  'Proficient',
+  'Experienced',
+  'Familiar',
+  'Not Applicable',
+];
+export const PREFERENCE_LEVELS = ['Low', 'Medium', 'High', 'Not Applicable'];
