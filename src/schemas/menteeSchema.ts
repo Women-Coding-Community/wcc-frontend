@@ -89,16 +89,12 @@ export const menteeFormSchema = z.object({
   email: z.email('Please enter a valid email address'),
   slackDisplayName: z
     .string()
-    .min(1, 'Slack display name is required')
+    .min(2, 'Slack display name is required')
     .regex(/^@/, 'Slack name must start with @'),
   companyName: z.string().optional(),
   country: countrySchema.optional(),
   city: z.string().min(1, 'Please enter your city'),
-  linkedInProfile: z
-    .string()
-    .url('Please enter a valid LinkedIn URL')
-    .optional()
-    .or(z.literal('')),
+  linkedInProfile: z.url('Please enter a valid LinkedIn URL'),
   pronouns: z.string().optional(),
   pronounCategory: z
     .enum([

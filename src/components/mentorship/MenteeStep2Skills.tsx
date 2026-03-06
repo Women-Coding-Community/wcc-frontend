@@ -26,9 +26,11 @@ import SkillsWithProficiency from './SkillsWithProficiency';
 import StepSection from './StepSection';
 
 const EXPERIENCE_OPTIONS = [
-  { label: '0–2 years', value: 0 },
+  { label: 'No experience', value: 0 },
+  { label: '0–1 year', value: 1 },
+  { label: '1–2 years', value: 2 },
   { label: '3–5 years', value: 3 },
-  { label: '6–10 years', value: 6 },
+  { label: '6–9 years', value: 6 },
   { label: '10+ years', value: 10 },
 ];
 

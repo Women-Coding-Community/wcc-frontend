@@ -41,6 +41,19 @@ export const MENTORSHIP_FOCUS_AREAS: LabelValue[] = [
 
 export const TECHNICAL_AREA_GROUPS: AreaGroup[] = [
   {
+    title: 'Software Development',
+    areas: [
+      { label: 'Backend', value: 'BACKEND' },
+      { label: 'Distributed Systems', value: 'DISTRIBUTED_SYSTEMS' },
+      { label: 'Frontend', value: 'FRONTEND' },
+      { label: 'Fullstack', value: 'FULLSTACK' },
+      { label: 'Mobile Android', value: 'MOBILE_ANDROID' },
+      { label: 'Mobile iOS', value: 'MOBILE_IOS' },
+      { label: 'Quality Assurance', value: 'QA' },
+      { label: 'Other', value: 'OTHER' },
+    ],
+  },
+  {
     title: 'AI, Data & ML',
     areas: [
       { label: 'Data Engineering', value: 'DATA_ENGINEERING' },
@@ -62,19 +75,6 @@ export const TECHNICAL_AREA_GROUPS: AreaGroup[] = [
       { label: 'Engineering Management', value: 'ENG_MANAGEMENT' },
       { label: 'Product Management', value: 'PROD_MANAGEMENT' },
       { label: 'Project Management', value: 'PROJ_MANAGEMENT' },
-    ],
-  },
-  {
-    title: 'Software Development',
-    areas: [
-      { label: 'Backend', value: 'BACKEND' },
-      { label: 'Distributed Systems', value: 'DISTRIBUTED_SYSTEMS' },
-      { label: 'Frontend', value: 'FRONTEND' },
-      { label: 'Fullstack', value: 'FULLSTACK' },
-      { label: 'Mobile Android', value: 'MOBILE_ANDROID' },
-      { label: 'Mobile iOS', value: 'MOBILE_IOS' },
-      { label: 'Quality Assurance', value: 'QA' },
-      { label: 'Other', value: 'OTHER' },
     ],
   },
 ];
