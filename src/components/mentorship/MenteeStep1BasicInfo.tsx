@@ -2,7 +2,6 @@ import {
   FormControl,
   FormControlLabel,
   FormHelperText,
-  FormLabel,
   Grid,
   InputLabel,
   MenuItem,
@@ -16,7 +15,7 @@ import NextLink from 'next/link';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { COUNTRIES, MENTORSHIP_TYPES } from '@utils/mentorshipConstants';
+import { COUNTRIES } from '@utils/mentorshipConstants';
 
 import { inputStyle } from './mentorshipStyles';
 import StepSection from './StepSection';
@@ -27,9 +26,6 @@ const MenteeStep1BasicInfo = () => {
     control,
     formState: { errors },
   } = useFormContext();
-
-  const currentYear = new Date().getFullYear();
-  const cycleYears = Array.from({ length: 7 }, (_, i) => currentYear + i);
 
   return (
     <StepSection
@@ -268,67 +264,31 @@ const MenteeStep1BasicInfo = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <FormControl error={!!errors.mentorshipType}>
-            <FormLabel
-              component="legend"
-              sx={{ mb: 1, fontWeight: 600, color: 'text.primary' }}
+          <FormControl>
+            <Typography
+              variant="subtitle2"
+              sx={{ mb: 0.5, color: 'text.primary' }}
             >
-              Mentorship type *
-            </FormLabel>
-            <Controller
-              name="mentorshipType"
-              control={control}
-              render={({ field }) => (
-                <RadioGroup row {...field}>
-                  {MENTORSHIP_TYPES.map((type) => (
-                    <FormControlLabel
-                      key={type.value}
-                      value={type.value}
-                      control={<Radio />}
-                      label={type.label}
-                    />
-                  ))}
-                </RadioGroup>
-              )}
-            />
-            {errors.mentorshipType && (
-              <FormHelperText>
-                {errors.mentorshipType.message as string}
-              </FormHelperText>
-            )}
+              Mentorship type
+            </Typography>
+            <RadioGroup row value="LONG_TERM">
+              <FormControlLabel
+                value="LONG_TERM"
+                control={<Radio />}
+                label="Long-term"
+                disabled
+              />
+              <FormControlLabel
+                value="AD_HOC"
+                control={<Radio />}
+                label="Ad-hoc (coming soon)"
+                disabled
+              />
+            </RadioGroup>
+            <FormHelperText>
+              Only long-term mentorship is available for this month.
+            </FormHelperText>
           </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <Typography
-            variant="subtitle2"
-            sx={{ mb: 0.5, color: 'text.primary' }}
-          >
-            Cycle year *
-          </Typography>
-          <Controller
-            name="cycleYear"
-            control={control}
-            render={({ field, fieldState: { error } }) => (
-              <FormControl fullWidth error={!!error}>
-                <InputLabel>Year</InputLabel>
-                <Select
-                  {...field}
-                  label="Year"
-                  value={field.value ?? ''}
-                  onChange={(e) => field.onChange(Number(e.target.value))}
-                  sx={inputStyle}
-                >
-                  {cycleYears.map((year) => (
-                    <MenuItem key={year} value={year}>
-                      {year}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {error && <FormHelperText>{error.message}</FormHelperText>}
-              </FormControl>
-            )}
-          />
         </Grid>
       </Grid>
     </StepSection>

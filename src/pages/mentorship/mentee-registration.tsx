@@ -36,7 +36,6 @@ const validateStep1 = async (formMethods: ReturnType<typeof useForm>) =>
     'position',
     'availableHsMonth',
     'mentorshipType',
-    'cycleYear',
   ]);
 
 const validateStep2 = async (formMethods: ReturnType<typeof useForm>) =>
@@ -127,7 +126,6 @@ const MenteeRegistrationPage = () => {
         availableHsMonth: data.availableHsMonth,
       },
       mentorshipType: data.mentorshipType,
-      cycleYear: data.cycleYear,
       applications: data.applications.map((app, idx) => ({
         mentorId: app.mentorId,
         priorityOrder: app.priorityOrder ?? idx + 1,

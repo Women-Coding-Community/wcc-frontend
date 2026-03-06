@@ -119,7 +119,6 @@ export const menteeFormSchema = z.object({
   bio: z.string().min(50, 'Bio must be at least 50 characters'),
   network: z.array(networkSchema).optional(),
   mentorshipType: z.enum(['AD_HOC', 'LONG_TERM']),
-  cycleYear: z.number().min(2024).max(2030),
   applications: z
     .array(applicationSchema)
     .min(1, 'Please select at least one mentor')
@@ -149,6 +148,5 @@ export const menteeFormDefaultValues: Partial<MenteeFormData> = {
   bio: '',
   network: [],
   mentorshipType: 'LONG_TERM',
-  cycleYear: new Date().getFullYear(),
   applications: [],
 };
