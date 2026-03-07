@@ -1,6 +1,7 @@
+import { TextField, MenuItem } from '@mui/material';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { TextField, MenuItem } from '@mui/material';
+
 import { inputStyle } from './mentorshipStyles';
 
 interface MentorshipSelectProps {

@@ -1,5 +1,4 @@
-import React from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Grid,
   TextField,
@@ -16,7 +15,9 @@ import {
   AccordionDetails,
   Link,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React from 'react';
+import { useFormContext, Controller } from 'react-hook-form';
+
 import StepSection from './StepSection';
 
 const inputStyle = {
@@ -333,7 +334,7 @@ const Step5Review = () => {
             <li style={{ marginBottom: '8px' }}>
               Grant Women Coding Community permission to store my contact
               information, use it to reach out to me, and publish mine mentor
-              profile on the community's website.
+              profile on the community&apos;s website.
             </li>
             <li>
               I hereby grant the Women Coding Community the right to store the

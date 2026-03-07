@@ -1,5 +1,3 @@
-import React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
 import {
   Grid,
   TextField,
@@ -20,9 +18,12 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import React from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+
+import { COUNTRIES } from '../../utils/mentorshipConstants';
 
 import StepSection from './StepSection';
-import { COUNTRIES } from '../../utils/mentorshipConstants';
 
 const Step1BasicInfo = () => {
   const {

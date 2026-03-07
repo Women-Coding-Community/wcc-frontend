@@ -1,3 +1,4 @@
+import { logger } from 'bs-logger';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
@@ -52,7 +53,7 @@ export default async function handler(
     const data = await response.json();
     return res.status(200).json(data);
   } catch (error) {
-    console.error('Mentors API error:', error);
+    logger.error('Mentors API error:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 }

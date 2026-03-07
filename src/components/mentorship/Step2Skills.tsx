@@ -1,5 +1,3 @@
-import React from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
 import {
   Grid,
   TextField,
@@ -11,6 +9,9 @@ import {
   ListItemText,
   OutlinedInput,
 } from '@mui/material';
+import React from 'react';
+import { useFormContext, Controller } from 'react-hook-form';
+
 import StepSection from './StepSection';
 
 const inputStyle = {
