@@ -70,7 +70,7 @@ describe('mentee-registration API handler', () => {
 
   it('proxies POST to the platform endpoint and returns 201 on success', async () => {
     const responseBody = { id: 42 };
-    global.fetch = jest.fn().mockResolvedValue({
+    globalThis.fetch = jest.fn().mockResolvedValue({
       ok: true,
       status: 201,
       json: jest.fn().mockResolvedValue(responseBody),
@@ -81,7 +81,7 @@ describe('mentee-registration API handler', () => {
 
     await handler(req, res);
 
-    expect(global.fetch).toHaveBeenCalledWith(
+    expect(globalThis.fetch).toHaveBeenCalledWith(
       'http://localhost:8080/api/platform/v1/mentees',
       expect.objectContaining({
         method: 'POST',
@@ -97,7 +97,7 @@ describe('mentee-registration API handler', () => {
 
   it('forwards backend error status and message on failure', async () => {
     const errorBody = { message: 'Email already registered' };
-    global.fetch = jest.fn().mockResolvedValue({
+    globalThis.fetch = jest.fn().mockResolvedValue({
       ok: false,
       status: 409,
       json: jest.fn().mockResolvedValue(errorBody),
@@ -113,7 +113,7 @@ describe('mentee-registration API handler', () => {
   });
 
   it('falls back to generic error when backend returns no body', async () => {
-    global.fetch = jest.fn().mockResolvedValue({
+    globalThis.fetch = jest.fn().mockResolvedValue({
       ok: false,
       status: 500,
       json: jest.fn().mockRejectedValue(new Error('no body')),
@@ -131,7 +131,9 @@ describe('mentee-registration API handler', () => {
   });
 
   it('returns 500 on network error', async () => {
-    global.fetch = jest.fn().mockRejectedValue(new Error('Network failure'));
+    globalThis.fetch = jest
+      .fn()
+      .mockRejectedValue(new Error('Network failure'));
 
     const req = makeReq();
     const res = makeRes();

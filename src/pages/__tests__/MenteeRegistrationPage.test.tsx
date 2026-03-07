@@ -31,7 +31,7 @@ const renderPage = () =>
 
 describe('MenteeRegistrationPage', () => {
   beforeEach(() => {
-    global.fetch = jest.fn().mockResolvedValue({
+    globalThis.fetch = jest.fn().mockResolvedValue({
       ok: true,
       json: jest.fn().mockResolvedValue([]),
     });
@@ -49,7 +49,7 @@ describe('MenteeRegistrationPage', () => {
   });
 
   it('shows success screen after successful submission', async () => {
-    (global.fetch as jest.Mock)
+    (globalThis.fetch as jest.Mock)
       .mockResolvedValueOnce({
         ok: true,
         json: jest.fn().mockResolvedValue([]),
@@ -62,17 +62,16 @@ describe('MenteeRegistrationPage', () => {
 
     renderPage();
 
-    // Simulate internal submit by calling handleSubmit with valid data
-    // We test the success state by directly checking the fetch mock triggers it.
-    // Trigger the form's submit path via the formMethods mock approach:
-    // Instead, verify the success screen content exists when submitted state is true.
+    // Verify the success screen content exists when submitted state is true.
     // Since we can't easily navigate all 3 steps, we verify the key UI elements.
-    expect(screen.queryByText('Application submitted!')).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('Application submitted!'),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText(/Back to Mentorship/i)).not.toBeInTheDocument();
   });
 
   it('shows error alert when API returns an error', async () => {
-    (global.fetch as jest.Mock)
+    (globalThis.fetch as jest.Mock)
       .mockResolvedValueOnce({
         ok: true,
         json: jest.fn().mockResolvedValue([]),
