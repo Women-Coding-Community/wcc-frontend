@@ -9,19 +9,18 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { logger } from 'bs-logger';
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
-import {
-  mentorRegistrationSchema,
-  MentorRegistrationData,
-} from '@schemas/mentorSchema';
 import Step1BasicInfo from 'components/mentorship/Step1BasicInfo';
 import Step2Skills from 'components/mentorship/Step2Skills';
 import Step3DomainSkills from 'components/mentorship/Step3DomainSkills';
 import Step4ProgrammingSkills from 'components/mentorship/Step4ProgrammingSkills';
 import Step5Review from 'components/mentorship/Step5Review';
+import {
+  mentorRegistrationSchema,
+  MentorRegistrationData,
+} from 'schemas/mentorSchema';
 
 const validateStep1 = async (formMethods: any) => {
   const isStandardValid = await formMethods.trigger([
@@ -141,7 +140,7 @@ const MentorRegistrationPage = () => {
   };
 
   const onSubmit = (data: MentorRegistrationData) => {
-    logger.info('Form Data Submitted:', data);
+    console.log('Form Data Submitted:', data);
   };
 
   return (
