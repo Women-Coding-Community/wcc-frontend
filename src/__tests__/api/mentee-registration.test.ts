@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import handler from '../mentee-registration';
+import handler from '../../pages/api/mentee-registration';
 
 const makeReq = (overrides: Partial<NextApiRequest> = {}): NextApiRequest =>
   ({

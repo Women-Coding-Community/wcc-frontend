@@ -4,7 +4,7 @@ import React from 'react';
 
 import theme from 'theme';
 
-import MenteeRegistrationPage from '../mentorship/mentee-registration';
+import MenteeRegistrationPage from '../../pages/mentorship/mentee-registration';
 
 jest.mock('next/link', () => {
   const MockLink = ({
