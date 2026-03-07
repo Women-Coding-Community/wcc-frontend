@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  Alert,
   Box,
   Breadcrumbs,
   Button,
@@ -13,7 +14,7 @@ import {
 } from '@mui/material';
 import NextLink from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 
 import {
   menteeFormDefaultValues,
@@ -27,7 +28,7 @@ import { MentorOption } from 'components/mentorship/MentorApplicationCard';
 
 const TOTAL_STEPS = 3;
 
-const validateStep1 = async (formMethods: ReturnType<typeof useForm>) =>
+const validateStep1 = async (formMethods: UseFormReturn<MenteeFormData>) =>
   formMethods.trigger([
     'fullName',
     'email',
@@ -38,7 +39,7 @@ const validateStep1 = async (formMethods: ReturnType<typeof useForm>) =>
     'mentorshipType',
   ]);
 
-const validateStep2 = async (formMethods: ReturnType<typeof useForm>) =>
+const validateStep2 = async (formMethods: UseFormReturn<MenteeFormData>) =>
   formMethods.trigger([
     'skills.yearsExperience',
     'skills.areas',
@@ -60,6 +61,8 @@ const MenteeRegistrationPage = () => {
 
   const [activeStep, setActiveStep] = useState(1);
   const [mentors, setMentors] = useState<MentorOption[]>([]);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     fetch('/api/mentors')
@@ -99,6 +102,8 @@ const MenteeRegistrationPage = () => {
   };
 
   const onSubmit = async (data: MenteeFormData) => {
+    setSubmitError(null);
+
     const networkLinks = data.network ?? [];
     if (data.linkedInProfile) {
       networkLinks.push({
@@ -118,6 +123,7 @@ const MenteeRegistrationPage = () => {
         companyName: data.companyName ?? '',
         pronouns: data.pronouns ?? '',
         pronounCategory: data.pronounCategory,
+        isWomen: data.isWomen,
         images: [],
         network: networkLinks,
         skills: data.skills,
@@ -134,10 +140,30 @@ const MenteeRegistrationPage = () => {
       })),
     };
 
-    // eslint-disable-next-line no-console
-    console.log('Mentee registration payload:', payload);
-    // TODO: replace with real API call once backend endpoint is confirmed
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch('/api/mentee-registration', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => null);
+        const message =
+          body?.message ??
+          body?.error ??
+          'Something went wrong. Please try again.';
+        setSubmitError(message);
+        return;
+      }
+
+      setSubmitted(true);
+      window.scrollTo(0, 0);
+    } catch {
+      setSubmitError(
+        'Network error. Please check your connection and try again.',
+      );
+    }
   };
 
   return (
@@ -209,97 +235,136 @@ const MenteeRegistrationPage = () => {
                 bgcolor: 'white',
               }}
             >
-              {/* Progress */}
-              <Typography
-                variant="body2"
-                align="center"
-                sx={{ mb: 2, color: 'text.secondary' }}
-              >
-                Step {activeStep} of {TOTAL_STEPS}
-              </Typography>
-              <Box
-                sx={{
-                  width: '100%',
-                  height: 6,
-                  bgcolor: '#E5E5E5',
-                  borderRadius: 3,
-                  mb: 5,
-                  overflow: 'hidden',
-                }}
-              >
-                <Box
-                  sx={{
-                    width: `${(activeStep / TOTAL_STEPS) * 100}%`,
-                    height: '100%',
-                    bgcolor: 'primary.main',
-                    borderRadius: 3,
-                    transition: 'width 0.3s ease',
-                  }}
-                />
-              </Box>
-
-              {/* Step content */}
-              <Box>
-                {activeStep === 1 && <MenteeStep1BasicInfo />}
-                {activeStep === 2 && <MenteeStep2Skills />}
-                {activeStep === 3 && (
-                  <MenteeStep3Applications mentors={mentors} />
-                )}
-              </Box>
-
-              {/* Navigation */}
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                mt={5}
-                spacing={2}
-              >
-                <Button
-                  variant="outlined"
-                  disabled={activeStep === 1}
-                  onClick={handleBack}
-                  sx={{ px: { xs: 2.5, md: 3.5 }, py: 1 }}
-                >
-                  Back
-                </Button>
-
-                {activeStep === TOTAL_STEPS ? (
-                  <Button
-                    variant="contained"
-                    color="success"
-                    disabled={formMethods.formState.isSubmitting}
-                    onClick={formMethods.handleSubmit(onSubmit)}
-                    sx={{ px: { xs: 2.5, md: 3.5 }, py: 1 }}
-                  >
-                    {formMethods.formState.isSubmitting
-                      ? 'Submitting…'
-                      : 'Submit Application'}
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ px: { xs: 2.5, md: 3.5 }, py: 1 }}
-                  >
-                    Next
-                  </Button>
-                )}
-              </Stack>
-
-              {/* Code of conduct note */}
-              {activeStep === 1 && (
-                <Box sx={{ mt: 4 }}>
-                  <Typography variant="body2" color="text.secondary">
-                    By submitting, you agree to our{' '}
-                    <NextLink
-                      href="/mentorship/code-of-conduct"
-                      style={{ color: 'inherit', textDecoration: 'underline' }}
-                    >
-                      Mentee Code of Conduct
-                    </NextLink>
-                    .
+              {submitted ? (
+                <Box sx={{ textAlign: 'center', py: 4 }}>
+                  <Typography variant="h5" gutterBottom fontWeight={600}>
+                    Application submitted!
                   </Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ mb: 3 }}
+                  >
+                    Thank you for applying to our mentorship programme. We will
+                    review your application and get back to you soon.
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    component={NextLink}
+                    href="/mentorship"
+                  >
+                    Back to Mentorship
+                  </Button>
                 </Box>
+              ) : (
+                <>
+                  {/* Progress */}
+                  <Typography
+                    variant="body2"
+                    align="center"
+                    sx={{ mb: 2, color: 'text.secondary' }}
+                  >
+                    Step {activeStep} of {TOTAL_STEPS}
+                  </Typography>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: 6,
+                      bgcolor: '#E5E5E5',
+                      borderRadius: 3,
+                      mb: 5,
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: `${(activeStep / TOTAL_STEPS) * 100}%`,
+                        height: '100%',
+                        bgcolor: 'primary.main',
+                        borderRadius: 3,
+                        transition: 'width 0.3s ease',
+                      }}
+                    />
+                  </Box>
+
+                  {/* Step content */}
+                  <Box>
+                    {activeStep === 1 && <MenteeStep1BasicInfo />}
+                    {activeStep === 2 && <MenteeStep2Skills />}
+                    {activeStep === 3 && (
+                      <MenteeStep3Applications mentors={mentors} />
+                    )}
+                  </Box>
+
+                  {/* Error alert */}
+                  {submitError && (
+                    <Alert
+                      severity="error"
+                      onClose={() => setSubmitError(null)}
+                      sx={{ mt: 3 }}
+                    >
+                      {submitError}
+                    </Alert>
+                  )}
+
+                  {/* Navigation */}
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    mt={3}
+                    spacing={2}
+                  >
+                    <Button
+                      variant="outlined"
+                      disabled={activeStep === 1}
+                      onClick={handleBack}
+                      sx={{ px: { xs: 2.5, md: 3.5 }, py: 1 }}
+                    >
+                      Back
+                    </Button>
+
+                    {activeStep === TOTAL_STEPS ? (
+                      <Button
+                        variant="contained"
+                        color="success"
+                        disabled={formMethods.formState.isSubmitting}
+                        onClick={formMethods.handleSubmit(onSubmit)}
+                        sx={{ px: { xs: 2.5, md: 3.5 }, py: 1 }}
+                      >
+                        {formMethods.formState.isSubmitting
+                          ? 'Submitting…'
+                          : 'Submit Application'}
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        onClick={handleNext}
+                        sx={{ px: { xs: 2.5, md: 3.5 }, py: 1 }}
+                      >
+                        Next
+                      </Button>
+                    )}
+                  </Stack>
+
+                  {/* Code of conduct note */}
+                  {activeStep === 1 && (
+                    <Box sx={{ mt: 4 }}>
+                      <Typography variant="body2" color="text.secondary">
+                        By submitting, you agree to our{' '}
+                        <NextLink
+                          href="/mentorship/code-of-conduct"
+                          style={{
+                            color: 'inherit',
+                            textDecoration: 'underline',
+                          }}
+                        >
+                          Mentee Code of Conduct
+                        </NextLink>
+                        .
+                      </Typography>
+                    </Box>
+                  )}
+                </>
               )}
             </Paper>
           </Container>

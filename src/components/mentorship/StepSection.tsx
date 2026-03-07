@@ -1,5 +1,5 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
+import React from 'react';
 
 interface StepSectionProps {
   title: string;
@@ -15,14 +15,17 @@ const StepSection = ({ title, description, children }: StepSectionProps) => (
         fontFamily: 'Domine, serif',
         fontWeight: 700,
         mb: 2,
-        color: 'text.primary'
+        color: 'text.primary',
       }}
     >
       {title}
     </Typography>
 
     {description && (
-      <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.5, color: 'text.primary' }}>
+      <Typography
+        variant="body1"
+        sx={{ mb: 4, lineHeight: 1.5, color: 'text.primary' }}
+      >
         {description}
       </Typography>
     )}
