@@ -26,6 +26,7 @@
     "@mui/material": "^5.15.18",
     "@testing-library/dom": "^10.1.0",
     "axios": "^1.7.2",
+    "bs-logger": "^0.2.6",
     "css-mediaquery": "^0.1.2",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
