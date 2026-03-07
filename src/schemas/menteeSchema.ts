@@ -7,7 +7,7 @@ const countrySchema = z.object({
 
 const networkSchema = z.object({
   type: z.enum(['LINKEDIN', 'GITHUB', 'WEBSITE', 'MEDIUM', 'TWITTER']),
-  link: z.string().url('Please enter a valid URL'),
+  link: z.url('Please enter a valid URL'),
 });
 
 const technicalAreaProficiencySchema = z.object({
@@ -79,7 +79,7 @@ const applicationSchema = z.object({
   priorityOrder: z.number().min(1).max(5),
   whyMentor: z
     .string()
-    .min(10, 'Please explain why you chose this mentor (min 10 characters)'),
+    .min(50, 'Please explain why you chose this mentor (min 50 characters)'),
   applicationMessage: z.string().optional(),
 });
 
@@ -95,7 +95,8 @@ export const menteeFormSchema = z.object({
   country: countrySchema.optional(),
   city: z.string().min(1, 'Please enter your city'),
   linkedInProfile: z.url('Please enter a valid LinkedIn URL'),
-  pronouns: z.string().optional(),
+  pronouns: z.string(),
+  isWomen: z.boolean({ error: 'Please select an option' }).optional(),
   pronounCategory: z
     .enum([
       'FEMININE',
@@ -107,7 +108,10 @@ export const menteeFormSchema = z.object({
       'UNSPECIFIED',
     ])
     .optional(),
-  availableHsMonth: z.number().min(1, 'Please enter at least 1 hour per month'),
+  availableHsMonth: z
+    .number()
+    .min(1, 'Please enter at least 2 hours per month')
+    .max(224, 'Maximum 224 hours per month'),
   skills: skillsSchema,
   spokenLanguages: z
     .array(z.string())
@@ -133,7 +137,7 @@ export const menteeFormDefaultValues: Partial<MenteeFormData> = {
   city: '',
   linkedInProfile: '',
   pronouns: '',
-  availableHsMonth: 2,
+  availableHsMonth: 0,
   skills: {
     yearsExperience: 0,
     areas: [],
