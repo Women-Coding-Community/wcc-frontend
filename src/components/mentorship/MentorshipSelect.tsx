@@ -9,7 +9,11 @@ interface MentorshipSelectProps {
   options: string[];
 }
 
-export const MentorshipSelect = ({ name, label, options }: MentorshipSelectProps) => {
+export const MentorshipSelect = ({
+  name,
+  label,
+  options,
+}: MentorshipSelectProps) => {
   const { control } = useFormContext();
 
   return (
@@ -27,9 +31,9 @@ export const MentorshipSelect = ({ name, label, options }: MentorshipSelectProps
           SelectProps={{
             displayEmpty: true,
             renderValue: (selected: any) => {
-              if (!selected) return "Not Applicable";
+              if (!selected) return 'Not Applicable';
               return selected;
-            }
+            },
           }}
         >
           {options.map((option) => (

@@ -1,42 +1,75 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, Container, Paper, Typography, Button, Stack, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box,
+  Container,
+  Paper,
+  Typography,
+  Button,
+  Stack,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import Step1BasicInfo from '../../components/mentorship/Step1BasicInfo';
 import Step2Skills from '../../components/mentorship/Step2Skills';
 import Step3DomainSkills from 'components/mentorship/Step3DomainSkills';
 import Step4ProgrammingSkills from 'components/mentorship/Step4ProgrammingSkills';
 
-import { mentorRegistrationSchema, MentorRegistrationData } from '../../schemas/mentorSchema';
+import {
+  mentorRegistrationSchema,
+  MentorRegistrationData,
+} from '../../schemas/mentorSchema';
 import Step5Review from 'components/mentorship/Step5Review';
 
 const validateStep1 = async (formMethods: any) => {
   const isStandardValid = await formMethods.trigger([
-    'fullName', 'email', 'slackDisplayName', 'country', 'city',
-    'position', 'companyName', 'calendlyLink', 'menteeExpectations', 'openToNonWomen',
+    'fullName',
+    'email',
+    'slackDisplayName',
+    'country',
+    'city',
+    'position',
+    'companyName',
+    'calendlyLink',
+    'menteeExpectations',
+    'openToNonWomen',
   ]);
 
   const isLongTerm = formMethods.getValues('isLongTermMentor');
   const isAdHoc = formMethods.getValues('isAdHocMentor');
 
-  formMethods.clearErrors(['isLongTermMentor', 'maxMentees', 'adHocAvailability']);
+  formMethods.clearErrors([
+    'isLongTermMentor',
+    'maxMentees',
+    'adHocAvailability',
+  ]);
   let isTypeValid = true;
 
   if (!isLongTerm && !isAdHoc) {
-    formMethods.setError('isLongTermMentor', { type: 'manual', message: 'Please select at least one mentorship format.' });
+    formMethods.setError('isLongTermMentor', {
+      type: 'manual',
+      message: 'Please select at least one mentorship format.',
+    });
     isTypeValid = false;
   }
   if (isLongTerm) {
     const maxMentees = formMethods.getValues('maxMentees');
     if (!maxMentees) {
-      formMethods.setError('maxMentees', { type: 'manual', message: 'Please select the number of mentees' });
+      formMethods.setError('maxMentees', {
+        type: 'manual',
+        message: 'Please select the number of mentees',
+      });
       isTypeValid = false;
     }
   }
   if (isAdHoc) {
     const adHoc = formMethods.getValues('adHocAvailability');
     if (!adHoc || Object.keys(adHoc).length === 0) {
-      formMethods.setError('adHocAvailability', { type: 'manual', message: 'Please select availability for at least one month' });
+      formMethods.setError('adHocAvailability', {
+        type: 'manual',
+        message: 'Please select availability for at least one month',
+      });
       isTypeValid = false;
     }
   }
@@ -45,15 +78,21 @@ const validateStep1 = async (formMethods: any) => {
 
 const validateStep2 = async (formMethods: any) => {
   return await formMethods.trigger([
-    'languages', 'yearsExperience', 'bio',
-    'mentorshipFocus', 'imageUrl'
+    'languages',
+    'yearsExperience',
+    'bio',
+    'mentorshipFocus',
+    'imageUrl',
   ]);
 };
 
 const validateStep5 = async (formMethods: any) => {
   return await formMethods.trigger([
-    'linkedin', 'identity', 'pronouns', 
-    'socialHighlight', 'termsAgreed'
+    'linkedin',
+    'identity',
+    'pronouns',
+    'socialHighlight',
+    'termsAgreed',
   ]);
 };
 
@@ -91,13 +130,13 @@ const MentorRegistrationPage = () => {
     }
 
     if (isStepValid && activeStep < totalSteps) {
-      setActiveStep(prev => prev + 1);
+      setActiveStep((prev) => prev + 1);
       window.scrollTo(0, 0);
     }
   };
 
   const handleBack = () => {
-    if (activeStep > 1) setActiveStep(prev => prev - 1);
+    if (activeStep > 1) setActiveStep((prev) => prev - 1);
   };
 
   const onSubmit = (data: MentorRegistrationData) => {
@@ -106,8 +145,8 @@ const MentorRegistrationPage = () => {
 
   return (
     <FormProvider {...formMethods}>
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           minHeight: '100vh',
           bgcolor: 'custom.lightBlue',
           position: 'relative',
@@ -115,9 +154,9 @@ const MentorRegistrationPage = () => {
           pb: 8,
         }}
       >
-        <Container 
+        <Container
           maxWidth={false}
-          sx={{ 
+          sx={{
             position: 'relative',
             zIndex: 1,
             pt: { xs: 4, sm: 10, md: '18.75rem' },
@@ -126,7 +165,6 @@ const MentorRegistrationPage = () => {
             margin: '0 auto',
           }}
         >
-        
           <Box
             component="img"
             src="/mentor-hero-bg.png"
@@ -142,9 +180,9 @@ const MentorRegistrationPage = () => {
               pointerEvents: 'none',
             }}
           />
-          <Paper 
-            elevation={3} 
-            sx={{ 
+          <Paper
+            elevation={3}
+            sx={{
               p: { xs: 3, sm: 4, md: 5 },
               borderRadius: 2,
               width: '100%',
@@ -153,10 +191,10 @@ const MentorRegistrationPage = () => {
               bgcolor: 'white',
             }}
           >
-            <Typography 
-              variant="body2" 
-              align="center" 
-              sx={{ 
+            <Typography
+              variant="body2"
+              align="center"
+              sx={{
                 mb: 3,
                 color: 'text.secondary',
               }}
@@ -164,14 +202,14 @@ const MentorRegistrationPage = () => {
               Step {activeStep} of {totalSteps}
             </Typography>
 
-            <Box 
-              sx={{ 
-                width: '100%', 
-                height: 6, 
-                bgcolor: '#E5E5E5', 
-                borderRadius: 3, 
+            <Box
+              sx={{
+                width: '100%',
+                height: 6,
+                bgcolor: '#E5E5E5',
+                borderRadius: 3,
                 mb: 5,
-                overflow: 'hidden'
+                overflow: 'hidden',
               }}
             >
               <Box
@@ -193,15 +231,15 @@ const MentorRegistrationPage = () => {
               {activeStep === 5 && <Step5Review />}
             </Box>
 
-            <Stack 
-              direction="row" 
-              justifyContent="space-between" 
+            <Stack
+              direction="row"
+              justifyContent="space-between"
               mt={5}
               spacing={2}
             >
-              <Button 
-                variant="outlined" 
-                disabled={activeStep === 1} 
+              <Button
+                variant="outlined"
+                disabled={activeStep === 1}
                 onClick={handleBack}
                 sx={{
                   px: { xs: 2.5, md: 3.5 },
@@ -212,9 +250,9 @@ const MentorRegistrationPage = () => {
               </Button>
 
               {activeStep === totalSteps ? (
-                <Button 
-                  variant="contained" 
-                  color="success" 
+                <Button
+                  variant="contained"
+                  color="success"
                   onClick={formMethods.handleSubmit(onSubmit)}
                   sx={{
                     px: { xs: 2.5, md: 3.5 },
@@ -224,8 +262,8 @@ const MentorRegistrationPage = () => {
                   Submit Application
                 </Button>
               ) : (
-                <Button 
-                  variant="contained" 
+                <Button
+                  variant="contained"
                   onClick={handleNext}
                   sx={{
                     px: { xs: 2.5, md: 3.5 },

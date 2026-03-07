@@ -8,9 +8,7 @@ test.describe('Validate Mentorship Page', () => {
     await basePage.clickElement(homePage.joinAsMentorBtn);
 
     await basePage.verifyURL('/mentorship/mentor-registration');
-    await basePage.verifyPageContainsText(
-      'WCC: Registration Form for Mentors',
-    );
+    await basePage.verifyPageContainsText('WCC: Registration Form for Mentors');
   });
 
   test.skip('MENT-002: Find a Mentor', async ({ mentorshipPage, basePage }) => {

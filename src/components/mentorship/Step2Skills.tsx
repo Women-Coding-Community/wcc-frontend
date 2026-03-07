@@ -1,35 +1,63 @@
 import React from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
-import { 
-  Grid, TextField, MenuItem, Typography, Box,
-  Select, Checkbox, ListItemText, OutlinedInput 
+import {
+  Grid,
+  TextField,
+  MenuItem,
+  Typography,
+  Box,
+  Select,
+  Checkbox,
+  ListItemText,
+  OutlinedInput,
 } from '@mui/material';
 import StepSection from './StepSection';
 
 const inputStyle = {
   '& .MuiOutlinedInput-root': {
-    backgroundColor: '#F5F5F5', 
+    backgroundColor: '#F5F5F5',
     borderRadius: '4px',
-    '& fieldset': { border: 'none' }, 
+    '& fieldset': { border: 'none' },
     '&:hover fieldset': { border: 'none' },
-    '&.Mui-focused fieldset': { border: '1px solid #333' }, 
+    '&.Mui-focused fieldset': { border: '1px solid #333' },
   },
-  '& .MuiInputBase-input': { padding: '12px 14px' }
+  '& .MuiInputBase-input': { padding: '12px 14px' },
 };
 
 const boldLabelStyle = {
-  fontWeight: 700, color: '#1B1919', mb: 0.5, display: 'block', fontSize: '16px', fontFamily: 'Roboto'
+  fontWeight: 700,
+  color: '#1B1919',
+  mb: 0.5,
+  display: 'block',
+  fontSize: '16px',
+  fontFamily: 'Roboto',
 };
 
 const helperTextStyle = {
-  fontSize: '12px', color: '#666', mt: 1, lineHeight: 1.5
+  fontSize: '12px',
+  color: '#666',
+  mt: 1,
+  lineHeight: 1.5,
 };
 
-const LANGUAGES = ['English', 'Spanish', 'Russian', 'Polish', 'Ukrainian', 'French', 'Portuguese', 'Other'];
+const LANGUAGES = [
+  'English',
+  'Spanish',
+  'Russian',
+  'Polish',
+  'Ukrainian',
+  'French',
+  'Portuguese',
+  'Other',
+];
 const EXPERIENCE = ['0–2 years', '3–5 years', '6–10 years', '10+ years'];
 
 const Step2Skills = () => {
-  const { register, control, formState: { errors } } = useFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <StepSection
@@ -38,7 +66,9 @@ const Step2Skills = () => {
     >
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={boldLabelStyle}>Which languages do you speak? *</Typography>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>
+            Which languages do you speak? *
+          </Typography>
           <Controller
             name="languages"
             control={control}
@@ -52,7 +82,12 @@ const Step2Skills = () => {
                 error={!!errors.languages}
                 input={<OutlinedInput sx={inputStyle} />}
                 renderValue={(selected) => {
-                  if (selected.length === 0) return <span style={{ color: '#aaa' }}>Choose as many as you like</span>;
+                  if (selected.length === 0)
+                    return (
+                      <span style={{ color: '#aaa' }}>
+                        Choose as many as you like
+                      </span>
+                    );
                   return selected.join(', ');
                 }}
               >
@@ -66,12 +101,16 @@ const Step2Skills = () => {
             )}
           />
           {errors.languages && (
-            <Typography variant="caption" color="error">{errors.languages.message as string}</Typography>
+            <Typography variant="caption" color="error">
+              {errors.languages.message as string}
+            </Typography>
           )}
         </Grid>
 
         <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={boldLabelStyle}>How many years of experience do you have in tech? *</Typography>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>
+            How many years of experience do you have in tech? *
+          </Typography>
           <TextField
             select
             fullWidth
@@ -82,20 +121,33 @@ const Step2Skills = () => {
             sx={inputStyle}
           >
             {EXPERIENCE.map((exp) => (
-              <MenuItem key={exp} value={exp}>{exp}</MenuItem>
+              <MenuItem key={exp} value={exp}>
+                {exp}
+              </MenuItem>
             ))}
           </TextField>
         </Grid>
 
         <Grid item xs={12}>
           <Typography variant="subtitle2" sx={boldLabelStyle}>
-            Please share a brief summary of your professional background and expertise. *
+            Please share a brief summary of your professional background and
+            expertise. *
           </Typography>
           <Box sx={{ mb: 1, ml: 2 }}>
-            <Typography variant="body2" sx={{ fontSize: '14px', color: '#555' }}>
+            <Typography
+              variant="body2"
+              sx={{ fontSize: '14px', color: '#555' }}
+            >
               You may include:
             </Typography>
-            <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '14px', color: '#555' }}>
+            <ul
+              style={{
+                margin: 0,
+                paddingLeft: '20px',
+                fontSize: '14px',
+                color: '#555',
+              }}
+            >
               <li>Areas of expertise and specializations</li>
               <li>Years of experience</li>
               <li>Notable achievements or certifications</li>
@@ -112,7 +164,8 @@ const Step2Skills = () => {
             sx={inputStyle}
           />
           <Typography sx={helperTextStyle}>
-            This information will be displayed in your mentor profile on the programme website and serve as your personal introduction to mentees
+            This information will be displayed in your mentor profile on the
+            programme website and serve as your personal introduction to mentees
           </Typography>
         </Grid>
 
@@ -120,8 +173,12 @@ const Step2Skills = () => {
           <Typography variant="subtitle2" sx={boldLabelStyle}>
             List potential mentoring topics you can discuss with your mentee
           </Typography>
-          <Typography variant="body2" sx={{ mb: 1, fontSize: '14px', color: '#555' }}>
-            Software Development Strategies, Resume Review, Preparation for The Technical Interview etc.
+          <Typography
+            variant="body2"
+            sx={{ mb: 1, fontSize: '14px', color: '#555' }}
+          >
+            Software Development Strategies, Resume Review, Preparation for The
+            Technical Interview etc.
           </Typography>
           <TextField
             fullWidth
@@ -132,15 +189,17 @@ const Step2Skills = () => {
             sx={inputStyle}
           />
           <Typography sx={helperTextStyle}>
-            This information will be displayed in your mentor profile on the programme website.
+            This information will be displayed in your mentor profile on the
+            programme website.
           </Typography>
         </Grid>
 
         <Grid item xs={12}>
           <Typography variant="subtitle2" sx={boldLabelStyle}>
-            Which photo should we use to show your profile as a mentor on our website? *
+            Which photo should we use to show your profile as a mentor on our
+            website? *
           </Typography>
-          
+
           <TextField
             fullWidth
             placeholder="https://linkedin.com/in/yourname (or any public profile image URL)"
@@ -150,7 +209,8 @@ const Step2Skills = () => {
             sx={{ ...inputStyle, mt: 1 }}
           />
           <Typography sx={helperTextStyle}>
-            Please share a link to your profile photo from LinkedIn or any public profile.
+            Please share a link to your profile photo from LinkedIn or any
+            public profile.
           </Typography>
         </Grid>
       </Grid>

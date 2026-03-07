@@ -54,7 +54,9 @@ describe('mentee-registration API handler', () => {
     await handler(req, res);
 
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({ error: 'Server configuration error' });
+    expect(res.json).toHaveBeenCalledWith({
+      error: 'Server configuration error',
+    });
   });
 
   it('returns 500 when API_KEY is missing', async () => {
@@ -65,7 +67,9 @@ describe('mentee-registration API handler', () => {
     await handler(req, res);
 
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({ error: 'Server configuration error' });
+    expect(res.json).toHaveBeenCalledWith({
+      error: 'Server configuration error',
+    });
   });
 
   it('proxies POST to the platform endpoint and returns 201 on success', async () => {
