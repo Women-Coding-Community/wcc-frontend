@@ -1,9 +1,18 @@
 import { z } from 'zod';
 
-const countrySchema = z.object({
-  countryCode: z.string().min(2, 'Country code is required'),
-  countryName: z.string().min(1, 'Country name is required'),
-});
+const countrySchema = z
+  .object({
+    countryCode: z.string(),
+    countryName: z.string(),
+  })
+  .superRefine((data, ctx) => {
+    if (!data.countryCode || !data.countryName) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Please provide a country',
+      });
+    }
+  });
 
 const networkSchema = z.object({
   type: z.enum(['LINKEDIN', 'GITHUB', 'WEBSITE', 'MEDIUM', 'TWITTER']),
@@ -92,7 +101,7 @@ export const menteeFormSchema = z.object({
     .min(2, 'Slack display name is required')
     .regex(/^@/, 'Slack name must start with @'),
   companyName: z.string().optional(),
-  country: countrySchema.optional(),
+  country: countrySchema,
   city: z.string().min(1, 'Please enter your city'),
   linkedInProfile: z.url('Please enter a valid LinkedIn URL'),
   pronouns: z.string(),
