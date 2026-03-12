@@ -40,7 +40,7 @@ export default async function handler(
 
     return res.status(response.status).json(data ?? {});
   } catch (error) {
-    logger.error('Mentee registration API error:', error);
+    logger.error('Mentor registration API error:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 }

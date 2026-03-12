@@ -12,6 +12,7 @@ import {
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
+import { transformPayload } from '@utils/transformHelper';
 import Step1BasicInfo from 'components/mentorship/Step1BasicInfo';
 import Step2Skills from 'components/mentorship/Step2Skills';
 import Step3DomainSkills from 'components/mentorship/Step3DomainSkills';
@@ -140,107 +141,20 @@ const MentorRegistrationPage = () => {
     if (activeStep > 1) setActiveStep((prev) => prev - 1);
   };
 
-  // Transform form data to API payload
-  function transformPayload(data: MentorRegistrationData) {
-    // Pronoun category
-    const getPronounCategory = (pronouns: string) => {
-      if (!pronouns) return '';
-      const p = pronouns.toLowerCase();
-      if (p.includes('she')) return 'Feminine';
-      if (p.includes('he')) return 'Masculine';
-      if (p.includes('they')) return 'Neutral';
-      return '';
-    };
-
-    // Years experience to number
-    const parseYearsExperience = (str: string) => {
-      if (!str) return 0;
-      const match = str.match(/(\d+)/);
-      return match ? parseInt(match[1], 10) : 0;
-    };
-
-    // Technical areas
-    const mapTechnicalAreas = (arr: any) =>
-      Array.isArray(arr)
-        ? arr.map((a) => ({
-            technicalArea: a.technicalArea || '',
-            proficiencyLevel: a.proficiencyLevel || '',
-          }))
-        : [];
-
-    // Languages
-    const mapLanguages = (arr: any) =>
-      Array.isArray(arr)
-        ? arr.map((l) =>
-            typeof l === 'string'
-              ? { language: l, proficiencyLevel: '' }
-              : { language: l.language || l, proficiencyLevel: l.proficiencyLevel || '' },
-          )
-        : [];
-
-    // Images
-    const mapImages = (url: string) =>
-      url ? [{ path: url, alt: 'Mentor profile image', type: 'DESKTOP' }] : [];
-
-    // Country
-    const mapCountry = (country: string) => ({ countryCode: '', countryName: country || '' });
-
-    // Mentee section
-    const mapMenteeSection = (input: any) => ({
-      idealMentee: input.menteeExpectations || '',
-      additional: '',
-      longTerm: input.isLongTermMentor
-        ? { numMentee: Number(input.maxMentees) || 0, hours: 2 }
-        : undefined,
-      adHoc:
-        input.isAdHocMentor && input.adHocAvailability
-          ? Object.entries(input.adHocAvailability).map(([month, hours]) => ({
-              month: month.toUpperCase(),
-              hours: Number(hours),
-            }))
-          : [],
-    });
-
-    return {
-      id: 0,
-      fullName: data.fullName || '',
-      position: data.position || '',
-      email: data.email || '',
-      slackDisplayName: data.slackDisplayName || '',
-      country: mapCountry(data.country),
-      city: data.city || '',
-      companyName: data.companyName || '',
-      memberTypes: ['DIRECTOR'],
-      images: mapImages(data.imageUrl),
-      network: [],
-      pronouns: data.pronouns || '',
-      pronounCategory: getPronounCategory(data.pronouns),
-      isWomen: !data.openToNonWomen,
-      skills: {
-        yearsExperience: parseYearsExperience(data.yearsExperience),
-        areas: mapTechnicalAreas(data.technicalAreas),
-        languages: mapLanguages(data.languages),
-        mentorshipFocus: Array.isArray(data.mentorshipFocusAreas) ? data.mentorshipFocusAreas : [],
-      },
-      spokenLanguages: data.languages || [],
-      bio: data.bio || '',
-      menteeSection: mapMenteeSection(data),
-      linkedin: data.linkedin || '',
-      github: data.github || '',
-      instagram: data.instagram || '',
-      medium: data.medium || '',
-      website: data.website || '',
-      otherSocial: data.otherSocial || '',
-      identity: data.identity || '',
-      socialHighlight: data.socialHighlight || '',
-      termsAgreed: !!data.termsAgreed,
-    };
-  }
-
   const onSubmit = async (data: MentorRegistrationData) => {
     const payload = transformPayload(data);
-    console.log(payload);
-    setSubmitted(true);
+    try {
+      await fetch('/api/mentor-registration', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      setSubmitted(true);
+      window.scrollTo(0, 0);
+    } catch (error) {
+      console.error('Mentor registration submission error:', error);
+    }
   };
 
   return (
@@ -271,7 +185,7 @@ const MentorRegistrationPage = () => {
               sx={{
                 position: 'relative',
                 zIndex: 1,
-                pt: { xs: 4, sm: 10, md: '18.75rem' },
+                pt: { xs: 4, sm: 10, md: '2.75rem' },
                 px: { xs: 2, sm: 3 },
                 maxWidth: isMobile ? '100%' : theme.custom.innerBox.maxWidth,
                 margin: '0 auto',
