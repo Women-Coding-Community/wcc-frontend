@@ -14,14 +14,6 @@ export default async function handler(
     const baseUrl = process.env.API_BASE_URL;
     const apiKey = process.env.API_KEY;
 
-    console.log('Received query parameters:', {
-      keyword,
-      yearsExperience,
-      areas,
-      language,
-      focus,
-    });
-    console.log(baseUrl, apiKey);
     if (!baseUrl || !apiKey) {
       return res.status(500).json({ error: 'Server configuration error' });
     }
@@ -61,7 +53,6 @@ export default async function handler(
     const data = await response.json();
     return res.status(200).json(data);
   } catch (error) {
-    console.error('Mentors API error:', error);
     logger.error('Mentors API error:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
