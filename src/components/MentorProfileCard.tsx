@@ -94,11 +94,11 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
         >
           {/* question: image needs to be an actual url */}
           <Image
-            src={mentor.images[0]?.path || '/profile-illustration.avif'}
+            src={mentor.images[0]?.path || '/resized-cropped-1.png'}
             alt={mentor.images[0]?.alt || 'Mentor Profile Picture Description'}
             width={120}
             height={120}
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: 'cover', borderRadius: '50%' }}
           />
         </Box>
         <Typography variant="h6">{mentor.fullName}</Typography>

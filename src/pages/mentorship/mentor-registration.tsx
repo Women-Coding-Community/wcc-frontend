@@ -106,6 +106,7 @@ const MentorRegistrationPage = () => {
   });
 
   const [activeStep, setActiveStep] = useState(1);
+  const [submitted, setSubmitted] = useState(false);
   const totalSteps = 5;
 
   const handleNext = async () => {
@@ -139,145 +140,263 @@ const MentorRegistrationPage = () => {
     if (activeStep > 1) setActiveStep((prev) => prev - 1);
   };
 
-  const onSubmit = (data: MentorRegistrationData) => {
-    console.log('Form Data Submitted:', data);
+  // Transform form data to API payload
+  function transformPayload(data: MentorRegistrationData) {
+    // Pronoun category
+    const getPronounCategory = (pronouns: string) => {
+      if (!pronouns) return '';
+      const p = pronouns.toLowerCase();
+      if (p.includes('she')) return 'Feminine';
+      if (p.includes('he')) return 'Masculine';
+      if (p.includes('they')) return 'Neutral';
+      return '';
+    };
+
+    // Years experience to number
+    const parseYearsExperience = (str: string) => {
+      if (!str) return 0;
+      const match = str.match(/(\d+)/);
+      return match ? parseInt(match[1], 10) : 0;
+    };
+
+    // Technical areas
+    const mapTechnicalAreas = (arr: any) =>
+      Array.isArray(arr)
+        ? arr.map((a) => ({
+            technicalArea: a.technicalArea || '',
+            proficiencyLevel: a.proficiencyLevel || '',
+          }))
+        : [];
+
+    // Languages
+    const mapLanguages = (arr: any) =>
+      Array.isArray(arr)
+        ? arr.map((l) =>
+            typeof l === 'string'
+              ? { language: l, proficiencyLevel: '' }
+              : { language: l.language || l, proficiencyLevel: l.proficiencyLevel || '' },
+          )
+        : [];
+
+    // Images
+    const mapImages = (url: string) =>
+      url ? [{ path: url, alt: 'Mentor profile image', type: 'DESKTOP' }] : [];
+
+    // Country
+    const mapCountry = (country: string) => ({ countryCode: '', countryName: country || '' });
+
+    // Mentee section
+    const mapMenteeSection = (input: any) => ({
+      idealMentee: input.menteeExpectations || '',
+      additional: '',
+      longTerm: input.isLongTermMentor
+        ? { numMentee: Number(input.maxMentees) || 0, hours: 2 }
+        : undefined,
+      adHoc:
+        input.isAdHocMentor && input.adHocAvailability
+          ? Object.entries(input.adHocAvailability).map(([month, hours]) => ({
+              month: month.toUpperCase(),
+              hours: Number(hours),
+            }))
+          : [],
+    });
+
+    return {
+      id: 0,
+      fullName: data.fullName || '',
+      position: data.position || '',
+      email: data.email || '',
+      slackDisplayName: data.slackDisplayName || '',
+      country: mapCountry(data.country),
+      city: data.city || '',
+      companyName: data.companyName || '',
+      memberTypes: ['DIRECTOR'],
+      images: mapImages(data.imageUrl),
+      network: [],
+      pronouns: data.pronouns || '',
+      pronounCategory: getPronounCategory(data.pronouns),
+      isWomen: !data.openToNonWomen,
+      skills: {
+        yearsExperience: parseYearsExperience(data.yearsExperience),
+        areas: mapTechnicalAreas(data.technicalAreas),
+        languages: mapLanguages(data.languages),
+        mentorshipFocus: Array.isArray(data.mentorshipFocusAreas) ? data.mentorshipFocusAreas : [],
+      },
+      spokenLanguages: data.languages || [],
+      bio: data.bio || '',
+      menteeSection: mapMenteeSection(data),
+      linkedin: data.linkedin || '',
+      github: data.github || '',
+      instagram: data.instagram || '',
+      medium: data.medium || '',
+      website: data.website || '',
+      otherSocial: data.otherSocial || '',
+      identity: data.identity || '',
+      socialHighlight: data.socialHighlight || '',
+      termsAgreed: !!data.termsAgreed,
+    };
+  }
+
+  const onSubmit = async (data: MentorRegistrationData) => {
+    const payload = transformPayload(data);
+    console.log(payload);
+    setSubmitted(true);
   };
 
   return (
-    <FormProvider {...formMethods}>
-      <Box
-        sx={{
-          minHeight: '100vh',
-          bgcolor: 'custom.lightBlue',
-          position: 'relative',
-          overflow: 'hidden',
-          pb: 8,
-        }}
-      >
-        <Container
-          maxWidth={false}
-          sx={{
-            position: 'relative',
-            zIndex: 1,
-            pt: { xs: 4, sm: 10, md: '18.75rem' },
-            px: { xs: 2, sm: 3 },
-            maxWidth: isMobile ? '100%' : theme.custom.innerBox.maxWidth,
-            margin: '0 auto',
-          }}
-        >
+    <>
+      {submitted ? (
+        <Box sx={{ textAlign: 'center', py: 4 }}>
+          <Typography variant="h5" gutterBottom fontWeight={600}>
+            Application submitted!
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Thank you for applying to our mentorship programme. We will review
+            your application and get back to you soon.
+          </Typography>
+        </Box>
+      ) : (
+        <FormProvider {...formMethods}>
           <Box
-            component="img"
-            src="/mentor-hero-bg.png"
-            alt="Mentor background"
             sx={{
-              position: 'absolute',
-              top: '-6.25rem',
-              right: 0,
-              height: { xs: '220px', sm: '280px', md: '360px', lg: '420px' },
-              width: 'auto',
-              zIndex: -1,
-              opacity: 0.9,
-              pointerEvents: 'none',
-            }}
-          />
-          <Paper
-            elevation={3}
-            sx={{
-              p: { xs: 3, sm: 4, md: 5 },
-              borderRadius: 2,
-              width: '100%',
-              maxWidth: { xs: '100%', sm: '540px', md: '640px' },
-              mx: 'auto',
-              bgcolor: 'white',
+              minHeight: '100vh',
+              bgcolor: 'custom.lightBlue',
+              position: 'relative',
+              overflow: 'hidden',
+              pb: 8,
             }}
           >
-            <Typography
-              variant="body2"
-              align="center"
+            <Container
+              maxWidth={false}
               sx={{
-                mb: 3,
-                color: 'text.secondary',
-              }}
-            >
-              Step {activeStep} of {totalSteps}
-            </Typography>
-
-            <Box
-              sx={{
-                width: '100%',
-                height: 6,
-                bgcolor: '#E5E5E5',
-                borderRadius: 3,
-                mb: 5,
-                overflow: 'hidden',
+                position: 'relative',
+                zIndex: 1,
+                pt: { xs: 4, sm: 10, md: '18.75rem' },
+                px: { xs: 2, sm: 3 },
+                maxWidth: isMobile ? '100%' : theme.custom.innerBox.maxWidth,
+                margin: '0 auto',
               }}
             >
               <Box
+                component="img"
+                src="/mentor-hero-bg.png"
+                alt="Mentor background"
                 sx={{
-                  width: `${(activeStep / totalSteps) * 100}%`,
-                  height: '100%',
-                  bgcolor: 'primary.main',
-                  borderRadius: 3,
-                  transition: 'width 0.3s ease',
+                  position: 'absolute',
+                  top: '-6.25rem',
+                  right: 0,
+                  height: {
+                    xs: '220px',
+                    sm: '280px',
+                    md: '360px',
+                    lg: '420px',
+                  },
+                  width: 'auto',
+                  zIndex: -1,
+                  opacity: 0.9,
+                  pointerEvents: 'none',
                 }}
               />
-            </Box>
-
-            <Box>
-              {activeStep === 1 && <Step1BasicInfo />}
-              {activeStep === 2 && <Step2Skills />}
-              {activeStep === 3 && <Step3DomainSkills />}
-              {activeStep === 4 && <Step4ProgrammingSkills />}
-              {activeStep === 5 && <Step5Review />}
-            </Box>
-
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              mt={5}
-              spacing={2}
-            >
-              <Button
-                variant="outlined"
-                disabled={activeStep === 1}
-                onClick={handleBack}
+              <Paper
+                elevation={3}
                 sx={{
-                  px: { xs: 2.5, md: 3.5 },
-                  py: 1,
+                  p: { xs: 3, sm: 4, md: 5 },
+                  borderRadius: 2,
+                  width: '100%',
+                  maxWidth: { xs: '100%', sm: '540px', md: '640px' },
+                  mx: 'auto',
+                  bgcolor: 'white',
                 }}
               >
-                Back
-              </Button>
+                <Typography
+                  variant="body2"
+                  align="center"
+                  sx={{
+                    mb: 3,
+                    color: 'text.secondary',
+                  }}
+                >
+                  Step {activeStep} of {totalSteps}
+                </Typography>
 
-              {activeStep === totalSteps ? (
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={formMethods.handleSubmit(onSubmit)}
+                <Box
                   sx={{
-                    px: { xs: 2.5, md: 3.5 },
-                    py: 1,
+                    width: '100%',
+                    height: 6,
+                    bgcolor: '#E5E5E5',
+                    borderRadius: 3,
+                    mb: 5,
+                    overflow: 'hidden',
                   }}
                 >
-                  Submit Application
-                </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  onClick={handleNext}
-                  sx={{
-                    px: { xs: 2.5, md: 3.5 },
-                    py: 1,
-                  }}
+                  <Box
+                    sx={{
+                      width: `${(activeStep / totalSteps) * 100}%`,
+                      height: '100%',
+                      bgcolor: 'primary.main',
+                      borderRadius: 3,
+                      transition: 'width 0.3s ease',
+                    }}
+                  />
+                </Box>
+
+                <Box>
+                  {activeStep === 1 && <Step1BasicInfo />}
+                  {activeStep === 2 && <Step2Skills />}
+                  {activeStep === 3 && <Step3DomainSkills />}
+                  {activeStep === 4 && <Step4ProgrammingSkills />}
+                  {activeStep === 5 && <Step5Review />}
+                </Box>
+
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  mt={5}
+                  spacing={2}
                 >
-                  Next
-                </Button>
-              )}
-            </Stack>
-          </Paper>
-        </Container>
-      </Box>
-    </FormProvider>
+                  <Button
+                    variant="outlined"
+                    disabled={activeStep === 1}
+                    onClick={handleBack}
+                    sx={{
+                      px: { xs: 2.5, md: 3.5 },
+                      py: 1,
+                    }}
+                  >
+                    Back
+                  </Button>
+
+                  {activeStep === totalSteps ? (
+                    <Button
+                      variant="contained"
+                      color="success"
+                      onClick={formMethods.handleSubmit(onSubmit)}
+                      sx={{
+                        px: { xs: 2.5, md: 3.5 },
+                        py: 1,
+                      }}
+                    >
+                      Submit Application
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      sx={{
+                        px: { xs: 2.5, md: 3.5 },
+                        py: 1,
+                      }}
+                    >
+                      Next
+                    </Button>
+                  )}
+                </Stack>
+              </Paper>
+            </Container>
+          </Box>
+        </FormProvider>
+      )}
+    </>
   );
 };
 
