@@ -112,7 +112,7 @@ const MenteeStep1BasicInfo = () => {
             variant="subtitle2"
             sx={{ mb: 0.5, color: 'text.primary' }}
           >
-            Country
+            Country *
           </Typography>
           <Controller
             name="country"

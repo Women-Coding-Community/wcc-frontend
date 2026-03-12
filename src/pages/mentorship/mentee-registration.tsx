@@ -33,6 +33,7 @@ const validateStep1 = async (formMethods: UseFormReturn<MenteeFormData>) =>
     'fullName',
     'email',
     'slackDisplayName',
+    'country',
     'city',
     'position',
     'availableHsMonth',
