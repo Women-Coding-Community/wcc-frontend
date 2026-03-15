@@ -120,7 +120,9 @@ describe('MenteeRegistrationPage', () => {
     // Select country from dropdown
     const countrySelect = screen.getByRole('combobox');
     fireEvent.mouseDown(countrySelect);
-    const countryOption = await screen.findByRole('option', { name: /United Kingdom/i });
+    const countryOption = await screen.findByRole('option', {
+      name: /United Kingdom/i,
+    });
     fireEvent.click(countryOption);
 
     fireEvent.change(screen.getByPlaceholderText('London'), {
