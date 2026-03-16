@@ -120,7 +120,9 @@ describe('MenteeRegistrationPage', () => {
     // Select country from dropdown
     const countrySelect = screen.getByRole('combobox');
     fireEvent.mouseDown(countrySelect);
-    const countryOption = await screen.findByRole('option', { name: /United Kingdom/i });
+    const countryOption = await screen.findByRole('option', {
+      name: /United Kingdom/i,
+    });
     fireEvent.click(countryOption);
 
     fireEvent.change(screen.getByPlaceholderText('London'), {
@@ -129,6 +131,15 @@ describe('MenteeRegistrationPage', () => {
     fireEvent.change(
       screen.getByPlaceholderText('e.g. Frontend Developer, Student'),
       { target: { value: 'Developer' } },
+    );
+    fireEvent.change(screen.getByPlaceholderText('Acme Corp'), {
+      target: { value: 'Tech Corp' },
+    });
+    fireEvent.change(
+      screen.getByPlaceholderText(
+        'https://www.linkedin.com/in/yourprofile',
+      ),
+      { target: { value: 'https://www.linkedin.com/in/janedoe' } },
     );
     fireEvent.change(screen.getByPlaceholderText('e.g. 4'), {
       target: { value: '4' },
