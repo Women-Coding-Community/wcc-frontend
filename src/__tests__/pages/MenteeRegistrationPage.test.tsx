@@ -132,6 +132,15 @@ describe('MenteeRegistrationPage', () => {
       screen.getByPlaceholderText('e.g. Frontend Developer, Student'),
       { target: { value: 'Developer' } },
     );
+    fireEvent.change(screen.getByPlaceholderText('Acme Corp'), {
+      target: { value: 'Tech Corp' },
+    });
+    fireEvent.change(
+      screen.getByPlaceholderText(
+        'https://www.linkedin.com/in/yourprofile',
+      ),
+      { target: { value: 'https://www.linkedin.com/in/janedoe' } },
+    );
     fireEvent.change(screen.getByPlaceholderText('e.g. 4'), {
       target: { value: '4' },
     });

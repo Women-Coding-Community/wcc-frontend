@@ -100,7 +100,7 @@ export const menteeFormSchema = z.object({
     .string()
     .min(2, 'Slack display name is required')
     .regex(/^@/, 'Slack name must start with @'),
-  companyName: z.string().optional(),
+  companyName: z.string().min(1, 'Company name is required'),
   country: countrySchema,
   city: z.string().min(1, 'Please enter your city'),
   linkedInProfile: z.url('Please enter a valid LinkedIn URL'),

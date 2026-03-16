@@ -36,6 +36,8 @@ const validateStep1 = async (formMethods: UseFormReturn<MenteeFormData>) =>
     'country',
     'city',
     'position',
+    'companyName',
+    'linkedInProfile',
     'availableHsMonth',
     'mentorshipType',
   ]);
