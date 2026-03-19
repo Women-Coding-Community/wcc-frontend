@@ -1,65 +1,12 @@
 import { z } from 'zod';
 
-const countrySchema = z
-  .object({
-    countryCode: z.string(),
-    countryName: z.string(),
-  })
-  .superRefine((data, ctx) => {
-    if (!data.countryCode || !data.countryName) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Please provide a country',
-      });
-    }
-  });
-
-const networkSchema = z.object({
-  type: z.enum(['LINKEDIN', 'GITHUB', 'WEBSITE', 'MEDIUM', 'TWITTER']),
-  link: z.url('Please enter a valid URL'),
-});
-
-const technicalAreaProficiencySchema = z.object({
-  technicalArea: z.enum([
-    'BACKEND',
-    'BUSINESS_ANALYSIS',
-    'CLOUD_ENGINEER',
-    'DATA_SCIENCE',
-    'DATA_ENGINEERING',
-    'DEVOPS',
-    'DISTRIBUTED_SYSTEMS',
-    'ENG_MANAGEMENT',
-    'FRONTEND',
-    'FULLSTACK',
-    'MACHINE_LEARNING',
-    'MOBILE_ANDROID',
-    'MOBILE_IOS',
-    'OTHER',
-    'PROD_MANAGEMENT',
-    'PROJ_MANAGEMENT',
-    'QA',
-  ]),
-  proficiencyLevel: z.enum(['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'EXPERT']),
-});
-
-const languageProficiencySchema = z.object({
-  language: z.enum([
-    'C_LANGUAGE',
-    'C_PLUS_PLUS',
-    'C_SHARP',
-    'GO',
-    'JAVA',
-    'JAVASCRIPT',
-    'KOTLIN',
-    'PHP',
-    'PYTHON',
-    'RUBY',
-    'RUST',
-    'TYPESCRIPT',
-    'OTHER',
-  ]),
-  proficiencyLevel: z.enum(['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'EXPERT']),
-});
+import {
+  countrySchema,
+  languageProficiencySchema,
+  mentorshipFocusAreaSchema,
+  networkSchema,
+  technicalAreaProficiencySchema,
+} from './commonSchema';
 
 const skillsSchema = z.object({
   yearsExperience: z.number().min(0).max(50),
@@ -70,16 +17,7 @@ const skillsSchema = z.object({
     .array(languageProficiencySchema)
     .min(1, 'Select at least one programming language'),
   mentorshipFocus: z
-    .array(
-      z.enum([
-        'SWITCH_CAREER_TO_IT',
-        'GROW_BEGINNER_TO_MID',
-        'GROW_MID_TO_SENIOR',
-        'GROW_BEYOND_SENIOR',
-        'SWITCH_TO_MANAGEMENT',
-        'CHANGE_SPECIALISATION',
-      ]),
-    )
+    .array(mentorshipFocusAreaSchema)
     .min(1, 'Select at least one focus area'),
 });
 

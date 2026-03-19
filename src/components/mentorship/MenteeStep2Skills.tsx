@@ -14,6 +14,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import {
   CODE_LANGUAGES,
+  MENTEE_EXPERIENCE_OPTIONS,
   MENTORSHIP_FOCUS_AREAS,
   PROFICIENCY_LEVELS,
   SPOKEN_LANGUAGES,
@@ -25,14 +26,7 @@ import { inputStyle } from './mentorshipStyles';
 import SkillsWithProficiency from './SkillsWithProficiency';
 import StepSection from './StepSection';
 
-const EXPERIENCE_OPTIONS = [
-  { label: 'No experience', value: 0 },
-  { label: '0–1 year', value: 1 },
-  { label: '1–2 years', value: 2 },
-  { label: '3–5 years', value: 3 },
-  { label: '6–9 years', value: 6 },
-  { label: '10+ years', value: 10 },
-];
+const EXPERIENCE_OPTIONS = MENTEE_EXPERIENCE_OPTIONS;
 
 const MenteeStep2Skills = () => {
   const {
@@ -109,7 +103,7 @@ const MenteeStep2Skills = () => {
             variant="subtitle2"
             sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}
           >
-            Programming languages — select your skill level *
+            Technologies & Languages — select your skill level *
           </Typography>
           <LanguagesWithProficiency
             name="skills.languages"

@@ -24,8 +24,8 @@ const Step4ProgrammingSkills = () => {
 
   return (
     <StepSection
-      title="Programming languages & mentorship goals"
-      description="Select the programming languages you can help your mentee with and indicate your proficiency. None are mandatory."
+      title="Technologies & Languages — mentorship goals"
+      description="Select the technologies and languages you can help your mentee with and indicate your proficiency. None are mandatory."
     >
       <Box sx={{ maxWidth: '100%' }}>
         <LanguagesWithProficiency

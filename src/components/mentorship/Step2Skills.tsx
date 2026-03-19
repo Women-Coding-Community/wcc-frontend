@@ -12,6 +12,11 @@ import {
 import React from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 
+import {
+  MENTOR_EXPERIENCE_LEVELS,
+  SPOKEN_LANGUAGES,
+} from '@utils/mentorshipConstants';
+
 import StepSection from './StepSection';
 
 const inputStyle = {
@@ -41,17 +46,8 @@ const helperTextStyle = {
   lineHeight: 1.5,
 };
 
-const LANGUAGES = [
-  'English',
-  'Spanish',
-  'Russian',
-  'Polish',
-  'Ukrainian',
-  'French',
-  'Portuguese',
-  'Other',
-];
-const EXPERIENCE = ['0–2 years', '3–5 years', '6–10 years', '10+ years'];
+const LANGUAGES = SPOKEN_LANGUAGES.map((lang) => lang.label);
+const EXPERIENCE = MENTOR_EXPERIENCE_LEVELS;
 
 const Step2Skills = () => {
   const {
