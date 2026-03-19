@@ -1,8 +1,14 @@
 import { z } from 'zod';
 
+import {
+  languageProficiencySchema,
+  mentorshipFocusAreaSchema,
+  technicalAreaProficiencySchema,
+} from './commonSchema';
+
 export const basicInfoObj = z.object({
   fullName: z.string().min(1, 'Please enter your full name'),
-  email: z.string().email('Please enter a valid email address'),
+  email: z.email('Please enter a valid email address'),
   slackDisplayName: z.string().min(1, 'Please enter your Slack name'),
   country: z.string().min(1, 'Please select your country'),
   city: z.string().min(1, 'Please enter your city'),
@@ -86,47 +92,10 @@ export const profileSchema = z.object({
 });
 
 export type ProfileData = z.infer<typeof profileSchema>;
-export const technicalAreaProficiencySchema = z.object({
-  technicalArea: z.enum([
-    'BACKEND',
-    'BUSINESS_ANALYSIS',
-    'CLOUD_ENGINEER',
-    'DATA_SCIENCE',
-    'DATA_ENGINEERING',
-    'DEVOPS',
-    'DISTRIBUTED_SYSTEMS',
-    'ENG_MANAGEMENT',
-    'FRONTEND',
-    'FULLSTACK',
-    'MACHINE_LEARNING',
-    'MOBILE_ANDROID',
-    'MOBILE_IOS',
-    'OTHER',
-    'PROD_MANAGEMENT',
-    'PROJ_MANAGEMENT',
-    'QA',
-  ]),
-  proficiencyLevel: z.enum(['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'EXPERT']),
-});
 
-export const languageProficiencySchema = z.object({
-  language: z.enum([
-    'C_LANGUAGE',
-    'C_PLUS_PLUS',
-    'C_SHARP',
-    'GO',
-    'JAVA',
-    'JAVASCRIPT',
-    'KOTLIN',
-    'PHP',
-    'PYTHON',
-    'RUBY',
-    'RUST',
-    'TYPESCRIPT',
-    'OTHER',
-  ]),
-  proficiencyLevel: z.enum(['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'EXPERT']),
-});
+export { technicalAreaProficiencySchema };
+
+export { languageProficiencySchema };
 
 export const skillsSchema = z.object({
   technicalAreas: z
@@ -139,16 +108,7 @@ export type SkillsData = z.infer<typeof skillsSchema>;
 export const programmingSchema = z.object({
   codeLanguages: z.array(languageProficiencySchema).optional().default([]),
   mentorshipFocusAreas: z
-    .array(
-      z.enum([
-        'SWITCH_CAREER_TO_IT',
-        'GROW_BEGINNER_TO_MID',
-        'GROW_MID_TO_SENIOR',
-        'GROW_BEYOND_SENIOR',
-        'SWITCH_TO_MANAGEMENT',
-        'CHANGE_SPECIALISATION',
-      ]),
-    )
+    .array(mentorshipFocusAreaSchema)
     .optional()
     .default([]),
 });
