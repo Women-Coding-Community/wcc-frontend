@@ -193,12 +193,14 @@ const MenteeStep1BasicInfo = () => {
             variant="subtitle2"
             sx={{ mb: 0.5, color: 'text.primary' }}
           >
-            Company / university name
+            Company / university name *
           </Typography>
           <TextField
             fullWidth
             placeholder="Acme Corp"
             {...register('companyName')}
+            error={!!errors.companyName}
+            helperText={errors.companyName?.message as string}
             sx={inputStyle}
           />
         </Grid>
@@ -208,7 +210,7 @@ const MenteeStep1BasicInfo = () => {
             variant="subtitle2"
             sx={{ mb: 0.5, color: 'text.primary' }}
           >
-            LinkedIn profile
+            LinkedIn profile *
           </Typography>
           <TextField
             fullWidth
