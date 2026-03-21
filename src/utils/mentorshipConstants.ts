@@ -66,6 +66,9 @@ export const TECHNICAL_AREA_GROUPS: AreaGroup[] = [
     areas: [
       { label: 'Cloud Engineer', value: 'CLOUD_ENGINEER' },
       { label: 'DevOps', value: 'DEVOPS' },
+      { label: 'Network Engineering', value: 'NETWORK_ENGINEERING' },
+      { label: 'Security', value: 'SECURITY' },
+      { label: 'Site Reliability Engineering', value: 'SRE' },
     ],
   },
   {
@@ -84,18 +87,27 @@ export const TECHNICAL_AREAS: LabelValue[] = TECHNICAL_AREA_GROUPS.flatMap(
 );
 
 export const CODE_LANGUAGES: LabelValue[] = [
+  { label: 'Bash', value: 'BASH' },
   { label: 'C', value: 'C_LANGUAGE' },
   { label: 'C++', value: 'C_PLUS_PLUS' },
   { label: 'C#', value: 'C_SHARP' },
+  { label: 'Dart', value: 'DART' },
   { label: 'Go', value: 'GO' },
+  { label: 'HCL', value: 'HCL' },
   { label: 'Java', value: 'JAVA' },
   { label: 'JavaScript', value: 'JAVASCRIPT' },
   { label: 'Kotlin', value: 'KOTLIN' },
+  { label: 'OpenTofu', value: 'OPENTOFU' },
   { label: 'PHP', value: 'PHP' },
   { label: 'Python', value: 'PYTHON' },
+  { label: 'Rego', value: 'REGO' },
   { label: 'Ruby', value: 'RUBY' },
   { label: 'Rust', value: 'RUST' },
+  { label: 'Scala', value: 'SCALA' },
+  { label: 'Swift', value: 'SWIFT' },
+  { label: 'Terraform', value: 'TERRAFORM' },
   { label: 'TypeScript', value: 'TYPESCRIPT' },
+  { label: 'Yaml', value: 'YAML' },
   { label: 'Other', value: 'OTHER' },
 ];
 
@@ -112,6 +124,29 @@ export const SPOKEN_LANGUAGES: LabelValue[] = [
   { label: 'Russian', value: 'Russian' },
   { label: 'Ukrainian', value: 'Ukrainian' },
   { label: 'Other', value: 'Other' },
+];
+
+export const MENTOR_EXPERIENCE_LEVELS: string[] = [
+  '0–2 years',
+  '3–5 years',
+  '6–10 years',
+  '10+ years',
+];
+
+export const MENTEE_EXPERIENCE_OPTIONS = [
+  { label: 'No experience', value: 0 },
+  { label: '0–1 year', value: 1 },
+  { label: '1–2 years', value: 2 },
+  { label: '3–5 years', value: 3 },
+  { label: '6–9 years', value: 6 },
+  { label: '10+ years', value: 10 },
+];
+
+export const FILTER_EXPERIENCE_OPTIONS = [
+  { label: 'Any', value: '0' },
+  { label: '3+ years', value: '3' },
+  { label: '5+ years', value: '5' },
+  { label: '10+ years', value: '10' },
 ];
 
 const createCountries = (data: Array<[string, string]>): Country[] =>

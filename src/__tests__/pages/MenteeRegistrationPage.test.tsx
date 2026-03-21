@@ -136,9 +136,7 @@ describe('MenteeRegistrationPage', () => {
       target: { value: 'Tech Corp' },
     });
     fireEvent.change(
-      screen.getByPlaceholderText(
-        'https://www.linkedin.com/in/yourprofile',
-      ),
+      screen.getByPlaceholderText('https://www.linkedin.com/in/yourprofile'),
       { target: { value: 'https://www.linkedin.com/in/janedoe' } },
     );
     fireEvent.change(screen.getByPlaceholderText('e.g. 4'), {

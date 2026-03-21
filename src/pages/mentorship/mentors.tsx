@@ -19,6 +19,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { BreadCrumbsDynamic, MentorProfileCard, Title } from '@components';
+import { FILTER_EXPERIENCE_OPTIONS } from '@utils/mentorshipConstants';
 import { useIsMobile } from '@utils/theme-utils';
 // eslint-disable-next-line import/order
 import { Mentor } from '@utils/types';
@@ -35,12 +36,7 @@ type FilterSection = {
 
 import theme from 'theme';
 
-const filterYearExperienceOptions = [
-  { label: 'Any', value: '0' },
-  { label: '3+ years', value: '3' },
-  { label: '5+ years', value: '5' },
-  { label: '10+ years', value: '10' },
-];
+const filterYearExperienceOptions = FILTER_EXPERIENCE_OPTIONS;
 const MentorsPage = () => {
   const router = useRouter();
   const isMobile = useIsMobile();

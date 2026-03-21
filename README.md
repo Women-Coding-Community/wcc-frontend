@@ -60,6 +60,7 @@ Now you can run the application using
 
 You can run also these commands pre-commit for your peace of mind. The application uses husky, which will run these same checks before you can commit.
 ƒ
+
 ```bash
   pnpm lint:fix && pnpm format && pnpm type-check
 ```
