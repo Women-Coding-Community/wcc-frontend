@@ -1,6 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import handler from '../../pages/api/mentee-registration';
+import * as api from '../../lib/api';
+
+jest.mock('../../lib/api', () => ({
+  __esModule: true,
+  ...jest.requireActual('../../lib/api'),
+  proxyRequest: jest.fn(),
+}));
 
 const makeReq = (overrides: Partial<NextApiRequest> = {}): NextApiRequest =>
   ({
@@ -20,18 +27,7 @@ const makeRes = (): NextApiResponse => {
 };
 
 describe('mentee-registration API handler', () => {
-  const originalEnv = process.env;
-
-  beforeEach(() => {
-    process.env = {
-      ...originalEnv,
-      API_BASE_URL: 'http://localhost:8080/api/cms/v1',
-      API_KEY: 'test-key',
-    };
-  });
-
   afterEach(() => {
-    process.env = originalEnv;
     jest.resetAllMocks();
   });
 
@@ -46,66 +42,35 @@ describe('mentee-registration API handler', () => {
     expect(res.json).toHaveBeenCalledWith({ error: 'Method GET Not Allowed' });
   });
 
-  it('returns 500 when API_BASE_URL is missing', async () => {
-    delete process.env.API_BASE_URL;
-    const req = makeReq();
-    const res = makeRes();
-
-    await handler(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({
-      error: 'Server configuration error',
-    });
-  });
-
-  it('returns 500 when API_KEY is missing', async () => {
-    delete process.env.API_KEY;
-    const req = makeReq();
-    const res = makeRes();
-
-    await handler(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({
-      error: 'Server configuration error',
-    });
-  });
-
   it('proxies POST to the platform endpoint and returns 201 on success', async () => {
     const responseBody = { id: 42 };
-    globalThis.fetch = jest.fn().mockResolvedValue({
-      ok: true,
-      status: 201,
-      json: jest.fn().mockResolvedValue(responseBody),
-    });
+    (api.proxyRequest as jest.Mock).mockResolvedValue(responseBody);
 
     const req = makeReq();
     const res = makeRes();
 
     await handler(req, res);
 
-    expect(globalThis.fetch).toHaveBeenCalledWith(
-      'http://localhost:8080/api/platform/v1/mentees',
+    expect(api.proxyRequest).toHaveBeenCalledWith(
+      'mentees',
       expect.objectContaining({
         method: 'POST',
-        headers: expect.objectContaining({
-          'X-API-KEY': 'test-key',
-          'Content-Type': 'application/json',
-        }),
+        data: req.body,
       }),
+      true
     );
     expect(res.status).toHaveBeenCalledWith(201);
     expect(res.json).toHaveBeenCalledWith(responseBody);
   });
 
   it('forwards backend error status and message on failure', async () => {
-    const errorBody = { message: 'Email already registered' };
-    globalThis.fetch = jest.fn().mockResolvedValue({
-      ok: false,
-      status: 409,
-      json: jest.fn().mockResolvedValue(errorBody),
-    });
+    const errorResponse = {
+      response: {
+        status: 409,
+        data: { message: 'Email already registered' },
+      },
+    };
+    (api.proxyRequest as jest.Mock).mockRejectedValue(errorResponse);
 
     const req = makeReq();
     const res = makeRes();
@@ -113,31 +78,11 @@ describe('mentee-registration API handler', () => {
     await handler(req, res);
 
     expect(res.status).toHaveBeenCalledWith(409);
-    expect(res.json).toHaveBeenCalledWith(errorBody);
+    expect(res.json).toHaveBeenCalledWith(errorResponse.response.data);
   });
 
-  it('falls back to generic error when backend returns no body', async () => {
-    globalThis.fetch = jest.fn().mockResolvedValue({
-      ok: false,
-      status: 500,
-      json: jest.fn().mockRejectedValue(new Error('no body')),
-    });
-
-    const req = makeReq();
-    const res = makeRes();
-
-    await handler(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({
-      error: 'Registration failed. Please try again.',
-    });
-  });
-
-  it('returns 500 on network error', async () => {
-    globalThis.fetch = jest
-      .fn()
-      .mockRejectedValue(new Error('Network failure'));
+  it('returns 500 on unexpected error', async () => {
+    (api.proxyRequest as jest.Mock).mockRejectedValue(new Error('Network failure'));
 
     const req = makeReq();
     const res = makeRes();
@@ -146,5 +91,17 @@ describe('mentee-registration API handler', () => {
 
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({ error: 'Internal server error' });
+  });
+
+  it('returns 500 when server configuration error occurs', async () => {
+    (api.proxyRequest as jest.Mock).mockRejectedValue(new Error('Server configuration error'));
+
+    const req = makeReq();
+    const res = makeRes();
+
+    await handler(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({ error: 'Server configuration error' });
   });
 });

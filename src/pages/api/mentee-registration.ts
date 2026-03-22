@@ -1,5 +1,6 @@
-import { logger } from 'bs-logger';
 import { NextApiRequest, NextApiResponse } from 'next';
+
+import { proxyRequest } from '../../lib/api';
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,38 +11,20 @@ export default async function handler(
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 
-  const apiBaseUrl = process.env.API_BASE_URL;
-  const apiKey = process.env.API_KEY;
-
-  if (!apiBaseUrl || !apiKey) {
-    return res.status(500).json({ error: 'Server configuration error' });
-  }
-
-  // TODO new env variable for platform apis or create api for cms only
-  const host = apiBaseUrl.split('/api/')[0];
-  const url = `${host}/api/platform/v1/mentees`;
-
   try {
-    const response = await fetch(url, {
+    const data = await proxyRequest('mentees', {
       method: 'POST',
-      headers: {
-        'X-API-KEY': apiKey,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(req.body),
-    });
+      data: req.body,
+    }, true);
 
-    const data = await response.json().catch(() => null);
-
-    if (!response.ok) {
-      return res
-        .status(response.status)
-        .json(data ?? { error: 'Registration failed. Please try again.' });
+    return res.status(201).json(data ?? {});
+  } catch (error: any) {
+    if (error.response) {
+      return res.status(error.response.status).json(error.response.data);
     }
-
-    return res.status(response.status).json(data ?? {});
-  } catch (error) {
-    logger.error('Mentee registration API error:', error);
+    if (error.message === 'Server configuration error') {
+      return res.status(500).json({ error: error.message });
+    }
     return res.status(500).json({ error: 'Internal server error' });
   }
 }

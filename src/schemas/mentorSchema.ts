@@ -18,7 +18,9 @@ export const basicInfoObj = z.object({
   isLongTermMentor: z.boolean().optional(),
   isAdHocMentor: z.boolean().optional(),
   maxMentees: z.string().optional(),
-  adHocAvailability: z.record(z.string(), z.string()).optional(),
+  adHocAvailability: z
+    .record(z.string(), z.string().or(z.null()).or(z.undefined()))
+    .optional(),
 
   calendlyLink: z
     .string()
@@ -63,7 +65,10 @@ const validateBasicInfo = (
   }
   if (data.isAdHocMentor) {
     const hasAvailability =
-      data.adHocAvailability && Object.keys(data.adHocAvailability).length > 0;
+      data.adHocAvailability &&
+      Object.values(data.adHocAvailability).some(
+        (val) => val !== undefined && val !== '',
+      );
     if (!hasAvailability) {
       ctx.addIssue({
         code: 'custom',
@@ -99,14 +104,27 @@ export { languageProficiencySchema };
 
 export const skillsSchema = z.object({
   technicalAreas: z
-    .array(technicalAreaProficiencySchema)
+    .array(
+      z.object({
+        technicalArea: z.string(),
+        proficiencyLevel: z.string(),
+      }),
+    )
     .optional()
     .default([]),
 });
 export type SkillsData = z.infer<typeof skillsSchema>;
 
 export const programmingSchema = z.object({
-  codeLanguages: z.array(languageProficiencySchema).optional().default([]),
+  codeLanguages: z
+    .array(
+      z.object({
+        language: z.string(),
+        proficiencyLevel: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
   mentorshipFocusAreas: z
     .array(mentorshipFocusAreaSchema)
     .optional()
@@ -141,3 +159,38 @@ export const mentorRegistrationSchema = z
   .superRefine(validateBasicInfo);
 
 export type MentorRegistrationData = z.infer<typeof mentorRegistrationSchema>;
+
+export const mentorRegistrationDefaultValues: Partial<MentorRegistrationData> = {
+  fullName: '',
+  email: '',
+  slackDisplayName: '',
+  country: '',
+  city: '',
+  position: '',
+  companyName: '',
+  isLongTermMentor: false,
+  isAdHocMentor: false,
+  maxMentees: '',
+  adHocAvailability: {},
+  calendlyLink: '',
+  menteeExpectations: '',
+  openToNonWomen: false,
+  languages: [],
+  yearsExperience: '',
+  bio: '',
+  mentorshipFocus: '',
+  imageUrl: '',
+  technicalAreas: [],
+  codeLanguages: [],
+  mentorshipFocusAreas: [],
+  linkedin: '',
+  github: '',
+  instagram: '',
+  medium: '',
+  website: '',
+  otherSocial: '',
+  identity: '',
+  pronouns: '',
+  socialHighlight: '',
+  termsAgreed: false,
+};
