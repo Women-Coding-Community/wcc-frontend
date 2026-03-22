@@ -85,8 +85,8 @@ const MentorshipAdHocTimelinePage = ({ data, footer }: CombinedResponse) => {
             </TimelineItem>
           ))}
         </Timeline>
-        {footer && <Footer {...footer} />}
       </Box>
+      {footer && <Footer {...footer} />}
     </>
   );
 };
