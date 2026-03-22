@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { COUNTRIES } from '@utils/mentorshipConstants';
 import { MentorRegistrationData } from 'schemas/mentorSchema';
 
 import { proxyRequest } from '../../lib/api';
-import { COUNTRIES } from '../../utils/mentorshipConstants';
+
 
 /**
  * Mapping from frontend MentorRegistrationData to backend MentorDto structure.
