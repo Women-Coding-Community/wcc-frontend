@@ -187,7 +187,7 @@ const MentorRegistrationPage = () => {
     }
   };
 
-  const onInvalid = (_errors: any) => {};
+  const onInvalid = () => {};
 
   if (submissionStatus === 'success') {
     return (
@@ -217,9 +217,9 @@ const MentorRegistrationPage = () => {
             Thank you for applying to be a mentor. Your application has been
             received and is now being reviewed. We will get back to you soon.
           </Typography>
-          <Link href="/" passHref>
+          <Link href="/mentorship" passHref>
             <Button variant="contained" color="primary">
-              Return to Home
+              Go to Mentorship Page
             </Button>
           </Link>
         </Paper>

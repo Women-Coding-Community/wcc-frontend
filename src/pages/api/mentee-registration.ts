@@ -12,10 +12,14 @@ export default async function handler(
   }
 
   try {
-    const data = await proxyRequest('mentees', {
-      method: 'POST',
-      data: req.body,
-    }, true);
+    const data = await proxyRequest(
+      'mentees',
+      {
+        method: 'POST',
+        data: req.body,
+      },
+      true,
+    );
 
     return res.status(201).json(data ?? {});
   } catch (error: any) {

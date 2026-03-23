@@ -17,7 +17,9 @@ describe('mentorRegistrationSchema validation', () => {
     languages: ['English'],
     yearsExperience: '5',
     bio: 'A passionate developer with 5 years of experience.',
-    technicalAreas: [{ technicalArea: 'FRONTEND', proficiencyLevel: 'ADVANCED' }],
+    technicalAreas: [
+      { technicalArea: 'FRONTEND', proficiencyLevel: 'ADVANCED' },
+    ],
     codeLanguages: [{ language: 'TYPESCRIPT', proficiencyLevel: 'ADVANCED' }],
     mentorshipFocusAreas: ['GROW_MID_TO_SENIOR'],
     linkedin: 'https://linkedin.com/in/janedoe',
@@ -69,7 +71,9 @@ describe('mentorRegistrationSchema validation', () => {
     const result = mentorRegistrationSchema.safeParse(data);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('Please select availability for at least one month');
+      expect(result.error.issues[0].message).toBe(
+        'Please select availability for at least one month',
+      );
     }
   });
 

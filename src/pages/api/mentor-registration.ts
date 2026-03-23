@@ -5,7 +5,6 @@ import { MentorRegistrationData } from 'schemas/mentorSchema';
 
 import { proxyRequest } from '../../lib/api';
 
-
 /**
  * Mapping from frontend MentorRegistrationData to backend MentorDto structure.
  */
@@ -17,27 +16,50 @@ function mapToBackendMentorDto(data: MentorRegistrationData) {
   if (data.instagram) network.push({ type: 'INSTAGRAM', link: data.instagram });
   if (data.medium) network.push({ type: 'MEDIUM', link: data.medium });
   if (data.website) network.push({ type: 'WEBSITE', link: data.website });
-  if (data.otherSocial) network.push({ type: 'DEFAULT_LINK', link: data.otherSocial });
+  if (data.otherSocial) network.push({ type: 'OTHER', link: data.otherSocial });
 
   // Map PronounCategory
-  const pronounCategory = data.identity === 'Woman' ? 'FEMININE' : 'UNSPECIFIED';
+  const pronounCategory = data.identity === 'Yes' ? 'FEMININE' : 'UNSPECIFIED';
 
   // Map MenteeSection
   const longTerm = data.isLongTermMentor
     ? {
         numMentee: parseInt(data.maxMentees || '0', 10),
-        hours: parseInt(data.maxMentees || '0', 10) * 2, // Backend requires min 2 hours per mentee
+        hours: parseInt(data.maxMentees || '0', 10) * 2, // Backend requires total hours, e.g. 2h per mentee
       }
     : null;
 
-  const adHoc = data.isAdHocMentor && data.adHocAvailability
-    ? Object.entries(data.adHocAvailability)
-        .filter(([_, availability]) => availability !== undefined && availability !== null && availability !== '')
-        .map(([month, availability]) => ({
-          month: month.toUpperCase(),
-          hours: parseInt(availability as string, 10) || 0,
-        }))
-    : [];
+  const adHoc =
+    data.isAdHocMentor && data.adHocAvailability
+      ? Object.entries(data.adHocAvailability)
+          .filter(
+            ([, availability]) =>
+              availability !== undefined &&
+              availability !== null &&
+              availability !== '',
+          )
+          .map(([month, availability]) => {
+            const monthNames = [
+              'JANUARY',
+              'FEBRUARY',
+              'MARCH',
+              'APRIL',
+              'MAY',
+              'JUNE',
+              'JULY',
+              'AUGUST',
+              'SEPTEMBER',
+              'OCTOBER',
+              'NOVEMBER',
+              'DECEMBER',
+            ];
+            const monthIndex = monthNames.indexOf(month.toUpperCase());
+            return {
+              month: monthIndex !== -1 ? monthIndex + 1 : 0,
+              hours: parseInt(availability as string, 10) || 0,
+            };
+          })
+      : [];
 
   // Find country code from name
   const countryObj = COUNTRIES.find((c) => c.name === data.country);
@@ -58,21 +80,35 @@ function mapToBackendMentorDto(data: MentorRegistrationData) {
     bio: data.bio,
     pronouns: data.pronouns,
     pronounCategory,
-    isWomen: data.identity === 'Woman',
+    isWomen: data.identity === 'Yes',
     calendlyLink: data.calendlyLink,
     acceptMale: data.openToNonWomen,
     acceptPromotion: data.socialHighlight === 'Yes',
     skills: {
-      yearsExperience: parseInt(data.yearsExperience, 10),
+      yearsExperience: parseInt(data.yearsExperience as any as string, 10) || 0,
       areas: data.technicalAreas.map((area: any) => ({
-        technicalArea: (area.technicalArea || area.name)?.toUpperCase()?.replace(/\s+/g, '_').replace('C++', 'C_PLUS_PLUS').replace('C#', 'C_SHARP'),
-        proficiencyLevel: (area.proficiencyLevel || area.proficiency)?.toUpperCase(),
+        technicalArea: (area.technicalArea || area.name)
+          ?.toUpperCase()
+          ?.replace(/\s+/g, '_')
+          .replace('C++', 'C_PLUS_PLUS')
+          .replace('C#', 'C_SHARP'),
+        proficiencyLevel: (
+          area.proficiencyLevel || area.proficiency
+        )?.toUpperCase(),
       })),
       languages: data.codeLanguages.map((lang: any) => ({
-        language: (lang.language || lang.name)?.toUpperCase()?.replace(/\s+/g, '_').replace('C++', 'C_PLUS_PLUS').replace('C#', 'C_SHARP'),
-        proficiencyLevel: (lang.proficiencyLevel || lang.proficiency)?.toUpperCase(),
+        language: (lang.language || lang.name)
+          ?.toUpperCase()
+          ?.replace(/\s+/g, '_')
+          .replace('C++', 'C_PLUS_PLUS')
+          .replace('C#', 'C_SHARP'),
+        proficiencyLevel: (
+          lang.proficiencyLevel || lang.proficiency
+        )?.toUpperCase(),
       })),
-      mentorshipFocus: data.mentorshipFocusAreas.map((focus) => focus.toUpperCase()),
+      mentorshipFocus: data.mentorshipFocusAreas.map((focus) =>
+        focus.toUpperCase(),
+      ),
     },
     menteeSection: {
       idealMentee: data.menteeExpectations,
@@ -95,10 +131,14 @@ export default async function handler(
 
   try {
     const backendPayload = mapToBackendMentorDto(req.body);
-    const data = await proxyRequest('mentors', {
-      method: 'POST',
-      data: backendPayload,
-    }, true);
+    const data = await proxyRequest(
+      'mentors',
+      {
+        method: 'POST',
+        data: backendPayload,
+      },
+      true,
+    );
 
     return res.status(201).json(data ?? {});
   } catch (error: any) {

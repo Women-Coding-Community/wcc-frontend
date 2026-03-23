@@ -74,7 +74,7 @@ const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
             'You are ready to share expertise',
             'You want to get a new perspective and learn from your mentees',
           ]}
-          buttonUrl="https://docs.google.com/forms/d/e/1FAIpQLSdtf7-upMp1m5kJ4MSpexS-UwGJHhACEW-yPoEQoROHi4kVcg/viewform"
+          buttonUrl="/mentorship/mentor-registration"
           buttonText={'Join as a mentor'}
         ></MentorBecomeCard>
         <MentorBecomeCard

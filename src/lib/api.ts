@@ -30,7 +30,9 @@ export const proxyRequest = async (
   usePlatformApi = false,
 ) => {
   if (!apiBaseUrl || !API_KEY) {
-    logger.error('Server configuration error: API_BASE_URL or API_KEY is missing');
+    logger.error(
+      'Server configuration error: API_BASE_URL or API_KEY is missing',
+    );
     throw new Error('Server configuration error');
   }
 

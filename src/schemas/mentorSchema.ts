@@ -84,7 +84,11 @@ export type BasicInfoData = z.infer<typeof basicInfoSchema>;
 
 export const profileSchema = z.object({
   languages: z.array(z.string()).min(1, 'Please select at least one language'),
-  yearsExperience: z.string().min(1, 'Please select your years of experience'),
+  yearsExperience: z.coerce
+    .number()
+    .int('Years of experience must be a whole number')
+    .min(2, 'Minimum 2 years of experience required')
+    .max(50, 'Maximum 50 years of experience'),
   bio: z
     .string()
     .min(10, 'Please provide at least 10 characters for your bio')
@@ -160,37 +164,38 @@ export const mentorRegistrationSchema = z
 
 export type MentorRegistrationData = z.infer<typeof mentorRegistrationSchema>;
 
-export const mentorRegistrationDefaultValues: Partial<MentorRegistrationData> = {
-  fullName: '',
-  email: '',
-  slackDisplayName: '',
-  country: '',
-  city: '',
-  position: '',
-  companyName: '',
-  isLongTermMentor: false,
-  isAdHocMentor: false,
-  maxMentees: '',
-  adHocAvailability: {},
-  calendlyLink: '',
-  menteeExpectations: '',
-  openToNonWomen: false,
-  languages: [],
-  yearsExperience: '',
-  bio: '',
-  mentorshipFocus: '',
-  imageUrl: '',
-  technicalAreas: [],
-  codeLanguages: [],
-  mentorshipFocusAreas: [],
-  linkedin: '',
-  github: '',
-  instagram: '',
-  medium: '',
-  website: '',
-  otherSocial: '',
-  identity: '',
-  pronouns: '',
-  socialHighlight: '',
-  termsAgreed: false,
-};
+export const mentorRegistrationDefaultValues: Partial<MentorRegistrationData> =
+  {
+    fullName: '',
+    email: '',
+    slackDisplayName: '',
+    country: '',
+    city: '',
+    position: '',
+    companyName: '',
+    isLongTermMentor: false,
+    isAdHocMentor: false,
+    maxMentees: '',
+    adHocAvailability: {},
+    calendlyLink: '',
+    menteeExpectations: '',
+    openToNonWomen: false,
+    languages: [],
+
+    bio: '',
+    mentorshipFocus: '',
+    imageUrl: '',
+    technicalAreas: [],
+    codeLanguages: [],
+    mentorshipFocusAreas: [],
+    linkedin: '',
+    github: '',
+    instagram: '',
+    medium: '',
+    website: '',
+    otherSocial: '',
+    identity: '',
+    pronouns: '',
+    socialHighlight: '',
+    termsAgreed: false,
+  };

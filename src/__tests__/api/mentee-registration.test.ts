@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import handler from '../../pages/api/mentee-registration';
 import * as api from '../../lib/api';
+import handler from '../../pages/api/mentee-registration';
 
 jest.mock('../../lib/api', () => ({
   __esModule: true,
@@ -57,7 +57,7 @@ describe('mentee-registration API handler', () => {
         method: 'POST',
         data: req.body,
       }),
-      true
+      true,
     );
     expect(res.status).toHaveBeenCalledWith(201);
     expect(res.json).toHaveBeenCalledWith(responseBody);
@@ -82,7 +82,9 @@ describe('mentee-registration API handler', () => {
   });
 
   it('returns 500 on unexpected error', async () => {
-    (api.proxyRequest as jest.Mock).mockRejectedValue(new Error('Network failure'));
+    (api.proxyRequest as jest.Mock).mockRejectedValue(
+      new Error('Network failure'),
+    );
 
     const req = makeReq();
     const res = makeRes();
@@ -94,7 +96,9 @@ describe('mentee-registration API handler', () => {
   });
 
   it('returns 500 when server configuration error occurs', async () => {
-    (api.proxyRequest as jest.Mock).mockRejectedValue(new Error('Server configuration error'));
+    (api.proxyRequest as jest.Mock).mockRejectedValue(
+      new Error('Server configuration error'),
+    );
 
     const req = makeReq();
     const res = makeRes();
@@ -102,6 +106,8 @@ describe('mentee-registration API handler', () => {
     await handler(req, res);
 
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({ error: 'Server configuration error' });
+    expect(res.json).toHaveBeenCalledWith({
+      error: 'Server configuration error',
+    });
   });
 });

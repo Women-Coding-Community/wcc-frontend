@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import handler from '../../pages/api/mentor-registration';
+
 import * as api from '../../lib/api';
+import handler from '../../pages/api/mentor-registration';
 
 jest.mock('../../lib/api', () => ({
   __esModule: true,
@@ -27,11 +28,13 @@ const makeReq = (overrides: Partial<NextApiRequest> = {}): NextApiRequest =>
       languages: ['English'],
       yearsExperience: '5',
       bio: 'A passionate developer with 5 years of experience.',
-      technicalAreas: [{ technicalArea: 'Fullstack', proficiencyLevel: 'Advanced' }],
+      technicalAreas: [
+        { technicalArea: 'Fullstack', proficiencyLevel: 'Advanced' },
+      ],
       codeLanguages: [{ language: 'C++', proficiencyLevel: 'Advanced' }],
       mentorshipFocusAreas: ['Career advice'],
       linkedin: 'https://linkedin.com/in/janedoe',
-      identity: 'Woman',
+      identity: 'Yes',
       pronouns: 'she/her',
       socialHighlight: 'Yes',
       termsAgreed: true,
@@ -98,9 +101,15 @@ describe('mentor-registration API handler', () => {
               numMentee: 2,
             }),
           }),
+          network: expect.arrayContaining([
+            {
+              type: 'LINKEDIN',
+              link: 'https://linkedin.com/in/janedoe',
+            },
+          ]),
         }),
       }),
-      true
+      true,
     );
 
     expect(res.status).toHaveBeenCalledWith(201);
@@ -150,13 +159,13 @@ describe('mentor-registration API handler', () => {
         data: expect.objectContaining({
           menteeSection: expect.objectContaining({
             adHoc: [
-              { month: 'JANUARY', hours: 2 },
-              { month: 'APRIL', hours: 3 },
+              { month: 1, hours: 2 },
+              { month: 4, hours: 3 },
             ],
           }),
         }),
       }),
-      true
+      true,
     );
   });
 });

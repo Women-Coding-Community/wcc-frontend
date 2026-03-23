@@ -10,10 +10,8 @@ jest.mock('axios', () => {
 });
 
 describe('API Fetch Functions', () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let fetchFooter: () => Promise<any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let fetchData: (path: string) => Promise<any>;
+  let fetchData: (_path: string) => Promise<any>;
   let mockedAxios: jest.Mock;
   const originalEnv = process.env;
 
@@ -25,12 +23,10 @@ describe('API Fetch Functions', () => {
       API_KEY: 'test-key',
     };
     // Re-require after setting env so module-level constants pick them up
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const api = require('../api');
+    const api = require('../api'); // eslint-disable-line @typescript-eslint/no-var-requires
     fetchFooter = api.fetchFooter;
     fetchData = api.fetchData;
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    mockedAxios = require('axios').default;
+    mockedAxios = require('axios').default; // eslint-disable-line @typescript-eslint/no-var-requires
   });
 
   afterEach(() => {
