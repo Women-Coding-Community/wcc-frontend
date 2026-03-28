@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { logger } from 'bs-logger';
 
+import { MentorshipProgrammeData } from '@utils/types';
+
 import aboutUsPage from './responses/aboutUs.json';
 import aboutUsTeam from './responses/aboutUsTeam.json';
 import footerData from './responses/footer.json';
@@ -64,6 +66,7 @@ export const fetchData = async (path: string) => {
   }
 };
 
+// Refactor this using fetchFromPath()
 export const fetchFooter = async () => {
   try {
     logger.debug(`Attempting to fetchFooter`);
@@ -77,5 +80,21 @@ export const fetchFooter = async () => {
       `Failed to fetchFooter, generating fallback footer. Error: ${error}`,
     );
     return footerData;
+  }
+};
+export const fetchMentorship: () => Promise<MentorshipProgrammeData> =
+  async () => fetchFromPath('/mentorship/overview', mentorShipPage);
+
+const fetchFromPath = async (path: string, backupData: any) => {
+  try {
+    logger.debug(`Attempting to fetch from ${path}`);
+    const response = await client.get(`${apiBaseUrl}${path}`, {
+      headers: { 'X-API-KEY': API_KEY },
+    });
+
+    return response.data;
+  } catch (error) {
+    logger.error(`Failed to fetch from ${path}. Error: ${error}`);
+    return backupData;
   }
 };
