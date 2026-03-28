@@ -7,17 +7,17 @@ import { Title, ResourcesCard, Footer, BreadCrumbsDynamic } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, MentorshipResourcesResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
-import footerData from 'lib/responses/footer.json';
-import pageData from 'lib/responses/mentorshipResources.json';
 
-type CombinedResponse = {
+interface MentorshipResourcesPageProps {
   data: MentorshipResourcesResponse;
   footer: FooterResponse;
-};
+}
 
-const MentorshipResourcesPage: React.FC = () => {
+const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
+  data,
+  footer,
+}) => {
   const isMobile = useIsMobile();
-  const { heroTitle, heroDescription, resources } = pageData;
 
   return (
     <>
@@ -27,26 +27,28 @@ const MentorshipResourcesPage: React.FC = () => {
         sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
       >
         <Box sx={{ flexGrow: 1 }}>
-          <Title title={heroTitle} />
+          <Title title={data.heroSection.title} />
 
-          <Box
-            sx={{
-              maxWidth: 800,
-              margin: '40px auto',
-              paddingX: 2,
-              textAlign: 'center',
-            }}
-          >
-            <Typography
-              variant="body1"
+          {data.section?.description && (
+            <Box
               sx={{
-                fontSize: { xs: '1.2rem', md: '1.4rem' },
-                lineHeight: 1.5,
+                maxWidth: 800,
+                margin: '40px auto',
+                paddingX: 2,
+                textAlign: 'center',
               }}
             >
-              {heroDescription}
-            </Typography>
-          </Box>
+              <Typography
+                variant="body1"
+                sx={{
+                  fontSize: { xs: '1.2rem', md: '1.4rem' },
+                  lineHeight: 1.5,
+                }}
+              >
+                {data.section.description}
+              </Typography>
+            </Box>
+          )}
 
           <Box
             sx={{
@@ -57,14 +59,14 @@ const MentorshipResourcesPage: React.FC = () => {
             }}
           >
             <Grid container spacing={4}>
-              {resources.map((res, index) => (
+              {data.resourcesSection.items.map((item, index) => (
                 <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
                   <ResourcesCard
-                    image={res.image}
-                    title={res.title}
-                    description={res.description}
-                    buttonText={res.buttonText}
-                    link={res.link}
+                    image={item.image.path}
+                    title={item.title}
+                    description=""
+                    buttonText={item.link.label}
+                    link={item.link.uri}
                     buttonIcon={<OpenInNewIcon />}
                   />
                 </Grid>
@@ -72,7 +74,7 @@ const MentorshipResourcesPage: React.FC = () => {
             </Grid>
           </Box>
         </Box>
-        <Footer {...footerData} />
+        <Footer {...footer} />
       </Box>
     </>
   );
@@ -80,9 +82,7 @@ const MentorshipResourcesPage: React.FC = () => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const combinedResponse: CombinedResponse = await fetchData(
-      'mentorship/resources',
-    );
+    const combinedResponse = await fetchData('mentorship/resources');
 
     return {
       props: {
