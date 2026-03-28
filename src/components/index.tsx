@@ -35,3 +35,4 @@ export { ResourcesCard } from './ResourcesCard';
 export { HeroWithImage } from './HeroWithImage';
 export { InfoWithContact } from './InfoWithContact';
 export { BreadCrumbsDynamic } from './BreadCrumbsDynamic';
+export { FeedbackSection } from './FeedbackSection';
