@@ -6,11 +6,14 @@ import {
   Typography,
   Button,
   Stack,
+  Alert,
+  CircularProgress,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import Link from 'next/link';
 import React, { useState } from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, type Resolver } from 'react-hook-form';
 
 import Step1BasicInfo from 'components/mentorship/Step1BasicInfo';
 import Step2Skills from 'components/mentorship/Step2Skills';
@@ -20,6 +23,7 @@ import Step5Review from 'components/mentorship/Step5Review';
 import {
   mentorRegistrationSchema,
   MentorRegistrationData,
+  mentorRegistrationDefaultValues,
 } from 'schemas/mentorSchema';
 
 const validateStep1 = async (formMethods: any) => {
@@ -86,6 +90,14 @@ const validateStep2 = async (formMethods: any) => {
   ]);
 };
 
+const validateStep3 = async (formMethods: any) => {
+  return await formMethods.trigger(['technicalAreas']);
+};
+
+const validateStep4 = async (formMethods: any) => {
+  return await formMethods.trigger(['codeLanguages', 'mentorshipFocusAreas']);
+};
+
 const validateStep5 = async (formMethods: any) => {
   return await formMethods.trigger([
     'linkedin',
@@ -100,12 +112,21 @@ const MentorRegistrationPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const formMethods = useForm({
-    resolver: zodResolver(mentorRegistrationSchema),
+  const formMethods = useForm<MentorRegistrationData>({
+    // Cast needed: z.coerce fields in Zod v4 produce `unknown` input types,
+    // causing a Resolver mismatch; the runtime output is MentorRegistrationData.
+    resolver: zodResolver(
+      mentorRegistrationSchema,
+    ) as Resolver<MentorRegistrationData>,
+    defaultValues: mentorRegistrationDefaultValues,
     mode: 'onChange',
   });
 
   const [activeStep, setActiveStep] = useState(1);
+  const [submissionStatus, setSubmissionStatus] = useState<
+    'idle' | 'loading' | 'success' | 'error'
+  >('idle');
+  const [errorMessage, setErrorMessage] = useState('');
   const totalSteps = 5;
 
   const handleNext = async () => {
@@ -119,8 +140,10 @@ const MentorRegistrationPage = () => {
         isStepValid = await validateStep2(formMethods);
         break;
       case 3:
+        isStepValid = await validateStep3(formMethods);
+        break;
       case 4:
-        isStepValid = true;
+        isStepValid = await validateStep4(formMethods);
         break;
       case 5:
         isStepValid = await validateStep5(formMethods);
@@ -139,9 +162,74 @@ const MentorRegistrationPage = () => {
     if (activeStep > 1) setActiveStep((prev) => prev - 1);
   };
 
-  const onSubmit = (data: MentorRegistrationData) => {
-    console.log('Form Data Submitted:', data);
+  const onSubmit = async (data: MentorRegistrationData) => {
+    setSubmissionStatus('loading');
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/mentor-registration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to submit application');
+      }
+
+      setSubmissionStatus('success');
+      window.scrollTo(0, 0);
+    } catch (error: any) {
+      setSubmissionStatus('error');
+      setErrorMessage(
+        error.message || 'Something went wrong. Please try again.',
+      );
+      window.scrollTo(0, 0);
+    }
   };
+
+  const onInvalid = () => {};
+
+  if (submissionStatus === 'success') {
+    return (
+      <Box
+        sx={{
+          minHeight: '100vh',
+          bgcolor: 'custom.lightBlue',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          px: 2,
+        }}
+      >
+        <Paper
+          elevation={3}
+          sx={{
+            p: { xs: 4, sm: 6 },
+            borderRadius: 2,
+            maxWidth: '540px',
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h4" gutterBottom color="success.main">
+            Application Submitted!
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 4 }}>
+            Thank you for applying to be a mentor. Your application has been
+            received and is now being reviewed. We will get back to you soon.
+          </Typography>
+          <Link href="/mentorship" passHref>
+            <Button variant="contained" color="primary">
+              Go to Mentorship Page
+            </Button>
+          </Link>
+        </Paper>
+      </Box>
+    );
+  }
 
   return (
     <FormProvider {...formMethods}>
@@ -202,6 +290,12 @@ const MentorRegistrationPage = () => {
               Step {activeStep} of {totalSteps}
             </Typography>
 
+            {submissionStatus === 'error' && (
+              <Alert severity="error" sx={{ mb: 3 }}>
+                {errorMessage}
+              </Alert>
+            )}
+
             <Box
               sx={{
                 width: '100%',
@@ -234,12 +328,13 @@ const MentorRegistrationPage = () => {
             <Stack
               direction="row"
               justifyContent="space-between"
+              alignItems="center"
               mt={5}
               spacing={2}
             >
               <Button
                 variant="outlined"
-                disabled={activeStep === 1}
+                disabled={activeStep === 1 || submissionStatus === 'loading'}
                 onClick={handleBack}
                 sx={{
                   px: { xs: 2.5, md: 3.5 },
@@ -249,17 +344,81 @@ const MentorRegistrationPage = () => {
                 Back
               </Button>
 
+              <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
+                {Object.keys(formMethods.formState.errors).length > 0 && (
+                  <Box sx={{ mb: 2 }}>
+                    <Typography color="error" variant="subtitle2" gutterBottom>
+                      Please fix the following validation errors:
+                    </Typography>
+                    <ul
+                      style={{
+                        textAlign: 'left',
+                        color: theme.palette.error.main,
+                        margin: '0 auto',
+                        display: 'inline-block',
+                      }}
+                    >
+                      {Object.entries(formMethods.formState.errors).map(
+                        ([key, error]: [string, any]) => {
+                          const label =
+                            {
+                              fullName: 'Full Name',
+                              email: 'Email',
+                              slackDisplayName: 'Slack Name',
+                              country: 'Country',
+                              city: 'City',
+                              position: 'Position',
+                              companyName: 'Company Name',
+                              calendlyLink: 'Calendly Link',
+                              menteeExpectations: 'Mentee Expectations',
+                              openToNonWomen: 'Open to non-women',
+                              isLongTermMentor: 'Mentorship Format',
+                              maxMentees: 'Max Mentees',
+                              adHocAvailability: 'Ad-hoc Availability',
+                              languages: 'Languages',
+                              yearsExperience: 'Years of Experience',
+                              bio: 'Bio',
+                              technicalAreas: 'Technical Areas',
+                              codeLanguages: 'Programming Languages',
+                              mentorshipFocusAreas: 'Mentorship Focus Areas',
+                              linkedin: 'LinkedIn',
+                              identity: 'Identity',
+                              pronouns: 'Pronouns',
+                              socialHighlight: 'Social Highlight',
+                              termsAgreed: 'Terms Agreement',
+                            }[key] || key;
+                          return (
+                            <li key={key}>
+                              <Typography variant="caption">
+                                <strong>{label}:</strong>{' '}
+                                {error?.message || 'Invalid value'}
+                              </Typography>
+                            </li>
+                          );
+                        },
+                      )}
+                    </ul>
+                  </Box>
+                )}
+              </Box>
+
               {activeStep === totalSteps ? (
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={formMethods.handleSubmit(onSubmit)}
+                  disabled={submissionStatus === 'loading'}
+                  onClick={formMethods.handleSubmit(onSubmit, onInvalid)}
                   sx={{
                     px: { xs: 2.5, md: 3.5 },
                     py: 1,
+                    minWidth: '120px',
                   }}
                 >
-                  Submit Application
+                  {submissionStatus === 'loading' ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    'Submit Application'
+                  )}
                 </Button>
               ) : (
                 <Button
