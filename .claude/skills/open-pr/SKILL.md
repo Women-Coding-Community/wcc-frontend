@@ -22,14 +22,14 @@ allowed-tools: Bash, Read, Glob
 
 2. Determine change types by mapping conventional-commit prefixes and the nature of the diff:
 
-   | Conventional prefix | PR Change Type |
-   |---|---|
-   | `feat` | New Feature |
-   | `fix` | Bug Fix |
-   | `refactor` | Code Refactor |
-   | `docs` / `doc` | Documentation |
-   | `test` | Test |
-   | `chore` / `ci` / `build` | Other |
+   | Conventional prefix      | PR Change Type |
+   | ------------------------ | -------------- |
+   | `feat`                   | New Feature    |
+   | `fix`                    | Bug Fix        |
+   | `refactor`               | Code Refactor  |
+   | `docs` / `doc`           | Documentation  |
+   | `test`                   | Test           |
+   | `chore` / `ci` / `build` | Other          |
 
    Only keep the change types present in this PR — remove the rest from the template.
 
@@ -45,10 +45,12 @@ allowed-tools: Bash, Read, Glob
 6. **Pull request checklist** — always include the contributor guide checkbox. Include "I have tested my changes locally" only for `feat`, `fix`, `refactor`, or frontend changes — omit it for pure `docs`, `chore`, or `ci` changes.
 
 7. Derive the contributor's GitHub username from the `origin` remote:
+
    ```bash
    git remote get-url origin
    # https://github.com/<username>/wcc-backend.git  or  git@github.com:<username>/wcc-backend.git
    ```
+
    Extract `<username>` from the URL (path segment before `/wcc-backend`).
 
    Print:
