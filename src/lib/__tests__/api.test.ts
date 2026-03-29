@@ -1,3 +1,5 @@
+import type * as ApiModule from '../api';
+
 jest.mock('axios', () => {
   const mockAxios = jest.fn();
   (mockAxios as any).create = jest.fn(() => mockAxios);
@@ -10,23 +12,23 @@ jest.mock('axios', () => {
 });
 
 describe('API Fetch Functions', () => {
-  let fetchFooter: () => Promise<any>;
-  let fetchData: (_path: string) => Promise<any>;
+  let fetchFooter: (typeof ApiModule)['fetchFooter'];
+  let fetchData: (typeof ApiModule)['fetchData'];
   let mockedAxios: jest.Mock;
   const originalEnv = process.env;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.resetModules();
     process.env = {
       ...originalEnv,
       API_BASE_URL: 'http://localhost:8080/api/cms/v1',
       API_KEY: 'test-key',
     };
-    // Re-require after setting env so module-level constants pick them up
-    const api = require('../api'); // eslint-disable-line @typescript-eslint/no-var-requires
+    // Re-import after setting env so module-level constants pick them up
+    const api = await import('../api');
     fetchFooter = api.fetchFooter;
     fetchData = api.fetchData;
-    mockedAxios = require('axios').default; // eslint-disable-line @typescript-eslint/no-var-requires
+    mockedAxios = (await import('axios')).default as unknown as jest.Mock;
   });
 
   afterEach(() => {

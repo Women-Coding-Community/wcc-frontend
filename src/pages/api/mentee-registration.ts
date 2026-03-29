@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { proxyRequest } from '../../lib/api';
+import { handleApiError, proxyRequest } from '../../lib/api';
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,13 +22,7 @@ export default async function handler(
     );
 
     return res.status(201).json(data ?? {});
-  } catch (error: any) {
-    if (error.response) {
-      return res.status(error.response.status).json(error.response.data);
-    }
-    if (error.message === 'Server configuration error') {
-      return res.status(500).json({ error: error.message });
-    }
-    return res.status(500).json({ error: 'Internal server error' });
+  } catch (error: unknown) {
+    return handleApiError(error, res);
   }
 }

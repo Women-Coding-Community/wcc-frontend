@@ -35,11 +35,9 @@ export const basicInfoObj = z.object({
       10,
       'Please provide at least 10 characters describing your ideal mentee',
     ),
-  openToNonWomen: z
-    .enum(['true', 'false'], {
-      message: 'Please select an option',
-    })
-    .transform((val) => val === 'true'),
+  openToNonWomen: z.boolean({
+    message: 'Please select an option',
+  }),
 });
 
 const validateBasicInfo = (
@@ -179,9 +177,8 @@ export const mentorRegistrationDefaultValues: Partial<MentorRegistrationData> =
     adHocAvailability: {},
     calendlyLink: '',
     menteeExpectations: '',
-    openToNonWomen: false,
     languages: [],
-
+    yearsExperience: 0,
     bio: '',
     mentorshipFocus: '',
     imageUrl: '',

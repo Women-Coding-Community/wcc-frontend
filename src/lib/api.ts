@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { logger } from 'bs-logger';
+import { NextApiResponse } from 'next';
 
 import aboutUsPage from './responses/aboutUs.json';
 import aboutUsTeam from './responses/aboutUsTeam.json';
@@ -82,6 +83,20 @@ export const fetchData = async (path: string) => {
       footer,
     };
   }
+};
+
+export const handleApiError = (error: unknown, res: NextApiResponse) => {
+  const err = error as {
+    response?: { status: number; data: unknown };
+    message?: string;
+  };
+  if (err.response) {
+    return res.status(err.response.status).json(err.response.data);
+  }
+  if (err.message === 'Server configuration error') {
+    return res.status(500).json({ error: err.message });
+  }
+  return res.status(500).json({ error: 'Internal server error' });
 };
 
 export const fetchFooter = async () => {

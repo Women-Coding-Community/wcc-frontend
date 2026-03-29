@@ -3,7 +3,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { COUNTRIES } from '@utils/mentorshipConstants';
 import { MentorRegistrationData } from 'schemas/mentorSchema';
 
-import { proxyRequest } from '../../lib/api';
+import { handleApiError, proxyRequest } from '../../lib/api';
+
+// Minimum hours per mentee for long-term mentorship to calculate total hours based on number of mentees.
+const HOURS_PER_MENTEE = 2;
 
 /**
  * Mapping from frontend MentorRegistrationData to backend MentorDto structure.
@@ -22,10 +25,11 @@ function mapToBackendMentorDto(data: MentorRegistrationData) {
   const pronounCategory = data.identity === 'Yes' ? 'FEMININE' : 'UNSPECIFIED';
 
   // Map MenteeSection
+  const numMentee = parseInt(data.maxMentees || '0', 10);
   const longTerm = data.isLongTermMentor
     ? {
-        numMentee: parseInt(data.maxMentees || '0', 10),
-        hours: parseInt(data.maxMentees || '0', 10) * 2, // Backend requires total hours, e.g. 2h per mentee
+        numMentee,
+        hours: numMentee * HOURS_PER_MENTEE,
       }
     : null;
 
@@ -85,26 +89,22 @@ function mapToBackendMentorDto(data: MentorRegistrationData) {
     acceptMale: data.openToNonWomen,
     acceptPromotion: data.socialHighlight === 'Yes',
     skills: {
-      yearsExperience: parseInt(data.yearsExperience as any as string, 10) || 0,
-      areas: data.technicalAreas.map((area: any) => ({
-        technicalArea: (area.technicalArea || area.name)
-          ?.toUpperCase()
-          ?.replace(/\s+/g, '_')
+      yearsExperience: data.yearsExperience || 0,
+      areas: data.technicalAreas.map((area) => ({
+        technicalArea: area.technicalArea
+          .toUpperCase()
+          .replace(/\s+/g, '_')
           .replace('C++', 'C_PLUS_PLUS')
           .replace('C#', 'C_SHARP'),
-        proficiencyLevel: (
-          area.proficiencyLevel || area.proficiency
-        )?.toUpperCase(),
+        proficiencyLevel: area.proficiencyLevel.toUpperCase(),
       })),
-      languages: data.codeLanguages.map((lang: any) => ({
-        language: (lang.language || lang.name)
-          ?.toUpperCase()
-          ?.replace(/\s+/g, '_')
+      languages: data.codeLanguages.map((lang) => ({
+        language: lang.language
+          .toUpperCase()
+          .replace(/\s+/g, '_')
           .replace('C++', 'C_PLUS_PLUS')
           .replace('C#', 'C_SHARP'),
-        proficiencyLevel: (
-          lang.proficiencyLevel || lang.proficiency
-        )?.toUpperCase(),
+        proficiencyLevel: lang.proficiencyLevel.toUpperCase(),
       })),
       mentorshipFocus: data.mentorshipFocusAreas.map((focus) =>
         focus.toUpperCase(),
@@ -141,13 +141,7 @@ export default async function handler(
     );
 
     return res.status(201).json(data ?? {});
-  } catch (error: any) {
-    if (error.response) {
-      return res.status(error.response.status).json(error.response.data);
-    }
-    if (error.message === 'Server configuration error') {
-      return res.status(500).json({ error: error.message });
-    }
-    return res.status(500).json({ error: 'Internal server error' });
+  } catch (error: unknown) {
+    return handleApiError(error, res);
   }
 }

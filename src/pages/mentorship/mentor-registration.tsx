@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, type Resolver } from 'react-hook-form';
 
 import Step1BasicInfo from 'components/mentorship/Step1BasicInfo';
 import Step2Skills from 'components/mentorship/Step2Skills';
@@ -113,7 +113,11 @@ const MentorRegistrationPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const formMethods = useForm<MentorRegistrationData>({
-    resolver: zodResolver(mentorRegistrationSchema),
+    // Cast needed: z.coerce fields in Zod v4 produce `unknown` input types,
+    // causing a Resolver mismatch; the runtime output is MentorRegistrationData.
+    resolver: zodResolver(
+      mentorRegistrationSchema,
+    ) as Resolver<MentorRegistrationData>,
     defaultValues: mentorRegistrationDefaultValues,
     mode: 'onChange',
   });

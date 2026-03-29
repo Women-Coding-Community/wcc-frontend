@@ -26,7 +26,7 @@ const makeReq = (overrides: Partial<NextApiRequest> = {}): NextApiRequest =>
       menteeExpectations: 'Eager to learn and proactive.',
       openToNonWomen: true,
       languages: ['English'],
-      yearsExperience: '5',
+      yearsExperience: 5,
       bio: 'A passionate developer with 5 years of experience.',
       technicalAreas: [
         { technicalArea: 'Fullstack', proficiencyLevel: 'Advanced' },

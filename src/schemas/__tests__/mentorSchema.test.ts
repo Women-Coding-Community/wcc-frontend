@@ -13,7 +13,7 @@ describe('mentorRegistrationSchema validation', () => {
     maxMentees: '2',
     calendlyLink: 'https://calendly.com/janedoe',
     menteeExpectations: 'Eager to learn and proactive.',
-    openToNonWomen: 'true',
+    openToNonWomen: true,
     languages: ['English'],
     yearsExperience: '5',
     bio: 'A passionate developer with 5 years of experience.',
