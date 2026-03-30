@@ -423,8 +423,9 @@ const Step1BasicInfo = () => {
               component="legend"
               sx={{ mb: 0.5, color: 'text.primary' }}
             >
-              Are you open to mentoring individuals who do not identify as
-              women? *
+              Our community prioritizes supporting women and underrepresented
+              genders in tech. Are you open to mentoring mentees of all gender
+              identities? *
             </FormLabel>
 
             <Controller
@@ -433,23 +434,23 @@ const Step1BasicInfo = () => {
               render={({ field }) => (
                 <RadioGroup
                   row
-                  aria-label="open to mentoring non-women"
+                  aria-label="mentoring preferences"
                   value={
                     field.value !== undefined && field.value !== null
                       ? String(field.value)
                       : ''
                   }
-                  onChange={(e) => field.onChange(e.target.value)}
+                  onChange={(e) => field.onChange(e.target.value === 'true')}
                 >
                   <FormControlLabel
                     value="true"
                     control={<Radio />}
-                    label="Yes"
+                    label="Yes, open to mentoring people of all genders"
                   />
                   <FormControlLabel
                     value="false"
                     control={<Radio />}
-                    label="No"
+                    label="I prefer to focus on women and non-binary individuals"
                   />
                 </RadioGroup>
               )}

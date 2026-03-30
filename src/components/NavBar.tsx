@@ -269,6 +269,7 @@ export const NavBar = () => {
             width: '100%',
             height: isMobile ? '80%' : '100%',
             maxWidth: '1128px',
+            px: 2,
           }}
         >
           <Image

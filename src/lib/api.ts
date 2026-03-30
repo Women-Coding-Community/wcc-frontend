@@ -1,5 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { logger } from 'bs-logger';
+import { NextApiResponse } from 'next';
 
 import aboutUsPage from './responses/aboutUs.json';
 import aboutUsTeam from './responses/aboutUsTeam.json';
@@ -21,6 +22,41 @@ const client = axios.create({
   timeout: 5000,
 });
 
+/**
+ * Shared request handler for API routes to avoid duplication.
+ */
+export const proxyRequest = async (
+  path: string,
+  options: AxiosRequestConfig = {},
+  usePlatformApi = false,
+) => {
+  if (!apiBaseUrl || !API_KEY) {
+    logger.error(
+      'Server configuration error: API_BASE_URL or API_KEY is missing',
+    );
+    throw new Error('Server configuration error');
+  }
+
+  let url = `${apiBaseUrl}/${path}`;
+
+  if (usePlatformApi) {
+    // Derive platform API host from CMS API URL (e.g., http://host/api/cms/v1 -> http://host/api/platform/v1)
+    const host = apiBaseUrl.split('/api/')[0];
+    url = `${host}/api/platform/v1/${path}`;
+  }
+
+  try {
+    const response = await client({
+      url,
+      ...options,
+    });
+    return response.data;
+  } catch (error: any) {
+    logger.error(`API request failed for ${url}: ${error.message}`);
+    throw error;
+  }
+};
+
 const pageData = {
   landingPage: landingPageData,
   'mentorship/overview': mentorShipPage,
@@ -36,46 +72,37 @@ const pageData = {
 
 export const fetchData = async (path: string) => {
   try {
-    logger.info(
-      `Attempting to fetchData for ${apiBaseUrl}/${path} with ${API_KEY}`,
-    );
-    const response = await client.get(`${apiBaseUrl}/${path}`, {
-      headers: {
-        'X-API-KEY': API_KEY,
-      },
-    });
-
-    const footerData = await fetchFooter();
-    return {
-      data: response.data,
-      footer: footerData,
-    };
+    const data = await proxyRequest(path);
+    const footer = await fetchFooter();
+    return { data, footer };
   } catch (error) {
-    logger.error(
-      `Failed to fetchData for ${path} with ${API_KEY}. Error: ${error}`,
-    );
-    const footerData = await fetchFooter();
-
+    const footer = await fetchFooter();
     return {
       //@ts-ignore
       data: pageData[path],
-      footer: footerData,
+      footer,
     };
   }
 };
 
+export const handleApiError = (error: unknown, res: NextApiResponse) => {
+  const err = error as {
+    response?: { status: number; data: unknown };
+    message?: string;
+  };
+  if (err.response) {
+    return res.status(err.response.status).json(err.response.data);
+  }
+  if (err.message === 'Server configuration error') {
+    return res.status(500).json({ error: err.message });
+  }
+  return res.status(500).json({ error: 'Internal server error' });
+};
+
 export const fetchFooter = async () => {
   try {
-    logger.debug(`Attempting to fetchFooter`);
-    const response = await client.get(`${apiBaseUrl}/footer`, {
-      headers: { 'X-API-KEY': API_KEY },
-    });
-
-    return response.data;
+    return await proxyRequest('footer');
   } catch (error) {
-    logger.error(
-      `Failed to fetchFooter, generating fallback footer. Error: ${error}`,
-    );
     return footerData;
   }
 };
