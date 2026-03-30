@@ -11,7 +11,11 @@ import {
   Title,
 } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
-import { FooterResponse, MentorshipProgrammeData, FeedbackItem } from '@utils/types';
+import {
+  FooterResponse,
+  MentorshipProgrammeData,
+  FeedbackItem,
+} from '@utils/types';
 import { fetchData } from 'lib/api';
 import theme from 'theme';
 
