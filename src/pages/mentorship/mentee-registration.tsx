@@ -25,6 +25,8 @@ import MenteeStep1BasicInfo from 'components/mentorship/MenteeStep1BasicInfo';
 import MenteeStep2Skills from 'components/mentorship/MenteeStep2Skills';
 import MenteeStep3Applications from 'components/mentorship/MenteeStep3Applications';
 import { MentorOption } from 'components/mentorship/MentorApplicationCard';
+import RegistrationClosed from 'components/mentorship/RegistrationClosed';
+import { IS_REGISTRATION_OPEN } from 'utils/mentorshipConstants';
 
 const TOTAL_STEPS = 3;
 
@@ -55,6 +57,7 @@ const validateStep2 = async (formMethods: UseFormReturn<MenteeFormData>) =>
 const MenteeRegistrationPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const registrationOpen = IS_REGISTRATION_OPEN;
 
   const formMethods = useForm<MenteeFormData>({
     resolver: zodResolver(menteeFormSchema),
@@ -68,6 +71,7 @@ const MenteeRegistrationPage = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
+    if (!registrationOpen) return;
     fetch('/api/mentors')
       .then((res) => res.json())
       .then((data) => {
@@ -83,7 +87,7 @@ const MenteeRegistrationPage = () => {
       .catch(() => {
         // silently fall back to empty list — user can still submit if API is down
       });
-  }, []);
+  }, [registrationOpen]);
 
   const handleNext = async () => {
     let isValid;
@@ -204,10 +208,16 @@ const MenteeRegistrationPage = () => {
             sx={{
               position: 'relative',
               zIndex: 1,
-              pt: { xs: 4, sm: 6, md: 8 },
+              pt: registrationOpen ? { xs: 4, sm: 6, md: 8 } : 0,
               px: { xs: 2, sm: 3 },
               maxWidth: isMobile ? '100%' : theme.custom?.innerBox?.maxWidth,
               margin: '0 auto',
+              ...(!registrationOpen && {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '70vh',
+              }),
             }}
           >
             <Box
@@ -238,7 +248,9 @@ const MenteeRegistrationPage = () => {
                 bgcolor: 'white',
               }}
             >
-              {submitted ? (
+              {!registrationOpen ? (
+                <RegistrationClosed />
+              ) : submitted ? (
                 <Box sx={{ textAlign: 'center', py: 4 }}>
                   <Typography variant="h5" gutterBottom fontWeight={600}>
                     Application submitted!
