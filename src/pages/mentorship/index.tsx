@@ -165,11 +165,11 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
             }
             variant="outlined"
             data-testid="feedback-show-more"
-            sx={{
+            sx={(t) => ({
               borderRadius: '20px',
-              border: '1px solid #71787E',
-              color: '#1A4B66',
-            }}
+              border: `1px solid ${t.palette.custom.outline}`,
+              color: t.palette.custom.linkBlue,
+            })}
           >
             {feedbacksDisplayed >= feedbacks.length
               ? '- Show less'
