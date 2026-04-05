@@ -2,6 +2,7 @@
 /* eslint-disable unused-imports/no-unused-vars */
 
 import { createTheme } from '@mui/material/styles';
+import type { CSSProperties } from 'react';
 
 const COLORS = {
   lightBlue: '#C7E7FF',
@@ -9,6 +10,7 @@ const COLORS = {
   lightPink: '#FFDBD0',
   softGray: '#F4F0EF',
   linkBlue: '#1A4B66',
+  outline: '#71787E',
 } as const;
 
 declare module '@mui/material/styles' {
@@ -84,6 +86,7 @@ declare module '@mui/material/styles' {
       lightOrange: string;
       studyGroupCardColors: string[];
       linkBlue: string;
+      outline: string;
     };
   }
   interface PaletteOptions {
@@ -93,7 +96,31 @@ declare module '@mui/material/styles' {
       lightOrange?: string;
       studyGroupCardColors?: string[];
       linkBlue?: string;
+      outline?: string;
     };
+  }
+
+  interface TypographyVariants {
+    outlineButton: CSSProperties;
+    outlineButtonSmall: CSSProperties;
+    linkButtonContained: CSSProperties;
+    linkButtonContainedSmall: CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    outlineButton?: CSSProperties;
+    outlineButtonSmall?: CSSProperties;
+    linkButtonContained?: CSSProperties;
+    linkButtonContainedSmall?: CSSProperties;
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    outlineButton: true;
+    outlineButtonSmall: true;
+    linkButtonContained: true;
+    linkButtonContainedSmall: true;
   }
 }
 
@@ -204,6 +231,33 @@ const theme = createTheme({
       lineHeight: 1.2,
     },
 
+    outlineButton: {
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: 500,
+      fontSize: '0.875rem',
+      lineHeight: '20px',
+      letterSpacing: '0.1px',
+      textTransform: 'none',
+    },
+    outlineButtonSmall: {
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: 500,
+      fontSize: '0.8rem',
+      lineHeight: '20px',
+      letterSpacing: '0.1px',
+      textTransform: 'none',
+    },
+    linkButtonContained: {
+      fontWeight: 600,
+      fontSize: '1rem',
+      textTransform: 'none',
+    },
+    linkButtonContainedSmall: {
+      fontWeight: 600,
+      fontSize: '0.8rem',
+      textTransform: 'none',
+    },
+
     fontWeightBold: 600,
     fontWeightMedium: 400,
   },
@@ -228,6 +282,7 @@ const theme = createTheme({
         COLORS.softGray,
       ],
       linkBlue: COLORS.linkBlue,
+      outline: COLORS.outline,
     },
     text: {
       primary: '#1b1919',
