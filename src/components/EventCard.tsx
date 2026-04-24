@@ -32,6 +32,7 @@ export const EventCard = ({
   return (
     <Grid
       container
+      data-testid="event-card"
       sx={{
         maxWidth: isMobile ? '362px' : '544px',
         margin: '0 auto',
@@ -65,6 +66,7 @@ export const EventCard = ({
                 <Image
                   src={images[0].path}
                   alt={images[0].alt}
+                  data-testid="event-card-image"
                   fill
                   style={{ objectFit: 'cover' }}
                   priority
@@ -74,6 +76,7 @@ export const EventCard = ({
               <Image
                 src={images[0].path}
                 alt={images[0].alt}
+                data-testid="event-card-image"
                 width={134}
                 height={134}
                 style={{ objectFit: 'cover' }}
@@ -86,6 +89,7 @@ export const EventCard = ({
             <Typography
               variant="caption"
               component="label"
+              data-testid="event-card-type"
               sx={{
                 display: 'inline-block',
                 padding: '6px 12px',
@@ -111,6 +115,7 @@ export const EventCard = ({
               <Typography
                 variant="body2"
                 fontSize={12}
+                data-testid="event-card-date"
                 fontWeight={500}
                 lineHeight={1.3}
               >
@@ -119,6 +124,7 @@ export const EventCard = ({
             </Box>
             <Typography
               variant="h5"
+              data-testid="event-card-title"
               fontSize={24}
               lineHeight={1.3}
               fontWeight={400}
@@ -128,6 +134,7 @@ export const EventCard = ({
             </Typography>
             <Typography
               variant="body2"
+              data-testid="event-card-speaker"
               fontSize={14}
               fontWeight={400}
               lineHeight={1.4}
@@ -140,6 +147,7 @@ export const EventCard = ({
         <Box>
           <Typography
             variant="body1"
+            data-testid="event-card-description"
             fontSize={16}
             fontWeight={400}
             lineHeight={1.5}
@@ -150,7 +158,7 @@ export const EventCard = ({
         </Box>
       </Box>
       <Box sx={{ marginTop: 'auto' }}>
-        <LinkButton href={link.uri} reversed>
+        <LinkButton href={link.uri} reversed data-testid="event-card-cta">
           {link.label}{' '}
           <LaunchIcon sx={{ paddingLeft: '5px', fontSize: '16px' }} />
         </LinkButton>
