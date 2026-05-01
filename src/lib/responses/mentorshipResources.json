@@ -1,54 +1,28 @@
 {
-  "id": "page:MENTORSHIP_RESOURCES",
-  "heroSection": {
-    "title": "Mentorship Resources"
-  },
-  "section": {
-    "description": "Whether you’re a mentee looking to navigate your journey, a mentor aiming to provide the best guidance, or a seasoned mentor seeking quick tips, we have the tools you need. Explore our guides for insightful mentorship advice and strategies."
-  },
-  "resourcesSection": {
-    "title": "Available Resources",
-    "description": "Download and explore our curated mentorship materials",
-    "items": [
-      {
-        "title": "Mentees Guide",
-        "description": "A practical guide for mentees to get the most out of mentorship.",
-        "link": {
-          "label": "Download PDF",
-          "uri": "https://drive.google.com/file/d/1xPbW8BlQoLXkuAJ7m0RuvOV02Opyr445"
-        },
-        "image": {
-          "path": "/mentee_guideMedia.jpg",
-          "alt": "woman working on a laptop",
-          "type": "desktop"
-        }
-      },
-      {
-        "title": "Mentor's Pocketbook",
-        "description": "Quick mentor reference notes and useful mentorship tips.",
-        "link": {
-          "label": "Download PDF",
-          "uri": "https://drive.google.com/file/d/1rgoOTqqG4Gu6e4tw45efFspDnoYRgYd9"
-        },
-        "image": {
-          "path": "/mentor_pocketbookMedia.jpg",
-          "alt": "Image decorative",
-          "type": "desktop"
-        }
-      },
-      {
-        "title": "Mentor's Guide",
-        "description": "Guidance and best practices for mentors to support their mentees effectively.",
-        "link": {
-          "label": "Download PDF",
-          "uri": "https://drive.google.com/file/d/1wTkCSG95BVg-0XX4r7FnFiV24_SXlbM_"
-        },
-        "image": {
-          "path": "/mentor_guideeMedia.jpg",
-          "alt": "two women sitting by a desk and talking together",
-          "type": "desktop"
-        }
-      }
-    ]
-  }
+  "heroTitle": "Mentorship Resources",
+  "heroDescription": "Whether you’re a mentee looking to navigate your journey, a mentor aiming to provide the best guidance, or a seasoned mentor seeking quick tips, we have the tools you need. Explore our guides for insightful mentorship advice and strategies.",
+  "resources": [
+    {
+      "image": "/mentee_guideMedia.jpg",
+      "title": "Mentee’s Guide",
+      "description": "",
+      "buttonText": "View Guide",
+      "link": "#"
+    },
+    {
+      "image": "/mentor_pocketbookMedia.jpg",
+      "title": "Mentor’s Pocketbook",
+      "description": "",
+      "buttonText": "View Pocketbook",
+      "link": "#"
+    },
+    {
+      "image": "/mentor_guideeMedia.jpg",
+      "title": "Mentor’s Guide",
+      "description": "",
+      "buttonText": "View Guide",
+      "link": "#"
+    }
+  ],
+  "footer": "footerData.json content"
 }

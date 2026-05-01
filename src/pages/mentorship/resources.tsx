@@ -7,6 +7,7 @@ import { Title, ResourcesCard, Footer, BreadCrumbsDynamic } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, MentorshipResourcesResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
+import footerData from 'lib/responses/footer.json';
 import pageData from 'lib/responses/mentorshipResources.json';
 
 type CombinedResponse = {
@@ -14,18 +15,9 @@ type CombinedResponse = {
   footer: FooterResponse;
 };
 
-type MentorshipResourcesPageProps = {
-  data?: MentorshipResourcesResponse;
-  footer: FooterResponse;
-};
-
-const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
-  data,
-  footer,
-}) => {
+const MentorshipResourcesPage: React.FC = () => {
   const isMobile = useIsMobile();
-  const page = (data ?? pageData) as MentorshipResourcesResponse;
-  const { heroSection, section, resourcesSection } = page;
+  const { heroTitle, heroDescription, resources } = pageData;
 
   return (
     <>
@@ -35,7 +27,7 @@ const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
         sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
       >
         <Box sx={{ flexGrow: 1 }}>
-          <Title title={heroSection.title} />
+          <Title title={heroTitle} />
 
           <Box
             sx={{
@@ -52,7 +44,7 @@ const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
                 lineHeight: 1.5,
               }}
             >
-              {section.description}
+              {heroDescription}
             </Typography>
           </Box>
 
@@ -65,14 +57,14 @@ const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
             }}
           >
             <Grid container spacing={4}>
-              {resourcesSection.items.map((res, index) => (
+              {resources.map((res, index) => (
                 <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
                   <ResourcesCard
-                    image={res.image.path}
+                    image={res.image}
                     title={res.title}
-                    description={res.description ?? ''}
-                    buttonText={res.link.label}
-                    link={res.link.uri}
+                    description={res.description}
+                    buttonText={res.buttonText}
+                    link={res.link}
                     buttonIcon={<OpenInNewIcon />}
                   />
                 </Grid>
@@ -80,7 +72,7 @@ const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
             </Grid>
           </Box>
         </Box>
-        <Footer {...footer} />
+        <Footer {...footerData} />
       </Box>
     </>
   );
