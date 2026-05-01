@@ -11,7 +11,6 @@ import mentors from './responses/mentors.json';
 import mentorShipPage from './responses/mentorship.json';
 import mentorShipCodeOfConduct from './responses/mentorshipCodeOfConduct.json';
 import mentorshipFaqPageData from './responses/mentorshipFaqPage.json';
-import mentorshipResourcesPage from './responses/mentorshipResources.json';
 import studyGroupsPage from './responses/mentorshipStudyGroupsPage.json';
 
 const apiBaseUrl = process.env.API_BASE_URL;
@@ -68,7 +67,6 @@ const pageData = {
   'mentorship/code-of-conduct': mentorShipCodeOfConduct,
   team: aboutUsTeam,
   'mentorship/faq': mentorshipFaqPageData,
-  'mentorship/resources': mentorshipResourcesPage,
   'mentorship/study-groups': studyGroupsPage,
 };
 
