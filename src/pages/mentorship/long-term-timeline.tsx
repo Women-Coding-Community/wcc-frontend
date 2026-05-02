@@ -24,7 +24,7 @@ const MentorshipLongTermTimelinePage = ({ data, footer }: CombinedResponse) => {
   const isMobile = useIsMobile();
   return (
     <>
-      {isMobile ? null : <BreadCrumbsDynamic />}
+      <BreadCrumbsDynamic />
       <Title title={'Long-Term Mentorship Timeline'} />
       <Box sx={theme.custom.containerBox}>
         <Timeline position="right">

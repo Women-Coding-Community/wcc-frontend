@@ -161,7 +161,7 @@ const MentorsPage = () => {
 
   return (
     <>
-      {isMobile ? null : <BreadCrumbsDynamic />}
+      <BreadCrumbsDynamic />
       <Title title="Meet Our Mentors" />
       <Box sx={theme.custom.containerBox}>
         {/* Filter / Search bar */}
