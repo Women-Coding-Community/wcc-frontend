@@ -4,7 +4,6 @@ import { GetServerSideProps } from 'next';
 import React from 'react';
 
 import { Title, ResourcesCard, Footer, BreadCrumbsDynamic } from '@components';
-import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, MentorshipResourcesResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
 import footerData from 'lib/responses/footer.json';
@@ -16,12 +15,11 @@ type CombinedResponse = {
 };
 
 const MentorshipResourcesPage: React.FC = () => {
-  const isMobile = useIsMobile();
   const { heroTitle, heroDescription, resources } = pageData;
 
   return (
     <>
-      {isMobile ? null : <BreadCrumbsDynamic />}
+      <BreadCrumbsDynamic />
 
       <Box
         sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}

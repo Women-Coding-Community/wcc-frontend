@@ -2,10 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Alert,
   Box,
-  Breadcrumbs,
   Button,
   Container,
-  Link,
   Paper,
   Stack,
   Typography,
@@ -16,6 +14,7 @@ import NextLink from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 
+import { BreadCrumbsDynamic } from '@components';
 import {
   menteeFormDefaultValues,
   menteeFormSchema,
@@ -175,24 +174,7 @@ const MenteeRegistrationPage = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          py: 2,
-          px: { xs: 2, sm: 3, md: '157px' },
-        }}
-      >
-        <Breadcrumbs>
-          <Link href="/" color="primary" underline="always">
-            Home
-          </Link>
-          <Link href="/mentorship" color="primary" underline="always">
-            Mentorship
-          </Link>
-          <Typography color="text.primary">Mentee Registration</Typography>
-        </Breadcrumbs>
-      </Box>
-
+      <BreadCrumbsDynamic />
       <FormProvider {...formMethods}>
         <Box
           sx={{

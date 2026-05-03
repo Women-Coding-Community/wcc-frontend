@@ -19,7 +19,11 @@ jest.mock('next/link', () => {
 });
 
 jest.mock('next/router', () => ({
-  useRouter: () => ({ push: jest.fn(), pathname: '/' }),
+  useRouter: () => ({
+    push: jest.fn(),
+    pathname: '/mentorship/mentee-registration',
+    query: {},
+  }),
 }));
 
 // Mutable flag so individual tests can override the registration state

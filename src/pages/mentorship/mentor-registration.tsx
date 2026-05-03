@@ -15,6 +15,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { useForm, FormProvider, type Resolver } from 'react-hook-form';
 
+import { BreadCrumbsDynamic } from '@components';
 import Step1BasicInfo from 'components/mentorship/Step1BasicInfo';
 import Step2Skills from 'components/mentorship/Step2Skills';
 import Step3DomainSkills from 'components/mentorship/Step3DomainSkills';
@@ -195,248 +196,258 @@ const MentorRegistrationPage = () => {
 
   if (submissionStatus === 'success') {
     return (
-      <Box
-        sx={{
-          minHeight: '100vh',
-          bgcolor: 'custom.lightBlue',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          px: 2,
-        }}
-      >
-        <Paper
-          elevation={3}
+      <>
+        <BreadCrumbsDynamic />
+        <Box
           sx={{
-            p: { xs: 4, sm: 6 },
-            borderRadius: 2,
-            maxWidth: '540px',
-            textAlign: 'center',
+            minHeight: '100vh',
+            bgcolor: 'custom.lightBlue',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            px: 2,
           }}
         >
-          <Typography variant="h4" gutterBottom color="success.main">
-            Application Submitted!
-          </Typography>
-          <Typography variant="body1" sx={{ mb: 4 }}>
-            Thank you for applying to be a mentor. Your application has been
-            received and is now being reviewed. We will get back to you soon.
-          </Typography>
-          <Link href="/mentorship" passHref>
-            <Button variant="contained" color="primary">
-              Go to Mentorship Page
-            </Button>
-          </Link>
-        </Paper>
-      </Box>
+          <Paper
+            elevation={3}
+            sx={{
+              p: { xs: 4, sm: 6 },
+              borderRadius: 2,
+              maxWidth: '540px',
+              textAlign: 'center',
+            }}
+          >
+            <Typography variant="h4" gutterBottom color="success.main">
+              Application Submitted!
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 4 }}>
+              Thank you for applying to be a mentor. Your application has been
+              received and is now being reviewed. We will get back to you soon.
+            </Typography>
+            <Link href="/mentorship" passHref>
+              <Button variant="contained" color="primary">
+                Go to Mentorship Page
+              </Button>
+            </Link>
+          </Paper>
+        </Box>
+      </>
     );
   }
 
   return (
-    <FormProvider {...formMethods}>
-      <Box
-        sx={{
-          minHeight: '100vh',
-          bgcolor: 'custom.lightBlue',
-          position: 'relative',
-          overflow: 'hidden',
-          pb: 8,
-        }}
-      >
-        <Container
-          maxWidth={false}
+    <>
+      <BreadCrumbsDynamic />
+      <FormProvider {...formMethods}>
+        <Box
           sx={{
+            minHeight: '100vh',
+            bgcolor: 'custom.lightBlue',
             position: 'relative',
-            zIndex: 1,
-            pt: { xs: 4, sm: 10, md: '18.75rem' },
-            px: { xs: 2, sm: 3 },
-            maxWidth: isMobile ? '100%' : theme.custom.innerBox.maxWidth,
-            margin: '0 auto',
+            overflow: 'hidden',
+            pb: 8,
           }}
         >
-          <Box
-            component="img"
-            src="/mentor-hero-bg.png"
-            alt="Mentor background"
+          <Container
+            maxWidth={false}
             sx={{
-              position: 'absolute',
-              top: '-6.25rem',
-              right: 0,
-              height: { xs: '220px', sm: '280px', md: '360px', lg: '420px' },
-              width: 'auto',
-              zIndex: -1,
-              opacity: 0.9,
-              pointerEvents: 'none',
-            }}
-          />
-          <Paper
-            elevation={3}
-            sx={{
-              p: { xs: 3, sm: 4, md: 5 },
-              borderRadius: 2,
-              width: '100%',
-              maxWidth: { xs: '100%', sm: '540px', md: '640px' },
-              mx: 'auto',
-              bgcolor: 'white',
+              position: 'relative',
+              zIndex: 1,
+              pt: { xs: 4, sm: 10, md: '18.75rem' },
+              px: { xs: 2, sm: 3 },
+              maxWidth: isMobile ? '100%' : theme.custom.innerBox.maxWidth,
+              margin: '0 auto',
             }}
           >
-            <Typography
-              variant="body2"
-              align="center"
-              sx={{
-                mb: 3,
-                color: 'text.secondary',
-              }}
-            >
-              Step {activeStep} of {totalSteps}
-            </Typography>
-
-            {submissionStatus === 'error' && (
-              <Alert severity="error" sx={{ mb: 3 }}>
-                {errorMessage}
-              </Alert>
-            )}
-
             <Box
+              component="img"
+              src="/mentor-hero-bg.png"
+              alt="Mentor background"
               sx={{
+                position: 'absolute',
+                top: '-6.25rem',
+                right: 0,
+                height: { xs: '220px', sm: '280px', md: '360px', lg: '420px' },
+                width: 'auto',
+                zIndex: -1,
+                opacity: 0.9,
+                pointerEvents: 'none',
+              }}
+            />
+            <Paper
+              elevation={3}
+              sx={{
+                p: { xs: 3, sm: 4, md: 5 },
+                borderRadius: 2,
                 width: '100%',
-                height: 6,
-                bgcolor: '#E5E5E5',
-                borderRadius: 3,
-                mb: 5,
-                overflow: 'hidden',
+                maxWidth: { xs: '100%', sm: '540px', md: '640px' },
+                mx: 'auto',
+                bgcolor: 'white',
               }}
             >
-              <Box
+              <Typography
+                variant="body2"
+                align="center"
                 sx={{
-                  width: `${(activeStep / totalSteps) * 100}%`,
-                  height: '100%',
-                  bgcolor: 'primary.main',
-                  borderRadius: 3,
-                  transition: 'width 0.3s ease',
-                }}
-              />
-            </Box>
-
-            <Box>
-              {activeStep === 1 && <Step1BasicInfo />}
-              {activeStep === 2 && <Step2Skills />}
-              {activeStep === 3 && <Step3DomainSkills />}
-              {activeStep === 4 && <Step4ProgrammingSkills />}
-              {activeStep === 5 && <Step5Review />}
-            </Box>
-
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              mt={5}
-              spacing={2}
-            >
-              <Button
-                variant="outlined"
-                disabled={activeStep === 1 || submissionStatus === 'loading'}
-                onClick={handleBack}
-                sx={{
-                  px: { xs: 2.5, md: 3.5 },
-                  py: 1,
+                  mb: 3,
+                  color: 'text.secondary',
                 }}
               >
-                Back
-              </Button>
+                Step {activeStep} of {totalSteps}
+              </Typography>
 
-              <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
-                {Object.keys(formMethods.formState.errors).length > 0 && (
-                  <Box sx={{ mb: 2 }}>
-                    <Typography color="error" variant="subtitle2" gutterBottom>
-                      Please fix the following validation errors:
-                    </Typography>
-                    <ul
-                      style={{
-                        textAlign: 'left',
-                        color: theme.palette.error.main,
-                        margin: '0 auto',
-                        display: 'inline-block',
-                      }}
-                    >
-                      {Object.entries(formMethods.formState.errors).map(
-                        ([key, error]: [string, any]) => {
-                          const label =
-                            {
-                              fullName: 'Full Name',
-                              email: 'Email',
-                              slackDisplayName: 'Slack Name',
-                              country: 'Country',
-                              city: 'City',
-                              position: 'Position',
-                              companyName: 'Company Name',
-                              calendlyLink: 'Calendly Link',
-                              menteeExpectations: 'Mentee Expectations',
-                              openToNonWomen: 'Open to non-women',
-                              isLongTermMentor: 'Mentorship Format',
-                              maxMentees: 'Max Mentees',
-                              adHocAvailability: 'Ad-hoc Availability',
-                              languages: 'Languages',
-                              yearsExperience: 'Years of Experience',
-                              bio: 'Bio',
-                              technicalAreas: 'Technical Areas',
-                              codeLanguages: 'Programming Languages',
-                              mentorshipFocusAreas: 'Mentorship Focus Areas',
-                              linkedin: 'LinkedIn',
-                              identity: 'Identity',
-                              pronouns: 'Pronouns',
-                              socialHighlight: 'Social Highlight',
-                              termsAgreed: 'Terms Agreement',
-                            }[key] || key;
-                          return (
-                            <li key={key}>
-                              <Typography variant="caption">
-                                <strong>{label}:</strong>{' '}
-                                {error?.message || 'Invalid value'}
-                              </Typography>
-                            </li>
-                          );
-                        },
-                      )}
-                    </ul>
-                  </Box>
-                )}
+              {submissionStatus === 'error' && (
+                <Alert severity="error" sx={{ mb: 3 }}>
+                  {errorMessage}
+                </Alert>
+              )}
+
+              <Box
+                sx={{
+                  width: '100%',
+                  height: 6,
+                  bgcolor: '#E5E5E5',
+                  borderRadius: 3,
+                  mb: 5,
+                  overflow: 'hidden',
+                }}
+              >
+                <Box
+                  sx={{
+                    width: `${(activeStep / totalSteps) * 100}%`,
+                    height: '100%',
+                    bgcolor: 'primary.main',
+                    borderRadius: 3,
+                    transition: 'width 0.3s ease',
+                  }}
+                />
               </Box>
 
-              {activeStep === totalSteps ? (
+              <Box>
+                {activeStep === 1 && <Step1BasicInfo />}
+                {activeStep === 2 && <Step2Skills />}
+                {activeStep === 3 && <Step3DomainSkills />}
+                {activeStep === 4 && <Step4ProgrammingSkills />}
+                {activeStep === 5 && <Step5Review />}
+              </Box>
+
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                mt={5}
+                spacing={2}
+              >
                 <Button
-                  variant="contained"
-                  color="success"
-                  disabled={submissionStatus === 'loading'}
-                  onClick={formMethods.handleSubmit(onSubmit, onInvalid)}
+                  variant="outlined"
+                  disabled={activeStep === 1 || submissionStatus === 'loading'}
+                  onClick={handleBack}
                   sx={{
                     px: { xs: 2.5, md: 3.5 },
                     py: 1,
-                    minWidth: '120px',
                   }}
                 >
-                  {submissionStatus === 'loading' ? (
-                    <CircularProgress size={24} color="inherit" />
-                  ) : (
-                    'Submit Application'
+                  Back
+                </Button>
+
+                <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
+                  {Object.keys(formMethods.formState.errors).length > 0 && (
+                    <Box sx={{ mb: 2 }}>
+                      <Typography
+                        color="error"
+                        variant="subtitle2"
+                        gutterBottom
+                      >
+                        Please fix the following validation errors:
+                      </Typography>
+                      <ul
+                        style={{
+                          textAlign: 'left',
+                          color: theme.palette.error.main,
+                          margin: '0 auto',
+                          display: 'inline-block',
+                        }}
+                      >
+                        {Object.entries(formMethods.formState.errors).map(
+                          ([key, error]: [string, any]) => {
+                            const label =
+                              {
+                                fullName: 'Full Name',
+                                email: 'Email',
+                                slackDisplayName: 'Slack Name',
+                                country: 'Country',
+                                city: 'City',
+                                position: 'Position',
+                                companyName: 'Company Name',
+                                calendlyLink: 'Calendly Link',
+                                menteeExpectations: 'Mentee Expectations',
+                                openToNonWomen: 'Open to non-women',
+                                isLongTermMentor: 'Mentorship Format',
+                                maxMentees: 'Max Mentees',
+                                adHocAvailability: 'Ad-hoc Availability',
+                                languages: 'Languages',
+                                yearsExperience: 'Years of Experience',
+                                bio: 'Bio',
+                                technicalAreas: 'Technical Areas',
+                                codeLanguages: 'Programming Languages',
+                                mentorshipFocusAreas: 'Mentorship Focus Areas',
+                                linkedin: 'LinkedIn',
+                                identity: 'Identity',
+                                pronouns: 'Pronouns',
+                                socialHighlight: 'Social Highlight',
+                                termsAgreed: 'Terms Agreement',
+                              }[key] || key;
+                            return (
+                              <li key={key}>
+                                <Typography variant="caption">
+                                  <strong>{label}:</strong>{' '}
+                                  {error?.message || 'Invalid value'}
+                                </Typography>
+                              </li>
+                            );
+                          },
+                        )}
+                      </ul>
+                    </Box>
                   )}
-                </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  onClick={handleNext}
-                  sx={{
-                    px: { xs: 2.5, md: 3.5 },
-                    py: 1,
-                  }}
-                >
-                  Next
-                </Button>
-              )}
-            </Stack>
-          </Paper>
-        </Container>
-      </Box>
-    </FormProvider>
+                </Box>
+
+                {activeStep === totalSteps ? (
+                  <Button
+                    variant="contained"
+                    color="success"
+                    disabled={submissionStatus === 'loading'}
+                    onClick={formMethods.handleSubmit(onSubmit, onInvalid)}
+                    sx={{
+                      px: { xs: 2.5, md: 3.5 },
+                      py: 1,
+                      minWidth: '120px',
+                    }}
+                  >
+                    {submissionStatus === 'loading' ? (
+                      <CircularProgress size={24} color="inherit" />
+                    ) : (
+                      'Submit Application'
+                    )}
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    onClick={handleNext}
+                    sx={{
+                      px: { xs: 2.5, md: 3.5 },
+                      py: 1,
+                    }}
+                  >
+                    Next
+                  </Button>
+                )}
+              </Stack>
+            </Paper>
+          </Container>
+        </Box>
+      </FormProvider>
+    </>
   );
 };
 
