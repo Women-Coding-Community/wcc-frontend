@@ -89,9 +89,7 @@ test.describe('Validate Home Page', () => {
     await basePage.clickElement(homePage.joinAsMentorBtn);
 
     await basePage.verifyURL('/mentorship/mentor-registration');
-    await basePage.verifyPageContainsText(
-      'Welcome to the MentorRegistrationPage',
-    );
+    await basePage.verifyPageContainsText('WCC: Registration Form for Mentors');
   });
 
   test('HP-004: Volunteer section', async ({ homePage, basePage }) => {
