@@ -130,20 +130,30 @@ export const Footer = ({
           </Box>
           <Typography
             variant="body1"
-            color="primary.dark"
-            typography={{ fontWeight: '600' }}
-            pt={2}
-            sx={{ fontSize: '16px' }}
+            sx={{
+              fontSize: '16px',
+              fontWeight: 500,
+              color: '#000000',
+              pt: 2,
+            }}
           >
-            {link.title} <br />
+            {link?.title || 'Experiencing Technical Issues?'} <br />
             <Link
-              href={link.uri}
-              color="primary.dark"
+              href={
+                link?.uri ||
+                'https://github.com/Women-Coding-Community/wcc-website/issues'
+              }
               target="_blank"
               rel="noopener noreferrer"
-              typography={{ fontWeight: '500' }}
+              sx={{
+                color: 'custom.linkBlue',
+                fontSize: '14px',
+                fontWeight: 400,
+                textDecoration: 'underline',
+              }}
             >
-              {link.label}
+              {/* Hardcoded to match Figma #218 and override incomplete BE label */}
+              Send us a report on GitHub
             </Link>
           </Typography>
         </Box>
