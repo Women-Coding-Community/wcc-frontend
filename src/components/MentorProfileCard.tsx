@@ -5,7 +5,7 @@ import StarIcon from '@mui/icons-material/Star';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Box, Icon, Tab, Tabs, Typography } from '@mui/material';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { LinkButton } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
@@ -48,6 +48,8 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
+const FALLBACK_IMAGE = '/profile-illustration-female-fallback.jpg';
+
 export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
   mentor,
 }) => {
@@ -55,6 +57,12 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) =>
     setTab(newValue);
   const isMobile = useIsMobile();
+  const [imgSrc, setImgSrc] = useState(
+    mentor.images[0]?.path || FALLBACK_IMAGE,
+  );
+  const handleImageError = useCallback(() => {
+    setImgSrc(FALLBACK_IMAGE);
+  }, []);
 
   return (
     <Box
@@ -93,16 +101,14 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           }}
         >
           <Image
-            src={
-              mentor.images[0]?.path ||
-              '/profile-illustration-female-fallback.jpg'
-            }
+            src={imgSrc}
             alt={
               mentor.images[0]?.alt ||
               'Profile Illustration Fallback - Image by rawpixel.com on Freepik'
             }
             width={120}
             height={120}
+            onError={handleImageError}
             style={{
               objectFit: 'cover',
               borderRadius: '100%',

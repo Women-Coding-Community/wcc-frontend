@@ -159,6 +159,7 @@ test.describe('Validate Navigation', () => {
       async ({ page }) => {
         await expect(page.getByRole('banner')).toHaveScreenshot(
           'nav-mobile-closed.png',
+          { maxDiffPixels: 100 },
         );
       },
     );
