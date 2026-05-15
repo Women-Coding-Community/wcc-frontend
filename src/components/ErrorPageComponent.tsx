@@ -18,17 +18,22 @@ export const ErrorPageComponent: React.FC<ErrorProps> = ({ title }) => {
       }}
     >
       <main>
-        <Typography variant="h3" color="#001E2E" sx={{ marginBottom: '20px' }}>
+        <Typography variant="h3" color="#001E2E" sx={{ marginBottom: "20px" }}>
           {title}
         </Typography>
 
         <Image
           src="/icons/error-illustration.png"
           alt="Error Robot"
-          width="100"
-          height="100"
+          width={743}
+          height={418}
+          sizes="100vw"
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
         />
-        <Typography variant="body1">
+        <Typography variant="body1" sx={{ marginTop: "30px", marginBottom: "20px" }}>
           Something went wrong on our end. Please try again later.
         </Typography>
         <Button
@@ -36,7 +41,7 @@ export const ErrorPageComponent: React.FC<ErrorProps> = ({ title }) => {
           href="/"
           variant="contained"
           color="primary"
-          sx={{ borderRadius: '100px' }}
+          sx={{ borderRadius: "100px", marginBottom:"20px" }}
         >
           Back to home
         </Button>
