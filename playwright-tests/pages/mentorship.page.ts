@@ -65,7 +65,7 @@ export class MentorshipPage extends BasePage {
       level: 5,
       name: /You should become a mentee if you:/i,
     });
-    this.menteeListItems = page.locator('ol[data-testid="mentee-card"] > li');
+    this.menteeListItems = page.getByTestId('become-mentee-card').locator('li');
   }
 
   getTestimonialCard(index: number): TestimonialCard {
