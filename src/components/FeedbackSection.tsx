@@ -68,7 +68,7 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
                   mentee={feedback.memberType === 'Mentee'}
                   year={
                     typeof feedback.year === 'string'
-                      ? parseInt(feedback.year, 10)
+                      ? Number.parseInt(feedback.year, 10)
                       : feedback.year
                   }
                 />
