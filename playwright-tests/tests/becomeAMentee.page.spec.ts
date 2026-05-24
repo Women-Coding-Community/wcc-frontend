@@ -4,18 +4,13 @@ import { HomePage } from '@pages/home.page';
 import { MentorshipPage } from '@pages/mentorship.page';
 
 test('Validate "Become a Mentee" section and Find a Mentor button', async ({
-  page,
+  page, mentorshipPage, homePage
 }) => {
   // Navigate to Mentorship page
   await page.goto('/mentorship');
 
-  // "Become a Mentee" section
-  const { sectionTitle, description, menteeListItems } = new MentorshipPage(
-    page,
-  );
-
-  await expect(sectionTitle).toBeVisible();
-  await expect(description).toBeVisible();
+  await expect(mentorshipPage.sectionTitle).toBeVisible();
+  await expect(mentorshipPage.description).toBeVisible();
 
   // List items
   const items = [
@@ -26,12 +21,8 @@ test('Validate "Become a Mentee" section and Find a Mentor button', async ({
     'Need support in advancing your career',
   ];
 
-  await expect(menteeListItems).toHaveText(items);
-
-  // Validate "Find a mentor" button
-  const { findMentorButton } = new HomePage(page);
-  await findMentorButton.click();
-
-  // Verify redirection
+  await expect(mentorshipPage.menteeListItems).toHaveText(items);
+  
+  await homePage.findMentorButton.click();
   await expect(page).toHaveURL(/\/mentorship\/mentors/);
 });
