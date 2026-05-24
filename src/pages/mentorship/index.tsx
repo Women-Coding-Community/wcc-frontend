@@ -98,7 +98,7 @@ const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
           buttonText={'Join as a mentor'}
         ></MentorBecomeCard>
         <MentorBecomeCard
-          listTestId="mentee-card"
+          listTestId="become-mentee-card"
           mentorOrMentee="mentee"
           topics={[
             'Want to start a career in software engineering',
