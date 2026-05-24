@@ -1,78 +1,108 @@
-import axios from 'axios';
-
-const apiBaseUrl = process.env.API_BASE_URL;
-const API_KEY = process.env.API_KEY;
+import axios, { AxiosRequestConfig } from 'axios';
+import { logger } from 'bs-logger';
+import { NextApiResponse } from 'next';
 
 import aboutUsPage from './responses/aboutUs.json';
 import aboutUsTeam from './responses/aboutUsTeam.json';
 import footerData from './responses/footer.json';
 import landingPageData from './responses/landingPage.json';
+import mentorShipLongTermTimeline from './responses/longTermTimeLine.json';
 import mentors from './responses/mentors.json';
 import mentorShipPage from './responses/mentorship.json';
-import mentorShipCodeofConduct from './responses/mentorshipCodeOfConduct.json';
+import mentorShipCodeOfConduct from './responses/mentorshipCodeOfConduct.json';
 import mentorshipFaqPageData from './responses/mentorshipFaqPage.json';
-import mentorshipStudyGroupsPage from './responses/mentorshipStudyGroupsPage.json';
-import ourProgrammesPage from './responses/programmes.json';
+import studyGroupsPage from './responses/mentorshipStudyGroupsPage.json';
 
-// for new pages: import the json file
-// (which you copied from https://github.com/Women-Coding-Community/wcc-backend/tree/main/src/main/resources)
-// and add it to pageData with the path in the pages path (e.g. mentorship/index.ts = mentorship/overview)
+const apiBaseUrl = process.env.API_BASE_URL;
+const API_KEY = process.env.API_KEY;
+
+const client = axios.create({
+  baseURL: apiBaseUrl,
+  headers: { 'X-API-KEY': API_KEY },
+  timeout: 5000,
+});
+
+/**
+ * Shared request handler for API routes to avoid duplication.
+ */
+export const proxyRequest = async (
+  path: string,
+  options: AxiosRequestConfig = {},
+  usePlatformApi = false,
+) => {
+  if (!apiBaseUrl || !API_KEY) {
+    logger.error(
+      'Server configuration error: API_BASE_URL or API_KEY is missing',
+    );
+    throw new Error('Server configuration error');
+  }
+
+  let url = `${apiBaseUrl}/${path}`;
+
+  if (usePlatformApi) {
+    // Derive platform API host from CMS API URL (e.g., http://host/api/cms/v1 -> http://host/api/platform/v1)
+    const host = apiBaseUrl.split('/api/')[0];
+    url = `${host}/api/platform/v1/${path}`;
+  }
+
+  try {
+    const response = await client({
+      url,
+      ...options,
+    });
+    return response.data;
+  } catch (error: any) {
+    logger.error(`API request failed for ${url}: ${error.message}`);
+    throw error;
+  }
+};
 
 const pageData = {
   landingPage: landingPageData,
   'mentorship/overview': mentorShipPage,
-  'programmes/study-groups': ourProgrammesPage,
+  'mentorship/long-term-timeline': mentorShipLongTermTimeline,
+  'programmes/study-groups': studyGroupsPage,
   'about-us/celebrate-her': aboutUsPage,
   'mentorship/mentors': mentors,
-  'mentorship/code-of-conduct': mentorShipCodeofConduct,
+  'mentorship/code-of-conduct': mentorShipCodeOfConduct,
   team: aboutUsTeam,
-  'mentorship-faq-page': mentorshipFaqPageData,
-  'mentorship/study-groups': mentorshipStudyGroupsPage,
+  'mentorship/faq': mentorshipFaqPageData,
+  'mentorship/study-groups': studyGroupsPage,
 };
 
 export const fetchData = async (path: string) => {
   try {
-    const response = await axios.get(`${apiBaseUrl}/${path}`, {
-      headers: {
-        'X-API-KEY': API_KEY,
-      },
-    });
-
-    const footerData = await fetchFooter();
-
-    // if (response.status !== 200) {
-    //   throw new Error('Failed to fetch data');
-    // }
-    return {
-      data: response.data,
-      footer: footerData,
-    };
+    const data = await proxyRequest(path);
+    const footer = await fetchFooter();
+    return { data, footer };
   } catch (error) {
-    // This temporarily allows responses if the database is down, should be removed once it's more stable
-    // the pageData[path] takes the response you mapped the key of pageData to the import in this file
+    const footer = await fetchFooter();
     return {
       //@ts-ignore
       data: pageData[path],
-      footer: footerData,
+      footer,
     };
   }
 };
 
+export const handleApiError = (error: unknown, res: NextApiResponse) => {
+  const err = error as {
+    response?: { status: number; data: unknown };
+    message?: string;
+  };
+  if (err.response) {
+    return res.status(err.response.status).json(err.response.data);
+  }
+  if (err.message === 'Server configuration error') {
+    return res.status(500).json({ error: err.message });
+  }
+  return res.status(500).json({ error: 'Internal server error' });
+};
+
 export const fetchFooter = async () => {
   try {
-    const response = await axios.get(`${apiBaseUrl}/footer`, {
-      headers: {
-        'X-API-KEY': API_KEY,
-      },
-    });
-
-    // if (response.status !== 200) {
-    //   throw new Error('Failed to fetch footer data');
-    // }
-    return response.data;
+    return await proxyRequest('footer');
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Failed to fetch data, generating fallback footer');
     return footerData;
   }
 };

@@ -30,6 +30,14 @@
 <!--  WILL BE IMPLEMENTED LATER: -->
 <!--  On page level: Ensure you have added/updated the integration tests. -->
 
+<!--
+If E2E visual tests fail due to screenshot differences and the UI has been changed intentionally, update the reference screenshots by running:
+
+pnpm test:e2e:docker:update
+
+Verify the updated snapshots and commit them as part of this PR.
+-->
+
 ## Pull request checklist
 
 Please check if your PR fulfills the following requirements:

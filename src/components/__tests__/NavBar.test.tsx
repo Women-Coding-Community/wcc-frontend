@@ -34,14 +34,7 @@ describe('NavBar', () => {
 
   it('should render logo and menu items', () => {
     renderWithRouter(<NavBar />);
-    const navItems = [
-      'Find a mentor',
-      'Programmes',
-      'About Us',
-      'Jobs',
-      'Events',
-      'Blog',
-    ];
+    const navItems = ['Programmes', 'About Us', 'Events', 'Blog'];
     navItems.forEach((item) => {
       expect(screen.getByText(item)).toBeInTheDocument();
     });
@@ -57,21 +50,13 @@ describe('NavBar', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Book Club')).toBeInTheDocument();
     fireEvent.click(screen.getByText('Book Club'));
-    expect(mockRouter).toMatchObject({ pathname: '/programmes/book-club' });
-
-    fireEvent.click(screen.getByText('Programmes'));
-    expect(
-      screen.getByRole('menuitem', { name: /Our Programmes/i }),
-    ).toBeInTheDocument();
-    expect(screen.getByText('Our Programmes')).toBeInTheDocument();
-    fireEvent.click(screen.getByText('Our Programmes'));
-    expect(mockRouter).toMatchObject({ pathname: '/programmes' });
+    expect(mockRouter).toMatchObject({ pathname: '/programme-book-club' });
 
     fireEvent.click(screen.getByText('About Us'));
     expect(screen.getByRole('menuitem', { name: /Team/i })).toBeInTheDocument();
     expect(screen.getByText('Team')).toBeInTheDocument();
     fireEvent.click(screen.getByText('Team'));
-    expect(mockRouter).toMatchObject({ pathname: '/about-us/team' });
+    expect(mockRouter).toMatchObject({ pathname: '/team' });
 
     fireEvent.click(screen.getByText('Mentorship'));
     expect(
@@ -85,11 +70,6 @@ describe('NavBar', () => {
     expect(mockRouter).toMatchObject({ pathname: '/events' });
     fireEvent.click(screen.getByText('Blog'));
     expect(mockRouter).toMatchObject({ pathname: '/blog' });
-    fireEvent.click(screen.getByText('Jobs'));
-    expect(mockRouter).toMatchObject({ pathname: '/jobs' });
-
-    fireEvent.click(screen.getByText('Find a mentor'));
-    expect(mockRouter).toMatchObject({ pathname: '/mentorship/mentors' });
 
     fireEvent.click(screen.getByRole('img', { name: 'Logo' }));
     expect(mockRouter).toMatchObject({ pathname: '/' });

@@ -62,10 +62,10 @@ describe('TimelineCard Component', () => {
 
     const card = screen.getByText(mockProps.title).closest('.MuiCard-root');
     const computedStyle = card ? window.getComputedStyle(card) : null;
-    expect(computedStyle?.maxWidth).toBe('300px');
+    expect(computedStyle?.maxWidth).toBe('400px');
     expect(computedStyle?.minHeight).toBe('226px');
     expect(card).toHaveStyle({
-      maxWidth: '300px',
+      maxWidth: '400px',
       minHeight: '226px',
     });
   });

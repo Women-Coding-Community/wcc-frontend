@@ -1,0 +1,187 @@
+import {
+  Grid,
+  TextField,
+  MenuItem,
+  Typography,
+  Box,
+  Select,
+  Checkbox,
+  ListItemText,
+  OutlinedInput,
+} from '@mui/material';
+import React from 'react';
+import { useFormContext, Controller } from 'react-hook-form';
+
+import { SPOKEN_LANGUAGES } from '@utils/mentorshipConstants';
+
+import StepSection from './StepSection';
+
+const inputStyle = {
+  '& .MuiOutlinedInput-root': {
+    backgroundColor: '#F5F5F5',
+    borderRadius: '4px',
+    '& fieldset': { border: 'none' },
+    '&:hover fieldset': { border: 'none' },
+    '&.Mui-focused fieldset': { border: '1px solid #333' },
+  },
+  '& .MuiInputBase-input': { padding: '12px 14px' },
+};
+
+const boldLabelStyle = {
+  fontWeight: 700,
+  color: '#1B1919',
+  mb: 0.5,
+  display: 'block',
+  fontSize: '16px',
+  fontFamily: 'Roboto',
+};
+
+const helperTextStyle = {
+  fontSize: '12px',
+  color: '#666',
+  mt: 1,
+  lineHeight: 1.5,
+};
+
+const LANGUAGES = SPOKEN_LANGUAGES.map((lang) => lang.label);
+
+const Step2Skills = () => {
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext();
+
+  return (
+    <StepSection
+      title="Skills"
+      description="In this section, please share the skills and expertise you can offer as a mentor. This helps mentees find the right guidance that aligns with their career goals."
+    >
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>
+            Which languages do you speak? *
+          </Typography>
+          <Controller
+            name="languages"
+            control={control}
+            defaultValue={[]}
+            render={({ field }) => (
+              <Select
+                {...field}
+                multiple
+                displayEmpty
+                fullWidth
+                error={!!errors.languages}
+                input={<OutlinedInput sx={inputStyle} />}
+                renderValue={(selected) => {
+                  if (selected.length === 0)
+                    return (
+                      <span style={{ color: '#aaa' }}>
+                        Choose as many as you like
+                      </span>
+                    );
+                  return selected.join(', ');
+                }}
+              >
+                {LANGUAGES.map((lang) => (
+                  <MenuItem key={lang} value={lang}>
+                    <Checkbox checked={field.value.includes(lang)} />
+                    <ListItemText primary={lang} />
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
+          />
+          {errors.languages && (
+            <Typography variant="caption" color="error">
+              {errors.languages.message as string}
+            </Typography>
+          )}
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>
+            How many years of experience do you have in tech? *
+          </Typography>
+          <TextField
+            fullWidth
+            type="number"
+            {...register('yearsExperience')}
+            error={!!errors.yearsExperience}
+            helperText={errors.yearsExperience?.message as string}
+            sx={inputStyle}
+            inputProps={{ min: 2, max: 50, step: 1 }}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>
+            Please share a brief summary of your professional background and
+            expertise. *
+          </Typography>
+          <Box sx={{ mb: 1, ml: 2 }}>
+            <Typography
+              variant="body2"
+              sx={{ fontSize: '14px', color: '#555' }}
+            >
+              You may include:
+            </Typography>
+            <ul
+              style={{
+                margin: 0,
+                paddingLeft: '20px',
+                fontSize: '14px',
+                color: '#555',
+              }}
+            >
+              <li>Areas of expertise and specializations</li>
+              <li>Years of experience</li>
+              <li>Notable achievements or certifications</li>
+              <li>Successful projects or career highlights</li>
+            </ul>
+          </Box>
+          <TextField
+            fullWidth
+            multiline
+            rows={4}
+            {...register('bio')}
+            error={!!errors.bio}
+            helperText={errors.bio?.message as string}
+            sx={inputStyle}
+          />
+          <Typography sx={helperTextStyle}>
+            This information will be displayed in your mentor profile on the
+            programme website and serve as your personal introduction to mentees
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography variant="subtitle2" sx={boldLabelStyle}>
+            List potential mentoring topics you can discuss with your mentee
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{ mb: 1, fontSize: '14px', color: '#555' }}
+          >
+            Software Development Strategies, Resume Review, Preparation for The
+            Technical Interview etc.
+          </Typography>
+          <TextField
+            fullWidth
+            multiline
+            rows={3}
+            {...register('mentorshipFocus')}
+            error={!!errors.mentorshipFocus}
+            sx={inputStyle}
+          />
+          <Typography sx={helperTextStyle}>
+            This information will be displayed in your mentor profile.
+          </Typography>
+        </Grid>
+      </Grid>
+    </StepSection>
+  );
+};
+
+export default Step2Skills;

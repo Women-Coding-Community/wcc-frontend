@@ -9,16 +9,20 @@ import {
   ColoredBox,
   FeedbackCard,
   MentorBecomeCard,
+  Title,
 } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
-import { MentorshipProgrammeData, FeedbackItem } from '@utils/types';
+import {
+  FooterResponse,
+  MentorshipProgrammeData,
+  FeedbackItem,
+} from '@utils/types';
 import { fetchData } from 'lib/api';
-import footerData from 'lib/responses/footer.json';
-import pageData from 'lib/responses/mentorship.json';
 import theme from 'theme';
 
 interface MentorshipPageProps {
   mentorship: MentorshipProgrammeData;
+  footer: FooterResponse;
   error: string | null;
 }
 
@@ -26,34 +30,12 @@ interface FeedbackSectionProps {
   title: string;
   feedbacks: FeedbackItem[];
 }
-const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
-  const heroTitle = pageData.heroSection.title;
-  const heroDescription = pageData.section.description;
+const MentorshipPage = ({ mentorship, footer }: MentorshipPageProps) => {
   const isMobile = useIsMobile();
   return (
     <>
       {isMobile ? null : <BreadCrumbsDynamic />}
-      <Box
-        sx={{
-          backgroundColor: theme.palette.primary.light,
-          width: '100%',
-          textAlign: 'center',
-          py: { xs: 6, md: 8 },
-          px: { xs: 2, md: 0 },
-        }}
-      >
-        <Typography
-          variant="h2"
-          sx={{
-            fontWeight: 700,
-            fontSize: { xs: '32px', sm: '48px', md: '60px' },
-            lineHeight: 1.2,
-            color: theme.palette.primary.dark,
-          }}
-        >
-          {heroTitle}
-        </Typography>
-      </Box>
+      <Title title={mentorship.heroSection.title} />
 
       <Box
         sx={{
@@ -73,7 +55,7 @@ const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
             color: theme.palette.common.black,
           }}
         >
-          {heroDescription}
+          {mentorship.section.description}
         </Typography>
       </Box>
 
@@ -88,34 +70,23 @@ const MentorshipPage = ({ mentorship }: MentorshipPageProps) => {
       >
         <MentorBecomeCard
           mentorOrMentee="mentor"
-          topics={[
-            'Want to extend your professional network',
-            'Want to contribute to the community',
-            'You are ready to share expertise',
-            'You want to get a new perspective and learn from your mentees',
-          ]}
-          buttonUrl="https://docs.google.com/forms/d/e/1FAIpQLSdtf7-upMp1m5kJ4MSpexS-UwGJHhACEW-yPoEQoROHi4kVcg/viewform"
-          buttonText={'Join as a mentor'}
+          topics={mentorship.mentorSection.items}
+          buttonUrl={mentorship.mentorSection.link.uri}
+          buttonText={mentorship.mentorSection.link.label}
         ></MentorBecomeCard>
         <MentorBecomeCard
           listTestId="become-mentee-card"
           mentorOrMentee="mentee"
-          topics={[
-            'Want to start a career in software engineering',
-            'Want to find a better job',
-            'Want to be promoted at work',
-            'Want to apply for a leadership position',
-            'Need support in advancing your career',
-          ]}
-          buttonUrl="/mentorship/mentors"
-          buttonText={'Find a mentor'}
+          topics={mentorship.menteeSection.items}
+          buttonUrl={mentorship.menteeSection.link.uri}
+          buttonText={mentorship.menteeSection.link.label}
         ></MentorBecomeCard>
       </Grid>
       <FeedbackSection
         title={mentorship.feedbackSection.title}
         feedbacks={mentorship.feedbackSection.feedbacks}
       />
-      <Footer {...footerData} />
+      <Footer {...footer} />
     </>
   );
 };
@@ -219,6 +190,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
     return {
       props: {
         mentorship: response.data,
+        footer: response.footer,
+        error: null,
       },
     };
   } catch (error) {

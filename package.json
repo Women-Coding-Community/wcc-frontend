@@ -12,22 +12,30 @@
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
     "test": "jest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test --grep-invert @visual",
+    "test:e2e:visual": "playwright test",
+    "test:e2e:docker": "docker compose run --build --rm playwright pnpm run test:e2e:visual",
+    "test:e2e:docker:update": "docker compose run --build --rm playwright pnpm run test:e2e:visual --update-snapshots"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@hookform/resolvers": "^5.2.2",
     "@mui/icons-material": "^5.15.18",
+    "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.15.18",
     "@testing-library/dom": "^10.1.0",
     "axios": "^1.7.2",
+    "bs-logger": "^0.2.6",
     "css-mediaquery": "^0.1.2",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "next": "14.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "ts-jest": "^29.1.2"
+    "react-hook-form": "^7.66.0",
+    "ts-jest": "^29.1.2",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",

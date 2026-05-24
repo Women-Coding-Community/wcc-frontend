@@ -61,7 +61,6 @@ export const MentorBecomeCard = ({
         ))}
       </ol>
       <Button
-        target="_blank"
         variant="contained"
         sx={{
           backgroundColor: '#226488',

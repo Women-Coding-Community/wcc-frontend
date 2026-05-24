@@ -30,6 +30,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.womencodingcommunity.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

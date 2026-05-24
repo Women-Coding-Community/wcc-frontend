@@ -62,9 +62,16 @@ export const VolunteerSection: React.FC<VolunteerProps> = ({
               }}
             >
               <Box textAlign={isMobile ? 'center' : 'left'}>
-                <Typography variant="h4">{title}</Typography>
+                <Typography data-testid="volunteer-title" variant="h4">
+                  {title}
+                </Typography>
 
-                <Typography color="primary.dark" pt={2} pb={3}>
+                <Typography
+                  data-testid="volunteer-description"
+                  color="primary.dark"
+                  pt={2}
+                  pb={3}
+                >
                   {description}
                 </Typography>
                 <LinkButton href={linkUri}> {linkTitle}</LinkButton>

@@ -48,7 +48,9 @@ describe('Footer Component', () => {
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/© 2024 Women Coding Community/),
+      screen.getByText(
+        new RegExp(`© ${new Date().getFullYear()} Women Coding Community`),
+      ),
     ).toBeInTheDocument();
   });
 

@@ -46,6 +46,14 @@ export class MentorshipPage extends BasePage {
   readonly description: Locator;
   readonly menteeListItems: Locator;
 
+  // Mentors listing page locators
+  readonly mentorsPageTitle: Locator;
+  readonly mentorNames: Locator;
+  readonly mentorImages: Locator;
+  readonly programmingLanguagesLabel: Locator;
+  readonly presentationTab: Locator;
+  readonly skillsAndSupportTab: Locator;
+
   constructor(page: Page) {
     super(page);
 
@@ -66,6 +74,21 @@ export class MentorshipPage extends BasePage {
       name: /You should become a mentee if you:/i,
     });
     this.menteeListItems = page.getByTestId('become-mentee-card').locator('li');
+
+    this.mentorsPageTitle = page.getByRole('heading', {
+      name: 'Meet Our Mentors',
+    });
+    this.mentorNames = page.locator('h6');
+    this.mentorImages = page.getByAltText('Mentor Profile Picture Description');
+    this.programmingLanguagesLabel = page
+      .getByText('Programming languages:')
+      .first();
+    this.presentationTab = page
+      .getByRole('tab', { name: 'Presentation' })
+      .first();
+    this.skillsAndSupportTab = page
+      .getByRole('tab', { name: 'Skills & Support Areas' })
+      .first();
   }
 
   getTestimonialCard(index: number): TestimonialCard {
