@@ -440,7 +440,7 @@ const Step1BasicInfo = () => {
                       ? String(field.value)
                       : ''
                   }
-                  onChange={(e) => field.onChange(e.target.value)}
+                  onChange={(e) => field.onChange(e.target.value === 'true')}
                 >
                   <FormControlLabel
                     value="true"

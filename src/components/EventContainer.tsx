@@ -12,7 +12,7 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down(750));
 
   return (
-    <Box sx={theme.custom.containerBox}>
+    <Box sx={theme.custom.containerBox} data-testid="events-section">
       <Box sx={theme.custom.innerBox}>
         <Box
           sx={{
@@ -22,10 +22,13 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
             width: '100%',
           }}
         >
-          <Typography variant="h3">{title}</Typography>
+          <Typography variant="h3" data-testid="events-section-title">
+            {title}
+          </Typography>
           <Link
             href={link.uri}
             underline="none"
+            data-testid="events-view-all-link"
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -50,6 +53,7 @@ export const EventContainer = ({ title, link, items }: EventContainerProps) => {
           gradientColors="linear-gradient(90deg, #C7E7FF 0%, #FFDEA6 100%)"
         />
         <Box
+          data-testid="events-cards-container"
           sx={{
             display: 'grid',
             gap: isMobile ? '20px' : '40px',

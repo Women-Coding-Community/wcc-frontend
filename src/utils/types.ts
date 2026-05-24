@@ -121,9 +121,9 @@ export type MentorOrMenteeSectionData = {
   description: string;
   link: {
     label: string;
-    url: string;
+    uri: string;
   };
-  topics: string[];
+  items: string[];
 };
 
 export type FeedbackItem = {

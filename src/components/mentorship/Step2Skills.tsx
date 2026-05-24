@@ -12,10 +12,7 @@ import {
 import React from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 
-import {
-  MENTOR_EXPERIENCE_LEVELS,
-  SPOKEN_LANGUAGES,
-} from '@utils/mentorshipConstants';
+import { SPOKEN_LANGUAGES } from '@utils/mentorshipConstants';
 
 import StepSection from './StepSection';
 
@@ -47,7 +44,6 @@ const helperTextStyle = {
 };
 
 const LANGUAGES = SPOKEN_LANGUAGES.map((lang) => lang.label);
-const EXPERIENCE = MENTOR_EXPERIENCE_LEVELS;
 
 const Step2Skills = () => {
   const {
@@ -109,20 +105,14 @@ const Step2Skills = () => {
             How many years of experience do you have in tech? *
           </Typography>
           <TextField
-            select
             fullWidth
-            defaultValue=""
+            type="number"
             {...register('yearsExperience')}
             error={!!errors.yearsExperience}
             helperText={errors.yearsExperience?.message as string}
             sx={inputStyle}
-          >
-            {EXPERIENCE.map((exp) => (
-              <MenuItem key={exp} value={exp}>
-                {exp}
-              </MenuItem>
-            ))}
-          </TextField>
+            inputProps={{ min: 2, max: 50, step: 1 }}
+          />
         </Grid>
 
         <Grid item xs={12}>
@@ -186,28 +176,7 @@ const Step2Skills = () => {
             sx={inputStyle}
           />
           <Typography sx={helperTextStyle}>
-            This information will be displayed in your mentor profile on the
-            programme website.
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12}>
-          <Typography variant="subtitle2" sx={boldLabelStyle}>
-            Which photo should we use to show your profile as a mentor on our
-            website? *
-          </Typography>
-
-          <TextField
-            fullWidth
-            placeholder="https://linkedin.com/in/yourname (or any public profile image URL)"
-            {...register('imageUrl')}
-            error={!!errors.imageUrl}
-            helperText={errors.imageUrl?.message as string}
-            sx={{ ...inputStyle, mt: 1 }}
-          />
-          <Typography sx={helperTextStyle}>
-            Please share a link to your profile photo from LinkedIn or any
-            public profile.
+            This information will be displayed in your mentor profile.
           </Typography>
         </Grid>
       </Grid>

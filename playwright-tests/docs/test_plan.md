@@ -29,7 +29,7 @@ This is an overview of the playwright tests planned for this repository.
 | ---------------------------------------------------------------------- | ------ |
 | [HP-001: Join the Community](./test_details_home_page.md#hp-001)       | ✅     |
 | [HP-002: Explore Programmes](./test_details_home_page.md#hp-002)       | ✅     |
-| [HP-003: View Events](./test_details_home_page.md#hp-003)              | ⏳     |
+| [HP-003: View Events](./test_details_home_page.md#hp-003)              | ✅     |
 | [HP-004: Learn About Volunteering](./test_details_home_page.md#hp-004) | ✅     |
 
 **See:** [test_details_home_page.md](./test_details_home_page.md) for full test descriptions

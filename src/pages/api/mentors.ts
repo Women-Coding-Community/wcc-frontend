@@ -1,5 +1,6 @@
-import { logger } from 'bs-logger';
 import { NextApiRequest, NextApiResponse } from 'next';
+
+import { handleApiError, proxyRequest } from '../../lib/api';
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,14 +12,7 @@ export default async function handler(
   }
   try {
     const { keyword, yearsExperience, areas, language, focus } = req.query;
-    const baseUrl = process.env.API_BASE_URL;
-    const apiKey = process.env.API_KEY;
 
-    if (!baseUrl || !apiKey) {
-      return res.status(500).json({ error: 'Server configuration error' });
-    }
-
-    // Build query string from all available params
     const params = new URLSearchParams();
     if (keyword)
       params.append('keyword', Array.isArray(keyword) ? keyword[0] : keyword);
@@ -35,25 +29,14 @@ export default async function handler(
       );
     if (focus) params.append('focus', Array.isArray(focus) ? focus[0] : focus);
 
-    let url = `${baseUrl}/mentorship/mentors`;
-    if (params.toString()) {
-      url += `?${params.toString()}`;
-    }
-
-    const response = await fetch(url, {
+    const data = await proxyRequest('mentorship/mentors', {
       method: 'GET',
-      headers: {
-        'X-API-KEY': apiKey,
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-      },
-      cache: 'no-store',
+      params,
     });
 
-    const data = await response.json();
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     return res.status(200).json(data);
-  } catch (error) {
-    logger.error('Mentors API error:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+  } catch (error: unknown) {
+    return handleApiError(error, res);
   }
 }

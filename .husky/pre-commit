@@ -1,1 +1,1 @@
-pnpm test
+pnpm lint:fix && pnpm format && pnpm type-check && pnpm test

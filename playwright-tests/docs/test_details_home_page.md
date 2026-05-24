@@ -58,7 +58,7 @@ Tests to check home page behaviour.
 4. Verify redirect to external event platform in new tab
 5. Verify external URL contains "meetup.com"
 
-**Status:** Pending :x:
+**Status:** Done :white_check_mark:
 
 ---
 

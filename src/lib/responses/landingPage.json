@@ -184,28 +184,28 @@
     "title": "What do our community members and supporters say about the WCC?",
     "feedbacks": [
       {
-        "name": "Lucy Mentor",
-        "feedback": "It is great to be able to share my experience as a newbie in Tech with someone that has more years and experience in the industry. It has definitely made me feel more comfortable with been a completely beginner again and confident that, if a put the hours in, one day it will be pay off.",
-        "memberType": "Mentor",
-        "year": 2024
+        "name": "Busra",
+        "feedback": "My session with my mentor exceeded my expectations. She's calm, caring, and incredibly knowledgeable. She offered valuable guidance not only on my career but also on life in general. My mentor truly embodies a growth mindset. I highly recommend her to any mentee seeking direction delivered with both compassion and wisdom.",
+        "memberType": "Mentee",
+        "year": 2025
       },
       {
-        "name": "Ana Mentee",
-        "feedback": "I am exciting with this mentorship program. This is really help me to pursue my goals. I got encouragement, insights, knowledge from my mentor that makes me back on the track and focus to what I have now, upgrade it, then reach out my goals.",
+        "name": "Zayna",
+        "feedback": "My mentor really took the time to comprehend my mental barriers and gave personalised structure advice to move past them. I appreciated the mentors vulnerability in explaining similar scenarios they had been in to give me a sense of guidance and belonging. Their kindness and warmth during the session has really helped me to progress in my career due to feeling safe to open up to them.",
+        "memberType": "Mentee",
+        "year": 2025
+      },
+      {
+        "name": "Anonymous",
+        "feedback": "Just the simple act of presenting my profile and explaining my difficulties to a professional helped me structure the ideas and information in my head, and that alone was a big help. My mentor was caring, involved, and encouraging.",
+        "memberType": "Mentee",
+        "year": 2025
+      },
+      {
+        "name": "Hanna",
+        "feedback": "I am delighted to have had the opportunity to work with my mentor. Her explanations are always clear and thorough, and her enthusiasm and passion for our profession are truly contagious.\n        Working with her has not only been educational but also incredibly motivating. Her guidance and support have given me a significant boost in my professional development. I am sincerely grateful to her for the valuable insights and encouragement she has provided.\nThank you!",
         "memberType": "Mentee",
         "year": 2024
-      },
-      {
-        "name": "Jane from SurrealDB",
-        "feedback": "Add text ...",
-        "memberType": "Partner",
-        "year": 2025
-      },
-      {
-        "name": "JetBrains",
-        "feedback": "Add text ...",
-        "memberType": "Partner",
-        "year": 2025
       }
     ]
   },

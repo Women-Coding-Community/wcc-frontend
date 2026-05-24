@@ -7,6 +7,7 @@ type LinkButtonProps = {
   reversed?: boolean;
   small?: boolean;
   children: React.ReactNode;
+  'data-testid'?: string;
 };
 
 export const LinkButton = ({
@@ -14,6 +15,7 @@ export const LinkButton = ({
   reversed,
   small,
   children,
+  'data-testid': dataTestId,
 }: LinkButtonProps) => {
   const isExternal = href.startsWith('https');
 
@@ -25,6 +27,7 @@ export const LinkButton = ({
         target="_blank"
         rel="noopener noreferrer"
         variant="contained"
+        data-testid={dataTestId}
         sx={{
           backgroundColor: reversed ? '#fff' : 'primary.main',
           color: reversed ? 'primary.main' : '#fff',
@@ -45,6 +48,7 @@ export const LinkButton = ({
       <Button
         component="a"
         variant="contained"
+        data-testid={dataTestId}
         sx={{
           backgroundColor: reversed ? '#fff' : 'primary.main',
           color: reversed ? 'primary.main' : '#fff',

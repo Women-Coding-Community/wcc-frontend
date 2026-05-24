@@ -22,6 +22,17 @@ jest.mock('next/router', () => ({
   useRouter: () => ({ push: jest.fn(), pathname: '/' }),
 }));
 
+// Mutable flag so individual tests can override the registration state
+let mockIsRegistrationOpen = true;
+
+// Mock the registration toggle
+jest.mock('../../utils/mentorshipConstants', () => ({
+  ...jest.requireActual('../../utils/mentorshipConstants'),
+  get IS_REGISTRATION_OPEN() {
+    return mockIsRegistrationOpen;
+  },
+}));
+
 const renderPage = () =>
   render(
     <ThemeProvider theme={theme}>
@@ -148,5 +159,29 @@ describe('MenteeRegistrationPage', () => {
     await waitFor(() => {
       expect(screen.getByText('Step 2 of 3')).toBeInTheDocument();
     });
+  });
+});
+
+describe('MenteeRegistrationPage - registration closed', () => {
+  beforeEach(() => {
+    mockIsRegistrationOpen = false;
+  });
+
+  afterEach(() => {
+    mockIsRegistrationOpen = true;
+    jest.resetAllMocks();
+  });
+
+  it('shows closed message when registration is not open', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <MenteeRegistrationPage />
+      </ThemeProvider>,
+    );
+    expect(screen.getByText('Application is now closed')).toBeInTheDocument();
+    expect(
+      screen.getByText(/Long-Term Mentorship programme/i),
+    ).toBeInTheDocument();
+    expect(screen.queryByText('Step 1 of 3')).not.toBeInTheDocument();
   });
 });
