@@ -9,22 +9,23 @@ import {
   VolunteerSection,
   Footer,
   EventContainer,
+  FeedbackSection,
 } from '@components';
-import { FooterResponse, LandingPageResponse } from '@utils/types';
-import { fetchData } from 'lib/api';
-
-type CombinedResponse = {
-  data: LandingPageResponse;
-  footer: FooterResponse;
-};
+import {
+  FooterResponse,
+  LandingPageResponse,
+  MentorshipProgrammeData,
+} from '@utils/types';
+import { fetchData, fetchMentorship } from 'lib/api';
 
 interface HomePageProps {
   data: LandingPageResponse;
   footer: FooterResponse;
+  mentorship: MentorshipProgrammeData;
   error: string | null;
 }
 
-const HomePage = ({ data, footer, error }: HomePageProps) => {
+const HomePage = ({ data, footer, mentorship, error }: HomePageProps) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -46,6 +47,10 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmes} />
       <EventContainer {...events} />
+      <FeedbackSection
+        title={mentorship.feedbackSection.title}
+        feedbacks={mentorship.feedbackSection.feedbacks}
+      />
       <MentorBanner {...fullBannerSection} />
       <VolunteerSection {...volunteerSection} />
       <Footer {...footer} />
@@ -55,12 +60,11 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const combinedResponse: CombinedResponse = await fetchData('landingPage');
+    const { data, footer } = await fetchData('landingPage');
+    const mentorship = await fetchMentorship();
+
     return {
-      props: {
-        data: combinedResponse.data,
-        footer: combinedResponse.footer,
-      },
+      props: { data, footer, mentorship },
     };
   } catch (error) {
     return {

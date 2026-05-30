@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { logger } from 'bs-logger';
 import { NextApiResponse } from 'next';
 
+import { MentorshipProgrammeData } from '@utils/types';
+
 import aboutUsPage from './responses/aboutUs.json';
 import aboutUsTeam from './responses/aboutUsTeam.json';
 import footerData from './responses/footer.json';
@@ -85,6 +87,7 @@ export const fetchData = async (path: string) => {
   }
 };
 
+// Refactor this using fetchFromPath()
 export const handleApiError = (error: unknown, res: NextApiResponse) => {
   const err = error as {
     response?: { status: number; data: unknown };
@@ -104,5 +107,21 @@ export const fetchFooter = async () => {
     return await proxyRequest('footer');
   } catch (error) {
     return footerData;
+  }
+};
+export const fetchMentorship: () => Promise<MentorshipProgrammeData> =
+  async () => fetchFromPath('/mentorship/overview', mentorShipPage);
+
+const fetchFromPath = async (path: string, backupData: any) => {
+  try {
+    logger.debug(`Attempting to fetch from ${path}`);
+    const response = await client.get(`${apiBaseUrl}${path}`, {
+      headers: { 'X-API-KEY': API_KEY },
+    });
+
+    return response.data;
+  } catch (error) {
+    logger.error(`Failed to fetch from ${path}. Error: ${error}`);
+    return backupData;
   }
 };
