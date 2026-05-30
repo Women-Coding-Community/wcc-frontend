@@ -60,7 +60,7 @@ export class BasePage {
       Instagram: links.filter({ has: page.getByTestId('InstagramIcon') }),
       Email: links.filter({ has: page.getByTestId('EmailIcon') }),
       Slack: page.locator('a[href*="join.slack.com"]').last(),
-      'Send us a report': page.getByText('Send us a report', { exact: true }),
+      'Send us a report': page.getByText('Send us a report on GitHub', { exact: true }),
     };
   }
 
