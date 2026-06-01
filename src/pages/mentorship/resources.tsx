@@ -7,7 +7,6 @@ import { Title, ResourcesCard, Footer, BreadCrumbsDynamic } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, MentorshipResourcesResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
-import pageData from 'lib/responses/mentorshipResources.json';
 
 type CombinedResponse = {
   data: MentorshipResourcesResponse;
@@ -24,7 +23,7 @@ const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
   footer,
 }) => {
   const isMobile = useIsMobile();
-  const page = (data ?? pageData) as MentorshipResourcesResponse;
+  const page = data as MentorshipResourcesResponse;
   const { heroSection, section, resourcesSection } = page;
 
   return (
@@ -65,18 +64,23 @@ const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
             }}
           >
             <Grid container spacing={4}>
-              {resourcesSection.items.map((res, index) => (
-                <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
-                  <ResourcesCard
-                    image={res.image.path}
-                    title={res.title}
-                    description={res.description ?? ''}
-                    buttonText={res.link.label}
-                    link={res.link.uri}
-                    buttonIcon={<OpenInNewIcon />}
-                  />
-                </Grid>
-              ))}
+              {resourcesSection.items.map((res, index) => {
+                const image =
+                  typeof res.image === 'string' ? res.image : res.image.path;
+
+                return (
+                  <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+                    <ResourcesCard
+                      image={image}
+                      title={res.title}
+                      description={res.description ?? ''}
+                      buttonText={res.link.label}
+                      link={res.link.uri}
+                      buttonIcon={<OpenInNewIcon />}
+                    />
+                  </Grid>
+                );
+              })}
             </Grid>
           </Box>
         </Box>

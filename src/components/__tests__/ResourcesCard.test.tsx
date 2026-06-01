@@ -28,4 +28,34 @@ describe('ResourcesCard', () => {
     const img = screen.getByRole('img');
     expect(img).toHaveAttribute('src', '/test.jpg');
   });
+
+  it('normalizes Google Drive file preview URLs for the image source', () => {
+    render(
+      <ResourcesCard
+        {...props}
+        image="https://drive.google.com/file/d/1AQKAp76gjk1kMX7pB7pnY5G5TMnxmDVk"
+      />,
+    );
+
+    const img = screen.getByRole('img');
+    expect(img).toHaveAttribute(
+      'src',
+      'https://drive.google.com/thumbnail?id=1AQKAp76gjk1kMX7pB7pnY5G5TMnxmDVk&sz=w1000',
+    );
+  });
+
+  it('normalizes Google Drive download URLs for the image source', () => {
+    render(
+      <ResourcesCard
+        {...props}
+        image="https://drive.google.com/uc?id=1AQKAp76gjk1kMX7pB7pnY5G5TMnxmDVk&export=download"
+      />,
+    );
+
+    const img = screen.getByRole('img');
+    expect(img).toHaveAttribute(
+      'src',
+      'https://drive.google.com/thumbnail?id=1AQKAp76gjk1kMX7pB7pnY5G5TMnxmDVk&sz=w1000',
+    );
+  });
 });

@@ -19,6 +19,28 @@ interface ResourcesCardProps {
   buttonIcon?: React.ReactNode;
 }
 
+const normalizeGoogleDriveImageUrl = (imageUrl: string) => {
+  try {
+    const url = new URL(imageUrl);
+
+    if (url.hostname !== 'drive.google.com') {
+      return imageUrl;
+    }
+
+    const fileId =
+      url.pathname.match(/\/file\/d\/([^/]+)/)?.[1] ??
+      url.searchParams.get('id');
+
+    if (!fileId) {
+      return imageUrl;
+    }
+
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+  } catch {
+    return imageUrl;
+  }
+};
+
 export const ResourcesCard: React.FC<ResourcesCardProps> = ({
   image,
   title,
@@ -28,6 +50,7 @@ export const ResourcesCard: React.FC<ResourcesCardProps> = ({
   buttonIcon,
 }) => {
   const theme = useTheme();
+  const imageSrc = normalizeGoogleDriveImageUrl(image);
 
   return (
     <Card
@@ -48,7 +71,7 @@ export const ResourcesCard: React.FC<ResourcesCardProps> = ({
       <CardMedia
         component="img"
         height="180"
-        image={image}
+        image={imageSrc}
         alt={title}
         sx={{ objectFit: 'cover' }}
       />
