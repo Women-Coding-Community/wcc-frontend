@@ -67,6 +67,8 @@ export const ResourcesCard: React.FC<ResourcesCardProps> = ({
           variant="contained"
           color="primary"
           href={link}
+          target="_blank"
+          rel="noopener noreferrer"
           sx={{
             textTransform: 'none',
             borderRadius: 2,
