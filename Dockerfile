@@ -2,7 +2,8 @@ FROM mcr.microsoft.com/playwright:v1.57.0-noble AS base
 
 WORKDIR /app
 ENV CI=true
-RUN npm install -g pnpm
+ENV HUSKY=0
+RUN npm install -g pnpm@9.15.9
 
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
