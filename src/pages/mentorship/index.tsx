@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Typography, Button, Box, Grid, useMediaQuery } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React, { useState } from 'react';
@@ -74,6 +75,7 @@ const MentorshipPage = ({ mentorship, footer }: MentorshipPageProps) => {
           buttonText={mentorship.mentorSection.link.label}
         ></MentorBecomeCard>
         <MentorBecomeCard
+          listTestId="become-mentee-card"
           mentorOrMentee="mentee"
           topics={mentorship.menteeSection.items}
           buttonUrl={mentorship.menteeSection.link.uri}
