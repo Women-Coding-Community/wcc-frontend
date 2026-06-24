@@ -212,12 +212,14 @@ const MenteeRegistrationPage = () => {
               px: { xs: 2, sm: 3 },
               maxWidth: isMobile ? '100%' : theme.custom?.innerBox?.maxWidth,
               margin: '0 auto',
-              ...(!registrationOpen && {
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '70vh',
-              }),
+              ...(!registrationOpen
+                ? {
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '70vh',
+                  }
+                : {}),
             }}
           >
             <Box

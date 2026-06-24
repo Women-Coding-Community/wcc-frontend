@@ -200,4 +200,4 @@ export const PREFERENCE_LEVELS = ['Low', 'Medium', 'High', 'Not Applicable'];
  * Mentee registration toggle.
  * Set to `true` to open the registration form, `false` to show the closed page.
  */
-export const IS_REGISTRATION_OPEN = false;
+export const IS_REGISTRATION_OPEN = true;
