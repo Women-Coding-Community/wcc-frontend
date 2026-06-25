@@ -27,6 +27,14 @@ export const MENTORSHIP_TYPES: LabelValue[] = [
   { label: 'Ad-Hoc', value: 'AD_HOC' },
 ];
 
+export const ALL_MENTORSHIP_TYPES = 'All';
+
+export const FILTER_MENTORSHIP_TYPES_OPTIONS = [
+  { label: 'All', value: ALL_MENTORSHIP_TYPES },
+  { label: 'Long-term', value: 'Long-Term' },
+  { label: 'Ad-hoc', value: 'Ad-Hoc' },
+] as const;
+
 export const MENTORSHIP_FOCUS_AREAS: LabelValue[] = [
   { label: 'Switch career to IT', value: 'SWITCH_CAREER_TO_IT' },
   { label: 'Grow from beginner to mid-level', value: 'GROW_BEGINNER_TO_MID' },
