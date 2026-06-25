@@ -18,6 +18,7 @@ export const BreadCrumbsDynamic = () => {
         margin: 0,
         width: '100%',
         mx: 'auto',
+        px: 2,
         boxSizing: 'border-box',
         maxWidth: '1128px',
       }}
