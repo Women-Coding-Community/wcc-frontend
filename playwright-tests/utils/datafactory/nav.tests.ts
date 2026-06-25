@@ -57,7 +57,7 @@ export const aboutUsMenuItems = items.map(([name, url, text]) => ({
   expectedText: text,
 }));
 const mentorshipItems = [
-  ['Overview', '/'],
+  ['Overview', '/mentorship'],
   ['Mentors', '/mentorship/mentors'],
   ['Study Groups', '/mentorship/study-groups'],
   ['Resources', '/mentorship/resources'],
