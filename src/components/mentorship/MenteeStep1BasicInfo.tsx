@@ -1,12 +1,9 @@
 import {
   FormControl,
-  FormControlLabel,
   FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
-  Radio,
-  RadioGroup,
   Select,
   TextField,
   Typography,
@@ -20,7 +17,11 @@ import { COUNTRIES } from '@utils/mentorshipConstants';
 import { inputStyle } from './mentorshipStyles';
 import StepSection from './StepSection';
 
-const MenteeStep1BasicInfo = () => {
+interface Props {
+  isAdhoc?: boolean;
+}
+
+const MenteeStep1BasicInfo = ({ isAdhoc = false }: Props) => {
   const {
     register,
     control,
@@ -238,60 +239,37 @@ const MenteeStep1BasicInfo = () => {
           />
         </Grid>
 
-        <Grid item xs={12} md={6}>
-          <Typography
-            variant="subtitle2"
-            sx={{ mb: 0.5, color: 'text.primary' }}
-          >
-            Available hours per month *
-          </Typography>
-          <Controller
-            name="availableHsMonth"
-            control={control}
-            render={({ field, fieldState: { error } }) => (
-              <TextField
-                {...field}
-                type="number"
-                fullWidth
-                placeholder="e.g. 4"
-                error={!!error}
-                helperText={
-                  error?.message ?? 'How many hours can you dedicate per month?'
-                }
-                onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-                sx={inputStyle}
-              />
-            )}
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <FormControl>
+        {!isAdhoc && (
+          <Grid item xs={12} md={6}>
             <Typography
               variant="subtitle2"
               sx={{ mb: 0.5, color: 'text.primary' }}
             >
-              Mentorship type
+              Available hours per month *
             </Typography>
-            <RadioGroup row value="LONG_TERM">
-              <FormControlLabel
-                value="LONG_TERM"
-                control={<Radio />}
-                label="Long-term"
-                disabled
-              />
-              <FormControlLabel
-                value="AD_HOC"
-                control={<Radio />}
-                label="Ad-hoc (coming soon)"
-                disabled
-              />
-            </RadioGroup>
-            <FormHelperText>
-              Only long-term mentorship is available for this month.
-            </FormHelperText>
-          </FormControl>
-        </Grid>
+            <Controller
+              name="availableHsMonth"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  type="number"
+                  fullWidth
+                  placeholder="e.g. 4"
+                  error={!!error}
+                  helperText={
+                    error?.message ??
+                    'How many hours can you dedicate per month?'
+                  }
+                  onChange={(e) =>
+                    field.onChange(parseInt(e.target.value) || 0)
+                  }
+                  sx={inputStyle}
+                />
+              )}
+            />
+          </Grid>
+        )}
       </Grid>
     </StepSection>
   );

@@ -22,14 +22,17 @@ jest.mock('next/router', () => ({
   useRouter: () => ({ push: jest.fn(), pathname: '/' }),
 }));
 
-// Mutable flag so individual tests can override the registration state
+// Mutable flags so individual tests can override registration state
 let mockIsRegistrationOpen = true;
+let mockIsAdhocCycle = false;
 
-// Mock the registration toggle
 jest.mock('../../utils/mentorshipConstants', () => ({
   ...jest.requireActual('../../utils/mentorshipConstants'),
   get IS_REGISTRATION_OPEN() {
     return mockIsRegistrationOpen;
+  },
+  get IS_ADHOC_CYCLE() {
+    return mockIsAdhocCycle;
   },
 }));
 
@@ -183,5 +186,119 @@ describe('MenteeRegistrationPage - registration closed', () => {
       screen.getByText(/Long-Term Mentorship programme/i),
     ).toBeInTheDocument();
     expect(screen.queryByText('Step 1 of 3')).not.toBeInTheDocument();
+  });
+});
+
+describe('MenteeRegistrationPage - adhoc cycle', () => {
+  beforeEach(() => {
+    mockIsAdhocCycle = true;
+    globalThis.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: jest.fn().mockResolvedValue([]),
+    });
+  });
+
+  afterEach(() => {
+    mockIsAdhocCycle = false;
+    jest.resetAllMocks();
+  });
+
+  it('shows ad-hoc breadcrumb label', () => {
+    renderPage();
+    expect(
+      screen.getByText('Ad-hoc Mentee Registration'),
+    ).toBeInTheDocument();
+  });
+
+  it('does not render available hours per month field', () => {
+    renderPage();
+    expect(screen.queryByPlaceholderText('e.g. 4')).not.toBeInTheDocument();
+  });
+
+  it('navigates to step 2 without filling available hours', async () => {
+    renderPage();
+
+    fireEvent.change(screen.getByPlaceholderText('Jane Doe'), {
+      target: { value: 'Jane Doe' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('jane@example.com'), {
+      target: { value: 'jane@example.com' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('@jane'), {
+      target: { value: '@jane' },
+    });
+
+    const countrySelect = screen.getByRole('combobox');
+    fireEvent.mouseDown(countrySelect);
+    const countryOption = await screen.findByRole('option', {
+      name: /United Kingdom/i,
+    });
+    fireEvent.click(countryOption);
+
+    fireEvent.change(screen.getByPlaceholderText('London'), {
+      target: { value: 'London' },
+    });
+    fireEvent.change(
+      screen.getByPlaceholderText('e.g. Frontend Developer, Student'),
+      { target: { value: 'Developer' } },
+    );
+    fireEvent.change(screen.getByPlaceholderText('Acme Corp'), {
+      target: { value: 'Tech Corp' },
+    });
+    fireEvent.change(
+      screen.getByPlaceholderText('https://www.linkedin.com/in/yourprofile'),
+      { target: { value: 'https://www.linkedin.com/in/janedoe' } },
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: /next/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Step 2 of 3')).toBeInTheDocument();
+    });
+  });
+
+  it('shows session focus field on step 2', async () => {
+    renderPage();
+
+    fireEvent.change(screen.getByPlaceholderText('Jane Doe'), {
+      target: { value: 'Jane Doe' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('jane@example.com'), {
+      target: { value: 'jane@example.com' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('@jane'), {
+      target: { value: '@jane' },
+    });
+
+    const countrySelect = screen.getByRole('combobox');
+    fireEvent.mouseDown(countrySelect);
+    const countryOption = await screen.findByRole('option', {
+      name: /United Kingdom/i,
+    });
+    fireEvent.click(countryOption);
+
+    fireEvent.change(screen.getByPlaceholderText('London'), {
+      target: { value: 'London' },
+    });
+    fireEvent.change(
+      screen.getByPlaceholderText('e.g. Frontend Developer, Student'),
+      { target: { value: 'Developer' } },
+    );
+    fireEvent.change(screen.getByPlaceholderText('Acme Corp'), {
+      target: { value: 'Tech Corp' },
+    });
+    fireEvent.change(
+      screen.getByPlaceholderText('https://www.linkedin.com/in/yourprofile'),
+      { target: { value: 'https://www.linkedin.com/in/janedoe' } },
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: /next/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Session focus *')).toBeInTheDocument();
+      expect(
+        screen.queryByText('Mentorship goals *'),
+      ).not.toBeInTheDocument();
+    });
   });
 });

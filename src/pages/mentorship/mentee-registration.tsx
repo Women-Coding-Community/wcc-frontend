@@ -17,6 +17,7 @@ import React, { useEffect, useState } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 
 import {
+  adhocMenteeFormDefaultValues,
   menteeFormDefaultValues,
   menteeFormSchema,
   MenteeFormData,
@@ -26,11 +27,13 @@ import MenteeStep2Skills from 'components/mentorship/MenteeStep2Skills';
 import MenteeStep3Applications from 'components/mentorship/MenteeStep3Applications';
 import { MentorOption } from 'components/mentorship/MentorApplicationCard';
 import RegistrationClosed from 'components/mentorship/RegistrationClosed';
-import { IS_REGISTRATION_OPEN } from 'utils/mentorshipConstants';
+import { IS_ADHOC_CYCLE, IS_REGISTRATION_OPEN } from 'utils/mentorshipConstants';
 
 const TOTAL_STEPS = 3;
 
-const validateStep1 = async (formMethods: UseFormReturn<MenteeFormData>) =>
+const validateStep1LongTerm = async (
+  formMethods: UseFormReturn<MenteeFormData>,
+) =>
   formMethods.trigger([
     'fullName',
     'email',
@@ -41,10 +44,37 @@ const validateStep1 = async (formMethods: UseFormReturn<MenteeFormData>) =>
     'companyName',
     'linkedInProfile',
     'availableHsMonth',
-    'mentorshipType',
   ]);
 
-const validateStep2 = async (formMethods: UseFormReturn<MenteeFormData>) =>
+const validateStep1Adhoc = async (
+  formMethods: UseFormReturn<MenteeFormData>,
+) =>
+  formMethods.trigger([
+    'fullName',
+    'email',
+    'slackDisplayName',
+    'country',
+    'city',
+    'position',
+    'companyName',
+    'linkedInProfile',
+  ]);
+
+const validateStep2LongTerm = async (
+  formMethods: UseFormReturn<MenteeFormData>,
+) =>
+  formMethods.trigger([
+    'skills.yearsExperience',
+    'skills.areas',
+    'skills.languages',
+    'skills.mentorshipFocus',
+    'spokenLanguages',
+    'bio',
+  ]);
+
+const validateStep2Adhoc = async (
+  formMethods: UseFormReturn<MenteeFormData>,
+) =>
   formMethods.trigger([
     'skills.yearsExperience',
     'skills.areas',
@@ -58,10 +88,11 @@ const MenteeRegistrationPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const registrationOpen = IS_REGISTRATION_OPEN;
+  const isAdhoc = IS_ADHOC_CYCLE;
 
   const formMethods = useForm<MenteeFormData>({
     resolver: zodResolver(menteeFormSchema),
-    defaultValues: menteeFormDefaultValues,
+    defaultValues: isAdhoc ? adhocMenteeFormDefaultValues : menteeFormDefaultValues,
     mode: 'onChange',
   });
 
@@ -72,7 +103,8 @@ const MenteeRegistrationPage = () => {
 
   useEffect(() => {
     if (!registrationOpen) return;
-    fetch('/api/mentors')
+    const mentorshipTypeParam = isAdhoc ? 'Ad-Hoc' : 'Long-Term';
+    fetch(`/api/mentors?mentorshipTypes=${mentorshipTypeParam}`)
       .then((res) => res.json())
       .then((data) => {
         const mentorList: MentorOption[] = (data.mentors ?? data ?? []).map(
@@ -91,8 +123,14 @@ const MenteeRegistrationPage = () => {
 
   const handleNext = async () => {
     let isValid;
-    if (activeStep === 1) isValid = await validateStep1(formMethods);
-    else if (activeStep === 2) isValid = await validateStep2(formMethods);
+    if (activeStep === 1)
+      isValid = isAdhoc
+        ? await validateStep1Adhoc(formMethods)
+        : await validateStep1LongTerm(formMethods);
+    else if (activeStep === 2)
+      isValid = isAdhoc
+        ? await validateStep2Adhoc(formMethods)
+        : await validateStep2LongTerm(formMethods);
     else isValid = true;
 
     if (isValid && activeStep < TOTAL_STEPS) {
@@ -189,7 +227,9 @@ const MenteeRegistrationPage = () => {
           <Link href="/mentorship" color="primary" underline="always">
             Mentorship
           </Link>
-          <Typography color="text.primary">Mentee Registration</Typography>
+          <Typography color="text.primary">
+            {isAdhoc ? 'Ad-hoc Mentee Registration' : 'Mentee Registration'}
+          </Typography>
         </Breadcrumbs>
       </Box>
 
@@ -260,8 +300,9 @@ const MenteeRegistrationPage = () => {
                     color="text.secondary"
                     sx={{ mb: 3 }}
                   >
-                    Thank you for applying to our mentorship programme. We will
-                    review your application and get back to you soon.
+                    {isAdhoc
+                      ? 'Thank you for applying to our ad-hoc mentorship programme. We will review your application and get back to you soon.'
+                      : 'Thank you for applying to our mentorship programme. We will review your application and get back to you soon.'}
                   </Typography>
                   <Button
                     variant="contained"
@@ -304,8 +345,12 @@ const MenteeRegistrationPage = () => {
 
                   {/* Step content */}
                   <Box>
-                    {activeStep === 1 && <MenteeStep1BasicInfo />}
-                    {activeStep === 2 && <MenteeStep2Skills />}
+                    {activeStep === 1 && (
+                      <MenteeStep1BasicInfo isAdhoc={isAdhoc} />
+                    )}
+                    {activeStep === 2 && (
+                      <MenteeStep2Skills isAdhoc={isAdhoc} />
+                    )}
                     {activeStep === 3 && (
                       <MenteeStep3Applications mentors={mentors} />
                     )}
