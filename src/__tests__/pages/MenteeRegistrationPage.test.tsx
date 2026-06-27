@@ -205,9 +205,7 @@ describe('MenteeRegistrationPage - adhoc cycle', () => {
 
   it('shows ad-hoc breadcrumb label', () => {
     renderPage();
-    expect(
-      screen.getByText('Ad-hoc Mentee Registration'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Ad-hoc Mentee Registration')).toBeInTheDocument();
   });
 
   it('does not render available hours per month field', () => {
@@ -257,7 +255,7 @@ describe('MenteeRegistrationPage - adhoc cycle', () => {
     });
   });
 
-  it('shows session focus field on step 2', async () => {
+  it('shows mentorship goals field on step 2', async () => {
     renderPage();
 
     fireEvent.change(screen.getByPlaceholderText('Jane Doe'), {
@@ -295,10 +293,7 @@ describe('MenteeRegistrationPage - adhoc cycle', () => {
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
     await waitFor(() => {
-      expect(screen.getByText('Session focus *')).toBeInTheDocument();
-      expect(
-        screen.queryByText('Mentorship goals *'),
-      ).not.toBeInTheDocument();
+      expect(screen.getByText('Mentorship goals *')).toBeInTheDocument();
     });
   });
 });

@@ -23,9 +23,7 @@ const validLongTermBase = {
   spokenLanguages: ['English'],
   bio: 'A'.repeat(50),
   mentorshipType: 'LONG_TERM' as const,
-  applications: [
-    { mentorId: 1, priorityOrder: 1, whyMentor: 'A'.repeat(50) },
-  ],
+  applications: [{ mentorId: 1, priorityOrder: 1, whyMentor: 'A'.repeat(50) }],
 };
 
 const validAdhocBase = {
@@ -110,5 +108,4 @@ describe('adhocMenteeFormDefaultValues', () => {
   it('sets availableHsMonth to 1', () => {
     expect(adhocMenteeFormDefaultValues.availableHsMonth).toBe(1);
   });
-
 });

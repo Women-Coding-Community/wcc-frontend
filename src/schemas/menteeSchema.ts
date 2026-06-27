@@ -71,7 +71,10 @@ export const menteeFormSchema = z
       .max(5, 'Maximum 5 mentor selections'),
   })
   .superRefine((data, ctx) => {
-    if (!data.skills.mentorshipFocus || data.skills.mentorshipFocus.length === 0) {
+    if (
+      !data.skills.mentorshipFocus ||
+      data.skills.mentorshipFocus.length === 0
+    ) {
       ctx.addIssue({
         code: 'custom',
         message: 'Select at least one focus area',

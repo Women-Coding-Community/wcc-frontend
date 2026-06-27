@@ -118,56 +118,54 @@ const MenteeStep2Skills = ({ isAdhoc = false }: Props) => {
         {/* Mentorship goals */}
         <Grid item xs={12}>
           <>
-              <Typography
-                variant="subtitle2"
-                sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}
-              >
-                Mentorship goals *
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                Select the goals you want to achieve through mentorship.
-              </Typography>
-              <Controller
-                name="skills.mentorshipFocus"
-                control={control}
-                defaultValue={[]}
-                render={({ field, fieldState: { error } }) => (
-                  <Box>
-                    <FormGroup>
-                      {MENTORSHIP_FOCUS_AREAS.map((area) => (
-                        <FormControlLabel
-                          key={area.value}
-                          control={
-                            <Checkbox
-                              checked={
-                                field.value?.includes(area.value) ?? false
+            <Typography
+              variant="subtitle2"
+              sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}
+            >
+              Mentorship goals *
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Select the goals you want to achieve through mentorship.
+            </Typography>
+            <Controller
+              name="skills.mentorshipFocus"
+              control={control}
+              defaultValue={[]}
+              render={({ field, fieldState: { error } }) => (
+                <Box>
+                  <FormGroup>
+                    {MENTORSHIP_FOCUS_AREAS.map((area) => (
+                      <FormControlLabel
+                        key={area.value}
+                        control={
+                          <Checkbox
+                            checked={field.value?.includes(area.value) ?? false}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                field.onChange([
+                                  ...(field.value ?? []),
+                                  area.value,
+                                ]);
+                              } else {
+                                field.onChange(
+                                  (field.value ?? []).filter(
+                                    (v: string) => v !== area.value,
+                                  ),
+                                );
                               }
-                              onChange={(e) => {
-                                if (e.target.checked) {
-                                  field.onChange([
-                                    ...(field.value ?? []),
-                                    area.value,
-                                  ]);
-                                } else {
-                                  field.onChange(
-                                    (field.value ?? []).filter(
-                                      (v: string) => v !== area.value,
-                                    ),
-                                  );
-                                }
-                              }}
-                            />
-                          }
-                          label={area.label}
-                        />
-                      ))}
-                    </FormGroup>
-                    {error && (
-                      <FormHelperText error>{error.message}</FormHelperText>
-                    )}
-                  </Box>
-                )}
-              />
+                            }}
+                          />
+                        }
+                        label={area.label}
+                      />
+                    ))}
+                  </FormGroup>
+                  {error && (
+                    <FormHelperText error>{error.message}</FormHelperText>
+                  )}
+                </Box>
+              )}
+            />
           </>
         </Grid>
 

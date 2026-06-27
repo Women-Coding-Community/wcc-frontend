@@ -27,7 +27,10 @@ import MenteeStep2Skills from 'components/mentorship/MenteeStep2Skills';
 import MenteeStep3Applications from 'components/mentorship/MenteeStep3Applications';
 import { MentorOption } from 'components/mentorship/MentorApplicationCard';
 import RegistrationClosed from 'components/mentorship/RegistrationClosed';
-import { IS_ADHOC_CYCLE, IS_REGISTRATION_OPEN } from 'utils/mentorshipConstants';
+import {
+  IS_ADHOC_CYCLE,
+  IS_REGISTRATION_OPEN,
+} from 'utils/mentorshipConstants';
 
 const TOTAL_STEPS = 3;
 
@@ -46,9 +49,7 @@ const validateStep1LongTerm = async (
     'availableHsMonth',
   ]);
 
-const validateStep1Adhoc = async (
-  formMethods: UseFormReturn<MenteeFormData>,
-) =>
+const validateStep1Adhoc = async (formMethods: UseFormReturn<MenteeFormData>) =>
   formMethods.trigger([
     'fullName',
     'email',
@@ -60,9 +61,7 @@ const validateStep1Adhoc = async (
     'linkedInProfile',
   ]);
 
-const validateStep2 = async (
-  formMethods: UseFormReturn<MenteeFormData>,
-) =>
+const validateStep2 = async (formMethods: UseFormReturn<MenteeFormData>) =>
   formMethods.trigger([
     'skills.yearsExperience',
     'skills.areas',
@@ -93,7 +92,9 @@ const MenteeRegistrationPage = () => {
 
   const formMethods = useForm<MenteeFormData>({
     resolver: zodResolver(menteeFormSchema),
-    defaultValues: isAdhoc ? adhocMenteeFormDefaultValues : menteeFormDefaultValues,
+    defaultValues: isAdhoc
+      ? adhocMenteeFormDefaultValues
+      : menteeFormDefaultValues,
     mode: 'onChange',
   });
 
@@ -120,7 +121,7 @@ const MenteeRegistrationPage = () => {
       .catch(() => {
         // silently fall back to empty list — user can still submit if API is down
       });
-  }, [registrationOpen]);
+  }, [registrationOpen, isAdhoc]);
 
   const handleNext = async () => {
     const isValid = await getStepValidator(activeStep, isAdhoc, formMethods);
