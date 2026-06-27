@@ -34,6 +34,29 @@ import {
 
 const TOTAL_STEPS = 3;
 
+const postMenteeRegistration = async (
+  payload: unknown,
+): Promise<string | null> => {
+  try {
+    const response = await fetch('/api/mentee-registration', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) {
+      const body = await response.json().catch(() => null);
+      return (
+        body?.message ??
+        body?.error ??
+        'Something went wrong. Please try again.'
+      );
+    }
+    return null;
+  } catch {
+    return 'Network error. Please check your connection and try again.';
+  }
+};
+
 const validateStep1LongTerm = async (
   formMethods: UseFormReturn<MenteeFormData>,
 ) =>
@@ -177,30 +200,13 @@ const MenteeRegistrationPage = () => {
       })),
     };
 
-    try {
-      const response = await fetch('/api/mentee-registration', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const body = await response.json().catch(() => null);
-        const message =
-          body?.message ??
-          body?.error ??
-          'Something went wrong. Please try again.';
-        setSubmitError(message);
-        return;
-      }
-
-      setSubmitted(true);
-      window.scrollTo(0, 0);
-    } catch {
-      setSubmitError(
-        'Network error. Please check your connection and try again.',
-      );
+    const error = await postMenteeRegistration(payload);
+    if (error) {
+      setSubmitError(error);
+      return;
     }
+    setSubmitted(true);
+    window.scrollTo(0, 0);
   };
 
   return (
