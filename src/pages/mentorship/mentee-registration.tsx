@@ -58,6 +58,14 @@ const MenteeRegistrationPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const registrationOpen = IS_REGISTRATION_OPEN;
+  const closedRegistrationStyles = registrationOpen
+    ? {}
+    : {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '70vh',
+      };
 
   const formMethods = useForm<MenteeFormData>({
     resolver: zodResolver(menteeFormSchema),
@@ -212,12 +220,7 @@ const MenteeRegistrationPage = () => {
               px: { xs: 2, sm: 3 },
               maxWidth: isMobile ? '100%' : theme.custom?.innerBox?.maxWidth,
               margin: '0 auto',
-              ...(!registrationOpen && {
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '70vh',
-              }),
+              ...closedRegistrationStyles,
             }}
           >
             <Box
