@@ -60,7 +60,7 @@ const validateStep1Adhoc = async (
     'linkedInProfile',
   ]);
 
-const validateStep2LongTerm = async (
+const validateStep2 = async (
   formMethods: UseFormReturn<MenteeFormData>,
 ) =>
   formMethods.trigger([
@@ -72,17 +72,18 @@ const validateStep2LongTerm = async (
     'bio',
   ]);
 
-const validateStep2Adhoc = async (
+const getStepValidator = (
+  step: number,
+  isAdhoc: boolean,
   formMethods: UseFormReturn<MenteeFormData>,
-) =>
-  formMethods.trigger([
-    'skills.yearsExperience',
-    'skills.areas',
-    'skills.languages',
-    'skills.mentorshipFocus',
-    'spokenLanguages',
-    'bio',
-  ]);
+): Promise<boolean> => {
+  if (step === 1)
+    return isAdhoc
+      ? validateStep1Adhoc(formMethods)
+      : validateStep1LongTerm(formMethods);
+  if (step === 2) return validateStep2(formMethods);
+  return Promise.resolve(true);
+};
 
 const MenteeRegistrationPage = () => {
   const theme = useTheme();
@@ -122,17 +123,7 @@ const MenteeRegistrationPage = () => {
   }, [registrationOpen]);
 
   const handleNext = async () => {
-    let isValid;
-    if (activeStep === 1)
-      isValid = isAdhoc
-        ? await validateStep1Adhoc(formMethods)
-        : await validateStep1LongTerm(formMethods);
-    else if (activeStep === 2)
-      isValid = isAdhoc
-        ? await validateStep2Adhoc(formMethods)
-        : await validateStep2LongTerm(formMethods);
-    else isValid = true;
-
+    const isValid = await getStepValidator(activeStep, isAdhoc, formMethods);
     if (isValid && activeStep < TOTAL_STEPS) {
       setActiveStep((prev) => prev + 1);
       window.scrollTo(0, 0);

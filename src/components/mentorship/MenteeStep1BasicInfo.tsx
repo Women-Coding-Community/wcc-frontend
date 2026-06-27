@@ -262,7 +262,7 @@ const MenteeStep1BasicInfo = ({ isAdhoc = false }: Props) => {
                     'How many hours can you dedicate per month?'
                   }
                   onChange={(e) =>
-                    field.onChange(parseInt(e.target.value) || 0)
+                    field.onChange(Number.parseInt(e.target.value) || 0)
                   }
                   sx={inputStyle}
                 />
