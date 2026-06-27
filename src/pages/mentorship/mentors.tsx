@@ -19,7 +19,11 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { BreadCrumbsDynamic, MentorProfileCard, Title } from '@components';
-import { FILTER_EXPERIENCE_OPTIONS } from '@utils/mentorshipConstants';
+import {
+  ALL_MENTORSHIP_TYPES,
+  FILTER_EXPERIENCE_OPTIONS,
+  FILTER_MENTORSHIP_TYPES_OPTIONS,
+} from '@utils/mentorshipConstants';
 import { useIsMobile } from '@utils/theme-utils';
 // eslint-disable-next-line import/order
 import { Mentor } from '@utils/types';
@@ -28,6 +32,7 @@ type FilterSection = {
   types: string[];
   skills: {
     yearsExperience?: number;
+    mentorshipTypes: string[];
     areas: string[];
     languages: string[];
     mentorshipFocus: string[];
@@ -37,6 +42,8 @@ type FilterSection = {
 import theme from 'theme';
 
 const filterYearExperienceOptions = FILTER_EXPERIENCE_OPTIONS;
+const filterMentorshipTypeOptions = FILTER_MENTORSHIP_TYPES_OPTIONS;
+
 const MentorsPage = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
@@ -46,6 +53,8 @@ const MentorsPage = () => {
   const [loading, setLoading] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [keyword, setKeyword] = useState<string>('');
+  const [selectedMentorshipType, setSelectedMentorshipType] =
+    useState<string>('');
   const [selectedYearsExperience, setSelectedYearsExperience] =
     useState<string>('');
   const [selectedAreas, setSelectedAreas] = useState<string>('');
@@ -59,6 +68,9 @@ const MentorsPage = () => {
   useEffect(() => {
     if (!query) return;
     if (typeof query.keyword === 'string') setKeyword(query.keyword);
+    if (typeof query.mentorshipTypes === 'string') {
+      setSelectedMentorshipType(query.mentorshipTypes);
+    }
     if (typeof query.yearsExperience === 'string') {
       setSelectedYearsExperience(query.yearsExperience);
     } else {
@@ -80,6 +92,7 @@ const MentorsPage = () => {
         const params = new URLSearchParams();
         const filterKeys = [
           'keyword',
+          'mentorshipTypes',
           'yearsExperience',
           'areas',
           'language',
@@ -127,6 +140,7 @@ const MentorsPage = () => {
 
   const applyFilters = (opts?: {
     keyword?: string;
+    mentorshipTypes?: string;
     yearsExperience?: string;
     areas?: string;
     language?: string;
@@ -151,6 +165,7 @@ const MentorsPage = () => {
 
   const handleClearFilters = () => {
     setKeyword('');
+    setSelectedMentorshipType('');
     setSelectedYearsExperience('');
     setSelectedAreas('');
     setSelectedLanguage('');
@@ -260,6 +275,38 @@ const MentorsPage = () => {
                 {/* First row: filter dropdowns */}
                 <Grid item xs={12}>
                   <Box display="flex" flexWrap="wrap" gap={2}>
+                    <FormControl sx={{ minWidth: 120, flex: 1 }}>
+                      <InputLabel id="filter-mentorship-type-label">
+                        Mentorship type
+                      </InputLabel>
+                      <Select
+                        labelId="filter-mentorship-type-label"
+                        value={selectedMentorshipType}
+                        label="Mentorship type"
+                        onChange={(e) => {
+                          const mentorshipType = e.target.value as string;
+                          setSelectedMentorshipType(mentorshipType);
+                          if (
+                            mentorshipType === ALL_MENTORSHIP_TYPES &&
+                            !selectedMentorshipType
+                          ) {
+                            return;
+                          }
+                          applyFilters({
+                            mentorshipTypes:
+                              mentorshipType === ALL_MENTORSHIP_TYPES
+                                ? ''
+                                : mentorshipType,
+                          });
+                        }}
+                      >
+                        {filterMentorshipTypeOptions.map((option) => (
+                          <MenuItem key={option.label} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                     <FormControl sx={{ minWidth: 120, flex: 1 }}>
                       <InputLabel id="filter-experience-label">
                         Experience

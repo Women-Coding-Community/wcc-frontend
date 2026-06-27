@@ -32,7 +32,9 @@ export class BasePage {
     this.blogLink = page.getByRole('button', { name: 'Blog' });
     this.jobsLink = page.getByRole('button', { name: 'Jobs' });
     this.aboutUsDropdown = page.getByRole('button', { name: 'About Us' });
-    this.findMentorButton = page.getByRole('button', { name: 'Find a mentor' });
+    this.findMentorButton = page.getByRole('link', {
+      name: 'Check our mentors',
+    });
     this.menuitem = (itemTitle: string) =>
       page.getByRole('menuitem', { name: itemTitle });
 
