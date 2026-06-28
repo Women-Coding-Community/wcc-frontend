@@ -7,7 +7,6 @@ import { Title, ResourcesCard, Footer, BreadCrumbsDynamic } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, MentorshipResourcesResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
-import pageData from 'lib/responses/mentorshipResources.json';
 
 type CombinedResponse = {
   data: MentorshipResourcesResponse;
@@ -19,12 +18,21 @@ type MentorshipResourcesPageProps = {
   footer: FooterResponse;
 };
 
+const resourceImages = [
+  '/mentee_guideMedia.jpg',
+  '/mentor_pocketbookMedia.jpg',
+  '/mentor_guideeMedia.jpg',
+];
+
+const getResourceImage = (index: number) =>
+  resourceImages[index] ?? resourceImages[0];
+
 const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
   data,
   footer,
 }) => {
   const isMobile = useIsMobile();
-  const page = (data ?? pageData) as MentorshipResourcesResponse;
+  const page = data as MentorshipResourcesResponse;
   const { heroSection, section, resourcesSection } = page;
 
   return (
@@ -65,18 +73,22 @@ const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
             }}
           >
             <Grid container spacing={4}>
-              {resourcesSection.items.map((res, index) => (
-                <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
-                  <ResourcesCard
-                    image={res.image.path}
-                    title={res.title}
-                    description={res.description ?? ''}
-                    buttonText={res.link.label}
-                    link={res.link.uri}
-                    buttonIcon={<OpenInNewIcon />}
-                  />
-                </Grid>
-              ))}
+              {resourcesSection.items.map((res, index) => {
+                const resourceImage = getResourceImage(index);
+
+                return (
+                  <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+                    <ResourcesCard
+                      image={resourceImage}
+                      title={res.title}
+                      description={res.description ?? ''}
+                      buttonText={res.link.label}
+                      link={res.link.uri}
+                      buttonIcon={<OpenInNewIcon />}
+                    />
+                  </Grid>
+                );
+              })}
             </Grid>
           </Box>
         </Box>

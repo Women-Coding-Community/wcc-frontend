@@ -411,7 +411,7 @@ export type ResourceItem = {
   title: string;
   description?: string;
   link: Link;
-  image: Image;
+  image: string | Image;
 };
 
 export type ResourcesSection = {
