@@ -89,6 +89,7 @@ const getStepValidator = (
   return Promise.resolve(true);
 };
 
+// NOSONAR
 const MenteeRegistrationPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -412,6 +413,6 @@ const MenteeRegistrationPage = () => {
       </FormProvider>
     </>
   );
-}; //NOSONAR
+};
 
 export default MenteeRegistrationPage;
