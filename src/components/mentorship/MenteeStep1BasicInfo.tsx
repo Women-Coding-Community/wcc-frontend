@@ -21,6 +21,19 @@ import { COUNTRIES } from '@utils/mentorshipConstants';
 import { inputStyle } from './mentorshipStyles';
 import StepSection from './StepSection';
 
+const boolToRadioValue = (value: boolean | null | undefined): string => {
+  if (value === true) return 'yes';
+  if (value === false) return 'no';
+  if (value === null) return 'unspecified';
+  return '';
+};
+
+const radioValueToBool = (value: string): boolean | null => {
+  if (value === 'yes') return true;
+  if (value === 'no') return false;
+  return null;
+};
+
 const MenteeStep1BasicInfo = () => {
   const {
     register,
@@ -257,20 +270,9 @@ const MenteeStep1BasicInfo = () => {
                 </FormLabel>
                 <RadioGroup
                   row
-                  value={
-                    field.value === true
-                      ? 'yes'
-                      : field.value === false
-                        ? 'no'
-                        : field.value === null
-                          ? 'unspecified'
-                          : ''
-                  }
+                  value={boolToRadioValue(field.value)}
                   onChange={(e) => {
-                    const v = e.target.value;
-                    field.onChange(
-                      v === 'yes' ? true : v === 'no' ? false : null,
-                    );
+                    field.onChange(radioValueToBool(e.target.value));
                   }}
                 >
                   <FormControlLabel
