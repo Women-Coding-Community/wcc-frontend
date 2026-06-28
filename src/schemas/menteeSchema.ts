@@ -42,22 +42,9 @@ export const menteeFormSchema = z
     city: z.string().min(1, 'Please enter your city'),
     linkedInProfile: z.url('Please enter a valid LinkedIn URL'),
     pronouns: z.string(),
-    isWomen: z.boolean({ error: 'Please select an option' }).optional(),
-    pronounCategory: z
-      .enum([
-        'FEMININE',
-        'MASCULINE',
-        'NEUTRAL',
-        'MULTIPLE',
-        'NEOPRONOUNS',
-        'ANY',
-        'UNSPECIFIED',
-      ])
-      .optional(),
-    availableHsMonth: z
-      .number()
-      .min(1, 'Please enter at least 1 hour per month')
-      .max(224, 'Maximum 224 hours per month'),
+    isWomen: z.boolean().nullable().optional(),
+
+    availableHsMonth: z.number().min(0).max(224, 'Maximum 224 hours per month'),
     skills: skillsSchema,
     spokenLanguages: z
       .array(z.string())
@@ -81,14 +68,19 @@ export const menteeFormSchema = z
         path: ['skills', 'mentorshipFocus'],
       });
     }
-    if (data.mentorshipType === 'LONG_TERM') {
-      if (data.availableHsMonth < 2) {
-        ctx.addIssue({
-          code: 'custom',
-          message: 'Please enter at least 2 hours per month',
-          path: ['availableHsMonth'],
-        });
-      }
+    if (data.mentorshipType === 'AD_HOC' && data.availableHsMonth < 1) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Please enter at least 1 hour per month',
+        path: ['availableHsMonth'],
+      });
+    }
+    if (data.mentorshipType === 'LONG_TERM' && data.availableHsMonth < 2) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Please enter at least 2 hours per month',
+        path: ['availableHsMonth'],
+      });
     }
   });
 
@@ -121,5 +113,4 @@ export const menteeFormDefaultValues: Partial<MenteeFormData> = {
 export const adhocMenteeFormDefaultValues: Partial<MenteeFormData> = {
   ...menteeFormDefaultValues,
   mentorshipType: 'AD_HOC',
-  availableHsMonth: 1,
 };

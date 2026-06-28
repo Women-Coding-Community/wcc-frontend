@@ -104,8 +104,4 @@ describe('adhocMenteeFormDefaultValues', () => {
   it('sets mentorshipType to AD_HOC', () => {
     expect(adhocMenteeFormDefaultValues.mentorshipType).toBe('AD_HOC');
   });
-
-  it('sets availableHsMonth to 1', () => {
-    expect(adhocMenteeFormDefaultValues.availableHsMonth).toBe(1);
-  });
 });

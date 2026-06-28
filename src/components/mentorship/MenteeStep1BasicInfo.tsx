@@ -1,9 +1,13 @@
 import {
   FormControl,
+  FormControlLabel,
   FormHelperText,
+  FormLabel,
   Grid,
   InputLabel,
   MenuItem,
+  Radio,
+  RadioGroup,
   Select,
   TextField,
   Typography,
@@ -17,11 +21,7 @@ import { COUNTRIES } from '@utils/mentorshipConstants';
 import { inputStyle } from './mentorshipStyles';
 import StepSection from './StepSection';
 
-interface Props {
-  isAdhoc?: boolean;
-}
-
-const MenteeStep1BasicInfo = ({ isAdhoc = false }: Props) => {
+const MenteeStep1BasicInfo = () => {
   const {
     register,
     control,
@@ -239,37 +239,85 @@ const MenteeStep1BasicInfo = ({ isAdhoc = false }: Props) => {
           />
         </Grid>
 
-        {!isAdhoc && (
-          <Grid item xs={12} md={6}>
-            <Typography
-              variant="subtitle2"
-              sx={{ mb: 0.5, color: 'text.primary' }}
-            >
-              Available hours per month *
-            </Typography>
-            <Controller
-              name="availableHsMonth"
-              control={control}
-              render={({ field, fieldState: { error } }) => (
-                <TextField
-                  {...field}
-                  type="number"
-                  fullWidth
-                  placeholder="e.g. 4"
-                  error={!!error}
-                  helperText={
-                    error?.message ??
-                    'How many hours can you dedicate per month?'
+        <Grid item xs={12} md={6}>
+          <Controller
+            name="isWomen"
+            control={control}
+            render={({ field }) => (
+              <FormControl component="fieldset">
+                <FormLabel
+                  component="legend"
+                  sx={{
+                    mb: 0.5,
+                    color: 'text.primary',
+                    typography: 'subtitle2',
+                  }}
+                >
+                  Do you identify as a woman or non-binary?
+                </FormLabel>
+                <RadioGroup
+                  row
+                  value={
+                    field.value === true
+                      ? 'yes'
+                      : field.value === false
+                        ? 'no'
+                        : field.value === null
+                          ? 'unspecified'
+                          : ''
                   }
-                  onChange={(e) =>
-                    field.onChange(Number.parseInt(e.target.value) || 0)
-                  }
-                  sx={inputStyle}
-                />
-              )}
-            />
-          </Grid>
-        )}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    field.onChange(
+                      v === 'yes' ? true : v === 'no' ? false : null,
+                    );
+                  }}
+                >
+                  <FormControlLabel
+                    value="yes"
+                    control={<Radio />}
+                    label="Yes"
+                  />
+                  <FormControlLabel value="no" control={<Radio />} label="No" />
+                  <FormControlLabel
+                    value="unspecified"
+                    control={<Radio />}
+                    label="Prefer not to say"
+                  />
+                </RadioGroup>
+              </FormControl>
+            )}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Typography
+            variant="subtitle2"
+            sx={{ mb: 0.5, color: 'text.primary' }}
+          >
+            Available hours per month *
+          </Typography>
+          <Controller
+            name="availableHsMonth"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <TextField
+                {...field}
+                type="number"
+                fullWidth
+                placeholder="e.g. 4"
+                error={!!error}
+                helperText={
+                  error?.message ?? 'How many hours can you dedicate per month?'
+                }
+                onChange={(e) =>
+                  field.onChange(Number.parseInt(e.target.value) || 0)
+                }
+                sx={inputStyle}
+              />
+            )}
+          />
+        </Grid>
       </Grid>
     </StepSection>
   );

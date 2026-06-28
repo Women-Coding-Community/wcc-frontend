@@ -208,12 +208,12 @@ describe('MenteeRegistrationPage - adhoc cycle', () => {
     expect(screen.getByText('Ad-hoc Mentee Registration')).toBeInTheDocument();
   });
 
-  it('does not render available hours per month field', () => {
+  it('renders available hours per month field', () => {
     renderPage();
-    expect(screen.queryByPlaceholderText('e.g. 4')).not.toBeInTheDocument();
+    expect(screen.getByPlaceholderText('e.g. 4')).toBeInTheDocument();
   });
 
-  it('navigates to step 2 without filling available hours', async () => {
+  it('navigates to step 2 after filling required fields', async () => {
     renderPage();
 
     fireEvent.change(screen.getByPlaceholderText('Jane Doe'), {
@@ -247,6 +247,9 @@ describe('MenteeRegistrationPage - adhoc cycle', () => {
       screen.getByPlaceholderText('https://www.linkedin.com/in/yourprofile'),
       { target: { value: 'https://www.linkedin.com/in/janedoe' } },
     );
+    fireEvent.change(screen.getByPlaceholderText('e.g. 4'), {
+      target: { value: '2' },
+    });
 
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
@@ -289,6 +292,9 @@ describe('MenteeRegistrationPage - adhoc cycle', () => {
       screen.getByPlaceholderText('https://www.linkedin.com/in/yourprofile'),
       { target: { value: 'https://www.linkedin.com/in/janedoe' } },
     );
+    fireEvent.change(screen.getByPlaceholderText('e.g. 4'), {
+      target: { value: '2' },
+    });
 
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
 

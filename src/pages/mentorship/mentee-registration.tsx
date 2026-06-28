@@ -57,9 +57,7 @@ const postMenteeRegistration = async (
   }
 };
 
-const validateStep1LongTerm = async (
-  formMethods: UseFormReturn<MenteeFormData>,
-) =>
+const validateStep1 = async (formMethods: UseFormReturn<MenteeFormData>) =>
   formMethods.trigger([
     'fullName',
     'email',
@@ -70,18 +68,6 @@ const validateStep1LongTerm = async (
     'companyName',
     'linkedInProfile',
     'availableHsMonth',
-  ]);
-
-const validateStep1Adhoc = async (formMethods: UseFormReturn<MenteeFormData>) =>
-  formMethods.trigger([
-    'fullName',
-    'email',
-    'slackDisplayName',
-    'country',
-    'city',
-    'position',
-    'companyName',
-    'linkedInProfile',
   ]);
 
 const validateStep2 = async (formMethods: UseFormReturn<MenteeFormData>) =>
@@ -96,13 +82,9 @@ const validateStep2 = async (formMethods: UseFormReturn<MenteeFormData>) =>
 
 const getStepValidator = (
   step: number,
-  isAdhoc: boolean,
   formMethods: UseFormReturn<MenteeFormData>,
 ): Promise<boolean> => {
-  if (step === 1)
-    return isAdhoc
-      ? validateStep1Adhoc(formMethods)
-      : validateStep1LongTerm(formMethods);
+  if (step === 1) return validateStep1(formMethods);
   if (step === 2) return validateStep2(formMethods);
   return Promise.resolve(true);
 };
@@ -147,7 +129,7 @@ const MenteeRegistrationPage = () => {
   }, [registrationOpen, isAdhoc]);
 
   const handleNext = async () => {
-    const isValid = await getStepValidator(activeStep, isAdhoc, formMethods);
+    const isValid = await getStepValidator(activeStep, formMethods);
     if (isValid && activeStep < TOTAL_STEPS) {
       setActiveStep((prev) => prev + 1);
       window.scrollTo(0, 0);
@@ -164,7 +146,7 @@ const MenteeRegistrationPage = () => {
   const onSubmit = async (data: MenteeFormData) => {
     setSubmitError(null);
 
-    const networkLinks = data.network ?? [];
+    const networkLinks = [...(data.network ?? [])];
     if (data.linkedInProfile) {
       networkLinks.push({
         type: 'LINKEDIN' as const,
@@ -180,9 +162,9 @@ const MenteeRegistrationPage = () => {
         slackDisplayName: data.slackDisplayName,
         country: data.country ?? { countryCode: '', countryName: '' },
         city: data.city,
-        companyName: data.companyName ?? '',
+        companyName: data.companyName,
         pronouns: data.pronouns ?? '',
-        pronounCategory: data.pronounCategory,
+
         isWomen: data.isWomen,
         images: [],
         network: networkLinks,
@@ -250,12 +232,14 @@ const MenteeRegistrationPage = () => {
               px: { xs: 2, sm: 3 },
               maxWidth: isMobile ? '100%' : theme.custom?.innerBox?.maxWidth,
               margin: '0 auto',
-              ...(!registrationOpen && {
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '70vh',
-              }),
+              ...(!registrationOpen
+                ? {
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '70vh',
+                  }
+                : {}),
             }}
           >
             <Box
@@ -343,9 +327,7 @@ const MenteeRegistrationPage = () => {
 
                   {/* Step content */}
                   <Box>
-                    {activeStep === 1 && (
-                      <MenteeStep1BasicInfo isAdhoc={isAdhoc} />
-                    )}
+                    {activeStep === 1 && <MenteeStep1BasicInfo />}
                     {activeStep === 2 && (
                       <MenteeStep2Skills isAdhoc={isAdhoc} />
                     )}
