@@ -67,7 +67,6 @@ const validateStep1 = async (formMethods: UseFormReturn<MenteeFormData>) =>
     'position',
     'companyName',
     'linkedInProfile',
-    'availableHsMonth',
   ]);
 
 const validateStep2 = async (formMethods: UseFormReturn<MenteeFormData>) =>
@@ -328,7 +327,7 @@ const MenteeRegistrationPage = () => {
 
                   {/* Step content */}
                   <Box>
-                    {activeStep === 1 && <MenteeStep1BasicInfo />}
+                    {activeStep === 1 && <MenteeStep1BasicInfo isAdhoc={isAdhoc} />}
                     {activeStep === 2 && (
                       <MenteeStep2Skills isAdhoc={isAdhoc} />
                     )}

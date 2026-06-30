@@ -34,7 +34,7 @@ const radioValueToBool = (value: string): boolean | null => {
   return null;
 };
 
-const MenteeStep1BasicInfo = () => {
+const MenteeStep1BasicInfo = ({ isAdhoc = false }: { isAdhoc?: boolean }) => {
   const {
     register,
     control,
@@ -292,34 +292,37 @@ const MenteeStep1BasicInfo = () => {
           />
         </Grid>
 
-        <Grid item xs={12} md={6}>
-          <Typography
-            variant="subtitle2"
-            sx={{ mb: 0.5, color: 'text.primary' }}
-          >
-            Available hours per month *
-          </Typography>
-          <Controller
-            name="availableHsMonth"
-            control={control}
-            render={({ field, fieldState: { error } }) => (
-              <TextField
-                {...field}
-                type="number"
-                fullWidth
-                placeholder="e.g. 4"
-                error={!!error}
-                helperText={
-                  error?.message ?? 'How many hours can you dedicate per month?'
-                }
-                onChange={(e) =>
-                  field.onChange(Number.parseInt(e.target.value) || 0)
-                }
-                sx={inputStyle}
-              />
-            )}
-          />
-        </Grid>
+        {!isAdhoc && (
+          <Grid item xs={12} md={6}>
+            <Typography
+              variant="subtitle2"
+              sx={{ mb: 0.5, color: 'text.primary' }}
+            >
+              Available hours per month *
+            </Typography>
+            <Controller
+              name="availableHsMonth"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  type="number"
+                  fullWidth
+                  placeholder="e.g. 4"
+                  error={!!error}
+                  helperText={
+                    error?.message ??
+                    'How many hours can you dedicate per month?'
+                  }
+                  onChange={(e) =>
+                    field.onChange(Number.parseInt(e.target.value) || 0)
+                  }
+                  sx={inputStyle}
+                />
+              )}
+            />
+          </Grid>
+        )}
       </Grid>
     </StepSection>
   );

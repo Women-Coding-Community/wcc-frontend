@@ -113,4 +113,5 @@ export const menteeFormDefaultValues: Partial<MenteeFormData> = {
 export const adhocMenteeFormDefaultValues: Partial<MenteeFormData> = {
   ...menteeFormDefaultValues,
   mentorshipType: 'AD_HOC',
+  availableHsMonth: 1,
 };
