@@ -327,7 +327,9 @@ const MenteeRegistrationPage = () => {
 
                   {/* Step content */}
                   <Box>
-                    {activeStep === 1 && <MenteeStep1BasicInfo isAdhoc={isAdhoc} />}
+                    {activeStep === 1 && (
+                      <MenteeStep1BasicInfo isAdhoc={isAdhoc} />
+                    )}
                     {activeStep === 2 && (
                       <MenteeStep2Skills isAdhoc={isAdhoc} />
                     )}
