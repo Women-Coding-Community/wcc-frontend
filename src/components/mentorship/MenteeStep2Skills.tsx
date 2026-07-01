@@ -28,19 +28,25 @@ import StepSection from './StepSection';
 
 const EXPERIENCE_OPTIONS = MENTEE_EXPERIENCE_OPTIONS;
 
-const MenteeStep2Skills = () => {
+interface Props {
+  isAdhoc?: boolean;
+}
+
+const MenteeStep2Skills = ({ isAdhoc = false }: Props) => {
   const {
     control,
     register,
     formState: { errors },
   } = useFormContext();
 
-  const skillsErrors = errors.skills as any;
-
   return (
     <StepSection
       title="Skills & Experience"
-      description="Tell us about your technical background so we can help match you with the right mentor."
+      description={
+        isAdhoc
+          ? "Tell us about your technical background and what you'd like to focus on in your session."
+          : 'Tell us about your technical background so we can help match you with the right mentor.'
+      }
     >
       <Grid container spacing={3}>
         {/* Years of experience */}
@@ -92,9 +98,6 @@ const MenteeStep2Skills = () => {
             groups={TECHNICAL_AREA_GROUPS}
             proficiencyLevels={PROFICIENCY_LEVELS}
           />
-          {skillsErrors?.areas && (
-            <FormHelperText error>{skillsErrors.areas.message}</FormHelperText>
-          )}
         </Grid>
 
         {/* Programming languages with proficiency */}
@@ -110,63 +113,60 @@ const MenteeStep2Skills = () => {
             languages={CODE_LANGUAGES}
             proficiencyLevels={PROFICIENCY_LEVELS}
           />
-          {skillsErrors?.languages && (
-            <FormHelperText error>
-              {skillsErrors.languages.message}
-            </FormHelperText>
-          )}
         </Grid>
 
-        {/* Mentorship focus */}
+        {/* Mentorship goals */}
         <Grid item xs={12}>
-          <Typography
-            variant="subtitle2"
-            sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}
-          >
-            Mentorship goals *
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-            Select the goals you want to achieve through mentorship.
-          </Typography>
-          <Controller
-            name="skills.mentorshipFocus"
-            control={control}
-            defaultValue={[]}
-            render={({ field, fieldState: { error } }) => (
-              <Box>
-                <FormGroup>
-                  {MENTORSHIP_FOCUS_AREAS.map((area) => (
-                    <FormControlLabel
-                      key={area.value}
-                      control={
-                        <Checkbox
-                          checked={field.value?.includes(area.value) ?? false}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              field.onChange([
-                                ...(field.value ?? []),
-                                area.value,
-                              ]);
-                            } else {
-                              field.onChange(
-                                (field.value ?? []).filter(
-                                  (v: string) => v !== area.value,
-                                ),
-                              );
-                            }
-                          }}
-                        />
-                      }
-                      label={area.label}
-                    />
-                  ))}
-                </FormGroup>
-                {error && (
-                  <FormHelperText error>{error.message}</FormHelperText>
-                )}
-              </Box>
-            )}
-          />
+          <>
+            <Typography
+              variant="subtitle2"
+              sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}
+            >
+              Mentorship goals *
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Select the goals you want to achieve through mentorship.
+            </Typography>
+            <Controller
+              name="skills.mentorshipFocus"
+              control={control}
+              defaultValue={[]}
+              render={({ field, fieldState: { error } }) => (
+                <Box>
+                  <FormGroup>
+                    {MENTORSHIP_FOCUS_AREAS.map((area) => (
+                      <FormControlLabel
+                        key={area.value}
+                        control={
+                          <Checkbox
+                            checked={field.value?.includes(area.value) ?? false}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                field.onChange([
+                                  ...(field.value ?? []),
+                                  area.value,
+                                ]);
+                              } else {
+                                field.onChange(
+                                  (field.value ?? []).filter(
+                                    (v: string) => v !== area.value,
+                                  ),
+                                );
+                              }
+                            }}
+                          />
+                        }
+                        label={area.label}
+                      />
+                    ))}
+                  </FormGroup>
+                  {error && (
+                    <FormHelperText error>{error.message}</FormHelperText>
+                  )}
+                </Box>
+              )}
+            />
+          </>
         </Grid>
 
         {/* Spoken languages */}

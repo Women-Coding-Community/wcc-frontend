@@ -2,6 +2,7 @@ import {
   FormControl,
   FormControlLabel,
   FormHelperText,
+  FormLabel,
   Grid,
   InputLabel,
   MenuItem,
@@ -20,7 +21,20 @@ import { COUNTRIES } from '@utils/mentorshipConstants';
 import { inputStyle } from './mentorshipStyles';
 import StepSection from './StepSection';
 
-const MenteeStep1BasicInfo = () => {
+const boolToRadioValue = (value: boolean | null | undefined): string => {
+  if (value === true) return 'yes';
+  if (value === false) return 'no';
+  if (value === null) return 'unspecified';
+  return '';
+};
+
+const radioValueToBool = (value: string): boolean | null => {
+  if (value === 'yes') return true;
+  if (value === 'no') return false;
+  return null;
+};
+
+const MenteeStep1BasicInfo = ({ isAdhoc = false }: { isAdhoc?: boolean }) => {
   const {
     register,
     control,
@@ -239,59 +253,76 @@ const MenteeStep1BasicInfo = () => {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Typography
-            variant="subtitle2"
-            sx={{ mb: 0.5, color: 'text.primary' }}
-          >
-            Available hours per month *
-          </Typography>
           <Controller
-            name="availableHsMonth"
+            name="isWomen"
             control={control}
-            render={({ field, fieldState: { error } }) => (
-              <TextField
-                {...field}
-                type="number"
-                fullWidth
-                placeholder="e.g. 4"
-                error={!!error}
-                helperText={
-                  error?.message ?? 'How many hours can you dedicate per month?'
-                }
-                onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-                sx={inputStyle}
-              />
+            render={({ field }) => (
+              <FormControl component="fieldset">
+                <FormLabel
+                  component="legend"
+                  sx={{
+                    mb: 0.5,
+                    color: 'text.primary',
+                    typography: 'subtitle2',
+                  }}
+                >
+                  Do you identify as a woman or non-binary?
+                </FormLabel>
+                <RadioGroup
+                  row
+                  value={boolToRadioValue(field.value)}
+                  onChange={(e) => {
+                    field.onChange(radioValueToBool(e.target.value));
+                  }}
+                >
+                  <FormControlLabel
+                    value="yes"
+                    control={<Radio />}
+                    label="Yes"
+                  />
+                  <FormControlLabel value="no" control={<Radio />} label="No" />
+                  <FormControlLabel
+                    value="unspecified"
+                    control={<Radio />}
+                    label="Prefer not to say"
+                  />
+                </RadioGroup>
+              </FormControl>
             )}
           />
         </Grid>
 
-        <Grid item xs={12}>
-          <FormControl>
+        {!isAdhoc && (
+          <Grid item xs={12} md={6}>
             <Typography
               variant="subtitle2"
               sx={{ mb: 0.5, color: 'text.primary' }}
             >
-              Mentorship type
+              Available hours per month *
             </Typography>
-            <RadioGroup row value="LONG_TERM">
-              <FormControlLabel
-                value="LONG_TERM"
-                control={<Radio />}
-                label="Long-term"
-                disabled
-              />
-              <FormControlLabel
-                value="AD_HOC"
-                control={<Radio />}
-                label="Ad-hoc (coming soon)"
-                disabled
-              />
-            </RadioGroup>
-            <FormHelperText>
-              Only long-term mentorship is available for this month.
-            </FormHelperText>
-          </FormControl>
-        </Grid>
+            <Controller
+              name="availableHsMonth"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  type="number"
+                  fullWidth
+                  placeholder="e.g. 4"
+                  error={!!error}
+                  helperText={
+                    error?.message ??
+                    'How many hours can you dedicate per month?'
+                  }
+                  onChange={(e) =>
+                    field.onChange(Number.parseInt(e.target.value) || 0)
+                  }
+                  sx={inputStyle}
+                />
+              )}
+            />
+          </Grid>
+        )}
       </Grid>
     </StepSection>
   );
