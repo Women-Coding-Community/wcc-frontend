@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import { LinkButton } from '@components';
 import { useIsMobile } from '@utils/theme-utils';
 import { Mentor, Network } from '@utils/types';
+import { IS_REGISTRATION_OPEN } from 'utils/mentorshipConstants';
 
 type MentorProfileCardProps = {
   mentor: Mentor;
@@ -130,6 +131,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           href={`/mentorship/mentee-registration?id=${mentor.id}`}
           reversed
           small
+          disabled={!IS_REGISTRATION_OPEN}
         >
           Apply for this mentor{' '}
         </LinkButton>

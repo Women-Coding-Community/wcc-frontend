@@ -8,6 +8,7 @@ type LinkButtonProps = {
   small?: boolean;
   children: React.ReactNode;
   'data-testid'?: string;
+  disabled?: boolean;
 };
 
 export const LinkButton = ({
@@ -16,6 +17,7 @@ export const LinkButton = ({
   small,
   children,
   'data-testid': dataTestId,
+  disabled = false,
 }: LinkButtonProps) => {
   const isExternal = href.startsWith('https');
 
@@ -59,6 +61,7 @@ export const LinkButton = ({
           fontSize: small ? '0.8rem' : '1rem',
           padding: small ? '7px 16px' : '10px 32px',
         }}
+        disabled={disabled}
       >
         {children}
       </Button>

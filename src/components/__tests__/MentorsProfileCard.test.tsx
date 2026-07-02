@@ -70,6 +70,16 @@ const mockMentor: Mentor = {
   },
 };
 
+// Mutable flag so individual tests can override the registration state
+let mockIsRegistrationOpen = false;
+
+jest.mock('../../utils/mentorshipConstants', () => ({
+  ...jest.requireActual('../../utils/mentorshipConstants'),
+  get IS_REGISTRATION_OPEN() {
+    return mockIsRegistrationOpen;
+  },
+}));
+
 describe('MentorProfileCard', () => {
   it('renders mentor basic info', () => {
     render(<MentorProfileCard mentor={mockMentor} />);
@@ -120,5 +130,12 @@ describe('MentorProfileCard', () => {
     expect(
       screen.getByRole('link', { name: /Apply for this mentor/i }),
     ).toBeInTheDocument();
+  });
+
+  it('disables the Apply for this mentor button when registration is closed', () => {
+    render(<MentorProfileCard mentor={mockMentor} />);
+    expect(
+      screen.getByRole('link', { name: /Apply for this mentor/i }),
+    ).toBeDisabled;
   });
 });
