@@ -134,8 +134,7 @@ describe('MentorProfileCard', () => {
 
   it('disables the Apply for this mentor button when registration is closed', () => {
     render(<MentorProfileCard mentor={mockMentor} />);
-    expect(
-      screen.getByRole('link', { name: /Apply for this mentor/i }),
-    ).toBeDisabled;
+    expect(screen.getByRole('link', { name: /Apply for this mentor/i }))
+      .toBeDisabled;
   });
 });
