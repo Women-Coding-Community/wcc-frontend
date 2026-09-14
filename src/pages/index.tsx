@@ -10,6 +10,7 @@ import {
   Footer,
   EventContainer,
 } from '@components';
+import { formatImage } from '@utils/image-utils';
 import { FooterResponse, LandingPageResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
 
@@ -56,9 +57,34 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const combinedResponse: CombinedResponse = await fetchData('landingPage');
+    const data = combinedResponse.data;
+
+    const formattedData = {
+      ...data,
+      heroSection: {
+        ...data.heroSection,
+        images: data.heroSection.images.map(formatImage),
+      },
+      fullBannerSection: {
+        ...data.fullBannerSection,
+        images: data.fullBannerSection.images.map(formatImage),
+      },
+      volunteerSection: {
+        ...data.volunteerSection,
+        images: data.volunteerSection.images.map(formatImage),
+      },
+      events: {
+        ...data.events,
+        items: data.events.items.map((event) => ({
+          ...event,
+          images: event.images.map(formatImage),
+        })),
+      },
+    };
+
     return {
       props: {
-        data: combinedResponse.data,
+        data: formattedData,
         footer: combinedResponse.footer,
       },
     };

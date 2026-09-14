@@ -4,10 +4,11 @@ import { GetServerSideProps } from 'next';
 import React from 'react';
 
 import { Title, ResourcesCard, Footer, BreadCrumbsDynamic } from '@components';
+import { formatImage } from '@utils/image-utils';
 import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, MentorshipResourcesResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
-import pageData from 'lib/responses/mentorshipResources.json';
+import fallbackData from 'lib/responses/mentorshipResources.json';
 
 type CombinedResponse = {
   data: MentorshipResourcesResponse;
@@ -24,7 +25,7 @@ const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
   footer,
 }) => {
   const isMobile = useIsMobile();
-  const page = (data ?? pageData) as MentorshipResourcesResponse;
+  const page = (data ?? fallbackData) as MentorshipResourcesResponse;
   const { heroSection, section, resourcesSection } = page;
 
   return (
@@ -67,7 +68,7 @@ const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
               {resourcesSection.items.map((res, index) => (
                 <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
                   <ResourcesCard
-                    image={res.image.path}
+                    image={res.image}
                     title={res.title}
                     description={res.description ?? ''}
                     buttonText={res.link.label}
@@ -91,24 +92,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
       'mentorship/resources',
     );
 
-    const data = combinedResponse.data || pageData;
+    const data = combinedResponse.data || fallbackData;
     const resourcesData = {
       ...data,
       resourcesSection: {
         ...data.resourcesSection,
-        items: data.resourcesSection.items.map((item) => {
-          if (item.image.path.includes('drive.google.com/file/d/')) {
-            const id = item.image.path.split('/d/')[1].split('/')[0];
-            return {
-              ...item,
-              image: {
-                ...item.image,
-                path: `https://drive.google.com/uc?id=${id}&export=download`,
-              },
-            };
-          }
-          return item;
-        }),
+        items: data.resourcesSection.items.map((item) => ({
+          ...item,
+          image: formatImage(item.image),
+        })),
       },
     };
 

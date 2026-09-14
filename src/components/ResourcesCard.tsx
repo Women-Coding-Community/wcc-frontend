@@ -10,8 +10,10 @@ import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import React from 'react';
 
+import { FormattedImage, Image as ImageType } from '@utils/types';
+
 interface ResourcesCardProps {
-  image: string;
+  image: FormattedImage | ImageType | string;
   title: string;
   description: string;
   buttonText?: string;
@@ -28,6 +30,8 @@ export const ResourcesCard: React.FC<ResourcesCardProps> = ({
   buttonIcon,
 }) => {
   const theme = useTheme();
+  const imageSrc = typeof image === 'string' ? image : image.path;
+  const imageAlt = typeof image === 'string' ? title : image.alt;
 
   return (
     <Card
@@ -47,8 +51,8 @@ export const ResourcesCard: React.FC<ResourcesCardProps> = ({
     >
       <Box sx={{ position: 'relative', width: '100%', height: 180 }}>
         <Image
-          src={image}
-          alt={title}
+          src={imageSrc}
+          alt={imageAlt}
           fill
           style={{ objectFit: 'cover' }}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
