@@ -13,7 +13,7 @@ interface FeedbackSectionProps {
 
 export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
   title,
-  feedbacks,
+  feedbacks = [],
 }) => {
   const initialDisplay = 3;
   const [feedbacksDisplayed, setFeedbacksDisplayed] =
@@ -49,12 +49,13 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: { sm: 'repeat(3, 1fr)', md: '' },
-            gap: 2,
-            gridTemplateRows: {
-              sm: feedbacksDisplayed > initialDisplay ? '1fr 1fr' : '',
-              md: '',
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: feedbacks.length > 1 ? 'repeat(2, 1fr)' : '1fr',
+              md: 'repeat(3, 1fr)',
             },
+            gap: 2,
+            justifyContent: 'center',
           }}
         >
           {feedbacks && feedbacks.length > 0 ? (
@@ -74,11 +75,11 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
                 />
               ))
           ) : (
-            <p>There‵s no feedback yet!</p>
+            <Typography variant="body1">There is no feedback yet!</Typography>
           )}
         </Box>
 
-        {feedbacks.length > initialDisplay && (
+        {feedbacks && feedbacks.length > initialDisplay && (
           <Button
             onClick={
               feedbacksDisplayed >= feedbacks.length

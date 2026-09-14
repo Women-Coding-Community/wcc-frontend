@@ -9,12 +9,7 @@ import {
   MentorBecomeCard,
   Title,
 } from '@components';
-import { useIsMobile } from '@utils/theme-utils';
-import {
-  FooterResponse,
-  MentorshipProgrammeData,
-  FeedbackItem,
-} from '@utils/types';
+import { FooterResponse, MentorshipProgrammeData } from '@utils/types';
 import { fetchData } from 'lib/api';
 import theme from 'theme';
 
@@ -24,18 +19,10 @@ interface MentorshipPageProps {
   error: string | null;
 }
 
-interface FeedbackSectionProps {
-  title: string;
-  feedbacks: FeedbackItem[];
-}
-
 const MentorshipPage = ({ mentorship, footer }: MentorshipPageProps) => {
-  const heroTitle = pageData.heroSection.title;
-  const heroDescription = pageData.section.description;
-  const isMobile = useIsMobile();
   return (
     <>
-      {isMobile ? null : <BreadCrumbsDynamic />}
+      <BreadCrumbsDynamic />
       <Title title={mentorship.heroSection.title} />
 
       <Box
@@ -76,6 +63,7 @@ const MentorshipPage = ({ mentorship, footer }: MentorshipPageProps) => {
           buttonText={mentorship.mentorSection.link.label}
         ></MentorBecomeCard>
         <MentorBecomeCard
+          listTestId="become-mentee-card"
           mentorOrMentee="mentee"
           topics={mentorship.menteeSection.items}
           buttonUrl={mentorship.menteeSection.link.uri}

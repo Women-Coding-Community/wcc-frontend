@@ -11,17 +11,18 @@ import {
   EventContainer,
   FeedbackSection,
 } from '@components';
+import { formatImage } from '@utils/image-utils';
 import {
   FooterResponse,
   LandingPageResponse,
   MentorshipProgrammeData,
 } from '@utils/types';
-import { fetchData, fetchMentorship } from 'lib/api';
+import { fetchData } from 'lib/api';
 
 interface HomePageProps {
   data: LandingPageResponse;
   footer: FooterResponse;
-  mentorship: MentorshipProgrammeData;
+  mentorship?: MentorshipProgrammeData | null;
   error: string | null;
 }
 
@@ -47,10 +48,12 @@ const HomePage = ({ data, footer, mentorship, error }: HomePageProps) => {
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmes} />
       <EventContainer {...events} />
-      <FeedbackSection
-        title={mentorship.feedbackSection.title}
-        feedbacks={mentorship.feedbackSection.feedbacks}
-      />
+      {mentorship?.feedbackSection?.feedbacks && (
+        <FeedbackSection
+          title={mentorship.feedbackSection.title}
+          feedbacks={mentorship.feedbackSection.feedbacks}
+        />
+      )}
       <MentorBanner {...fullBannerSection} />
       <VolunteerSection {...volunteerSection} />
       <Footer {...footer} />
@@ -60,16 +63,50 @@ const HomePage = ({ data, footer, mentorship, error }: HomePageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const { data, footer } = await fetchData('landingPage');
-    const mentorship = await fetchMentorship();
+    const [landingRes, mentorshipRes] = await Promise.all([
+      fetchData('landingPage'),
+      fetchData('mentorship/overview'),
+    ]);
+    const data = landingRes.data as LandingPageResponse;
+    const footer = landingRes.footer;
+    const mentorship = mentorshipRes.data as MentorshipProgrammeData;
+
+    const formattedData = {
+      ...data,
+      heroSection: {
+        ...data.heroSection,
+        images: data.heroSection.images.map(formatImage),
+      },
+      fullBannerSection: {
+        ...data.fullBannerSection,
+        images: data.fullBannerSection.images.map(formatImage),
+      },
+      volunteerSection: {
+        ...data.volunteerSection,
+        images: data.volunteerSection.images.map(formatImage),
+      },
+      events: {
+        ...data.events,
+        items: data.events.items.map((event) => ({
+          ...event,
+          images: event.images.map(formatImage),
+        })),
+      },
+    };
 
     return {
-      props: { data, footer, mentorship },
+      props: {
+        data: formattedData,
+        footer,
+        mentorship: mentorship ?? null,
+      },
     };
   } catch (error) {
     return {
       props: {
         data: null,
+        footer: null,
+        mentorship: null,
         error: error instanceof Error ? error.message : 'An error occurred',
       },
     };
