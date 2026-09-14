@@ -48,7 +48,9 @@ export class HomePage extends BasePage {
       name: 'Learn more about volunteering',
     });
 
-    this.findMentorButton = page.getByRole('button', { name: 'Find a mentor' });
+    this.findMentorButton = page.getByRole('link', {
+      name: 'Check our mentors',
+    });
 
     this.heroTitle = page
       .getByTestId('hero-container')

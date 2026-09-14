@@ -11,11 +11,24 @@ export default async function handler(
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
   try {
-    const { keyword, yearsExperience, areas, language, focus } = req.query;
+    const {
+      keyword,
+      mentorshipTypes,
+      yearsExperience,
+      areas,
+      language,
+      focus,
+    } = req.query;
 
     const params = new URLSearchParams();
     if (keyword)
       params.append('keyword', Array.isArray(keyword) ? keyword[0] : keyword);
+    if (mentorshipTypes) {
+      params.append(
+        'mentorshipTypes',
+        Array.isArray(mentorshipTypes) ? mentorshipTypes[0] : mentorshipTypes,
+      );
+    }
     if (yearsExperience)
       params.append(
         'yearsExperience',
@@ -28,6 +41,11 @@ export default async function handler(
         Array.isArray(language) ? language[0] : language,
       );
     if (focus) params.append('focus', Array.isArray(focus) ? focus[0] : focus);
+    if (mentorshipTypes)
+      params.append(
+        'mentorshipTypes',
+        Array.isArray(mentorshipTypes) ? mentorshipTypes[0] : mentorshipTypes,
+      );
 
     const data = await proxyRequest('mentorship/mentors', {
       method: 'GET',

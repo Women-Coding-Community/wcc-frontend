@@ -10,6 +10,7 @@ interface MentorBecomeCardProps {
   topics: string[];
   buttonText: string;
   buttonUrl: string;
+  listTestId?: string;
 }
 
 export const MentorBecomeCard = ({
@@ -17,6 +18,7 @@ export const MentorBecomeCard = ({
   topics,
   buttonText,
   buttonUrl,
+  listTestId,
 }: MentorBecomeCardProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   return (
@@ -48,7 +50,7 @@ export const MentorBecomeCard = ({
         You should become a {mentorOrMentee} if you:
       </Typography>
 
-      <ol>
+      <ol data-testid={listTestId}>
         {topics.map((topic: any, index: number) => (
           <li
             style={{ fontSize: '24px' }}

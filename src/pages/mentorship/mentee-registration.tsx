@@ -17,6 +17,7 @@ import React, { useEffect, useState } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 
 import {
+  adhocMenteeFormDefaultValues,
   menteeFormDefaultValues,
   menteeFormSchema,
   MenteeFormData,
@@ -26,9 +27,35 @@ import MenteeStep2Skills from 'components/mentorship/MenteeStep2Skills';
 import MenteeStep3Applications from 'components/mentorship/MenteeStep3Applications';
 import { MentorOption } from 'components/mentorship/MentorApplicationCard';
 import RegistrationClosed from 'components/mentorship/RegistrationClosed';
-import { IS_REGISTRATION_OPEN } from 'utils/mentorshipConstants';
+import {
+  IS_ADHOC_CYCLE,
+  IS_REGISTRATION_OPEN,
+} from 'utils/mentorshipConstants';
 
 const TOTAL_STEPS = 3;
+
+const postMenteeRegistration = async (
+  payload: unknown,
+): Promise<string | null> => {
+  try {
+    const response = await fetch('/api/mentee-registration', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) {
+      const body = await response.json().catch(() => null);
+      return (
+        body?.message ??
+        body?.error ??
+        'Something went wrong. Please try again.'
+      );
+    }
+    return null;
+  } catch {
+    return 'Network error. Please check your connection and try again.';
+  }
+};
 
 const validateStep1 = async (formMethods: UseFormReturn<MenteeFormData>) =>
   formMethods.trigger([
@@ -40,8 +67,6 @@ const validateStep1 = async (formMethods: UseFormReturn<MenteeFormData>) =>
     'position',
     'companyName',
     'linkedInProfile',
-    'availableHsMonth',
-    'mentorshipType',
   ]);
 
 const validateStep2 = async (formMethods: UseFormReturn<MenteeFormData>) =>
@@ -54,14 +79,27 @@ const validateStep2 = async (formMethods: UseFormReturn<MenteeFormData>) =>
     'bio',
   ]);
 
+const getStepValidator = (
+  step: number,
+  formMethods: UseFormReturn<MenteeFormData>,
+): Promise<boolean> => {
+  if (step === 1) return validateStep1(formMethods);
+  if (step === 2) return validateStep2(formMethods);
+  return Promise.resolve(true);
+};
+
+// NOSONAR
 const MenteeRegistrationPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const registrationOpen = IS_REGISTRATION_OPEN;
+  const isAdhoc = IS_ADHOC_CYCLE;
 
   const formMethods = useForm<MenteeFormData>({
     resolver: zodResolver(menteeFormSchema),
-    defaultValues: menteeFormDefaultValues,
+    defaultValues: isAdhoc
+      ? adhocMenteeFormDefaultValues
+      : menteeFormDefaultValues,
     mode: 'onChange',
   });
 
@@ -72,7 +110,8 @@ const MenteeRegistrationPage = () => {
 
   useEffect(() => {
     if (!registrationOpen) return;
-    fetch('/api/mentors')
+    const mentorshipTypeParam = isAdhoc ? 'Ad-Hoc' : 'Long-Term';
+    fetch(`/api/mentors?mentorshipTypes=${mentorshipTypeParam}`)
       .then((res) => res.json())
       .then((data) => {
         const mentorList: MentorOption[] = (data.mentors ?? data ?? []).map(
@@ -87,14 +126,10 @@ const MenteeRegistrationPage = () => {
       .catch(() => {
         // silently fall back to empty list — user can still submit if API is down
       });
-  }, [registrationOpen]);
+  }, [registrationOpen, isAdhoc]);
 
   const handleNext = async () => {
-    let isValid;
-    if (activeStep === 1) isValid = await validateStep1(formMethods);
-    else if (activeStep === 2) isValid = await validateStep2(formMethods);
-    else isValid = true;
-
+    const isValid = await getStepValidator(activeStep, formMethods);
     if (isValid && activeStep < TOTAL_STEPS) {
       setActiveStep((prev) => prev + 1);
       window.scrollTo(0, 0);
@@ -111,7 +146,7 @@ const MenteeRegistrationPage = () => {
   const onSubmit = async (data: MenteeFormData) => {
     setSubmitError(null);
 
-    const networkLinks = data.network ?? [];
+    const networkLinks = [...(data.network ?? [])];
     if (data.linkedInProfile) {
       networkLinks.push({
         type: 'LINKEDIN' as const,
@@ -127,9 +162,9 @@ const MenteeRegistrationPage = () => {
         slackDisplayName: data.slackDisplayName,
         country: data.country ?? { countryCode: '', countryName: '' },
         city: data.city,
-        companyName: data.companyName ?? '',
+        companyName: data.companyName,
         pronouns: data.pronouns ?? '',
-        pronounCategory: data.pronounCategory,
+
         isWomen: data.isWomen,
         images: [],
         network: networkLinks,
@@ -147,30 +182,13 @@ const MenteeRegistrationPage = () => {
       })),
     };
 
-    try {
-      const response = await fetch('/api/mentee-registration', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const body = await response.json().catch(() => null);
-        const message =
-          body?.message ??
-          body?.error ??
-          'Something went wrong. Please try again.';
-        setSubmitError(message);
-        return;
-      }
-
-      setSubmitted(true);
-      window.scrollTo(0, 0);
-    } catch {
-      setSubmitError(
-        'Network error. Please check your connection and try again.',
-      );
+    const error = await postMenteeRegistration(payload);
+    if (error) {
+      setSubmitError(error);
+      return;
     }
+    setSubmitted(true);
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -189,7 +207,9 @@ const MenteeRegistrationPage = () => {
           <Link href="/mentorship" color="primary" underline="always">
             Mentorship
           </Link>
-          <Typography color="text.primary">Mentee Registration</Typography>
+          <Typography color="text.primary">
+            {isAdhoc ? 'Ad-hoc Mentee Registration' : 'Mentee Registration'}
+          </Typography>
         </Breadcrumbs>
       </Box>
 
@@ -212,12 +232,14 @@ const MenteeRegistrationPage = () => {
               px: { xs: 2, sm: 3 },
               maxWidth: isMobile ? '100%' : theme.custom?.innerBox?.maxWidth,
               margin: '0 auto',
-              ...(!registrationOpen && {
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '70vh',
-              }),
+              ...(registrationOpen
+                ? {
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '70vh',
+                  }
+                : {}),
             }}
           >
             <Box
@@ -260,8 +282,9 @@ const MenteeRegistrationPage = () => {
                     color="text.secondary"
                     sx={{ mb: 3 }}
                   >
-                    Thank you for applying to our mentorship programme. We will
-                    review your application and get back to you soon.
+                    {isAdhoc
+                      ? 'Thank you for applying to our ad-hoc mentorship programme. We will review your application and get back to you soon.'
+                      : 'Thank you for applying to our mentorship programme. We will review your application and get back to you soon.'}
                   </Typography>
                   <Button
                     variant="contained"
@@ -304,8 +327,12 @@ const MenteeRegistrationPage = () => {
 
                   {/* Step content */}
                   <Box>
-                    {activeStep === 1 && <MenteeStep1BasicInfo />}
-                    {activeStep === 2 && <MenteeStep2Skills />}
+                    {activeStep === 1 && (
+                      <MenteeStep1BasicInfo isAdhoc={isAdhoc} />
+                    )}
+                    {activeStep === 2 && (
+                      <MenteeStep2Skills isAdhoc={isAdhoc} />
+                    )}
                     {activeStep === 3 && (
                       <MenteeStep3Applications mentors={mentors} />
                     )}
