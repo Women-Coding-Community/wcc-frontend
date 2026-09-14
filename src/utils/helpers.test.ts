@@ -1,4 +1,4 @@
-import { addLineBreakAfterPeriod } from '../helpers';
+import { addLineBreakAfterPeriod } from './helpers';
 
 describe('addLineBreakAfterPeriod', () => {
   test('should add <br /> after the first period followed by space', () => {
