@@ -1,6 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 
 import { BasePage } from '@pages/base.page';
+import { EventsSection } from '@pages/event-card.page';
 
 export class HomePage extends BasePage {
   readonly becomeMentorSectionTitle: Locator;
@@ -47,7 +48,9 @@ export class HomePage extends BasePage {
       name: 'Learn more about volunteering',
     });
 
-    this.findMentorButton = page.getByRole('button', { name: 'Find a mentor' });
+    this.findMentorButton = page.getByRole('link', {
+      name: 'Check our mentors',
+    });
 
     this.heroTitle = page
       .getByTestId('hero-container')
@@ -73,5 +76,13 @@ export class HomePage extends BasePage {
     this.leetCodeLink = page.getByRole('link', { name: 'Leetcode' });
 
     this.joinSlackButton = page.getByRole('link', { name: 'Join our Slack' });
+  }
+
+  // Gets the EventsSection page object for events-related interactions
+  get eventsSection(): EventsSection {
+    return new EventsSection(
+      this.page,
+      this.page.getByTestId('events-section'),
+    );
   }
 }

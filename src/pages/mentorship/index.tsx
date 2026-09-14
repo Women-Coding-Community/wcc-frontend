@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Typography, Button, Box, Grid, useMediaQuery } from '@mui/material';
 import { GetServerSideProps } from 'next';
 import React, { useState } from 'react';
@@ -10,7 +11,6 @@ import {
   MentorBecomeCard,
   Title,
 } from '@components';
-import { useIsMobile } from '@utils/theme-utils';
 import {
   FooterResponse,
   MentorshipProgrammeData,
@@ -30,10 +30,9 @@ interface FeedbackSectionProps {
   feedbacks: FeedbackItem[];
 }
 const MentorshipPage = ({ mentorship, footer }: MentorshipPageProps) => {
-  const isMobile = useIsMobile();
   return (
     <>
-      {isMobile ? null : <BreadCrumbsDynamic />}
+      <BreadCrumbsDynamic />
       <Title title={mentorship.heroSection.title} />
 
       <Box
@@ -74,6 +73,7 @@ const MentorshipPage = ({ mentorship, footer }: MentorshipPageProps) => {
           buttonText={mentorship.mentorSection.link.label}
         ></MentorBecomeCard>
         <MentorBecomeCard
+          listTestId="become-mentee-card"
           mentorOrMentee="mentee"
           topics={mentorship.menteeSection.items}
           buttonUrl={mentorship.menteeSection.link.uri}
