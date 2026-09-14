@@ -7,7 +7,9 @@ type LinkButtonProps = {
   reversed?: boolean;
   outlined?: boolean;
   small?: boolean;
+  disabled?: boolean;
   children: React.ReactNode;
+  'data-testid'?: string;
 };
 
 const pillRadius = '100px';
@@ -17,52 +19,56 @@ export const LinkButton = ({
   reversed,
   outlined,
   small,
+  disabled = false,
   children,
+  'data-testid': dataTestId,
 }: LinkButtonProps) => {
   const isExternal = href.startsWith('https');
-
   const padding = small ? '7px 16px' : '10px 32px';
+  const outlinedPadding = small ? '7px 16px' : '10px 24px';
 
-  if (outlined) {
-    const outlinedPadding = small ? '7px 16px' : '10px 24px';
-    const outlinedSx: SxProps<Theme> = (theme) => ({
-      ...(small
-        ? theme.typography.outlineButtonSmall
-        : theme.typography.outlineButton),
-      borderRadius: pillRadius,
-      padding: outlinedPadding,
-      minHeight: small ? undefined : '40px',
+  const containedSx: SxProps<Theme> = (theme) => ({
+    ...(small
+      ? theme.typography.linkButtonContainedSmall
+      : theme.typography.linkButtonContained),
+    backgroundColor: reversed ? '#fff' : 'primary.main',
+    color: reversed ? 'primary.main' : '#fff',
+    borderRadius: pillRadius,
+    padding,
+  });
+
+  const outlinedSx: SxProps<Theme> = (theme) => ({
+    ...(small
+      ? theme.typography.outlineButtonSmall
+      : theme.typography.outlineButton),
+    borderRadius: pillRadius,
+    padding: outlinedPadding,
+    minHeight: small ? undefined : '40px',
+    borderColor: theme.palette.custom.outline,
+    color: 'primary.main',
+    boxShadow: 'none',
+    '&:hover': {
       borderColor: theme.palette.custom.outline,
-      color: 'primary.main',
+      backgroundColor: 'primary.light',
       boxShadow: 'none',
-      '&:hover': {
-        borderColor: theme.palette.custom.outline,
-        backgroundColor: 'primary.light',
-        boxShadow: 'none',
-      },
-    });
+    },
+  });
 
-    if (isExternal) {
-      return (
-        <Button
-          component="a"
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          variant="outlined"
-          sx={outlinedSx}
-        >
-          {children}
-        </Button>
-      );
-    }
+  const sx = outlined ? outlinedSx : containedSx;
+  const variant = outlined ? 'outlined' : 'contained';
 
+  if (disabled) {
     return (
-      <Link href={href} passHref legacyBehavior>
-        <Button component="a" variant="outlined" sx={outlinedSx}>
-          {children}
-        </Button>
-      </Link>
+      <Button
+        component="button"
+        type="button"
+        disabled
+        variant={variant}
+        data-testid={dataTestId}
+        sx={sx}
+      >
+        {children}
+      </Button>
     );
   }
 
@@ -73,16 +79,9 @@ export const LinkButton = ({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        variant="contained"
-        sx={(theme) => ({
-          ...(small
-            ? theme.typography.linkButtonContainedSmall
-            : theme.typography.linkButtonContained),
-          backgroundColor: reversed ? '#fff' : 'primary.main',
-          color: reversed ? 'primary.main' : '#fff',
-          borderRadius: pillRadius,
-          padding,
-        })}
+        variant={variant}
+        data-testid={dataTestId}
+        sx={sx}
       >
         {children}
       </Button>
@@ -91,19 +90,7 @@ export const LinkButton = ({
 
   return (
     <Link href={href} passHref legacyBehavior>
-      <Button
-        component="a"
-        variant="contained"
-        sx={(theme) => ({
-          ...(small
-            ? theme.typography.linkButtonContainedSmall
-            : theme.typography.linkButtonContained),
-          backgroundColor: reversed ? '#fff' : 'primary.main',
-          color: reversed ? 'primary.main' : '#fff',
-          borderRadius: pillRadius,
-          padding,
-        })}
-      >
+      <Button component="a" variant={variant} data-testid={dataTestId} sx={sx}>
         {children}
       </Button>
     </Link>

@@ -11,7 +11,7 @@ const RegistrationClosed = () => (
       Application is now closed
     </Typography>
     <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-      Applications for the Long-Term Mentorship programme are currently closed.
+      Applications are currently closed.
     </Typography>
     <Button variant="contained" component={NextLink} href="/mentorship">
       Back to Mentorship

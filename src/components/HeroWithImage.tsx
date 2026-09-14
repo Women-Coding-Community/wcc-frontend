@@ -1,15 +1,20 @@
 import { Box, Typography, Grid } from '@mui/material';
 import React from 'react';
 
+import { FormattedImage, Image } from '@utils/types';
+
 interface HeroWithImageProps {
   title: string;
-  imageSrc: string;
+  image: FormattedImage | Image | string;
 }
 
 export const HeroWithImage: React.FC<HeroWithImageProps> = ({
   title,
-  imageSrc,
+  image,
 }) => {
+  const imageSrc = typeof image === 'string' ? image : image.path;
+  const imageAlt = typeof image === 'string' ? title : image.alt;
+
   return (
     <Box
       sx={{
@@ -101,7 +106,7 @@ export const HeroWithImage: React.FC<HeroWithImageProps> = ({
           <Box
             component="img"
             src={imageSrc}
-            alt={title}
+            alt={imageAlt}
             sx={{
               width: '100%',
               height: { xs: 350, md: 'auto' },
