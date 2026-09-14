@@ -16,7 +16,7 @@ import {
   Collapse,
 } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { BreadCrumbsDynamic, MentorProfileCard, Title } from '@components';
 import {
@@ -63,6 +63,9 @@ const MentorsPage = () => {
   const [filterSection, setFilterSection] = useState<FilterSection | null>(
     null,
   );
+  // Ensures the open-cycle type default is applied only once, so an explicit
+  // "All" selection is never overridden.
+  const didApplyCycleDefaultRef = useRef(false);
 
   // Initialize filter state from URL query params
   useEffect(() => {
@@ -126,6 +129,35 @@ const MentorsPage = () => {
         } else {
           setMentorsState([]);
           setFilterSection(null);
+        }
+
+        // On first load, scope the default view to the currently open cycle's
+        // mentorship type so an ad-hoc cycle lists only ad-hoc mentors (and a
+        // long-term cycle only long-term mentors). The backend then applies the
+        // full type + month scoping. Applied once; an explicit "All" selection
+        // clears the filter and is preserved.
+        const openCycle = result?.openCycle ?? result?.data?.openCycle;
+        if (
+          !didApplyCycleDefaultRef.current &&
+          !query.mentorshipTypes &&
+          openCycle?.active &&
+          FILTER_MENTORSHIP_TYPES_OPTIONS.some(
+            (option) => option.value === openCycle.mentorshipType,
+          )
+        ) {
+          didApplyCycleDefaultRef.current = true;
+          setSelectedMentorshipType(openCycle.mentorshipType);
+          router.replace(
+            {
+              pathname: router.pathname,
+              query: {
+                ...router.query,
+                mentorshipTypes: openCycle.mentorshipType,
+              },
+            },
+            undefined,
+            { shallow: true },
+          );
         }
       } catch (err) {
         // eslint-disable-next-line no-console
