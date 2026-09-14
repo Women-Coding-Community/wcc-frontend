@@ -27,6 +27,14 @@ export const MENTORSHIP_TYPES: LabelValue[] = [
   { label: 'Ad-Hoc', value: 'AD_HOC' },
 ];
 
+export const ALL_MENTORSHIP_TYPES = 'All';
+
+export const FILTER_MENTORSHIP_TYPES_OPTIONS = [
+  { label: 'All', value: ALL_MENTORSHIP_TYPES },
+  { label: 'Long-term', value: 'Long-Term' },
+  { label: 'Ad-hoc', value: 'Ad-Hoc' },
+] as const;
+
 export const MENTORSHIP_FOCUS_AREAS: LabelValue[] = [
   { label: 'Switch career to IT', value: 'SWITCH_CAREER_TO_IT' },
   { label: 'Grow from beginner to mid-level', value: 'GROW_BEGINNER_TO_MID' },
@@ -195,3 +203,15 @@ export const SKILL_LEVELS = [
   'Not Applicable',
 ];
 export const PREFERENCE_LEVELS = ['Low', 'Medium', 'High', 'Not Applicable'];
+
+/**
+ * Mentee registration toggle.
+ * Set to `true` to open the registration form, `false` to show the closed page.
+ */
+export const IS_REGISTRATION_OPEN = false;
+
+/**
+ * Mentorship cycle type toggle.
+ * Set to `true` for an ad-hoc cycle, `false` for a long-term cycle.
+ */
+export const IS_ADHOC_CYCLE = true;

@@ -16,9 +16,7 @@ const skillsSchema = z.object({
   languages: z
     .array(languageProficiencySchema)
     .min(1, 'Select at least one programming language'),
-  mentorshipFocus: z
-    .array(mentorshipFocusAreaSchema)
-    .min(1, 'Select at least one focus area'),
+  mentorshipFocus: z.array(mentorshipFocusAreaSchema),
 });
 
 const applicationSchema = z.object({
@@ -30,47 +28,61 @@ const applicationSchema = z.object({
   applicationMessage: z.string().optional(),
 });
 
-export const menteeFormSchema = z.object({
-  fullName: z.string().min(2, 'Name must be at least 2 characters'),
-  position: z.string().min(1, 'Position is required'),
-  email: z.email('Please enter a valid email address'),
-  slackDisplayName: z
-    .string()
-    .min(2, 'Slack display name is required')
-    .regex(/^@/, 'Slack name must start with @'),
-  companyName: z.string().min(1, 'Company name is required'),
-  country: countrySchema,
-  city: z.string().min(1, 'Please enter your city'),
-  linkedInProfile: z.url('Please enter a valid LinkedIn URL'),
-  pronouns: z.string(),
-  isWomen: z.boolean({ error: 'Please select an option' }).optional(),
-  pronounCategory: z
-    .enum([
-      'FEMININE',
-      'MASCULINE',
-      'NEUTRAL',
-      'MULTIPLE',
-      'NEOPRONOUNS',
-      'ANY',
-      'UNSPECIFIED',
-    ])
-    .optional(),
-  availableHsMonth: z
-    .number()
-    .min(1, 'Please enter at least 2 hours per month')
-    .max(224, 'Maximum 224 hours per month'),
-  skills: skillsSchema,
-  spokenLanguages: z
-    .array(z.string())
-    .min(1, 'Select at least one spoken language'),
-  bio: z.string().min(50, 'Bio must be at least 50 characters'),
-  network: z.array(networkSchema).optional(),
-  mentorshipType: z.enum(['AD_HOC', 'LONG_TERM']),
-  applications: z
-    .array(applicationSchema)
-    .min(1, 'Please select at least one mentor')
-    .max(5, 'Maximum 5 mentor selections'),
-});
+export const menteeFormSchema = z
+  .object({
+    fullName: z.string().min(2, 'Name must be at least 2 characters'),
+    position: z.string().min(1, 'Position is required'),
+    email: z.email('Please enter a valid email address'),
+    slackDisplayName: z
+      .string()
+      .min(2, 'Slack display name is required')
+      .regex(/^@/, 'Slack name must start with @'),
+    companyName: z.string().min(1, 'Company name is required'),
+    country: countrySchema,
+    city: z.string().min(1, 'Please enter your city'),
+    linkedInProfile: z.url('Please enter a valid LinkedIn URL'),
+    pronouns: z.string(),
+    isWomen: z.boolean().nullable().optional(),
+
+    availableHsMonth: z.number().min(0).max(224, 'Maximum 224 hours per month'),
+    skills: skillsSchema,
+    spokenLanguages: z
+      .array(z.string())
+      .min(1, 'Select at least one spoken language'),
+    bio: z.string().min(50, 'Bio must be at least 50 characters'),
+    network: z.array(networkSchema).optional(),
+    mentorshipType: z.enum(['AD_HOC', 'LONG_TERM']),
+    applications: z
+      .array(applicationSchema)
+      .min(1, 'Please select at least one mentor')
+      .max(5, 'Maximum 5 mentor selections'),
+  })
+  .superRefine((data, ctx) => {
+    if (
+      !data.skills.mentorshipFocus ||
+      data.skills.mentorshipFocus.length === 0
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Select at least one focus area',
+        path: ['skills', 'mentorshipFocus'],
+      });
+    }
+    if (data.mentorshipType === 'AD_HOC' && data.availableHsMonth < 1) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Please enter at least 1 hour per month',
+        path: ['availableHsMonth'],
+      });
+    }
+    if (data.mentorshipType === 'LONG_TERM' && data.availableHsMonth < 2) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Please enter at least 2 hours per month',
+        path: ['availableHsMonth'],
+      });
+    }
+  });
 
 export type MenteeFormData = z.infer<typeof menteeFormSchema>;
 
@@ -96,4 +108,10 @@ export const menteeFormDefaultValues: Partial<MenteeFormData> = {
   network: [],
   mentorshipType: 'LONG_TERM',
   applications: [],
+};
+
+export const adhocMenteeFormDefaultValues: Partial<MenteeFormData> = {
+  ...menteeFormDefaultValues,
+  mentorshipType: 'AD_HOC',
+  availableHsMonth: 1,
 };
