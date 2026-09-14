@@ -4,18 +4,27 @@ import { GetServerSideProps } from 'next';
 import React from 'react';
 
 import { Title, ResourcesCard, Footer, BreadCrumbsDynamic } from '@components';
+import { formatImage } from '@utils/image-utils';
 import { FooterResponse, MentorshipResourcesResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
-import footerData from 'lib/responses/footer.json';
-import pageData from 'lib/responses/mentorshipResources.json';
+import fallbackData from 'lib/responses/mentorshipResources.json';
 
 type CombinedResponse = {
   data: MentorshipResourcesResponse;
   footer: FooterResponse;
 };
 
-const MentorshipResourcesPage: React.FC = () => {
-  const { heroTitle, heroDescription, resources } = pageData;
+type MentorshipResourcesPageProps = {
+  data?: MentorshipResourcesResponse;
+  footer: FooterResponse;
+};
+
+const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
+  data,
+  footer,
+}) => {
+  const page = (data ?? fallbackData) as MentorshipResourcesResponse;
+  const { heroSection, section, resourcesSection } = page;
 
   return (
     <>
@@ -25,8 +34,7 @@ const MentorshipResourcesPage: React.FC = () => {
         sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
       >
         <Box sx={{ flexGrow: 1 }}>
-          <Title title={heroTitle} />
-
+          <Title title={heroSection.title} />
           <Box
             sx={{
               maxWidth: 800,
@@ -42,7 +50,7 @@ const MentorshipResourcesPage: React.FC = () => {
                 lineHeight: 1.5,
               }}
             >
-              {heroDescription}
+              {section.description}
             </Typography>
           </Box>
 
@@ -55,14 +63,14 @@ const MentorshipResourcesPage: React.FC = () => {
             }}
           >
             <Grid container spacing={4}>
-              {resources.map((res, index) => (
+              {resourcesSection.items.map((res, index) => (
                 <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
                   <ResourcesCard
                     image={res.image}
                     title={res.title}
-                    description={res.description}
-                    buttonText={res.buttonText}
-                    link={res.link}
+                    description={res.description ?? ''}
+                    buttonText={res.link.label}
+                    link={res.link.uri}
                     buttonIcon={<OpenInNewIcon />}
                   />
                 </Grid>
@@ -70,7 +78,7 @@ const MentorshipResourcesPage: React.FC = () => {
             </Grid>
           </Box>
         </Box>
-        <Footer {...footerData} />
+        <Footer {...footer} />
       </Box>
     </>
   );
@@ -82,9 +90,21 @@ export const getServerSideProps: GetServerSideProps = async () => {
       'mentorship/resources',
     );
 
+    const data = combinedResponse.data || fallbackData;
+    const resourcesData = {
+      ...data,
+      resourcesSection: {
+        ...data.resourcesSection,
+        items: data.resourcesSection.items.map((item) => ({
+          ...item,
+          image: formatImage(item.image),
+        })),
+      },
+    };
+
     return {
       props: {
-        data: combinedResponse.data,
+        data: resourcesData,
         footer: combinedResponse.footer,
       },
     };

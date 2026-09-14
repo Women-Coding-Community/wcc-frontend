@@ -1,4 +1,3 @@
-// path: /mentorship/study-groups
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { GetServerSideProps } from 'next';
 
@@ -9,6 +8,7 @@ import {
   Footer,
   BreadCrumbsDynamic,
 } from '@components';
+import { formatImage } from '@utils/image-utils';
 import { FooterResponse, StudyGroupsPageData } from '@utils/types';
 import { fetchData } from 'lib/api';
 
@@ -33,7 +33,7 @@ const MentorShipStudyGroupsPage = ({ data, footer }: StudyGroupsPageProps) => {
       <BreadCrumbsDynamic />
       <HeroWithImage
         title={data.heroSection.title}
-        imageSrc={'/hero-img.jpg'} // @TODO replace with actual path?
+        image={formatImage(data.heroSection.images[0])}
       />
       <Box
         sx={{
