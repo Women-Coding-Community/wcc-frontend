@@ -35,7 +35,7 @@ jobs:
       - name: Execute Playwright tests in Docker
         if: ${{ always() }}
         env:
-          API_BASE_URL: https://wcc-backend-dev.fly.dev/api/cms/v1
+          API_BASE_URL: https://wcc-backend-prod.fly.dev/api/cms/v1
           API_KEY: ${{ secrets.API_KEY }}
         run: |
           # Saving .env.local so that docker compose can access it
