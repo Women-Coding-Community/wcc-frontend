@@ -183,7 +183,7 @@ describe('MenteeRegistrationPage - registration closed', () => {
     );
     expect(screen.getByText('Application is now closed')).toBeInTheDocument();
     expect(
-      screen.getByText(/Long-Term Mentorship programme/i),
+      screen.getByText(/Applications are currently closed/i),
     ).toBeInTheDocument();
     expect(screen.queryByText('Step 1 of 3')).not.toBeInTheDocument();
   });
