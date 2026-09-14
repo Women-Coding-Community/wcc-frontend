@@ -70,7 +70,19 @@ const mockMentor: Mentor = {
   },
 };
 
+let mockIsRegistrationOpen = true;
+
+jest.mock('../../utils/mentorshipConstants', () => ({
+  ...jest.requireActual('../../utils/mentorshipConstants'),
+  get IS_REGISTRATION_OPEN() {
+    return mockIsRegistrationOpen;
+  },
+}));
+
 describe('MentorProfileCard', () => {
+  beforeEach(() => {
+    mockIsRegistrationOpen = true;
+  });
   it('renders mentor basic info', () => {
     render(<MentorProfileCard mentor={mockMentor} />);
     expect(screen.getByText('Test Mentor')).toBeInTheDocument();
@@ -115,10 +127,18 @@ describe('MentorProfileCard', () => {
     expect(screen.getAllByTestId('StarIcon').length).toBe(5);
   });
 
-  it('renders the Apply for this mentor button', () => {
+  it('renders the Apply for this mentor link when registration is open', () => {
     render(<MentorProfileCard mentor={mockMentor} />);
     expect(
-      screen.getByRole('link', { name: /Apply for this mentor/i }),
+      screen.getByRole('link', { name: /apply for this mentor/i }),
     ).toBeInTheDocument();
+  });
+
+  it('disables Apply button when registration is closed', () => {
+    mockIsRegistrationOpen = false;
+    render(<MentorProfileCard mentor={mockMentor} />);
+    expect(
+      screen.getByRole('button', { name: /apply for this mentor/i }),
+    ).toBeDisabled();
   });
 });
