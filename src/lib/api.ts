@@ -86,6 +86,7 @@ export const fetchData = async (path: string) => {
   }
 };
 
+// Refactor this using fetchFromPath()
 export const handleApiError = (error: unknown, res: NextApiResponse) => {
   const err = error as {
     response?: { status: number; data: unknown };
