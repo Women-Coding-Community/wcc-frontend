@@ -9,7 +9,6 @@ import {
   BreadCrumbsDynamic,
 } from '@components';
 import { formatImage } from '@utils/image-utils';
-import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, StudyGroupsPageData } from '@utils/types';
 import { fetchData } from 'lib/api';
 
@@ -28,11 +27,10 @@ const MentorShipStudyGroupsPage = ({ data, footer }: StudyGroupsPageProps) => {
 
   const muiTheme = useTheme();
   const cardColors = muiTheme.palette.custom.studyGroupCardColors;
-  const isMobile = useIsMobile();
 
   return (
     <Box>
-      {isMobile ? null : <BreadCrumbsDynamic />}
+      <BreadCrumbsDynamic />
       <HeroWithImage
         title={data.heroSection.title}
         image={formatImage(data.heroSection.images[0])}

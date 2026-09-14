@@ -11,7 +11,6 @@ import {
   MentorBecomeCard,
   Title,
 } from '@components';
-import { useIsMobile } from '@utils/theme-utils';
 import {
   FooterResponse,
   MentorshipProgrammeData,
@@ -31,10 +30,9 @@ interface FeedbackSectionProps {
   feedbacks: FeedbackItem[];
 }
 const MentorshipPage = ({ mentorship, footer }: MentorshipPageProps) => {
-  const isMobile = useIsMobile();
   return (
     <>
-      {isMobile ? null : <BreadCrumbsDynamic />}
+      <BreadCrumbsDynamic />
       <Title title={mentorship.heroSection.title} />
 
       <Box

@@ -5,7 +5,6 @@ import React from 'react';
 
 import { Title, ResourcesCard, Footer, BreadCrumbsDynamic } from '@components';
 import { formatImage } from '@utils/image-utils';
-import { useIsMobile } from '@utils/theme-utils';
 import { FooterResponse, MentorshipResourcesResponse } from '@utils/types';
 import { fetchData } from 'lib/api';
 import fallbackData from 'lib/responses/mentorshipResources.json';
@@ -24,13 +23,12 @@ const MentorshipResourcesPage: React.FC<MentorshipResourcesPageProps> = ({
   data,
   footer,
 }) => {
-  const isMobile = useIsMobile();
   const page = (data ?? fallbackData) as MentorshipResourcesResponse;
   const { heroSection, section, resourcesSection } = page;
 
   return (
     <>
-      {isMobile ? null : <BreadCrumbsDynamic />}
+      <BreadCrumbsDynamic />
 
       <Box
         sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
