@@ -50,39 +50,33 @@ export const EventCard = ({
         <Box
           sx={{
             display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row-reverse',
+            flexDirection: isMobile ? 'column-reverse' : 'row-reverse',
+            gap: isMobile ? '18px' : '24px',
+            alignItems: 'flex-start',
           }}
         >
           <Box
             sx={{
-              '@media (max-width: 544px)': {
-                justifyContent: 'flex-start',
-              },
-              marginBottom: isMobile ? '25px' : '',
+              position: 'relative',
+              minWidth: isMobile ? '100%' : 220,
+              minHeight: isMobile ? 180 : 120,
+              overflow: 'hidden',
+              borderRadius: '.6rem',
+              marginLeft: isMobile ? 0 : '0.5rem',
+              marginBottom: isMobile ? '1rem' : 0,
             }}
           >
-            {isMobile ? (
-              <Box sx={{ position: 'relative', width: '100%', height: 134 }}>
-                <Image
-                  src={images[0].path}
-                  alt={images[0].alt}
-                  data-testid="event-card-image"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  priority
-                />
-              </Box>
-            ) : (
-              <Image
-                src={images[0].path}
-                alt={images[0].alt}
-                data-testid="event-card-image"
-                width={134}
-                height={134}
-                style={{ objectFit: 'cover' }}
-                priority
-              />
-            )}
+            <Image
+              src={images[0].path}
+              alt={images[0].alt}
+              data-testid="event-card-image"
+              fill
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'top',
+              }}
+              priority
+            />
           </Box>
 
           <Box>
