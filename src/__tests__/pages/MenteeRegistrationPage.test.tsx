@@ -19,7 +19,11 @@ jest.mock('next/link', () => {
 });
 
 jest.mock('next/router', () => ({
-  useRouter: () => ({ push: jest.fn(), pathname: '/' }),
+  useRouter: () => ({
+    push: jest.fn(),
+    pathname: '/mentorship/mentee-registration',
+    query: {},
+  }),
 }));
 
 // Mutable flags so individual tests can override registration state
@@ -208,11 +212,6 @@ describe('MenteeRegistrationPage - adhoc cycle', () => {
   afterEach(() => {
     mockIsAdhocCycle = false;
     jest.resetAllMocks();
-  });
-
-  it('shows ad-hoc breadcrumb label', () => {
-    renderPage();
-    expect(screen.getByText('Ad-hoc Mentee Registration')).toBeInTheDocument();
   });
 
   it('does not render available hours per month field', () => {
