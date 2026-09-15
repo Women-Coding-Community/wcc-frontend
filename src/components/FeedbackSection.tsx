@@ -2,6 +2,7 @@ import { Box, Typography, Button } from '@mui/material';
 import React, { useState } from 'react';
 
 import { FeedbackItem } from '@utils/types';
+import theme from 'theme';
 
 import { ColoredBox } from './ColoredBox';
 import { FeedbackCard } from './FeedbackCard';
@@ -90,8 +91,8 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
             data-testid="feedback-show-more"
             sx={{
               borderRadius: '20px',
-              border: '1px solid #71787E',
-              color: '#1A4B66',
+              border: `1px solid ${theme.palette.custom.outline}`,
+              color: theme.palette.custom.linkBlue,
             }}
           >
             {feedbacksDisplayed >= feedbacks.length
