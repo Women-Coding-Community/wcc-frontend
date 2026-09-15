@@ -66,6 +66,7 @@ const validateStep1 = async (formMethods: UseFormReturn<MenteeFormData>) =>
     'position',
     'companyName',
     'linkedInProfile',
+    'availableHsMonth',
   ]);
 
 const validateStep2 = async (formMethods: UseFormReturn<MenteeFormData>) =>
@@ -140,6 +141,11 @@ const MenteeRegistrationPage = () => {
       setActiveStep((prev) => prev - 1);
       window.scrollTo(0, 0);
     }
+  };
+
+  const onInvalid = () => {
+    setSubmitError('Please fix the highlighted errors before submission.');
+    window.scrollTo(0, 0);
   };
 
   const onSubmit = async (data: MenteeFormData) => {
@@ -350,7 +356,7 @@ const MenteeRegistrationPage = () => {
                         variant="contained"
                         color="success"
                         disabled={formMethods.formState.isSubmitting}
-                        onClick={formMethods.handleSubmit(onSubmit)}
+                        onClick={formMethods.handleSubmit(onSubmit, onInvalid)}
                         sx={{ px: { xs: 2.5, md: 3.5 }, py: 1 }}
                       >
                         {formMethods.formState.isSubmitting
