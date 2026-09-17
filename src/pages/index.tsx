@@ -9,23 +9,24 @@ import {
   VolunteerSection,
   Footer,
   EventContainer,
+  FeedbackSection,
 } from '@components';
 import { formatImage } from '@utils/image-utils';
-import { FooterResponse, LandingPageResponse } from '@utils/types';
+import {
+  FooterResponse,
+  LandingPageResponse,
+  MentorshipProgrammeData,
+} from '@utils/types';
 import { fetchData } from 'lib/api';
-
-type CombinedResponse = {
-  data: LandingPageResponse;
-  footer: FooterResponse;
-};
 
 interface HomePageProps {
   data: LandingPageResponse;
   footer: FooterResponse;
+  mentorship?: MentorshipProgrammeData | null;
   error: string | null;
 }
 
-const HomePage = ({ data, footer, error }: HomePageProps) => {
+const HomePage = ({ data, footer, mentorship, error }: HomePageProps) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -47,6 +48,12 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
       <Hero {...heroSection} />
       <OpportunitiesProgrammes {...programmes} />
       <EventContainer {...events} />
+      {mentorship?.feedbackSection?.feedbacks && (
+        <FeedbackSection
+          title={mentorship.feedbackSection.title}
+          feedbacks={mentorship.feedbackSection.feedbacks}
+        />
+      )}
       <MentorBanner {...fullBannerSection} />
       <VolunteerSection {...volunteerSection} />
       <Footer {...footer} />
@@ -56,8 +63,13 @@ const HomePage = ({ data, footer, error }: HomePageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const combinedResponse: CombinedResponse = await fetchData('landingPage');
-    const data = combinedResponse.data;
+    const [landingRes, mentorshipRes] = await Promise.all([
+      fetchData('landingPage'),
+      fetchData('mentorship/overview'),
+    ]);
+    const data = landingRes.data as LandingPageResponse;
+    const footer = landingRes.footer;
+    const mentorship = mentorshipRes.data as MentorshipProgrammeData;
 
     const formattedData = {
       ...data,
@@ -85,13 +97,16 @@ export const getServerSideProps: GetServerSideProps = async () => {
     return {
       props: {
         data: formattedData,
-        footer: combinedResponse.footer,
+        footer,
+        mentorship: mentorship ?? null,
       },
     };
   } catch (error) {
     return {
       props: {
         data: null,
+        footer: null,
+        mentorship: null,
         error: error instanceof Error ? error.message : 'An error occurred',
       },
     };

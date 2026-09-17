@@ -46,7 +46,7 @@ Then, install project dependencies
 Next, create an `.env.local` file in your root folder. In this file please paste the following:
 
 ```
-API_BASE_URL=https://wcc-backend.fly.local/api/cms/v1
+API_BASE_URL=http://localhost:8080/api/cms/v1
 API_KEY={your_local_api_key}
 ```
 
@@ -59,7 +59,6 @@ Now you can run the application using
 ```
 
 You can run also these commands pre-commit for your peace of mind. The application uses husky, which will run these same checks before you can commit.
-ƒ
 
 ```bash
   pnpm lint:fix && pnpm format && pnpm type-check
@@ -101,15 +100,9 @@ This updates the reference screenshots used in visual tests.
 
 ### CI/CD and deploy (Vercel)
 
-A GitHub Actions workflow is provided at `.github/workflows/deploy-website-frontend-dev.yml` to deploy
-the frontend to Vercel Dev environment on pushes to `main`. Configure the following repository
-secrets:
+The website frontend is deployed to Vercel using Vercel's native Git integration on pushes to `main`.
 
-- VERCEL_TOKEN_DEV
-- VERCEL_ORG_ID_DEV
-- VERCEL_PROJECT_ID_DEV
-- NEXT_PUBLIC_API_BASE_DEV
-- NEXT_PUBLIC_API_KEY_DEV (optional)
-- NEXT_PUBLIC_APP_URL_DEV (optional)
+Configure the following environment variables in the Vercel project dashboard:
 
-Alternatively, you can connect the repository directly in Vercel dashboard and set env vars there.
+- `API_BASE_URL` (Backend API URL, e.g. `https://wcc-backend-prod.fly.dev/api/cms/v1`)
+- `API_KEY` (Backend API key)
