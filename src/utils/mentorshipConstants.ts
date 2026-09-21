@@ -203,15 +203,3 @@ export const SKILL_LEVELS = [
   'Not Applicable',
 ];
 export const PREFERENCE_LEVELS = ['Low', 'Medium', 'High', 'Not Applicable'];
-
-/**
- * Mentee registration toggle.
- * Set to `true` to open the registration form, `false` to show the closed page.
- */
-export const IS_REGISTRATION_OPEN = false;
-
-/**
- * Mentorship cycle type toggle.
- * Set to `true` for an ad-hoc cycle, `false` for a long-term cycle.
- */
-export const IS_ADHOC_CYCLE = true;
