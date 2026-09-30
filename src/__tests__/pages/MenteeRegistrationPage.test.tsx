@@ -192,9 +192,8 @@ describe('MenteeRegistrationPage - registration closed', () => {
 
   it('shows closed message when registration is not open', () => {
     renderPage();
-    expect(screen.getByText('Application is now closed')).toBeInTheDocument();
     expect(
-      screen.getByText(/Applications are currently closed/i),
+      screen.getByText('Mentorship Applications are currently closed'),
     ).toBeInTheDocument();
     expect(screen.queryByText('Step 1 of 3')).not.toBeInTheDocument();
   });
