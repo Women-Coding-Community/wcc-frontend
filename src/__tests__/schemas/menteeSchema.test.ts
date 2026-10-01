@@ -105,3 +105,27 @@ describe('adhocMenteeFormDefaultValues', () => {
     expect(adhocMenteeFormDefaultValues.mentorshipType).toBe('AD_HOC');
   });
 });
+
+describe('menteeFormSchema — fullName', () => {
+  it('trims leading and trailing whitespace', () => {
+    const result = menteeFormSchema.safeParse({
+      ...validLongTermBase,
+      fullName: '  Jane Doe  ',
+    });
+
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      expect(result.data.fullName).toBe('Jane Doe');
+    }
+  });
+
+  it('rejects a fullName containing only whitespace', () => {
+    const result = menteeFormSchema.safeParse({
+      ...validLongTermBase,
+      fullName: '   ',
+    });
+
+    expect(result.success).toBe(false);
+  });
+});

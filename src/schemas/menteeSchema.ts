@@ -30,7 +30,7 @@ const applicationSchema = z.object({
 
 export const menteeFormSchema = z
   .object({
-    fullName: z.string().min(2, 'Name must be at least 2 characters'),
+    fullName: z.string().trim().min(2, 'Name must be at least 2 characters'),
     position: z.string().min(1, 'Position is required'),
     email: z.email('Please enter a valid email address'),
     slackDisplayName: z
