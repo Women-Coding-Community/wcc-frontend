@@ -116,15 +116,17 @@ const MenteeRegistrationPage = () => {
   });
 
   useEffect(() => {
-    fetchCurrentCycle().then((cycle) => {
-      const adhoc = cycle?.mentorshipType === 'Ad-Hoc';
-      setRegistrationOpen(cycle?.registrationOpen === true);
-      setIsAdhoc(adhoc);
-      formMethods.reset(
-        adhoc ? adhocMenteeFormDefaultValues : menteeFormDefaultValues,
-      );
-      setCycleLoading(false);
-    });
+    fetchCurrentCycle()
+      .then((cycle) => {
+        const adhoc = cycle?.mentorshipType === 'Ad-Hoc';
+        setRegistrationOpen(cycle?.registrationOpen === true);
+        setIsAdhoc(adhoc);
+        formMethods.reset(
+          adhoc ? adhocMenteeFormDefaultValues : menteeFormDefaultValues,
+        );
+        setCycleLoading(false);
+      })
+      .catch(() => setCycleLoading(false));
   }, [formMethods]);
 
   const [activeStep, setActiveStep] = useState(1);
