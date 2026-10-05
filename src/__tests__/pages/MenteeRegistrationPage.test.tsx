@@ -26,6 +26,15 @@ jest.mock('next/router', () => ({
   }),
 }));
 
+// The full country list makes the dropdown too slow to render in jsdom.
+jest.mock('../../utils/mentorshipConstants', () => ({
+  ...jest.requireActual('../../utils/mentorshipConstants'),
+  COUNTRIES: [
+    { code: 'GB', name: 'United Kingdom' },
+    { code: 'US', name: 'United States' },
+  ],
+}));
+
 const OPEN_LONG_TERM_CYCLE = {
   registrationOpen: true,
   mentorshipType: 'Long-Term',
