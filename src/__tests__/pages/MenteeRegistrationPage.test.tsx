@@ -1,10 +1,20 @@
 import { ThemeProvider } from '@mui/material';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  act,
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import React from 'react';
 
 import theme from 'theme';
 
 import MenteeRegistrationPage from '../../pages/mentorship/mentee-registration';
+
+// Full wizard interactions include all three steps and asynchronous data loading.
+jest.setTimeout(30000);
 
 jest.mock('next/link', () => {
   const MockLink = ({
@@ -18,21 +28,36 @@ jest.mock('next/link', () => {
   return MockLink;
 });
 
+const mockRouter = {
+  push: jest.fn(),
+  pathname: '/mentorship/mentee-registration',
+  query: {} as { id?: string | string[] },
+  isReady: true,
+};
+
 jest.mock('next/router', () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    pathname: '/mentorship/mentee-registration',
-    query: {},
-  }),
+  useRouter: () => mockRouter,
 }));
 
-// The full country list makes the dropdown too slow to render in jsdom.
+beforeEach(() => {
+  mockRouter.query = {};
+  mockRouter.isReady = true;
+});
+
+// Keep option lists small so wizard interactions stay fast in jsdom.
 jest.mock('../../utils/mentorshipConstants', () => ({
   ...jest.requireActual('../../utils/mentorshipConstants'),
   COUNTRIES: [
     { code: 'GB', name: 'United Kingdom' },
     { code: 'US', name: 'United States' },
   ],
+  TECHNICAL_AREA_GROUPS: [
+    {
+      title: 'Software Development',
+      areas: [{ label: 'Frontend', value: 'FRONTEND' }],
+    },
+  ],
+  CODE_LANGUAGES: [{ label: 'JavaScript', value: 'JAVASCRIPT' }],
 }));
 
 const OPEN_LONG_TERM_CYCLE = {
@@ -43,18 +68,21 @@ const OPEN_AD_HOC_CYCLE = { registrationOpen: true, mentorshipType: 'Ad-Hoc' };
 
 // The page fetches the current cycle first, then the mentor list.
 // Pass null for the cycle to answer that first call with a 404.
-const mockFetch = (cycle: unknown) => {
+const mockFetch = (cycle: unknown, mentors: unknown = []) => {
   globalThis.fetch = jest
     .fn()
     .mockResolvedValueOnce({
       ok: cycle !== null,
       json: jest.fn().mockResolvedValue(cycle),
     })
-    .mockResolvedValue({ ok: true, json: jest.fn().mockResolvedValue([]) });
+    .mockResolvedValue({
+      ok: true,
+      json: jest.fn().mockResolvedValue(mentors),
+    });
 };
 
 const renderPage = async () => {
-  render(
+  const view = render(
     <ThemeProvider theme={theme}>
       <MenteeRegistrationPage />
     </ThemeProvider>,
@@ -62,6 +90,7 @@ const renderPage = async () => {
   await waitFor(() => {
     expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
   });
+  return view;
 };
 
 const setupMenteeBasicInfoStep = async ({
@@ -306,5 +335,176 @@ describe('MenteeRegistrationPage - long-term cycle', () => {
         screen.getByText('Please enter at least 2 hours per month'),
       ).toBeInTheDocument();
     });
+  });
+});
+
+describe('MenteeRegistrationPage - mentor deep link', () => {
+  const mentors = [
+    { id: 7, fullName: 'Alex Mentor', position: 'Engineer' },
+    { id: 8, fullName: 'Sam Mentor', position: 'Developer' },
+  ];
+
+  const goToApplications = async (includeHours = true) => {
+    await setupMenteeBasicInfoStep({ includeHours });
+    fireEvent.click(screen.getByText('Next', { selector: 'button' }));
+    await screen.findByText('Step 2 of 3');
+
+    for (const skill of ['Frontend', 'JavaScript']) {
+      const skillField = screen.getByText(skill).parentElement!;
+      fireEvent.mouseDown(within(skillField).getByRole('combobox'));
+      fireEvent.click(await screen.findByText('Beginner', { selector: 'li' }));
+    }
+    fireEvent.click(screen.getByLabelText('English'));
+    fireEvent.click(screen.getByLabelText('Grow from beginner to mid-level'));
+    fireEvent.change(
+      screen.getByPlaceholderText(
+        "Tell us about yourself, your background, and what you're looking for in a mentorship",
+      ),
+      {
+        target: {
+          value:
+            'I want to develop my frontend engineering skills with guidance from an experienced mentor.',
+        },
+      },
+    );
+    fireEvent.click(screen.getByText('Next', { selector: 'button' }));
+    await screen.findByText('Step 3 of 3');
+  };
+
+  const rerenderPage = (rerender: ReturnType<typeof render>['rerender']) =>
+    rerender(
+      <ThemeProvider theme={theme}>
+        <MenteeRegistrationPage />
+      </ThemeProvider>,
+    );
+
+  beforeEach(() => {
+    mockRouter.query = { id: '7' };
+    mockFetch(OPEN_LONG_TERM_CYCLE, { mentors });
+    jest.spyOn(window, 'scrollTo').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+    jest.resetAllMocks();
+  });
+
+  it.each([false, true])(
+    'preselects the linked mentor as the first preference (adhoc: %s)',
+    async (isAdhoc) => {
+      mockFetch(isAdhoc ? OPEN_AD_HOC_CYCLE : OPEN_LONG_TERM_CYCLE, {
+        mentors,
+      });
+      await renderPage();
+      await goToApplications(!isAdhoc);
+
+      expect(screen.getAllByText('Mentor preference #1')).toHaveLength(1);
+      expect(screen.getAllByRole('combobox')[0]).toHaveTextContent(
+        'Alex Mentor',
+      );
+      expect(screen.getAllByRole('combobox')[1]).toHaveTextContent(
+        '1 — Top choice',
+      );
+      expect(
+        screen.getByPlaceholderText(
+          "Explain why this mentor's skills and experience match your goals",
+        ),
+      ).toHaveValue('');
+    },
+  );
+
+  it('waits for router readiness before preselecting the linked mentor', async () => {
+    mockRouter.isReady = false;
+    mockRouter.query = {};
+    const { rerender } = await renderPage();
+    await goToApplications();
+    expect(screen.getByText(/No mentor selected yet/)).toBeInTheDocument();
+
+    mockRouter.query = { id: '7' };
+    mockRouter.isReady = true;
+    rerenderPage(rerender);
+
+    expect(await screen.findByText('Alex Mentor')).toBeInTheDocument();
+  });
+
+  it('waits for the mentor response before preselecting', async () => {
+    let resolveMentors = () => {};
+    const response = new Promise((resolve) => {
+      resolveMentors = () => resolve({ mentors });
+    });
+    (globalThis.fetch as jest.Mock).mockResolvedValue({
+      ok: true,
+      json: () => response,
+    });
+    await renderPage();
+    await goToApplications();
+    expect(screen.getByText(/No mentor selected yet/)).toBeInTheDocument();
+
+    await act(async () => {
+      resolveMentors();
+    });
+
+    expect(screen.getAllByRole('combobox')[0]).toHaveTextContent('Alex Mentor');
+  });
+
+  it.each([
+    undefined,
+    '',
+    'invalid',
+    '7extra',
+    '0',
+    '-7',
+    '7.5',
+    '999',
+    ['7'],
+    ['7', '8'],
+  ])(
+    'keeps normal registration empty for an absent, invalid or unavailable ID: %s',
+    async (id) => {
+      mockRouter.query = { id };
+      await renderPage();
+      await goToApplications();
+      expect(screen.getByText(/No mentor selected yet/)).toBeInTheDocument();
+    },
+  );
+
+  it('preserves a changed or removed preference through rerenders and back navigation', async () => {
+    const { rerender } = await renderPage();
+    await goToApplications();
+    fireEvent.mouseDown(screen.getAllByRole('combobox')[0]);
+    fireEvent.click(await screen.findByRole('option', { name: /Sam Mentor/ }));
+
+    // A new router query object must not overwrite the user's selection.
+    mockRouter.query = { id: '7' };
+    rerenderPage(rerender);
+    expect(screen.getAllByRole('combobox')[0]).toHaveTextContent('Sam Mentor');
+
+    fireEvent.click(screen.getByRole('button', { name: /back/i }));
+    await screen.findByText('Step 2 of 3');
+    fireEvent.click(screen.getByText('Next', { selector: 'button' }));
+    await screen.findByText('Step 3 of 3');
+    expect(screen.getAllByRole('combobox')[0]).toHaveTextContent('Sam Mentor');
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Remove mentor preference 1' }),
+    );
+    mockRouter.query = { id: '8' };
+    rerenderPage(rerender);
+    expect(screen.getByText(/No mentor selected yet/)).toBeInTheDocument();
+  });
+
+  it('preserves a manual choice made before the router is ready', async () => {
+    mockRouter.isReady = false;
+    const { rerender } = await renderPage();
+    await goToApplications();
+    fireEvent.click(screen.getByRole('button', { name: /add mentor/i }));
+    fireEvent.mouseDown(screen.getAllByRole('combobox')[0]);
+    fireEvent.click(await screen.findByRole('option', { name: /Sam Mentor/ }));
+
+    mockRouter.isReady = true;
+    rerenderPage(rerender);
+
+    expect(screen.getAllByRole('combobox')[0]).toHaveTextContent('Sam Mentor');
+    expect(screen.queryByText('Mentor preference #2')).not.toBeInTheDocument();
   });
 });
