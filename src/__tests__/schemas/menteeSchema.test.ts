@@ -115,9 +115,10 @@ describe('menteeFormSchema — fullName', () => {
 
     expect(result.success).toBe(true);
 
-    if (result.success) {
-      expect(result.data.fullName).toBe('Jane Doe');
+    if (!result.success) {
+      throw new Error('Expected parsing to succeed');
     }
+    expect(result.data.fullName).toBe('Jane Doe');
   });
 
   it('rejects a fullName containing only whitespace', () => {
