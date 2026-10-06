@@ -50,6 +50,7 @@ const MentorsPage = () => {
   const { query } = router;
 
   const [mentorsState, setMentorsState] = useState<Mentor[]>([]);
+  const [registrationOpen, setRegistrationOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [keyword, setKeyword] = useState<string>('');
@@ -83,6 +84,13 @@ const MentorsPage = () => {
     if (typeof query.language === 'string') setSelectedLanguage(query.language);
     if (typeof query.focus === 'string') setSelectedFocus(query.focus);
   }, [query]);
+
+  useEffect(() => {
+    fetch('/api/current-cycle')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((cycle) => setRegistrationOpen(cycle?.registrationOpen === true))
+      .catch(() => setRegistrationOpen(false));
+  }, []);
 
   // Fetch mentors on mount and when filters change
   useEffect(() => {
@@ -480,6 +488,7 @@ const MentorsPage = () => {
             {mentorsState.map((mentor: Mentor) => (
               <MentorProfileCard
                 mentor={mentor}
+                registrationOpen={registrationOpen}
                 key={mentor.id || mentor.fullName}
               />
             ))}

@@ -70,21 +70,9 @@ const mockMentor: Mentor = {
   },
 };
 
-let mockIsRegistrationOpen = true;
-
-jest.mock('../../utils/mentorshipConstants', () => ({
-  ...jest.requireActual('../../utils/mentorshipConstants'),
-  get IS_REGISTRATION_OPEN() {
-    return mockIsRegistrationOpen;
-  },
-}));
-
 describe('MentorProfileCard', () => {
-  beforeEach(() => {
-    mockIsRegistrationOpen = true;
-  });
   it('renders mentor basic info', () => {
-    render(<MentorProfileCard mentor={mockMentor} />);
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     expect(screen.getByText('Test Mentor')).toBeInTheDocument();
     expect(screen.getByText(/Senior Software Engineer/)).toBeInTheDocument();
     expect(screen.getByText(/ABC Technology Company/)).toBeInTheDocument();
@@ -95,7 +83,7 @@ describe('MentorProfileCard', () => {
   });
 
   it('renders social network icons with correct links', () => {
-    render(<MentorProfileCard mentor={mockMentor} />);
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     expect(screen.getAllByRole('link')[1]).toHaveAttribute(
       'href',
       'https://linkedin.com/in/test',
@@ -107,7 +95,7 @@ describe('MentorProfileCard', () => {
   });
 
   it('shows the correct tab content when tabs are clicked', () => {
-    render(<MentorProfileCard mentor={mockMentor} />);
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     // Presentation tab is default
     expect(
       screen.getByText(/Based in: London, United Kingdom/),
@@ -128,15 +116,14 @@ describe('MentorProfileCard', () => {
   });
 
   it('renders the Apply for this mentor link when registration is open', () => {
-    render(<MentorProfileCard mentor={mockMentor} />);
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     expect(
       screen.getByRole('link', { name: /apply for this mentor/i }),
     ).toBeInTheDocument();
   });
 
   it('disables Apply button when registration is closed', () => {
-    mockIsRegistrationOpen = false;
-    render(<MentorProfileCard mentor={mockMentor} />);
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen={false} />);
     expect(
       screen.getByRole('button', { name: /apply for this mentor/i }),
     ).toBeDisabled();
