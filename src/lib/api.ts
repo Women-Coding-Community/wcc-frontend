@@ -4,6 +4,7 @@ import { NextApiResponse } from 'next';
 
 import aboutUsPage from './responses/aboutUs.json';
 import aboutUsTeam from './responses/aboutUsTeam.json';
+import mentorShipAdHocTimeline from './responses/adHocTimeLine.json';
 import footerData from './responses/footer.json';
 import landingPageData from './responses/landingPage.json';
 import mentorShipLongTermTimeline from './responses/longTermTimeLine.json';
@@ -60,6 +61,7 @@ export const proxyRequest = async (
 const pageData = {
   landingPage: landingPageData,
   'mentorship/overview': mentorShipPage,
+  'mentorship/ad-hoc-timeline': mentorShipAdHocTimeline,
   'mentorship/long-term-timeline': mentorShipLongTermTimeline,
   'programmes/study-groups': studyGroupsPage,
   'about-us/celebrate-her': aboutUsPage,
