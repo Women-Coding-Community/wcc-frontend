@@ -106,17 +106,34 @@ One command starts the whole platform — database, API, admin portal and this w
 
 ### 1. Get the backend code
 
-The Docker setup lives in the backend repository. Clone it next to this one:
+The Docker setup lives in the backend repository, and it builds this website from your local checkout — so the two need to sit side by side. From inside this repo:
 
 ```bash
+cd ..
 git clone https://github.com/Women-Coding-Community/wcc-backend.git
 ```
 
-### 2. Start everything
+You should end up with:
 
-With Docker Desktop running, from `wcc-backend`:
+```
+├── wcc-frontend   ← this repository
+└── wcc-backend
+```
+
+If the two repos aren't side by side, point the stack at GitHub instead:
 
 ```bash
+WCC_FRONTEND_CONTEXT=https://github.com/Women-Coding-Community/wcc-frontend.git ./scripts/app-stack.sh up
+```
+
+This builds the published version of the website, not your local changes.
+
+### 2. Start everything
+
+With Docker Desktop running:
+
+```bash
+cd wcc-backend
 ./scripts/app-stack.sh up
 ```
 
@@ -160,8 +177,6 @@ mentor. Switch the cycle to see the others. No restart is needed; just reload th
 ./scripts/app-stack.sh cycle none        # no open cycle — all mentors show
 ./scripts/app-stack.sh cycle long-term   # back to the default
 ```
-
-Handy for checking how the mentors page looks in each state.
 
 ### Stopping
 
