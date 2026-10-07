@@ -151,7 +151,9 @@ This website has no login. You use these accounts for the **admin portal**, wher
 
 ### Switching the mentorship cycle
 
-You'll see one mentor because the page only shows mentors matching the open cycle, and the default is long-term. Switch it to see the others:
+The website's mentors page (`http://localhost:3001/mentorship/mentors`) filters by the open
+cycle's mentorship type when it first loads. With the default long-term cycle you'll see one
+mentor. Switch the cycle to see the others. No restart is needed; just reload the page.
 
 ```bash
 ./scripts/app-stack.sh cycle ad-hoc      # the ad-hoc mentor
