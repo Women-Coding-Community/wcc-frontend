@@ -50,7 +50,7 @@ API_BASE_URL=http://localhost:8080/api/cms/v1
 API_KEY=local
 ```
 
-`local` is the backend's development default, so there is nothing to request. `.env.local` is git-ignored and never committed.
+`.env.local` is git-ignored and never committed.
 
 You also need a backend running at that address — see [Running the whole application with Docker](#running-the-whole-application-with-docker).
 
