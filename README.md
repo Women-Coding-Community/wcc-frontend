@@ -47,10 +47,12 @@ Next, create an `.env.local` file in your root folder. In this file please paste
 
 ```
 API_BASE_URL=http://localhost:8080/api/cms/v1
-API_KEY={your_local_api_key}
+API_KEY=local
 ```
 
-This will allow your local to connect to the backend, if you don't yet have an API_KEY please send a message via our dedicated Slack channel. This will never be committed to the github repository.
+`local` is the backend's development default, so there is nothing to request. `.env.local` is git-ignored and never committed.
+
+You also need a backend running at that address — see [Running the whole application with Docker](#running-the-whole-application-with-docker).
 
 Now you can run the application using
 
@@ -98,7 +100,80 @@ To update visual regression snapshots (when UI changes are intentional):
 
 This updates the reference screenshots used in visual tests.
 
-### CI/CD and deploy (Vercel)
+## Running the whole application with Docker
+
+One command starts the whole platform — database, API, admin portal and this website — already wired together and seeded with test data. Good for seeing everything working together, or for end-to-end testing.
+
+### 1. Get the backend code
+
+The Docker setup lives in the backend repository. Clone it next to this one:
+
+```bash
+git clone https://github.com/Women-Coding-Community/wcc-backend.git
+```
+
+### 2. Start everything
+
+With Docker Desktop running, from `wcc-backend`:
+
+```bash
+./scripts/app-stack.sh up
+```
+
+The first run builds the images and takes several minutes. Later runs are quicker.
+
+### 3. Open it
+
+The command prints these when it finishes:
+
+| What          | URL                                         |
+| ------------- | ------------------------------------------- |
+| This website  | http://localhost:3001                       |
+| Backend API   | http://localhost:8080                       |
+| Swagger UI    | http://localhost:8080/swagger-ui/index.html |
+| Admin portal  | http://localhost:3000                       |
+| MailHog inbox | http://localhost:8025                       |
+
+### Seeded accounts
+
+Six accounts are created, all with the password `wcc-admin`:
+
+| Email                      | Role               | What it's for                          |
+| -------------------------- | ------------------ | -------------------------------------- |
+| `admin@wcc.dev`            | `ADMIN`            | Widest access — start here             |
+| `mentorship-admin@wcc.dev` | `MENTORSHIP_ADMIN` | Approves mentors, manages matches      |
+| `leader@wcc.dev`           | `LEADER`           |                                        |
+| `mentor@wcc.dev`           | `MENTOR`           | The long-term mentor shown on the site |
+| `mentor-adhoc@wcc.dev`     | `MENTOR`           | The ad-hoc mentor                      |
+| `member@wcc.dev`           | `VIEWER`           |                                        |
+
+This website has no login. You use these accounts for the **admin portal**, where you can change the content the site shows. Those two mentor accounts are what you see on `/mentorship/mentors`.
+
+### Switching the mentorship cycle
+
+You'll see one mentor because the page only shows mentors matching the open cycle, and the default is long-term. Switch it to see the others:
+
+```bash
+./scripts/app-stack.sh cycle ad-hoc      # the ad-hoc mentor
+./scripts/app-stack.sh cycle none        # no open cycle — all mentors show
+./scripts/app-stack.sh cycle long-term   # back to the default
+```
+
+Handy for checking how the mentors page looks in each state.
+
+### Stopping
+
+```bash
+./scripts/app-stack.sh down
+```
+
+> If `pnpm dev` is running, stop it first. The admin portal needs port 3000, and the stack won't start while it's taken.
+
+> The website here is a production build, so it won't pick up your code changes. Use `pnpm dev` for day-to-day development. This setup is for seeing the whole application running.
+
+[`docs/qa_local_setup.md`](https://github.com/Women-Coding-Community/wcc-backend/blob/main/docs/qa_local_setup.md) in the backend repository covers the database and troubleshooting.
+
+## CI/CD and deploy (Vercel)
 
 The website frontend is deployed to Vercel using Vercel's native Git integration on pushes to `main`.
 
