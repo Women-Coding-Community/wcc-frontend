@@ -35,17 +35,11 @@ export default async function handler(
         Array.isArray(yearsExperience) ? yearsExperience[0] : yearsExperience,
       );
     if (areas) params.append('areas', Array.isArray(areas) ? areas[0] : areas);
-    if (language)
-      params.append(
-        'language',
-        Array.isArray(language) ? language[0] : language,
-      );
+    if (language) {
+      const languages = Array.isArray(language) ? language : [language];
+      languages.forEach((value) => params.append('languages', value));
+    }
     if (focus) params.append('focus', Array.isArray(focus) ? focus[0] : focus);
-    if (mentorshipTypes)
-      params.append(
-        'mentorshipTypes',
-        Array.isArray(mentorshipTypes) ? mentorshipTypes[0] : mentorshipTypes,
-      );
 
     const data = await proxyRequest('mentorship/mentors', {
       method: 'GET',
