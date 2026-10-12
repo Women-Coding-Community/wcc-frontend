@@ -5,7 +5,7 @@ import StarIcon from '@mui/icons-material/Star';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Box, Icon, Tab, Tabs, Typography } from '@mui/material';
 import Image from 'next/image';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { LinkButton } from '@components';
 import { IS_REGISTRATION_OPEN } from '@utils/mentorshipConstants';
@@ -58,11 +58,17 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) =>
     setTab(newValue);
   const isMobile = useIsMobile();
-  const [imgSrc, setImgSrc] = useState(
-    mentor.images[0]?.path || FALLBACK_IMAGE,
-  );
+  const mentorImagePath = mentor.images[0]?.path;
+  const [imgSrc, setImgSrc] = useState(mentorImagePath || FALLBACK_IMAGE);
+
+  useEffect(() => {
+    setImgSrc(mentorImagePath || FALLBACK_IMAGE);
+  }, [mentorImagePath]);
+
   const handleImageError = useCallback(() => {
-    setImgSrc(FALLBACK_IMAGE);
+    setImgSrc((current) =>
+      current !== FALLBACK_IMAGE ? FALLBACK_IMAGE : current,
+    );
   }, []);
 
   return (
@@ -109,6 +115,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
             }
             width={120}
             height={120}
+            unoptimized
             onError={handleImageError}
             style={{
               objectFit: 'cover',
