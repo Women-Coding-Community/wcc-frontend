@@ -82,6 +82,34 @@ describe('MentorProfileCard', () => {
     ).toBeInTheDocument();
   });
 
+  it('renders a mentor when optional profile fields are missing', () => {
+    const sparseMentor = {
+      ...mockMentor,
+      images: undefined,
+      country: undefined,
+      network: undefined,
+      skills: undefined,
+      spokenLanguages: undefined,
+      menteeSection: undefined,
+    } as unknown as Mentor;
+
+    render(<MentorProfileCard mentor={sparseMentor} registrationOpen />);
+
+    expect(screen.getByText('Test Mentor')).toBeInTheDocument();
+    expect(
+      screen.getByAltText(
+        'Profile Illustration Fallback - Image by rawpixel.com on Freepik',
+      ),
+    ).toHaveAttribute(
+      'src',
+      expect.stringContaining('profile-illustration-female-fallback.jpg'),
+    );
+
+    fireEvent.click(screen.getByText('Skills & Support Areas'));
+    expect(screen.getByText(/Tech Experience in years:/)).toBeInTheDocument();
+    expect(screen.getAllByText('N/A')).toHaveLength(3);
+  });
+
   it('renders social network icons with correct links', () => {
     render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     expect(screen.getAllByRole('link')[1]).toHaveAttribute(
