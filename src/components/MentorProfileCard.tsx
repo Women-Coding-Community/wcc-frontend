@@ -96,11 +96,11 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
         >
           <Image
             src={
-              mentor.images[0]?.path ||
+              mentor.images?.[0]?.path ||
               '/profile-illustration-female-fallback.jpg'
             }
             alt={
-              mentor.images[0]?.alt ||
+              mentor.images?.[0]?.alt ||
               'Profile Illustration Fallback - Image by rawpixel.com on Freepik'
             }
             width={120}
@@ -185,10 +185,10 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
             {mentor?.position}, {mentor?.companyName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-            Based in: {mentor.city}, {mentor.country.countryName}
+            Based in: {mentor.city}, {mentor.country?.countryName || 'N/A'}
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-            {mentor.network.map((network: Network) => (
+            {mentor.network?.map((network: Network) => (
               <a href={network.link} key={network.type}>
                 <Icon
                   baseClassName="material-symbols-outlined"
@@ -224,11 +224,11 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Tech Experience in years:{' '}
             <Typography component="span">
-              {mentor.skills.yearsExperience}
+              {mentor.skills?.yearsExperience ?? 'N/A'}
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
-            Language{mentor.spokenLanguages.length > 1 ? 's' : ''}:{' '}
+            Language{(mentor.spokenLanguages?.length ?? 0) > 1 ? 's' : ''}:{' '}
             <Typography component="span">
               {mentor.spokenLanguages?.join(', ') || 'N/A'}
             </Typography>
@@ -269,7 +269,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Additional:{' '}
             <Typography component="span">
-              {mentor.menteeSection.additional}
+              {mentor.menteeSection?.additional || 'N/A'}
             </Typography>
           </Typography>
         </TabPanel>
