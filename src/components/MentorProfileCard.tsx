@@ -191,7 +191,12 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
             {mentor.network.map((network: Network) => (
-              <a href={network.link} key={network.type}>
+              <a
+                href={network.link}
+                key={network.type}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Icon
                   baseClassName="material-symbols-outlined"
                   sx={{
