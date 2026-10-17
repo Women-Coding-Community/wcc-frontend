@@ -26,12 +26,25 @@ import MenteeStep2Skills from 'components/mentorship/MenteeStep2Skills';
 import MenteeStep3Applications from 'components/mentorship/MenteeStep3Applications';
 import { MentorOption } from 'components/mentorship/MentorApplicationCard';
 import RegistrationClosed from 'components/mentorship/RegistrationClosed';
-import {
-  IS_ADHOC_CYCLE,
-  IS_REGISTRATION_OPEN,
-} from 'utils/mentorshipConstants';
 
 const TOTAL_STEPS = 3;
+
+type CurrentCycle = {
+  registrationOpen: boolean;
+  mentorshipType: string;
+};
+
+const fetchCurrentCycle = async (): Promise<CurrentCycle | null> => {
+  try {
+    const response = await fetch('/api/current-cycle');
+    if (!response.ok) {
+      return null;
+    }
+    return await response.json();
+  } catch {
+    return null;
+  }
+};
 
 const postMenteeRegistration = async (
   payload: unknown,
@@ -92,16 +105,29 @@ const getStepValidator = (
 const MenteeRegistrationPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const registrationOpen = IS_REGISTRATION_OPEN;
-  const isAdhoc = IS_ADHOC_CYCLE;
+  const [cycleLoading, setCycleLoading] = useState(true);
+  const [registrationOpen, setRegistrationOpen] = useState(false);
+  const [isAdhoc, setIsAdhoc] = useState(false);
 
   const formMethods = useForm<MenteeFormData>({
     resolver: zodResolver(menteeFormSchema),
-    defaultValues: isAdhoc
-      ? adhocMenteeFormDefaultValues
-      : menteeFormDefaultValues,
+    defaultValues: menteeFormDefaultValues,
     mode: 'onChange',
   });
+
+  useEffect(() => {
+    fetchCurrentCycle()
+      .then((cycle) => {
+        const adhoc = cycle?.mentorshipType === 'Ad-Hoc';
+        setRegistrationOpen(cycle?.registrationOpen === true);
+        setIsAdhoc(adhoc);
+        formMethods.reset(
+          adhoc ? adhocMenteeFormDefaultValues : menteeFormDefaultValues,
+        );
+        setCycleLoading(false);
+      })
+      .catch(() => setCycleLoading(false));
+  }, [formMethods]);
 
   const [activeStep, setActiveStep] = useState(1);
   const [mentors, setMentors] = useState<MentorOption[]>([]);
@@ -214,7 +240,7 @@ const MenteeRegistrationPage = () => {
             sx={{
               position: 'relative',
               zIndex: 1,
-              pt: registrationOpen ? { xs: 4, sm: 6, md: 8 } : 0,
+              pt: { xs: 4, sm: 6, md: 8 },
               px: { xs: 2, sm: 3 },
               maxWidth: isMobile ? '100%' : theme.custom?.innerBox?.maxWidth,
               margin: '0 auto',
@@ -256,9 +282,20 @@ const MenteeRegistrationPage = () => {
                 bgcolor: 'white',
               }}
             >
-              {!registrationOpen ? (
-                <RegistrationClosed />
-              ) : submitted ? (
+              {cycleLoading && (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    minHeight: 200,
+                  }}
+                >
+                  <span>Loading...</span>
+                </Box>
+              )}
+              {!cycleLoading && !registrationOpen && <RegistrationClosed />}
+              {registrationOpen && submitted && (
                 <Box sx={{ textAlign: 'center', py: 4 }}>
                   <Typography variant="h5" gutterBottom fontWeight={600}>
                     Application submitted!
@@ -280,7 +317,8 @@ const MenteeRegistrationPage = () => {
                     Back to Mentorship
                   </Button>
                 </Box>
-              ) : (
+              )}
+              {registrationOpen && !submitted && (
                 <>
                   {/* Progress */}
                   <Typography
