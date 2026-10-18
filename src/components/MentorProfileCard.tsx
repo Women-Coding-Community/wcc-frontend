@@ -5,7 +5,7 @@ import StarIcon from '@mui/icons-material/Star';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Box, Icon, Tab, Tabs, Typography } from '@mui/material';
 import Image from 'next/image';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { LinkButton } from '@components';
 import { IS_REGISTRATION_OPEN } from '@utils/mentorshipConstants';
@@ -59,17 +59,11 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
     setTab(newValue);
   const isMobile = useIsMobile();
   const mentorImagePath = mentor.images[0]?.path;
-  const [imgSrc, setImgSrc] = useState(mentorImagePath || FALLBACK_IMAGE);
-
-  useEffect(() => {
-    setImgSrc(mentorImagePath || FALLBACK_IMAGE);
-  }, [mentorImagePath]);
-
-  const handleImageError = useCallback(() => {
-    setImgSrc((current) =>
-      current !== FALLBACK_IMAGE ? FALLBACK_IMAGE : current,
-    );
-  }, []);
+  const [failedPath, setFailedPath] = useState<string | undefined>();
+  const imgSrc =
+    mentorImagePath && mentorImagePath !== failedPath
+      ? mentorImagePath
+      : FALLBACK_IMAGE;
 
   return (
     <Box
@@ -116,7 +110,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
             width={120}
             height={120}
             unoptimized
-            onError={handleImageError}
+            onError={() => setFailedPath(mentorImagePath)}
             style={{
               objectFit: 'cover',
               borderRadius: '100%',
