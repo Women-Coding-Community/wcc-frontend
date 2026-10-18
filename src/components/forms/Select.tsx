@@ -8,8 +8,10 @@ import {
 import type { SelectProps as MuiSelectProps } from '@mui/material';
 import { Controller, Control, FieldPath, FieldValues } from 'react-hook-form';
 
-interface SelectProps<T extends FieldValues>
-  extends Omit<MuiSelectProps, 'name'> {
+interface SelectProps<T extends FieldValues> extends Omit<
+  MuiSelectProps,
+  'name'
+> {
   name: FieldPath<T>;
   control: Control<T>;
   label: string;
