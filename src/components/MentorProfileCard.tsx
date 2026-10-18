@@ -164,11 +164,13 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           }}
         >
           {/* question: do we want to display the tab if no info provided? */}
-          <Tab label="Presentation" />
-          <Tab label="Skills & Support Areas" />
-          {mentor.feedbackSection?.feedbacks ? <Tab label="Reviews" /> : null}
+          <Tab label="Presentation" value={0} />
+          <Tab label="Skills & Support Areas" value={1} />
+          {mentor.feedbackSection?.feedbacks ? (
+            <Tab label="Reviews" value={2} />
+          ) : null}
           {mentor.resources && mentor.resources.length > 0 ? (
-            <Tab label="Resources" />
+            <Tab label="Resources" value={3} />
           ) : null}
         </Tabs>
         <TabPanel
