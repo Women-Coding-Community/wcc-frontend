@@ -26,7 +26,7 @@ const MentorshipAdHocTimelinePage = ({ data, footer }: CombinedResponse) => {
 
   return (
     <>
-      {isMobile ? null : <BreadCrumbsDynamic />}
+      <BreadCrumbsDynamic />
       <Title title={'Ad-Hoc Mentorship Timeline'} />
       <Box sx={theme.custom.containerBox}>
         <Timeline position="right">

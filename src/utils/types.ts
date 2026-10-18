@@ -230,6 +230,11 @@ export interface Image {
   type: string;
 }
 
+/**
+ * Branded type to ensure that an Image has been processed by formatImage.
+ */
+export type FormattedImage = Image & { __formatted: true };
+
 export interface SpeakerProfile {
   label: string;
   uri: string;
@@ -406,11 +411,11 @@ export type LongTermTimeLineResponse = {
 };
 
 // Types for Mentorship Resources response
-
 export type ResourceItem = {
   title: string;
+  description?: string;
   link: Link;
-  image: Image;
+  image: FormattedImage | Image;
 };
 
 export type ResourcesSection = {
@@ -439,7 +444,7 @@ export type MentorshipResourcesResponse = {
     title: string;
   };
   section: {
-    description: string;
+    description?: string;
   };
   resourcesSection: ResourcesSection;
   customStyle?: CustomStyle;

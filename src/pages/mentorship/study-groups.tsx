@@ -1,4 +1,3 @@
-// path: /mentorship/study-groups
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { GetServerSideProps } from 'next';
 
@@ -9,7 +8,7 @@ import {
   Footer,
   BreadCrumbsDynamic,
 } from '@components';
-import { useIsMobile } from '@utils/theme-utils';
+import { formatImage } from '@utils/image-utils';
 import { FooterResponse, StudyGroupsPageData } from '@utils/types';
 import { fetchData } from 'lib/api';
 
@@ -28,14 +27,13 @@ const MentorShipStudyGroupsPage = ({ data, footer }: StudyGroupsPageProps) => {
 
   const muiTheme = useTheme();
   const cardColors = muiTheme.palette.custom.studyGroupCardColors;
-  const isMobile = useIsMobile();
 
   return (
     <Box>
-      {isMobile ? null : <BreadCrumbsDynamic />}
+      <BreadCrumbsDynamic />
       <HeroWithImage
         title={data.heroSection.title}
-        imageSrc={'/hero-img.jpg'} // @TODO replace with actual path?
+        image={formatImage(data.heroSection.images[0])}
       />
       <Box
         sx={{

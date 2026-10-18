@@ -19,44 +19,119 @@ jest.mock('next/link', () => {
 });
 
 jest.mock('next/router', () => ({
-  useRouter: () => ({ push: jest.fn(), pathname: '/' }),
+  useRouter: () => ({
+    push: jest.fn(),
+    pathname: '/mentorship/mentee-registration',
+    query: {},
+  }),
 }));
 
-// Mutable flags so individual tests can override registration state
-let mockIsRegistrationOpen = true;
-let mockIsAdhocCycle = false;
-
+// The full country list makes the dropdown too slow to render in jsdom.
 jest.mock('../../utils/mentorshipConstants', () => ({
   ...jest.requireActual('../../utils/mentorshipConstants'),
-  get IS_REGISTRATION_OPEN() {
-    return mockIsRegistrationOpen;
-  },
-  get IS_ADHOC_CYCLE() {
-    return mockIsAdhocCycle;
-  },
+  COUNTRIES: [
+    { code: 'GB', name: 'United Kingdom' },
+    { code: 'US', name: 'United States' },
+  ],
 }));
 
-const renderPage = () =>
+const OPEN_LONG_TERM_CYCLE = {
+  registrationOpen: true,
+  mentorshipType: 'Long-Term',
+};
+const OPEN_AD_HOC_CYCLE = { registrationOpen: true, mentorshipType: 'Ad-Hoc' };
+
+// The page fetches the current cycle first, then the mentor list.
+// Pass null for the cycle to answer that first call with a 404.
+const mockFetch = (cycle: unknown) => {
+  globalThis.fetch = jest
+    .fn()
+    .mockResolvedValueOnce({
+      ok: cycle !== null,
+      json: jest.fn().mockResolvedValue(cycle),
+    })
+    .mockResolvedValue({ ok: true, json: jest.fn().mockResolvedValue([]) });
+};
+
+const renderPage = async () => {
   render(
     <ThemeProvider theme={theme}>
       <MenteeRegistrationPage />
     </ThemeProvider>,
   );
+  await waitFor(() => {
+    expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+  });
+};
+
+const setupMenteeBasicInfoStep = async ({
+  includeHours = true,
+  hours = '4',
+}: {
+  includeHours?: boolean;
+  hours?: string;
+} = {}) => {
+  fireEvent.change(screen.getByPlaceholderText('Jane Doe'), {
+    target: { value: 'Jane Doe' },
+  });
+  fireEvent.change(screen.getByPlaceholderText('jane@example.com'), {
+    target: { value: 'jane@example.com' },
+  });
+  fireEvent.change(screen.getByPlaceholderText('@jane'), {
+    target: { value: '@jane' },
+  });
+
+  const countrySelect = screen.getByRole('combobox');
+  fireEvent.mouseDown(countrySelect);
+  const countryOption = await screen.findByRole('option', {
+    name: /United Kingdom/i,
+  });
+  fireEvent.click(countryOption);
+
+  fireEvent.change(screen.getByPlaceholderText('London'), {
+    target: { value: 'London' },
+  });
+  fireEvent.change(
+    screen.getByPlaceholderText('e.g. Frontend Developer, Student'),
+    { target: { value: 'Developer' } },
+  );
+  fireEvent.change(screen.getByPlaceholderText('Acme Corp'), {
+    target: { value: 'Tech Corp' },
+  });
+  fireEvent.change(
+    screen.getByPlaceholderText('https://www.linkedin.com/in/yourprofile'),
+    { target: { value: 'https://www.linkedin.com/in/janedoe' } },
+  );
+
+  if (includeHours) {
+    fireEvent.change(screen.getByPlaceholderText('e.g. 4'), {
+      target: { value: hours },
+    });
+  }
+};
 
 describe('MenteeRegistrationPage', () => {
   beforeEach(() => {
-    globalThis.fetch = jest.fn().mockResolvedValue({
-      ok: true,
-      json: jest.fn().mockResolvedValue([]),
-    });
+    mockFetch(OPEN_LONG_TERM_CYCLE);
   });
 
   afterEach(() => {
     jest.resetAllMocks();
   });
 
+  it('shows a loading state while the current cycle is being fetched', () => {
+    globalThis.fetch = jest.fn(() => new Promise(() => {})) as jest.Mock;
+    render(
+      <ThemeProvider theme={theme}>
+        <MenteeRegistrationPage />
+      </ThemeProvider>,
+    );
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    expect(screen.queryByText('Step 1 of 3')).not.toBeInTheDocument();
+  });
+
   it('renders step 1 with basic info fields', async () => {
-    renderPage();
+    await renderPage();
     expect(screen.getByText('Step 1 of 3')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Jane Doe')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('jane@example.com')).toBeInTheDocument();
@@ -74,7 +149,7 @@ describe('MenteeRegistrationPage', () => {
         json: jest.fn().mockResolvedValue({ id: 1 }),
       });
 
-    renderPage();
+    await renderPage();
 
     // Verify the success screen content exists when submitted state is true.
     // Since we can't easily navigate all 3 steps, we verify the key UI elements.
@@ -96,66 +171,31 @@ describe('MenteeRegistrationPage', () => {
         json: jest.fn().mockResolvedValue({ error: 'Server error' }),
       });
 
-    renderPage();
+    await renderPage();
 
     // Error alert only appears after a failed submit attempt
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 
-  it('Next button is present on step 1', () => {
-    renderPage();
+  it('Next button is present on step 1', async () => {
+    await renderPage();
     expect(screen.getByRole('button', { name: /next/i })).toBeInTheDocument();
   });
 
-  it('Back button is disabled on step 1', () => {
-    renderPage();
+  it('Back button is disabled on step 1', async () => {
+    await renderPage();
     expect(screen.getByRole('button', { name: /back/i })).toBeDisabled();
   });
 
-  it('shows breadcrumb navigation', () => {
-    renderPage();
+  it('shows breadcrumb navigation', async () => {
+    await renderPage();
     expect(screen.getByText('Mentee Registration')).toBeInTheDocument();
     expect(screen.getByText('Mentorship')).toBeInTheDocument();
   });
 
   it('navigates to step 2 after filling required step 1 fields and clicking Next', async () => {
-    renderPage();
-
-    fireEvent.change(screen.getByPlaceholderText('Jane Doe'), {
-      target: { value: 'Jane Doe' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('jane@example.com'), {
-      target: { value: 'jane@example.com' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('@jane'), {
-      target: { value: '@jane' },
-    });
-
-    // Select country from dropdown
-    const countrySelect = screen.getByRole('combobox');
-    fireEvent.mouseDown(countrySelect);
-    const countryOption = await screen.findByRole('option', {
-      name: /United Kingdom/i,
-    });
-    fireEvent.click(countryOption);
-
-    fireEvent.change(screen.getByPlaceholderText('London'), {
-      target: { value: 'London' },
-    });
-    fireEvent.change(
-      screen.getByPlaceholderText('e.g. Frontend Developer, Student'),
-      { target: { value: 'Developer' } },
-    );
-    fireEvent.change(screen.getByPlaceholderText('Acme Corp'), {
-      target: { value: 'Tech Corp' },
-    });
-    fireEvent.change(
-      screen.getByPlaceholderText('https://www.linkedin.com/in/yourprofile'),
-      { target: { value: 'https://www.linkedin.com/in/janedoe' } },
-    );
-    fireEvent.change(screen.getByPlaceholderText('e.g. 4'), {
-      target: { value: '4' },
-    });
+    await renderPage();
+    await setupMenteeBasicInfoStep();
 
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
@@ -166,87 +206,54 @@ describe('MenteeRegistrationPage', () => {
 });
 
 describe('MenteeRegistrationPage - registration closed', () => {
-  beforeEach(() => {
-    mockIsRegistrationOpen = false;
-  });
-
   afterEach(() => {
-    mockIsRegistrationOpen = true;
     jest.resetAllMocks();
   });
 
-  it('shows closed message when registration is not open', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <MenteeRegistrationPage />
-      </ThemeProvider>,
-    );
+  it('shows closed message when no cycle is open', async () => {
+    mockFetch(null);
+    await renderPage();
     expect(screen.getByText('Application is now closed')).toBeInTheDocument();
     expect(
       screen.getByText(/Applications are currently closed/i),
     ).toBeInTheDocument();
     expect(screen.queryByText('Step 1 of 3')).not.toBeInTheDocument();
   });
+
+  it('shows closed message when the current cycle request fails', async () => {
+    globalThis.fetch = jest.fn().mockRejectedValue(new Error('Network error'));
+    await renderPage();
+    expect(screen.getByText('Application is now closed')).toBeInTheDocument();
+    expect(screen.queryByText('Step 1 of 3')).not.toBeInTheDocument();
+  });
 });
 
 describe('MenteeRegistrationPage - adhoc cycle', () => {
   beforeEach(() => {
-    mockIsAdhocCycle = true;
-    globalThis.fetch = jest.fn().mockResolvedValue({
-      ok: true,
-      json: jest.fn().mockResolvedValue([]),
-    });
+    mockFetch(OPEN_AD_HOC_CYCLE);
   });
 
   afterEach(() => {
-    mockIsAdhocCycle = false;
     jest.resetAllMocks();
   });
 
-  it('shows ad-hoc breadcrumb label', () => {
-    renderPage();
-    expect(screen.getByText('Ad-hoc Mentee Registration')).toBeInTheDocument();
+  it('fetches ad-hoc mentors', async () => {
+    await renderPage();
+    await waitFor(() => {
+      expect(globalThis.fetch).toHaveBeenCalledWith(
+        '/api/mentors?mentorshipTypes=Ad-Hoc',
+      );
+    });
   });
 
-  it('does not render available hours per month field', () => {
-    renderPage();
+  it('does not render available hours per month field', async () => {
+    await renderPage();
     expect(screen.queryByPlaceholderText('e.g. 4')).not.toBeInTheDocument();
   });
 
   it('navigates to step 2 after filling required fields', async () => {
-    renderPage();
-
-    fireEvent.change(screen.getByPlaceholderText('Jane Doe'), {
-      target: { value: 'Jane Doe' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('jane@example.com'), {
-      target: { value: 'jane@example.com' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('@jane'), {
-      target: { value: '@jane' },
-    });
-
-    const countrySelect = screen.getByRole('combobox');
-    fireEvent.mouseDown(countrySelect);
-    const countryOption = await screen.findByRole('option', {
-      name: /United Kingdom/i,
-    });
-    fireEvent.click(countryOption);
-
-    fireEvent.change(screen.getByPlaceholderText('London'), {
-      target: { value: 'London' },
-    });
-    fireEvent.change(
-      screen.getByPlaceholderText('e.g. Frontend Developer, Student'),
-      { target: { value: 'Developer' } },
-    );
-    fireEvent.change(screen.getByPlaceholderText('Acme Corp'), {
-      target: { value: 'Tech Corp' },
-    });
-    fireEvent.change(
-      screen.getByPlaceholderText('https://www.linkedin.com/in/yourprofile'),
-      { target: { value: 'https://www.linkedin.com/in/janedoe' } },
-    );
+    await renderPage();
+    await setupMenteeBasicInfoStep({ includeHours: false });
 
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
@@ -256,44 +263,48 @@ describe('MenteeRegistrationPage - adhoc cycle', () => {
   });
 
   it('shows mentorship goals field on step 2', async () => {
-    renderPage();
-
-    fireEvent.change(screen.getByPlaceholderText('Jane Doe'), {
-      target: { value: 'Jane Doe' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('jane@example.com'), {
-      target: { value: 'jane@example.com' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('@jane'), {
-      target: { value: '@jane' },
-    });
-
-    const countrySelect = screen.getByRole('combobox');
-    fireEvent.mouseDown(countrySelect);
-    const countryOption = await screen.findByRole('option', {
-      name: /United Kingdom/i,
-    });
-    fireEvent.click(countryOption);
-
-    fireEvent.change(screen.getByPlaceholderText('London'), {
-      target: { value: 'London' },
-    });
-    fireEvent.change(
-      screen.getByPlaceholderText('e.g. Frontend Developer, Student'),
-      { target: { value: 'Developer' } },
-    );
-    fireEvent.change(screen.getByPlaceholderText('Acme Corp'), {
-      target: { value: 'Tech Corp' },
-    });
-    fireEvent.change(
-      screen.getByPlaceholderText('https://www.linkedin.com/in/yourprofile'),
-      { target: { value: 'https://www.linkedin.com/in/janedoe' } },
-    );
+    await renderPage();
+    await setupMenteeBasicInfoStep({ includeHours: false });
 
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
     await waitFor(() => {
       expect(screen.getByText('Mentorship goals *')).toBeInTheDocument();
+    });
+  });
+});
+
+describe('MenteeRegistrationPage - long-term cycle', () => {
+  beforeEach(() => {
+    mockFetch(OPEN_LONG_TERM_CYCLE);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('blocks step 2 when availableHsMonth is below threshold for long-term', async () => {
+    await renderPage();
+    await setupMenteeBasicInfoStep({ hours: '1' });
+
+    fireEvent.click(screen.getByRole('button', { name: /next/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Step 1 of 3')).toBeInTheDocument();
+    });
+    expect(screen.queryByText('Step 2 of 3')).not.toBeInTheDocument();
+  });
+
+  it('shows validation error for availableHsMonth below threshold', async () => {
+    await renderPage();
+    await setupMenteeBasicInfoStep({ hours: '1' });
+
+    fireEvent.click(screen.getByRole('button', { name: /next/i }));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Please enter at least 2 hours per month'),
+      ).toBeInTheDocument();
     });
   });
 });

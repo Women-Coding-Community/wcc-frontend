@@ -8,12 +8,12 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { LinkButton } from '@components';
-import { IS_REGISTRATION_OPEN } from '@utils/mentorshipConstants';
 import { useIsMobile } from '@utils/theme-utils';
 import { Mentor, Network } from '@utils/types';
 
 type MentorProfileCardProps = {
   mentor: Mentor;
+  registrationOpen: boolean;
 };
 
 // questions: what networks are available? medium doesn't have an icon
@@ -53,6 +53,7 @@ const FALLBACK_IMAGE = '/profile-illustration-female-fallback.jpg';
 
 export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
   mentor,
+  registrationOpen,
 }) => {
   const [tab, setTab] = useState(0);
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) =>
@@ -138,7 +139,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           href={`/mentorship/mentee-registration?id=${mentor.id}`}
           reversed
           small
-          disabled={!IS_REGISTRATION_OPEN}
+          disabled={!registrationOpen}
         >
           Apply for this mentor{' '}
         </LinkButton>
@@ -170,11 +171,13 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           }}
         >
           {/* question: do we want to display the tab if no info provided? */}
-          <Tab label="Presentation" />
-          <Tab label="Skills & Support Areas" />
-          {mentor.feedbackSection?.feedbacks ? <Tab label="Reviews" /> : null}
+          <Tab label="Presentation" value={0} />
+          <Tab label="Skills & Support Areas" value={1} />
+          {mentor.feedbackSection?.feedbacks ? (
+            <Tab label="Reviews" value={2} />
+          ) : null}
           {mentor.resources && mentor.resources.length > 0 ? (
-            <Tab label="Resources" />
+            <Tab label="Resources" value={3} />
           ) : null}
         </Tabs>
         <TabPanel

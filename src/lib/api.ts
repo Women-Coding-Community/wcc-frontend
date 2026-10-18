@@ -11,6 +11,7 @@ import mentors from './responses/mentors.json';
 import mentorShipPage from './responses/mentorship.json';
 import mentorShipCodeOfConduct from './responses/mentorshipCodeOfConduct.json';
 import mentorshipFaqPageData from './responses/mentorshipFaqPage.json';
+import mentorshipResourcesData from './responses/mentorshipResources.json';
 import studyGroupsPage from './responses/mentorshipStudyGroupsPage.json';
 
 const apiBaseUrl = process.env.API_BASE_URL;
@@ -56,7 +57,6 @@ export const proxyRequest = async (
     throw error;
   }
 };
-
 const pageData = {
   landingPage: landingPageData,
   'mentorship/overview': mentorShipPage,
@@ -67,6 +67,7 @@ const pageData = {
   'mentorship/code-of-conduct': mentorShipCodeOfConduct,
   team: aboutUsTeam,
   'mentorship/faq': mentorshipFaqPageData,
+  'mentorship/resources': mentorshipResourcesData,
   'mentorship/study-groups': studyGroupsPage,
 };
 
@@ -85,6 +86,7 @@ export const fetchData = async (path: string) => {
   }
 };
 
+// Refactor this using fetchFromPath()
 export const handleApiError = (error: unknown, res: NextApiResponse) => {
   const err = error as {
     response?: { status: number; data: unknown };

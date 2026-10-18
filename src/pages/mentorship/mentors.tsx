@@ -16,7 +16,7 @@ import {
   Collapse,
 } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { BreadCrumbsDynamic, MentorProfileCard, Title } from '@components';
 import {
@@ -50,6 +50,7 @@ const MentorsPage = () => {
   const { query } = router;
 
   const [mentorsState, setMentorsState] = useState<Mentor[]>([]);
+  const [registrationOpen, setRegistrationOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [keyword, setKeyword] = useState<string>('');
@@ -63,6 +64,9 @@ const MentorsPage = () => {
   const [filterSection, setFilterSection] = useState<FilterSection | null>(
     null,
   );
+  // Ensures the open-cycle type default is applied only once, so an explicit
+  // "All" selection is never overridden.
+  const didApplyCycleDefaultRef = useRef(false);
 
   // Initialize filter state from URL query params
   useEffect(() => {
@@ -80,6 +84,13 @@ const MentorsPage = () => {
     if (typeof query.language === 'string') setSelectedLanguage(query.language);
     if (typeof query.focus === 'string') setSelectedFocus(query.focus);
   }, [query]);
+
+  useEffect(() => {
+    fetch('/api/current-cycle')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((cycle) => setRegistrationOpen(cycle?.registrationOpen === true))
+      .catch(() => setRegistrationOpen(false));
+  }, []);
 
   // Fetch mentors on mount and when filters change
   useEffect(() => {
@@ -126,6 +137,35 @@ const MentorsPage = () => {
         } else {
           setMentorsState([]);
           setFilterSection(null);
+        }
+
+        // On first load, scope the default view to the currently open cycle's
+        // mentorship type so an ad-hoc cycle lists only ad-hoc mentors (and a
+        // long-term cycle only long-term mentors). The backend then applies the
+        // full type + month scoping. Applied once; an explicit "All" selection
+        // clears the filter and is preserved.
+        const openCycle = result?.openCycle ?? result?.data?.openCycle;
+        if (
+          !didApplyCycleDefaultRef.current &&
+          !query.mentorshipTypes &&
+          openCycle?.active &&
+          FILTER_MENTORSHIP_TYPES_OPTIONS.some(
+            (option) => option.value === openCycle.mentorshipType,
+          )
+        ) {
+          didApplyCycleDefaultRef.current = true;
+          setSelectedMentorshipType(openCycle.mentorshipType);
+          router.replace(
+            {
+              pathname: router.pathname,
+              query: {
+                ...router.query,
+                mentorshipTypes: openCycle.mentorshipType,
+              },
+            },
+            undefined,
+            { shallow: true },
+          );
         }
       } catch (err) {
         // eslint-disable-next-line no-console
@@ -176,7 +216,7 @@ const MentorsPage = () => {
 
   return (
     <>
-      {isMobile ? null : <BreadCrumbsDynamic />}
+      <BreadCrumbsDynamic />
       <Title title="Meet Our Mentors" />
       <Box sx={theme.custom.containerBox}>
         {/* Filter / Search bar */}
@@ -448,6 +488,7 @@ const MentorsPage = () => {
             {mentorsState.map((mentor: Mentor) => (
               <MentorProfileCard
                 mentor={mentor}
+                registrationOpen={registrationOpen}
                 key={mentor.id || mentor.fullName}
               />
             ))}

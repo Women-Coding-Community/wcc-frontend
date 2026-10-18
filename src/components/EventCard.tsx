@@ -4,7 +4,7 @@ import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 
 import theme from '../theme';
-import { Image as ImageType, Link } from '../utils/types';
+import { FormattedImage, Image as ImageType, Link } from '../utils/types';
 
 import { LinkButton } from './LinkButton';
 
@@ -14,7 +14,7 @@ interface EventCardProps {
   date: string;
   description: string;
   link: Link;
-  images: ImageType[];
+  images: (FormattedImage | ImageType)[];
   type: string;
 }
 

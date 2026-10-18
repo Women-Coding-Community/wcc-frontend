@@ -2,10 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Alert,
   Box,
-  Breadcrumbs,
   Button,
   Container,
-  Link,
   Paper,
   Stack,
   Typography,
@@ -16,6 +14,7 @@ import NextLink from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 
+import { BreadCrumbsDynamic } from '@components';
 import {
   adhocMenteeFormDefaultValues,
   menteeFormDefaultValues,
@@ -27,12 +26,25 @@ import MenteeStep2Skills from 'components/mentorship/MenteeStep2Skills';
 import MenteeStep3Applications from 'components/mentorship/MenteeStep3Applications';
 import { MentorOption } from 'components/mentorship/MentorApplicationCard';
 import RegistrationClosed from 'components/mentorship/RegistrationClosed';
-import {
-  IS_ADHOC_CYCLE,
-  IS_REGISTRATION_OPEN,
-} from 'utils/mentorshipConstants';
 
 const TOTAL_STEPS = 3;
+
+type CurrentCycle = {
+  registrationOpen: boolean;
+  mentorshipType: string;
+};
+
+const fetchCurrentCycle = async (): Promise<CurrentCycle | null> => {
+  try {
+    const response = await fetch('/api/current-cycle');
+    if (!response.ok) {
+      return null;
+    }
+    return await response.json();
+  } catch {
+    return null;
+  }
+};
 
 const postMenteeRegistration = async (
   payload: unknown,
@@ -67,6 +79,7 @@ const validateStep1 = async (formMethods: UseFormReturn<MenteeFormData>) =>
     'position',
     'companyName',
     'linkedInProfile',
+    'availableHsMonth',
   ]);
 
 const validateStep2 = async (formMethods: UseFormReturn<MenteeFormData>) =>
@@ -92,16 +105,29 @@ const getStepValidator = (
 const MenteeRegistrationPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const registrationOpen = IS_REGISTRATION_OPEN;
-  const isAdhoc = IS_ADHOC_CYCLE;
+  const [cycleLoading, setCycleLoading] = useState(true);
+  const [registrationOpen, setRegistrationOpen] = useState(false);
+  const [isAdhoc, setIsAdhoc] = useState(false);
 
   const formMethods = useForm<MenteeFormData>({
     resolver: zodResolver(menteeFormSchema),
-    defaultValues: isAdhoc
-      ? adhocMenteeFormDefaultValues
-      : menteeFormDefaultValues,
+    defaultValues: menteeFormDefaultValues,
     mode: 'onChange',
   });
+
+  useEffect(() => {
+    fetchCurrentCycle()
+      .then((cycle) => {
+        const adhoc = cycle?.mentorshipType === 'Ad-Hoc';
+        setRegistrationOpen(cycle?.registrationOpen === true);
+        setIsAdhoc(adhoc);
+        formMethods.reset(
+          adhoc ? adhocMenteeFormDefaultValues : menteeFormDefaultValues,
+        );
+        setCycleLoading(false);
+      })
+      .catch(() => setCycleLoading(false));
+  }, [formMethods]);
 
   const [activeStep, setActiveStep] = useState(1);
   const [mentors, setMentors] = useState<MentorOption[]>([]);
@@ -141,6 +167,11 @@ const MenteeRegistrationPage = () => {
       setActiveStep((prev) => prev - 1);
       window.scrollTo(0, 0);
     }
+  };
+
+  const onInvalid = () => {
+    setSubmitError('Please fix the highlighted errors before submission.');
+    window.scrollTo(0, 0);
   };
 
   const onSubmit = async (data: MenteeFormData) => {
@@ -193,26 +224,7 @@ const MenteeRegistrationPage = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          py: 2,
-          px: { xs: 2, sm: 3, md: '157px' },
-        }}
-      >
-        <Breadcrumbs>
-          <Link href="/" color="primary" underline="always">
-            Home
-          </Link>
-          <Link href="/mentorship" color="primary" underline="always">
-            Mentorship
-          </Link>
-          <Typography color="text.primary">
-            {isAdhoc ? 'Ad-hoc Mentee Registration' : 'Mentee Registration'}
-          </Typography>
-        </Breadcrumbs>
-      </Box>
-
+      <BreadCrumbsDynamic />
       <FormProvider {...formMethods}>
         <Box
           sx={{
@@ -228,7 +240,7 @@ const MenteeRegistrationPage = () => {
             sx={{
               position: 'relative',
               zIndex: 1,
-              pt: registrationOpen ? { xs: 4, sm: 6, md: 8 } : 0,
+              pt: { xs: 4, sm: 6, md: 8 },
               px: { xs: 2, sm: 3 },
               maxWidth: isMobile ? '100%' : theme.custom?.innerBox?.maxWidth,
               margin: '0 auto',
@@ -270,9 +282,20 @@ const MenteeRegistrationPage = () => {
                 bgcolor: 'white',
               }}
             >
-              {!registrationOpen ? (
-                <RegistrationClosed />
-              ) : submitted ? (
+              {cycleLoading && (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    minHeight: 200,
+                  }}
+                >
+                  <span>Loading...</span>
+                </Box>
+              )}
+              {!cycleLoading && !registrationOpen && <RegistrationClosed />}
+              {registrationOpen && submitted && (
                 <Box sx={{ textAlign: 'center', py: 4 }}>
                   <Typography variant="h5" gutterBottom fontWeight={600}>
                     Application submitted!
@@ -294,7 +317,8 @@ const MenteeRegistrationPage = () => {
                     Back to Mentorship
                   </Button>
                 </Box>
-              ) : (
+              )}
+              {registrationOpen && !submitted && (
                 <>
                   {/* Progress */}
                   <Typography
@@ -370,7 +394,7 @@ const MenteeRegistrationPage = () => {
                         variant="contained"
                         color="success"
                         disabled={formMethods.formState.isSubmitting}
-                        onClick={formMethods.handleSubmit(onSubmit)}
+                        onClick={formMethods.handleSubmit(onSubmit, onInvalid)}
                         sx={{ px: { xs: 2.5, md: 3.5 }, py: 1 }}
                       >
                         {formMethods.formState.isSubmitting

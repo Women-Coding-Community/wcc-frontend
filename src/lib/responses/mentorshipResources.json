@@ -1,28 +1,60 @@
 {
-  "heroTitle": "Mentorship Resources",
-  "heroDescription": "Whether you’re a mentee looking to navigate your journey, a mentor aiming to provide the best guidance, or a seasoned mentor seeking quick tips, we have the tools you need. Explore our guides for insightful mentorship advice and strategies.",
-  "resources": [
-    {
-      "image": "/mentee_guideMedia.jpg",
-      "title": "Mentee’s Guide",
-      "description": "",
-      "buttonText": "View Guide",
-      "link": "#"
-    },
-    {
-      "image": "/mentor_pocketbookMedia.jpg",
-      "title": "Mentor’s Pocketbook",
-      "description": "",
-      "buttonText": "View Pocketbook",
-      "link": "#"
-    },
-    {
-      "image": "/mentor_guideeMedia.jpg",
-      "title": "Mentor’s Guide",
-      "description": "",
-      "buttonText": "View Guide",
-      "link": "#"
+  "id": "page:MENTORSHIP_RESOURCES",
+  "heroSection": {
+    "title": "Mentorship Resources"
+  },
+  "section": {
+    "description": "Whether you’re a mentee looking to navigate your journey, a mentor aiming to provide the best guidance, or a seasoned mentor seeking quick tips, we have the tools you need. Explore our guides for insightful mentorship advice and strategies."
+  },
+  "resourcesSection": {
+    "title": "Available Resources",
+    "description": "Download and explore our curated mentorship materials",
+    "items": [
+      {
+        "title": "Mentees Guide",
+        "link": {
+          "label": "Download PDF",
+          "uri": "https://drive.google.com/file/d/14nIxkzWxTyIn3WUJ3a8iLJltMwyFkrrF"
+        },
+        "image": {
+          "path": "https://drive.google.com/uc?id=1C-hgV5xWTeTQ4T_sO4puvNQfo8ez-rTX",
+          "alt": "woman working on a laptop",
+          "type": "desktop"
+        }
+      },
+      {
+        "title": "Mentor's Pocketbook",
+        "link": {
+          "label": "Download PDF",
+          "uri": "https://drive.google.com/file/d/1X3NHKxA01saQrFs-nAfylIHCbDNysPD_"
+        },
+        "image": {
+          "path": "https://drive.google.com/uc?id=1AQKAp76gjk1kMX7pB7pnY5G5TMnxmDVk",
+          "alt": "Image decorative",
+          "type": "desktop"
+        }
+      },
+      {
+        "title": "Mentor's Guide",
+        "link": {
+          "label": "Download PDF",
+          "uri": "https://drive.google.com/file/d/13wVc_LjRSTjj_vmj6Yay09i67z83sH97"
+        },
+        "image": {
+          "path": "https://drive.google.com/uc?id=1opnOPWSxFP_Rq9Pylr02mxveLUYOjNkJ",
+          "alt": "two women sitting by a desk and talking together",
+          "type": "desktop"
+        }
+      }
+    ]
+  },
+  "customStyle": {
+    "backgroundColour": {
+      "color": "primary",
+      "shade": {
+        "name": "light",
+        "value": 90
+      }
     }
-  ],
-  "footer": "footerData.json content"
+  }
 }

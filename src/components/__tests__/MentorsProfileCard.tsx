@@ -70,21 +70,9 @@ const mockMentor: Mentor = {
   },
 };
 
-let mockIsRegistrationOpen = true;
-
-jest.mock('../../utils/mentorshipConstants', () => ({
-  ...jest.requireActual('../../utils/mentorshipConstants'),
-  get IS_REGISTRATION_OPEN() {
-    return mockIsRegistrationOpen;
-  },
-}));
-
 describe('MentorProfileCard', () => {
-  beforeEach(() => {
-    mockIsRegistrationOpen = true;
-  });
   it('renders mentor basic info', () => {
-    render(<MentorProfileCard mentor={mockMentor} />);
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     expect(screen.getByText('Test Mentor')).toBeInTheDocument();
     expect(screen.getByText(/Senior Software Engineer/)).toBeInTheDocument();
     expect(screen.getByText(/ABC Technology Company/)).toBeInTheDocument();
@@ -135,7 +123,7 @@ describe('MentorProfileCard', () => {
   });
 
   it('renders social network icons with correct links', () => {
-    render(<MentorProfileCard mentor={mockMentor} />);
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     expect(screen.getAllByRole('link')[1]).toHaveAttribute(
       'href',
       'https://linkedin.com/in/test',
@@ -147,7 +135,7 @@ describe('MentorProfileCard', () => {
   });
 
   it('shows the correct tab content when tabs are clicked', () => {
-    render(<MentorProfileCard mentor={mockMentor} />);
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     // Presentation tab is default
     expect(
       screen.getByText(/Based in: London, United Kingdom/),
@@ -167,16 +155,72 @@ describe('MentorProfileCard', () => {
     expect(screen.getAllByTestId('StarIcon').length).toBe(5);
   });
 
+  it.each([
+    [false, false],
+    [false, true],
+    [true, false],
+    [true, true],
+  ])(
+    'shows matching panels with reviews=%s and resources=%s',
+    (hasReviews, hasResources) => {
+      render(
+        <MentorProfileCard
+          registrationOpen
+          mentor={{
+            ...mockMentor,
+            feedbackSection: hasReviews
+              ? mockMentor.feedbackSection
+              : undefined,
+            resources: hasResources
+              ? [
+                  {
+                    id: 'resource-1',
+                    name: 'Mentoring guide',
+                    description: 'A guide for mentees.',
+                    type: 'article',
+                  },
+                ]
+              : [],
+          }}
+        />,
+      );
+
+      const expectedTabs = [
+        ['Presentation', 'Bio: Experienced engineer and mentor.'],
+        ['Skills & Support Areas', 'Tech Experience in years: 10'],
+        ...(hasReviews ? [['Reviews', 'Great mentor!']] : []),
+        ...(hasResources
+          ? [['Resources', 'This mentor has not provided any resources yet.']]
+          : []),
+      ];
+
+      expect(screen.getAllByRole('tab').map((tab) => tab.textContent)).toEqual(
+        expectedTabs.map(([name]) => name),
+      );
+
+      for (const [name, content] of expectedTabs) {
+        const tab = screen.getByRole('tab', { name });
+        fireEvent.click(tab);
+        expect(tab).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByRole('tabpanel')).toHaveTextContent(content);
+      }
+
+      fireEvent.click(screen.getByRole('tab', { name: 'Presentation' }));
+      expect(screen.getByRole('tabpanel')).toHaveTextContent(
+        'Bio: Experienced engineer and mentor.',
+      );
+    },
+  );
+
   it('renders the Apply for this mentor link when registration is open', () => {
-    render(<MentorProfileCard mentor={mockMentor} />);
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     expect(
       screen.getByRole('link', { name: /apply for this mentor/i }),
     ).toBeInTheDocument();
   });
 
   it('disables Apply button when registration is closed', () => {
-    mockIsRegistrationOpen = false;
-    render(<MentorProfileCard mentor={mockMentor} />);
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen={false} />);
     expect(
       screen.getByRole('button', { name: /apply for this mentor/i }),
     ).toBeDisabled();

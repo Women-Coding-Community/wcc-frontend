@@ -166,8 +166,8 @@ Next.js Page (getServerSideProps)
 
 ```bash
 # .env.local
-API_BASE_URL=https://wcc-backend-dev.fly.dev/api/cms/v1
-API_KEY=dev-key
+API_BASE_URL=http://localhost:8080/api/cms/v1
+API_KEY=local-key
 ```
 
 `lib/api.ts` falls back to `lib/responses/*.json` when the API is unavailable.
