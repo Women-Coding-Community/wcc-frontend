@@ -82,6 +82,46 @@ describe('MentorProfileCard', () => {
     ).toBeInTheDocument();
   });
 
+  it('updates the image when the mentor changes', () => {
+    const { rerender } = render(
+      <MentorProfileCard mentor={mockMentor} registrationOpen />,
+    );
+    const image = screen.getByAltText('mentor profile image');
+    expect(image).toHaveAttribute(
+      'src',
+      'http://localhost/assets/images/mentors/test_mentor.jpg',
+    );
+
+    rerender(
+      <MentorProfileCard
+        mentor={{
+          ...mockMentor,
+          images: [{ ...mockMentor.images[0], path: '/another-mentor.jpg' }],
+        }}
+        registrationOpen
+      />,
+    );
+
+    expect(image).toHaveAttribute('src', 'http://localhost/another-mentor.jpg');
+  });
+
+  it('uses the fallback image after a load error', () => {
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
+    const image = screen.getByAltText('mentor profile image');
+
+    fireEvent.error(image);
+    expect(image).toHaveAttribute(
+      'src',
+      'http://localhost/profile-illustration-female-fallback.jpg',
+    );
+
+    fireEvent.error(image);
+    expect(image).toHaveAttribute(
+      'src',
+      'http://localhost/profile-illustration-female-fallback.jpg',
+    );
+  });
+
   it('renders social network icons with correct links', () => {
     render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     expect(screen.getAllByRole('link')[1]).toHaveAttribute(
