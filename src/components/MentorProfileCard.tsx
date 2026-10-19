@@ -49,6 +49,8 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
+const FALLBACK_IMAGE = '/profile-illustration-female-fallback.jpg';
+
 export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
   mentor,
   registrationOpen,
@@ -57,6 +59,12 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) =>
     setTab(newValue);
   const isMobile = useIsMobile();
+  const mentorImagePath = mentor.images[0]?.path;
+  const [failedPath, setFailedPath] = useState<string | undefined>();
+  const imgSrc =
+    mentorImagePath && mentorImagePath !== failedPath
+      ? mentorImagePath
+      : FALLBACK_IMAGE;
 
   return (
     <Box
@@ -95,16 +103,15 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           }}
         >
           <Image
-            src={
-              mentor.images[0]?.path ||
-              '/profile-illustration-female-fallback.jpg'
-            }
+            src={imgSrc}
             alt={
               mentor.images[0]?.alt ||
               'Profile Illustration Fallback - Image by rawpixel.com on Freepik'
             }
             width={120}
             height={120}
+            unoptimized
+            onError={() => setFailedPath(mentorImagePath)}
             style={{
               objectFit: 'cover',
               borderRadius: '100%',
