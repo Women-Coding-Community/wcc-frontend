@@ -82,6 +82,46 @@ describe('MentorProfileCard', () => {
     ).toBeInTheDocument();
   });
 
+  it('updates the image when the mentor changes', () => {
+    const { rerender } = render(
+      <MentorProfileCard mentor={mockMentor} registrationOpen />,
+    );
+    const image = screen.getByAltText('mentor profile image');
+    expect(image).toHaveAttribute(
+      'src',
+      'http://localhost/assets/images/mentors/test_mentor.jpg',
+    );
+
+    rerender(
+      <MentorProfileCard
+        mentor={{
+          ...mockMentor,
+          images: [{ ...mockMentor.images[0], path: '/another-mentor.jpg' }],
+        }}
+        registrationOpen
+      />,
+    );
+
+    expect(image).toHaveAttribute('src', 'http://localhost/another-mentor.jpg');
+  });
+
+  it('uses the fallback image after a load error', () => {
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
+    const image = screen.getByAltText('mentor profile image');
+
+    fireEvent.error(image);
+    expect(image).toHaveAttribute(
+      'src',
+      'http://localhost/profile-illustration-female-fallback.jpg',
+    );
+
+    fireEvent.error(image);
+    expect(image).toHaveAttribute(
+      'src',
+      'http://localhost/profile-illustration-female-fallback.jpg',
+    );
+  });
+
   it('renders social network icons with correct links', () => {
     render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     expect(screen.getAllByRole('link')[1]).toHaveAttribute(
@@ -114,6 +154,63 @@ describe('MentorProfileCard', () => {
     // Check for star icons (5 stars)
     expect(screen.getAllByTestId('StarIcon').length).toBe(5);
   });
+
+  it.each([
+    [false, false],
+    [false, true],
+    [true, false],
+    [true, true],
+  ])(
+    'shows matching panels with reviews=%s and resources=%s',
+    (hasReviews, hasResources) => {
+      render(
+        <MentorProfileCard
+          registrationOpen
+          mentor={{
+            ...mockMentor,
+            feedbackSection: hasReviews
+              ? mockMentor.feedbackSection
+              : undefined,
+            resources: hasResources
+              ? [
+                  {
+                    id: 'resource-1',
+                    name: 'Mentoring guide',
+                    description: 'A guide for mentees.',
+                    type: 'article',
+                  },
+                ]
+              : [],
+          }}
+        />,
+      );
+
+      const expectedTabs = [
+        ['Presentation', 'Bio: Experienced engineer and mentor.'],
+        ['Skills & Support Areas', 'Tech Experience in years: 10'],
+        ...(hasReviews ? [['Reviews', 'Great mentor!']] : []),
+        ...(hasResources
+          ? [['Resources', 'This mentor has not provided any resources yet.']]
+          : []),
+      ];
+
+      expect(screen.getAllByRole('tab').map((tab) => tab.textContent)).toEqual(
+        expectedTabs.map(([name]) => name),
+      );
+
+      for (const [name, content] of expectedTabs) {
+        const tab = screen.getByRole('tab', { name });
+        fireEvent.click(tab);
+        expect(tab).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByRole('tabpanel')).toHaveTextContent(content);
+      }
+
+      fireEvent.click(screen.getByRole('tab', { name: 'Presentation' }));
+      expect(screen.getByRole('tabpanel')).toHaveTextContent(
+        'Bio: Experienced engineer and mentor.',
+      );
+    },
+  );
 
   it('renders the Apply for this mentor link when registration is open', () => {
     render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
