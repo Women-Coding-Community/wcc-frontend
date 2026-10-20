@@ -194,7 +194,10 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
             {mentor?.position}, {mentor?.companyName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-            Based in: {mentor.city}, {mentor.country?.countryName || 'N/A'}
+            Based in: {mentor.city}
+            {mentor.country?.countryName
+              ? `, ${mentor.country.countryName}`
+              : ''}
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
             {mentor.network?.map((network: Network) => (

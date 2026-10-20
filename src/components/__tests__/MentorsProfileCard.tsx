@@ -96,6 +96,7 @@ describe('MentorProfileCard', () => {
     render(<MentorProfileCard mentor={sparseMentor} registrationOpen />);
 
     expect(screen.getByText('Test Mentor')).toBeInTheDocument();
+    expect(screen.getByText('Based in: London')).toBeInTheDocument();
     expect(
       screen.getByAltText(
         'Profile Illustration Fallback - Image by rawpixel.com on Freepik',
