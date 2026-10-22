@@ -94,6 +94,24 @@ describe('MentorProfileCard', () => {
     );
   });
 
+  it('opens social network links in a new tab safely', () => {
+    render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
+
+    const networkLinks = screen
+      .getAllByRole('link')
+      .filter((link) =>
+        mockMentor.network.some(
+          (network) => network.link === link.getAttribute('href'),
+        ),
+      );
+
+    expect(networkLinks).toHaveLength(mockMentor.network.length);
+    networkLinks.forEach((link) => {
+      expect(link).toHaveAttribute('target', '_blank');
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    });
+  });
+
   it('shows the correct tab content when tabs are clicked', () => {
     render(<MentorProfileCard mentor={mockMentor} registrationOpen />);
     // Presentation tab is default
