@@ -49,6 +49,8 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
+const FALLBACK_IMAGE = '/profile-illustration-female-fallback.jpg';
+
 export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
   mentor,
   registrationOpen,
@@ -57,6 +59,12 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) =>
     setTab(newValue);
   const isMobile = useIsMobile();
+  const mentorImagePath = mentor.images?.[0]?.path;
+  const [failedPath, setFailedPath] = useState<string | undefined>();
+  const imgSrc =
+    mentorImagePath && mentorImagePath !== failedPath
+      ? mentorImagePath
+      : FALLBACK_IMAGE;
 
   return (
     <Box
@@ -95,16 +103,15 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           }}
         >
           <Image
-            src={
-              mentor.images[0]?.path ||
-              '/profile-illustration-female-fallback.jpg'
-            }
+            src={imgSrc}
             alt={
-              mentor.images[0]?.alt ||
+              mentor.images?.[0]?.alt ||
               'Profile Illustration Fallback - Image by rawpixel.com on Freepik'
             }
             width={120}
             height={120}
+            unoptimized
+            onError={() => setFailedPath(mentorImagePath)}
             style={{
               objectFit: 'cover',
               borderRadius: '100%',
@@ -187,10 +194,13 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
             {mentor?.position}, {mentor?.companyName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-            Based in: {mentor.city}, {mentor.country.countryName}
+            Based in: {mentor.city}
+            {mentor.country?.countryName
+              ? `, ${mentor.country.countryName}`
+              : ''}
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-            {mentor.network.map((network: Network) => (
+            {mentor.network?.map((network: Network) => (
               <a
                 href={network.link}
                 key={network.type}
@@ -231,11 +241,11 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Tech Experience in years:{' '}
             <Typography component="span">
-              {mentor.skills.yearsExperience}
+              {mentor.skills?.yearsExperience ?? 'N/A'}
             </Typography>
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
-            Language{mentor.spokenLanguages.length > 1 ? 's' : ''}:{' '}
+            Language{(mentor.spokenLanguages?.length ?? 0) > 1 ? 's' : ''}:{' '}
             <Typography component="span">
               {mentor.spokenLanguages?.join(', ') || 'N/A'}
             </Typography>
@@ -276,7 +286,7 @@ export const MentorProfileCard: React.FC<MentorProfileCardProps> = ({
           <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>
             Additional:{' '}
             <Typography component="span">
-              {mentor.menteeSection.additional}
+              {mentor.menteeSection?.additional || 'N/A'}
             </Typography>
           </Typography>
         </TabPanel>
