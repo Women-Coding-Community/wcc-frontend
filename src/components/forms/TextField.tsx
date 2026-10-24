@@ -2,8 +2,10 @@ import { TextField as MuiTextField } from '@mui/material';
 import type { TextFieldProps as MuiTextFieldProps } from '@mui/material';
 import { Controller, Control, FieldPath, FieldValues } from 'react-hook-form';
 
-interface TextFieldProps<T extends FieldValues>
-  extends Omit<MuiTextFieldProps, 'name'> {
+interface TextFieldProps<T extends FieldValues> extends Omit<
+  MuiTextFieldProps,
+  'name'
+> {
   name: FieldPath<T>;
   control: Control<T>;
 }
