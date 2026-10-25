@@ -1,4 +1,5 @@
 import type * as ApiModule from '../api';
+import adHocTimeLine from '../responses/adHocTimeLine.json';
 
 jest.mock('axios', () => {
   const mockAxios = jest.fn();
@@ -62,30 +63,49 @@ describe('API Fetch Functions', () => {
   });
 
   describe('fetchData', () => {
-    it('should return data and footer when API calls are successful', async () => {
-      const mockData = { key: 'value' };
-      const mockFooterData = { footer: 'Footer content' };
+    it.each(['test-path', 'mentorship/ad-hoc-timeline'])(
+      'should return data and footer when API calls are successful for %s',
+      async (path) => {
+        const mockData = { key: 'value' };
+        const mockFooterData = { footer: 'Footer content' };
 
-      mockedAxios
-        .mockResolvedValueOnce({ status: 200, data: mockData })
-        .mockResolvedValueOnce({ status: 200, data: mockFooterData });
+        mockedAxios
+          .mockResolvedValueOnce({ status: 200, data: mockData })
+          .mockResolvedValueOnce({ status: 200, data: mockFooterData });
 
-      const result = await fetchData('test-path');
+        const result = await fetchData(path);
 
-      expect(result).toEqual({ data: mockData, footer: mockFooterData });
-      expect(mockedAxios).toHaveBeenCalledWith(
-        expect.objectContaining({
-          url: expect.stringContaining('/test-path'),
-        }),
-      );
-    });
+        expect(result).toEqual({ data: mockData, footer: mockFooterData });
+        expect(mockedAxios).toHaveBeenCalledWith(
+          expect.objectContaining({
+            url: expect.stringContaining(`/${path}`),
+          }),
+        );
+      },
+    );
 
-    it('should return fallback data when fetchData API call fails', async () => {
-      mockedAxios.mockRejectedValue(new Error('API Error'));
+    it.each([
+      ['landingPage', 'page:LANDING_PAGE'],
+      ['mentorship/long-term-timeline', 'page:MENTORSHIP_LONG_TIMELINE'],
+    ])(
+      'should return fallback data when %s API call fails',
+      async (path, id) => {
+        mockedAxios.mockRejectedValue(new Error('API Error'));
 
-      const result = await fetchData('landingPage');
-      expect(result.data).toEqual(
-        expect.objectContaining({ id: 'page:LANDING_PAGE' }),
+        const result = await fetchData(path);
+        expect(result.data).toEqual(expect.objectContaining({ id }));
+      },
+    );
+
+    it('should return ad-hoc timeline events when the API is unreachable', async () => {
+      mockedAxios.mockRejectedValue(new Error('Network Error'));
+
+      const result = await fetchData('mentorship/ad-hoc-timeline');
+
+      expect(result.data).toEqual(adHocTimeLine);
+      expect(result.data.events.items.length).toBeGreaterThan(0);
+      expect(result.footer).toEqual(
+        expect.objectContaining({ title: 'Follow Us' }),
       );
     });
   });
