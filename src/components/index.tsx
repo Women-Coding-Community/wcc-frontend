@@ -18,6 +18,8 @@ export { MentorBecomeCard } from './MentorBecomeCard';
 export { MentorProfileCard } from './MentorProfileCard';
 export { NavBar } from './NavBar';
 export { OpportunitiesProgrammes } from './OpportunitiesProgrammes';
+export { TeamMemberCard } from './TeamMemberCard';
+export type { TeamMemberCardProps } from './TeamMemberCard';
 export { Tile } from './Tile';
 export { Title } from './Title';
 export { VolunteerSection } from './VolunteerSection';
