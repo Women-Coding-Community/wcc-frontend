@@ -11,7 +11,8 @@ import {
   useTheme,
 } from '@mui/material';
 import NextLink from 'next/link';
-import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useRef, useState } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 
 import { BreadCrumbsDynamic } from '@components';
@@ -103,6 +104,8 @@ const getStepValidator = (
 
 // NOSONAR
 const MenteeRegistrationPage = () => {
+  const { isReady, query } = useRouter();
+  const linkedMentorId = query.id;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [cycleLoading, setCycleLoading] = useState(true);
@@ -131,6 +134,7 @@ const MenteeRegistrationPage = () => {
 
   const [activeStep, setActiveStep] = useState(1);
   const [mentors, setMentors] = useState<MentorOption[]>([]);
+  const hasInitializedMentor = useRef(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
@@ -153,6 +157,37 @@ const MenteeRegistrationPage = () => {
         // silently fall back to empty list — user can still submit if API is down
       });
   }, [registrationOpen, isAdhoc]);
+
+  useEffect(() => {
+    if (
+      !isReady ||
+      !registrationOpen ||
+      mentors.length === 0 ||
+      hasInitializedMentor.current
+    ) {
+      return;
+    }
+    hasInitializedMentor.current = true;
+
+    // The link supplies an initial preference; later edits belong to the user.
+    if (
+      typeof linkedMentorId !== 'string' ||
+      formMethods.getValues('applications').length > 0
+    ) {
+      return;
+    }
+    const mentor = mentors.find((m) => String(m.id) === linkedMentorId);
+    if (!mentor) return;
+
+    formMethods.setValue('applications', [
+      {
+        mentorId: mentor.id,
+        priorityOrder: 1,
+        whyMentor: '',
+        applicationMessage: '',
+      },
+    ]);
+  }, [isReady, linkedMentorId, registrationOpen, mentors, formMethods]);
 
   const handleNext = async () => {
     const isValid = await getStepValidator(activeStep, formMethods);
