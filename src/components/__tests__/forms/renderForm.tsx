@@ -12,6 +12,15 @@ import {
 
 import theme from 'theme';
 
+/**
+ * Test helpers to avoid duplicating boilerplate for
+ * rendering form components with a real react-hook-form
+ * context with the MUI theme.
+ *
+ * This file intentionally contains no tests; it is a shared helper living
+ * alongside the tests.
+ */
+
 interface FormContext<T extends FieldValues> {
   control: Control<T>;
   watch: UseFormWatch<T>;
@@ -52,12 +61,28 @@ const TestForm = <T extends FieldValues>({
   );
 };
 
+/**
+ * Renders `children` inside a form backed by `useForm`, passing `control` and
+ * `watch` to the render-prop. Optional `errors` are pushed into the form via
+ * `setError` after mount, which lets tests assert validation error states.
+ *
+ * @example
+ * renderForm<MyForm>({
+ *   defaultValues: { name: '' },
+ *   errors: { name: 'Name is required' },
+ *   children: ({ control }) => <NameField control={control} />,
+ * });
+ */
 export const renderForm = <T extends FieldValues>(props: RenderFormProps<T>) =>
   render(<TestForm {...props} />);
 
+/** Renders any React element wrapped in the application MUI theme. */
 export const renderWithTheme = (ui: ReactElement) =>
   render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
 
+/**
+ * Renders a value as JSON for tests that need to assert on a watched field.
+ */
 export const FormValue = ({ testId, value }: FormValueProps) => (
   <div data-testid={testId}>{JSON.stringify(value)}</div>
 );
