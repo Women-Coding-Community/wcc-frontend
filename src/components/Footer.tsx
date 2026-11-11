@@ -13,6 +13,8 @@ import theme from 'theme';
 
 import SlackIcon from '../../public/icons/slack-icon.svg';
 
+import { CommunityPartners } from './CommunityPartners';
+
 const iconNetworkMapper = {
   linkedin: <LinkedInIcon fontSize="large" />,
   github: <GitHubIcon fontSize="large" />,
@@ -27,6 +29,7 @@ export const Footer = ({
   description,
   network,
   link,
+  partners,
 }: FooterResponse) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const renderSocialNetworkIcon = (network: Network) => {
@@ -62,6 +65,7 @@ export const Footer = ({
   );
   return (
     <>
+      <CommunityPartners partners={partners?.items ?? null} />
       <GradientBorderDivider
         height="1rem"
         width="100%"

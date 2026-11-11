@@ -70,6 +70,7 @@ export type FooterResponse = {
   description: string;
   network: Network[];
   link: Link;
+  partners?: PartnersSection | null;
 };
 
 export type celebrateHerData = {
@@ -448,4 +449,18 @@ export type MentorshipResourcesResponse = {
   };
   resourcesSection: ResourcesSection;
   customStyle?: CustomStyle;
+};
+
+export type Partner = {
+  image: FormattedImage | Image;
+  name: string;
+  link: Link;
+  description?: string;
+};
+
+export type PartnersSection = {
+  title: string;
+  description?: string;
+  link?: Link;
+  items: Partner[];
 };
