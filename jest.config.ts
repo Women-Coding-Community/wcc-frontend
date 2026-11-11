@@ -22,7 +22,7 @@ const config: Config = {
     '^@/components/(.*)$': '<rootDir>/components/$1',
     '^@next/router': 'next-router-mock',
   },
-  testMatch: ['**/__tests__/**/*.[jt]s?(x)'],
+  testMatch: ['**/__tests__/**/*.test.[jt]s?(x)'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'ts-jest',
   },
