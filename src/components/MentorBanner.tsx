@@ -21,12 +21,10 @@ export const MentorBanner: React.FC<BannerProps> = ({
 }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { alt: desktopAlt, path: desktopPath } = images[0];
-  const { alt: mobileAlt, path: mobilePath } = images[1] || images[0];
-  const { uri: linkUri, label: linkLabel } = link;
-
-  const alt = isMobile ? mobileAlt : desktopAlt;
-  const path = isMobile ? mobilePath : desktopPath;
+  const desktopImage = images?.[0];
+  const mobileImage = images?.[1] ?? desktopImage;
+  const alt = (isMobile ? mobileImage : desktopImage)?.alt ?? '';
+  const path = (isMobile ? mobileImage : desktopImage)?.path ?? '';
 
   return (
     <Box
@@ -45,9 +43,9 @@ export const MentorBanner: React.FC<BannerProps> = ({
         },
 
         width: '100%',
-        background: `linear-gradient(rgba(26, 75, 102, 1),rgba(0, 52, 76, 0.7)), url(${path}) no-repeat`,
+        backgroundImage: `linear-gradient(rgba(0, 52, 76, 0.7), rgba(0, 52, 76, 0.7)), url("${path}")`,
+        backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        opacity: '0.8px',
         backgroundPosition: 'center',
       }}
     >
@@ -72,8 +70,8 @@ export const MentorBanner: React.FC<BannerProps> = ({
         {description}
       </Typography>
 
-      <LinkButton href={linkUri} aria-label={linkLabel} reversed>
-        {linkLabel}
+      <LinkButton href={link.uri} aria-label={link.label} reversed>
+        {link.label}
       </LinkButton>
     </Box>
   );
