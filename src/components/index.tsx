@@ -20,6 +20,8 @@ export { NavBar } from './NavBar';
 export { OpportunitiesProgrammes } from './OpportunitiesProgrammes';
 export { TeamMemberCard } from './TeamMemberCard';
 export type { TeamMemberCardProps } from './TeamMemberCard';
+export { TeamSection } from './TeamSection';
+export type { TeamSectionProps } from './TeamSection';
 export { Tile } from './Tile';
 export { Title } from './Title';
 export { VolunteerSection } from './VolunteerSection';

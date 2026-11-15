@@ -97,7 +97,7 @@ export const TeamMemberCard = ({
           />
         </Box>
         <Typography
-          component="h2"
+          component="h3"
           variant="inherit"
           sx={{ fontSize: 22, lineHeight: '28px', fontWeight: 500 }}
         >
