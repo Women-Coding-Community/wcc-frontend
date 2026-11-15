@@ -14,6 +14,7 @@ jest.mock('axios', () => {
 
 describe('API Fetch Functions', () => {
   let fetchFooter: (typeof ApiModule)['fetchFooter'];
+  let fetchPartners: (typeof ApiModule)['fetchPartners'];
   let fetchData: (typeof ApiModule)['fetchData'];
   let mockedAxios: jest.Mock;
   const originalEnv = process.env;
@@ -28,6 +29,7 @@ describe('API Fetch Functions', () => {
     // Re-import after setting env so module-level constants pick them up
     const api = await import('../api');
     fetchFooter = api.fetchFooter;
+    fetchPartners = api.fetchPartners;
     fetchData = api.fetchData;
     mockedAxios = (await import('axios')).default as unknown as jest.Mock;
   });
@@ -38,18 +40,37 @@ describe('API Fetch Functions', () => {
   });
 
   describe('fetchFooter', () => {
-    it('should return footer data when API call is successful', async () => {
+    it('should return footer data and partners when API calls are successful', async () => {
       const mockFooterData = { footer: 'Footer content' };
-      mockedAxios.mockResolvedValue({
-        status: 200,
-        data: mockFooterData,
+      const mockPartners = {
+        title: 'Community Partners',
+        items: [{ name: 'SurrealDB' }],
+      };
+
+      mockedAxios.mockImplementation(({ url }: { url: string }) => {
+        if (url.endsWith('/footer')) {
+          return Promise.resolve({ status: 200, data: mockFooterData });
+        }
+        if (url.endsWith('/partners')) {
+          return Promise.resolve({
+            status: 200,
+            data: { partners: mockPartners },
+          });
+        }
+        return Promise.reject(new Error(`Unexpected URL: ${url}`));
       });
 
       const result = await fetchFooter();
-      expect(result).toEqual(mockFooterData);
+
+      expect(result).toEqual({ ...mockFooterData, partners: mockPartners });
       expect(mockedAxios).toHaveBeenCalledWith(
         expect.objectContaining({
           url: expect.stringContaining('/footer'),
+        }),
+      );
+      expect(mockedAxios).toHaveBeenCalledWith(
+        expect.objectContaining({
+          url: expect.stringContaining('/partners'),
         }),
       );
     });
@@ -58,7 +79,30 @@ describe('API Fetch Functions', () => {
       mockedAxios.mockRejectedValue(new Error('API Error'));
 
       const result = await fetchFooter();
-      expect(result).toEqual(expect.objectContaining({ title: 'Follow Us' }));
+      expect(result).toEqual(
+        expect.objectContaining({ title: 'Follow Us', partners: null }),
+      );
+    });
+  });
+
+  describe('fetchPartners', () => {
+    it('should return the partners section when the API call is successful', async () => {
+      const mockPartners = {
+        title: 'Community Partners',
+        items: [{ name: 'SurrealDB' }],
+      };
+      mockedAxios.mockResolvedValue({
+        status: 200,
+        data: { partners: mockPartners },
+      });
+
+      await expect(fetchPartners()).resolves.toEqual(mockPartners);
+    });
+
+    it('should return null when the API call fails', async () => {
+      mockedAxios.mockRejectedValue(new Error('API Error'));
+
+      await expect(fetchPartners()).resolves.toBeNull();
     });
   });
 
@@ -68,14 +112,33 @@ describe('API Fetch Functions', () => {
       async (path) => {
         const mockData = { key: 'value' };
         const mockFooterData = { footer: 'Footer content' };
+        const mockPartners = {
+          title: 'Community Partners',
+          items: [{ name: 'SurrealDB' }],
+        };
 
-        mockedAxios
-          .mockResolvedValueOnce({ status: 200, data: mockData })
-          .mockResolvedValueOnce({ status: 200, data: mockFooterData });
+        mockedAxios.mockImplementation(({ url }: { url: string }) => {
+          if (url.includes(`/${path}`)) {
+            return Promise.resolve({ status: 200, data: mockData });
+          }
+          if (url.endsWith('/footer')) {
+            return Promise.resolve({ status: 200, data: mockFooterData });
+          }
+          if (url.endsWith('/partners')) {
+            return Promise.resolve({
+              status: 200,
+              data: { partners: mockPartners },
+            });
+          }
+          return Promise.reject(new Error(`Unexpected URL: ${url}`));
+        });
 
         const result = await fetchData(path);
 
-        expect(result).toEqual({ data: mockData, footer: mockFooterData });
+        expect(result).toEqual({
+          data: mockData,
+          footer: { ...mockFooterData, partners: mockPartners },
+        });
         expect(mockedAxios).toHaveBeenCalledWith(
           expect.objectContaining({
             url: expect.stringContaining(`/${path}`),
@@ -83,6 +146,24 @@ describe('API Fetch Functions', () => {
         );
       },
     );
+
+    it('should keep page data when only the footer and partners API calls fail', async () => {
+      const mockData = { key: 'value' };
+
+      mockedAxios.mockImplementation(({ url }: { url: string }) => {
+        if (url.includes('/test-path')) {
+          return Promise.resolve({ status: 200, data: mockData });
+        }
+        return Promise.reject(new Error('Footer API Error'));
+      });
+
+      const result = await fetchData('test-path');
+
+      expect(result.data).toEqual(mockData);
+      expect(result.footer).toEqual(
+        expect.objectContaining({ title: 'Follow Us', partners: null }),
+      );
+    });
 
     it.each([
       ['landingPage', 'page:LANDING_PAGE'],
