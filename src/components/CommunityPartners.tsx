@@ -28,7 +28,8 @@ export const CommunityPartners = ({ partners }: CommunityPartnersProps) => {
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
-            columnGap: { xs: 4, md: 8 },
+            justifyContent: { xs: 'center', md: 'flex-start' },
+            columnGap: { xs: 2, sm: 3, md: 4, lg: 6 },
             rowGap: { xs: 3, md: 5 },
           }}
         >
@@ -45,15 +46,15 @@ export const CommunityPartners = ({ partners }: CommunityPartnersProps) => {
               <Box
                 sx={{
                   position: 'relative',
-                  height: { xs: 32, md: 48 },
-                  width: { xs: 120, md: 180 },
+                  height: { xs: 36, md: 40, lg: 48 },
+                  width: { xs: 132, sm: 150, md: 140, lg: 160 },
                 }}
               >
                 <Image
                   src={getGoogleDriveDirectLink(partner.image.path)}
                   alt={partner.image.alt || `${partner.name} logo`}
                   fill
-                  sizes="(max-width: 900px) 120px, 180px"
+                  sizes="(max-width: 599px) 132px, (max-width: 899px) 150px, (max-width: 1199px) 140px, 160px"
                   style={{ objectFit: 'contain' }}
                 />
               </Box>
