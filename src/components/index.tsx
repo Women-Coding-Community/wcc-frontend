@@ -1,4 +1,6 @@
 export { ColoredBox } from './ColoredBox';
+export { CommunityPartners } from './CommunityPartners';
+export type { CommunityPartnersProps } from './CommunityPartners';
 export { ContactBox } from './ContactBox';
 export { ErrorPageComponent } from './ErrorPageComponent';
 export { EventCard } from './EventCard';

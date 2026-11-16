@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { logger } from 'bs-logger';
 import { NextApiResponse } from 'next';
 
+import { PartnersSection } from '@utils/types';
+
 import aboutUsPage from './responses/aboutUs.json';
 import aboutUsTeam from './responses/aboutUsTeam.json';
 import mentorShipAdHocTimeline from './responses/adHocTimeLine.json';
@@ -104,9 +106,25 @@ export const handleApiError = (error: unknown, res: NextApiResponse) => {
 };
 
 export const fetchFooter = async () => {
+  const [footerResult, partnersResult] = await Promise.allSettled([
+    proxyRequest('footer'),
+    fetchPartners(),
+  ]);
+
+  const footer =
+    footerResult.status === 'fulfilled' ? footerResult.value : footerData;
+  const partners =
+    partnersResult.status === 'fulfilled' ? partnersResult.value : null;
+
+  return { ...footer, partners };
+};
+
+export const fetchPartners = async (): Promise<PartnersSection | null> => {
   try {
-    return await proxyRequest('footer');
+    const data = await proxyRequest('partners');
+    return data?.partners ?? null;
   } catch (error) {
-    return footerData;
+    logger.error('Failed to fetch partners data:', error);
+    return null;
   }
 };

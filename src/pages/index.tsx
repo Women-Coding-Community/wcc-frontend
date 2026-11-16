@@ -20,8 +20,8 @@ import {
 import { fetchData } from 'lib/api';
 
 interface HomePageProps {
-  data: LandingPageResponse;
-  footer: FooterResponse;
+  data: LandingPageResponse | null;
+  footer: FooterResponse | null;
   mentorship?: MentorshipProgrammeData | null;
   error: string | null;
 }
@@ -34,6 +34,11 @@ const HomePage = ({ data, footer, mentorship, error }: HomePageProps) => {
       router.push('/500');
     }
   }, [error, router]);
+
+  // TODO: remove after manual testing
+  if (!data || !footer) {
+    return null;
+  }
 
   const {
     heroSection,
