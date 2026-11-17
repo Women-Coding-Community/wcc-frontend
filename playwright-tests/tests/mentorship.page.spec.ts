@@ -26,7 +26,7 @@ test.describe('Validate Mentorship Page', () => {
     // Note: Reviews and Resources tabs are conditional on mentor data
   });
 
-  test.skip('MENT-003: Browse Mentorship Feedback', async ({
+  test('MENT-003: Browse Mentorship Feedback', async ({
     mentorshipPage,
     basePage,
   }) => {
@@ -55,7 +55,7 @@ test.describe('Validate Mentorship Page', () => {
 
     await test.step('Text expansion works on long cards', async () => {
       const cardWithLongText =
-        mentorshipPage.getCardByAuthor('Jane, Mentor 2024');
+        mentorshipPage.getCardByAuthor('Busra, Mentee 2025');
       await cardWithLongText.toContainText('...');
       await cardWithLongText.expandText();
       await cardWithLongText.notToContainText('...');
