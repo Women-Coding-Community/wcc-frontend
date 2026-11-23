@@ -22,6 +22,23 @@ describe('Footer Component', () => {
       label: 'womencommunity.com',
       uri: 'https://womencommunity.com',
     },
+    partners: {
+      title: 'Community Partners',
+      items: [
+        {
+          name: 'SurrealDB',
+          image: {
+            path: 'https://example.com/surrealdb.png',
+            alt: 'SurrealDB logo',
+            type: 'desktop',
+          },
+          link: {
+            label: 'Visit SurrealDB',
+            uri: 'https://surrealdb.com/',
+          },
+        },
+      ],
+    },
   };
 
   const renderComponent = () => {
@@ -37,6 +54,16 @@ describe('Footer Component', () => {
 
     expect(screen.getByText(mockData.title)).toBeInTheDocument();
     expect(screen.getByText(mockData.subtitle)).toBeInTheDocument();
+  });
+
+  it('renders community partners', () => {
+    renderComponent();
+
+    expect(screen.getByText('Community Partners:')).toBeInTheDocument();
+    expect(screen.getByAltText('SurrealDB logo')).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /visit surrealdb/i }),
+    ).toHaveAttribute('href', 'https://surrealdb.com/');
   });
 
   it('renders the description with a line break', () => {
